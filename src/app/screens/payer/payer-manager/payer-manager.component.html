@@ -6,9 +6,9 @@
 	[controller]="'payer'"
 	[columns]="columns()"
 	[group]="group()"
-	showModify="true"
-	showDuplicate="true"
-	showRemove="true"
+	showModify!=true
+	showDuplicate!=true
+	showRemove!=true
 	[createButton]="createButton()"
 	(editItem)="openDetails($event)"
 	(duplicateItem)="openDuplicate($event)"

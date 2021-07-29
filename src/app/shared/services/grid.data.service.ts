@@ -149,7 +149,7 @@ export abstract class GridDataService extends DataService {
 		filterId: Guid,
 		state: DataStateChangeEvent,
 		filterModel?: any,
-		gridId: string = null,
+		gridId: string | null = null,
 	): Observable<any> {
 		const gridParams = this.getGridParams(state);
 		const data = {
@@ -166,7 +166,7 @@ export abstract class GridDataService extends DataService {
 		filterId: Guid,
 		state: DataStateChangeEvent,
 		filterModel?: any,
-		gridId: string = null,
+		gridId: string | null = null,
 	): Observable<any> {
 		return this.saveFilterWithController(
 			this.controller,
@@ -174,7 +174,7 @@ export abstract class GridDataService extends DataService {
 			filterId,
 			state,
 			filterModel,
-			gridId,
+			gridId!,
 		);
 	}
 
@@ -225,7 +225,7 @@ export abstract class GridDataService extends DataService {
 		model: any,
 		gridId: string,
 	): Observable<any> {
-		const data = {};
+		// const data = {};
 		return this.postWithController(action, model, gridId).pipe(
 			map((response) => {
 				return response;

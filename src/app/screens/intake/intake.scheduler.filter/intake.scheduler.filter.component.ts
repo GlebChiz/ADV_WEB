@@ -33,7 +33,10 @@ export class IntakeSchedulerFilterComponent implements OnInit {
 
 	@Input() set initialFilter(model: IntakeSchedulerFilter) {
 		this.filterModel = model;
-		this.initForm(this.filterModel);
+		this
+			.initForm
+			// this.filterModel
+			();
 	}
 
 	@ViewChildren(FilterDirective) filters!: QueryList<FilterDirective>;
@@ -41,16 +44,20 @@ export class IntakeSchedulerFilterComponent implements OnInit {
 	constructor(private _fb: FormBuilder) {}
 
 	ngOnInit(): void {
-		this.initForm(this.filterModel);
+		this
+			.initForm
+			// this.filterModel
+			();
 	}
 
-	initForm(model: IntakeSchedulerFilter): void {
+	initForm(): // model: IntakeSchedulerFilter
+	void {
 		/* this.filterForm = this._fb.group({
         clinicianIds: this._fb.control(model?.clinicianIds)
       }); */
 	}
 
-	onKeyDown(pressedKey) {
+	onKeyDown(pressedKey: any) {
 		if (pressedKey.key === 'Enter') {
 			this.filter();
 		}
@@ -67,9 +74,9 @@ export class IntakeSchedulerFilterComponent implements OnInit {
 	}
 
 	reset(): void {
-		if (!confirm('Are you sure you want to reset Filters?')) {
-			return;
-		}
+		// if (!confirm('Are you sure you want to reset Filters?')) {
+		// 	return;
+		// }
 
 		this.filterForm.reset();
 		this.filters.forEach((f: any) => f.filterChangeSubscription.next(''));

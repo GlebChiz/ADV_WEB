@@ -1,12 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Guid } from 'guid-typescript';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { PermissionType } from 'src/app/core/enums/permission.type';
 import { CacheSection, User } from 'src/app/core/models/user.model';
-import { selectActiveCall } from 'src/app/core/store/call/call.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { DataService } from 'src/app/shared/services';
 import { AuthenticationService } from './authentification.service';
@@ -38,7 +35,7 @@ export class MenuService extends DataService {
 
 	private validateMenu(menuItem: any, user: User) {
 		if (menuItem.items) {
-			menuItem.items.forEach((x) => this.validateMenu(x, user));
+			menuItem.items.forEach((x: any) => this.validateMenu(x, user));
 		}
 		menuItem.isVisible = user?.sharedCallId
 			? false
@@ -48,7 +45,7 @@ export class MenuService extends DataService {
 	private isMenuVisible(menuItem: any, permissions: PermissionType[]) {
 		const isPermitted = !menuItem.permissionType || permissions.includes(menuItem.permissionType);
 		if (menuItem.items && menuItem.items.length > 0) {
-			const isChildVisible = menuItem.items.filter((x) => x.isVisible === true).length > 0;
+			const isChildVisible = menuItem.items.filter((x: any) => x.isVisible === true).length > 0;
 			return isChildVisible && isPermitted;
 		}
 		return isPermitted;

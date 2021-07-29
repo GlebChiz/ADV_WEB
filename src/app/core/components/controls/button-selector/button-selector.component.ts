@@ -78,5 +78,5 @@ export class ButtonSelectorComponent implements ControlValueAccessor, OnDestroy 
 
 	onChange: any = () => {};
 
-	onTouched: any = () => {};
+	vonTouched: any = () => {};
 }

@@ -35,7 +35,7 @@ export class PatientAreaButtonComponent implements OnInit, OnChanges, OnDestroy 
 
 	show = false;
 
-	@Output() change = new EventEmitter<any>();
+	@Output() changePatient = new EventEmitter<any>();
 
 	constructor(
 		private _store: Store<IAppState>,
@@ -71,7 +71,7 @@ export class PatientAreaButtonComponent implements OnInit, OnChanges, OnDestroy 
 		this._patientService.updateArea(this.patientId, e.id).subscribe((x) => {
 			this.areaId = e.id;
 			this.name = this.areaName();
-			this.change.emit({ patientId: this.patientId, areaId: e.id });
+			this.changePatient.emit({ patientId: this.patientId, areaId: e.id });
 		});
 	}
 }

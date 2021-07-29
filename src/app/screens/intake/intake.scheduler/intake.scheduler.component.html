@@ -1,7 +1,7 @@
 <div>
 	<div>
 		<div *ngFor="let patient of this.patients">
-			<div>{{ patient.person.firstname }} {{ patient.person.lastname }}</div>
+			<div>{{ patient.person!.firstname }} {{ patient.person!.lastname }}</div>
 			<div class="mL30" *ngIf="hasCancelledServices(patient.id)">
 				<div>Cancelled Appointments: {{ cancelledServices(patient.id) }}</div>
 			</div>

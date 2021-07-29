@@ -28,7 +28,7 @@ export class PatientDemographicComponent
 		operator: 'contains',
 	};
 
-	@Input() personId!: Guid;
+	@Input() personId!: string | Guid;
 
 	@Input() saveEvent!: Observable<void>;
 

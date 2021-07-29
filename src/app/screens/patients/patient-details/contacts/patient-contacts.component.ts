@@ -28,7 +28,7 @@ export class PatientContactsComponent
 		operator: 'contains',
 	};
 
-	@Input() personId!: Guid;
+	@Input() personId!: string | Guid;
 
 	@Input() isSelected = false;
 
