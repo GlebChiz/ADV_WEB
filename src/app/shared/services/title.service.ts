@@ -9,6 +9,7 @@ export class TitleService {
 	constructor(private _store: Store<IAppState>) {}
 
 	setTitle(settings: PageSettings) {
+		
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings }));
 	}
 }
