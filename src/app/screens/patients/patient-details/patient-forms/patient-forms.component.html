@@ -1,0 +1,17 @@
+<div>
+	<kendo-dropdownbutton
+		[data]="availableFormTypes()"
+		textField="name"
+		(itemClick)="onFormCreate($event)"
+		*ngIf="this.model?.groups"
+	>
+		<span>Create Form</span>
+		<ng-template kendoDropDownButtonItemTemplate let-dataItem>
+			<span *ngIf="dataItem.isRequired === true"><sup style="color: red">*</sup></span>
+			<span>{{ dataItem.name }}</span>
+		</ng-template>
+	</kendo-dropdownbutton>
+	<div class="mT10" *ngFor="let form of this.model.forms">
+		<a [routerLink]="['/form', form.id]">{{ form.revision.definition.title }}</a>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+<form [formGroup]="myForm" *ngIf="myForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="validation" *ngIf="errors">
+				<div class="validation-summary-errors">
+					<ul>
+						<li *ngFor="let error of errors">{{ error }}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="confirmation" *ngIf="messages">
+				<div class="validation-summary-messages">
+					<ul>
+						<li *ngFor="let message of messages">{{ message }}</li>
+					</ul>
+				</div>
+			</div>
+			<div formArrayName="patients">
+				<div *ngFor="let control of myForm.get('patients').controls; let i = index">
+					<h5>{{ getTitle(i) }}</h5>
+					<button (click)="onDeletePatient(i)" *ngIf="isNew(i)" kendoButton>Delete</button>
+					<advenium-person-short [formControl]="this.getPatientControl(i)"></advenium-person-short>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

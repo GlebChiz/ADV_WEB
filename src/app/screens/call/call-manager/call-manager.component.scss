@@ -1,0 +1,17 @@
+.central-panel {
+	position: relative;
+	left: 0px;
+	width: 70%;
+	float: left;
+}
+
+.right-panel {
+	position: relative;
+	right: 0px;
+	width: 30%;
+	float: left;
+}
+
+.active-step {
+	border: 1px solid blue;
+}

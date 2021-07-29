@@ -1,0 +1,100 @@
+<div *ngIf="this.show">
+	<div>
+		<div class="p10 form">
+			<div class="validation" *ngIf="errors">
+				<div class="validation-summary-errors">
+					<ul>
+						<li *ngFor="let error of errors">{{ error }}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="confirmation" *ngIf="messages">
+				<div class="validation-summary-messages">
+					<ul>
+						<li *ngFor="let message of messages">{{ message }}</li>
+					</ul>
+				</div>
+			</div>
+			<kendo-tabstrip #tab (tabSelect)="changeTab($event, tab)">
+				<kendo-tabstrip-tab title="General" [selected]="this.selectedTab('general')">
+					<ng-template kendoTabContent>
+						<advenium-patient-general
+							[personId]="this.personId"
+							[saveEvent]="beforeNext.asObservable()"
+						>
+						</advenium-patient-general>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Demographic" [selected]="this.selectedTab('demo')">
+					<ng-template kendoTabContent>
+						<advenium-patient-demographic
+							[personId]="this.personId"
+							[saveEvent]="beforeNext.asObservable()"
+						>
+						</advenium-patient-demographic>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Contacts" [selected]="this.selectedTab('contacts')">
+					<ng-template kendoTabContent>
+						<advenium-patient-contacts
+							[personId]="this.personId"
+							[saveEvent]="beforeNext.asObservable()"
+						>
+						</advenium-patient-contacts>
+					</ng-template>
+				</kendo-tabstrip-tab>
+
+				<kendo-tabstrip-tab title="Insurance" [selected]="this.selectedTab('insurance')">
+					<ng-template kendoTabContent>
+						<advenium-patient-insurance
+							[personId]="this.personId"
+							[saveEvent]="beforeNext.asObservable()"
+						>
+						</advenium-patient-insurance>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Modality Selection" [selected]="this.selectedTab('modality')">
+					<ng-template kendoTabContent>
+						<advenium-patient-modality-selection
+							[model]="model"
+						></advenium-patient-modality-selection>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Connections" [selected]="this.selectedTab('connections')">
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Intake" [selected]="this.selectedTab('intake')">
+					<ng-template kendoTabContent>
+						<advenium-intake-scheduler [patientIds]="[this.model.id]"></advenium-intake-scheduler>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Forms" [selected]="this.selectedTab('forms')">
+					<ng-template kendoTabContent> </ng-template>
+				</kendo-tabstrip-tab>
+			</kendo-tabstrip>
+		</div>
+	</div>
+	<div class="txt-r mT10">
+		<a
+			id="btnSavePatient"
+			data-role="button"
+			class="k-button"
+			role="button"
+			aria-disabled="false"
+			tabindex="0"
+			(click)="save()"
+			*ngIf="isEditMode && canSaveNow"
+			>Update Patient</a
+		>
+		<a
+			id="btnCancelSavePatient"
+			*ngIf="showCancel"
+			data-role="button"
+			class="k-button mL5"
+			role="button"
+			aria-disabled="false"
+			tabindex="0"
+			(click)="cancel()"
+			>Cancel</a
+		>
+	</div>
+</div>

@@ -1,0 +1,640 @@
+/* common */
+.w-5 {
+	width: 5%;
+}
+
+.w-7 {
+	width: 7%;
+}
+
+.w-8 {
+	width: 8%;
+}
+
+.w-9 {
+	width: 9%;
+}
+
+.w-10 {
+	width: 10%;
+}
+
+.w-12 {
+	width: 12%;
+}
+
+.w-15 {
+	width: 15%;
+}
+
+.w-14 {
+	width: 14%;
+}
+
+.w-17 {
+	width: 17%;
+}
+
+.w-20 {
+	width: 20%;
+}
+
+.w-22 {
+	width: 22%;
+}
+
+.w-23 {
+	width: 23%;
+}
+
+.w-24 {
+	width: 24%;
+}
+
+.w-25 {
+	width: 25%;
+}
+
+.w-27 {
+	width: 27%;
+}
+
+.w-28 {
+	width: 28%;
+}
+
+.w-30 {
+	width: 30%;
+}
+
+.w-34 {
+	width: 34%;
+}
+
+.w-35 {
+	width: 35%;
+}
+
+.w-36-5 {
+	width: 36.5%;
+}
+
+.w-37 {
+	width: 37%;
+}
+
+.w-38 {
+	width: 38%;
+}
+
+.w-40 {
+	width: 40%;
+}
+
+.w-45 {
+	width: 45%;
+}
+
+.w-48 {
+	width: 48%;
+}
+
+.w-49 {
+	width: 49%;
+}
+
+.w-50 {
+	width: 50%;
+}
+
+.w-53 {
+	width: 53%;
+}
+
+.w-55 {
+	width: 55%;
+}
+
+.w-60 {
+	width: 60%;
+}
+
+.w-62 {
+	width: 62%;
+}
+
+.w-63 {
+	width: 63%;
+}
+
+.w-64 {
+	width: 64%;
+}
+
+.w-65 {
+	width: 65%;
+}
+
+.w-69 {
+	width: 69%;
+}
+
+.w-70 {
+	width: 70%;
+}
+
+.w-75 {
+	width: 75%;
+}
+
+.w-77 {
+	width: 77%;
+}
+
+.w-80 {
+	width: 80%;
+}
+
+.w-83 {
+	width: 83%;
+}
+.w-85 {
+	width: 85%;
+}
+.w-90 {
+	width: 90%;
+}
+
+.w-95 {
+	width: 95%;
+}
+
+.w-44 {
+	width: 44%;
+}
+
+.w-full {
+	width: 100%;
+}
+.w-25-for-block > div {
+	width: 25%;
+}
+.w-45-for-block > div {
+	width: 45%;
+}
+.w-60-for-block > div {
+	width: 60%;
+}
+
+.max-w-full {
+	max-width: 100%;
+}
+
+.m-height-20 {
+	min-height: 20px;
+}
+
+.m-height-100 {
+	min-height: 100px;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.m5 {
+	margin: 5px;
+}
+
+.m10 {
+	margin: 10px;
+}
+
+.mT5 {
+	margin-top: 5px;
+}
+
+.mT10 {
+	margin-top: 10px;
+}
+
+.mT15 {
+	margin-top: 15px;
+}
+
+.mT20 {
+	margin-top: 20px;
+}
+
+.mT24 {
+	margin-top: 24px;
+}
+
+.mB5 {
+	margin-bottom: 5px;
+}
+
+.mB10 {
+	margin-bottom: 10px;
+}
+
+.mB20 {
+	margin-bottom: 20px;
+}
+.mB30 {
+	margin-bottom: 30px;
+}
+.mR5 {
+	margin-right: 5px;
+}
+
+.mR10 {
+	margin-right: 10px;
+}
+
+.mL0 {
+	margin-left: 0;
+}
+
+.mL5 {
+	margin-left: 5px;
+}
+
+.mL10 {
+	margin-left: 10px;
+}
+
+.mL15 {
+	margin-left: 15px;
+}
+
+.mL30 {
+	margin-left: 30px;
+}
+
+.mL50 {
+	margin-left: 50px;
+}
+
+.mL250 {
+	margin-left: 250px;
+}
+.p5 {
+	padding: 5px;
+}
+
+.p10 {
+	padding: 10px;
+}
+
+.p20 {
+	padding: 20px;
+}
+
+.pT0 {
+	padding-top: 0;
+}
+
+.pT5 {
+	padding-top: 5px;
+}
+
+.pT10 {
+	padding-top: 10px;
+}
+
+.pT15 {
+	padding-top: 15px;
+}
+
+.pT20 {
+	padding-top: 20px;
+}
+
+.pT30 {
+	padding-top: 30px;
+}
+
+.pL37 {
+	padding-left: 37%;
+}
+
+.pL10pc {
+	padding-left: 10%;
+}
+
+.pT10block div {
+	padding-top: 10px;
+}
+.pT10-for-block > div {
+	padding-top: 10px;
+}
+
+.mT10block > div {
+	margin-top: 10px;
+}
+
+.pT5block div {
+	padding-top: 5px;
+}
+
+.pB-30 {
+	padding-bottom: -30px;
+}
+
+.pB0 {
+	padding-bottom: 0;
+}
+
+.pB5 {
+	padding-bottom: 5px;
+}
+
+.pB10 {
+	padding-bottom: 10px;
+}
+
+.pB20 {
+	padding-bottom: 20px;
+}
+
+.pR5 {
+	padding-right: 5px;
+}
+
+.pR10 {
+	padding-right: 10px;
+}
+
+.pR13 {
+	padding-right: 13px;
+}
+
+.pR20 {
+	padding-right: 20px;
+}
+
+.pR25 {
+	padding-right: 25px;
+}
+
+.pR30 {
+	padding-right: 30px;
+}
+
+.pR40 {
+	padding-right: 40px;
+}
+
+.pR60 {
+	padding-right: 60px;
+}
+
+.pL5 {
+	padding-left: 5px;
+}
+
+.pL0 {
+	padding-left: 0;
+}
+
+.pL10 {
+	padding-left: 10px;
+}
+
+.pL15 {
+	padding-left: 15px;
+}
+
+.pL20 {
+	padding-left: 20px;
+}
+
+.pL23 {
+	padding-left: 23px;
+}
+
+.pL30 {
+	padding-left: 30px;
+}
+
+.pL40 {
+	padding-left: 40px;
+}
+
+.pL100 {
+	padding-left: 100px;
+}
+
+.pL132 {
+	padding-left: 132px;
+}
+
+.hidden {
+	display: none;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.relative {
+	position: relative;
+}
+.block {
+	display: block;
+}
+
+.display-in-b {
+	display: inline-block;
+}
+
+.top {
+	vertical-align: top;
+}
+
+.middle {
+	vertical-align: middle;
+}
+
+.bottom {
+	vertical-align: bottom;
+}
+
+.txt-bold {
+	font-weight: bold;
+}
+
+.txt-italic {
+	font-style: italic;
+}
+
+.txt-large {
+	font-size: 1.2em;
+}
+
+.txt-small {
+	font-size: 0.9em;
+}
+
+.txt-l {
+	text-align: left;
+}
+
+.txt-c {
+	text-align: center;
+}
+
+.txt-r {
+	text-align: right;
+}
+
+.txt-j {
+	text-align: justify;
+	line-height: 1.4em;
+}
+
+.txt-u {
+	text-decoration: underline;
+}
+
+.list-style-decimal {
+	list-style-type: decimal;
+}
+
+.list-style-lower-alpha {
+	list-style-type: lower-alpha;
+}
+
+.list-style-disc {
+	list-style-type: disc;
+}
+
+.txt-color-red {
+	color: red;
+}
+
+.txt-color-green {
+	color: green;
+}
+
+.txt-color-purple {
+	color: mediumpurple;
+}
+
+.txt-color-darkblue {
+	color: darkblue;
+}
+
+.layout .fa:after,
+.layout .fa:before {
+	font-family: FontAwesome;
+}
+
+.column {
+	display: inline-flex;
+}
+
+.validation {
+	color: red;
+	padding-bottom: 5px;
+}
+
+.confirmation {
+	color: green;
+	padding-bottom: 5px;
+}
+
+.validation-summary-field {
+	list-style-type: circle;
+	list-style-position: inside;
+}
+
+.checklist-empty a {
+	color: white !important;
+}
+.checklist-empty {
+	background-color: red;
+	color: white !important;
+}
+.checklist-completed {
+	background-color: green;
+	color: white !important;
+}
+
+.dot-hidden {
+	display: none;
+}
+
+.dot-empty {
+	color: red;
+}
+
+.dot-in-progress {
+	color: yellow;
+}
+
+.dot-completed {
+	color: green;
+}
+.checklist-in-progress {
+	background-color: yellow;
+	color: red !important;
+}
+
+.checklist-completed a {
+	color: white !important;
+}
+.checklist-in-progress a {
+	color: red !important;
+}
+
+.service-cancelled {
+	background-color: lightgrey !important;
+	color: black;
+}
+
+.service-delivered {
+	background-color: green !important;
+}
+.service-scheduled {
+	background-color: yellow !important;
+	color: blue;
+}
+
+.service-cancelled.k-state-selected {
+	background-color: lightgrey !important;
+	color: black;
+}
+
+.service-delivered.k-state-selected {
+	background-color: green !important;
+}
+.service-scheduled.k-state-selected {
+	background-color: yellow !important;
+	color: blue;
+}
+
+.adv-button {
+	height: 30px;
+}
+
+.adv-toolbar-left-margin {
+	margin-left: 10px;
+}
+
+.adv-toolbar-right-margin {
+	margin-right: 10px;
+}
+
+.adv-toolbar-row {
+	margin-bottom: 10px;
+}

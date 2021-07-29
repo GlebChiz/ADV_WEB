@@ -1,0 +1,30 @@
+<kendo-panelbar *ngIf="filterModel">
+	<kendo-panelbar-item [title]="'Filters'" [expanded]="true">
+		<ng-template kendoPanelBarContent>
+			<div class="p10 form" [formGroup]="filterForm">
+				<div class="clearfix">
+					<div class="column">
+						<div>
+							<label>Clinicians:</label>
+							<br />
+							<kendo-multiselect
+								valueField="id"
+								style="min-width: 200px; width: 100%"
+								textField="name"
+								[data]="clinicianLookup"
+								[kendoDropDownFilter]="filterSettings"
+								formControlName="clinicianIds"
+								[valuePrimitive]="true"
+							>
+							</kendo-multiselect>
+						</div>
+					</div>
+				</div>
+				<div class="txt-r mT10">
+					<button class="mR5" kendoButton (click)="filter()">Filter</button>
+					<button kendoButton (click)="reset()">Reset</button>
+				</div>
+			</div>
+		</ng-template>
+	</kendo-panelbar-item>
+</kendo-panelbar>

@@ -1,0 +1,18 @@
+<advenium-patient-filter [filterId]="filterId"> </advenium-patient-filter>
+<advenium-patient-details
+	*ngIf="false"
+	[isEditMode]="'true'"
+	[model]="patientModel$ | async"
+	(cancelEditing)="closeEditor()"
+	(reloadData)="reloadGrid()"
+>
+</advenium-patient-details>
+
+<advenium-data-list
+	[gridId]="gridId"
+	[filterId]="filterId"
+	[controller]="'patient'"
+	[columns]="columns()"
+	[linkArray]="linkArray"
+>
+</advenium-data-list>

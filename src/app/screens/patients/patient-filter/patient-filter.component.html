@@ -1,0 +1,44 @@
+<kendo-panelbar>
+	<kendo-panelbar-item [title]="'Filters'" [expanded]="true">
+		<ng-template kendoPanelBarContent>
+			<div class="p10 form" [formGroup]="filterForm">
+				<div class="clearfix">
+					<div class="column">
+						<div>
+							<label>Search:</label>
+							<br />
+							<input
+								class="k-textbox"
+								style="width: 100%"
+								type="text"
+								formControlName="search"
+								(keydown)="onKeyDown($event)"
+							/>
+						</div>
+					</div>
+					<div class="column mL15">
+						<div>
+							<label>Status:</label>
+							<br />
+							<kendo-combobox
+								valueField="id"
+								style="min-width: 200px; width: 100%"
+								textField="name"
+								[data]="patientStatusesData"
+								[kendoDropDownFilter]="filterSettings"
+								formControlName="statusId"
+								[valuePrimitive]="true"
+								(valueChange)="filter()"
+							>
+							</kendo-combobox>
+						</div>
+					</div>
+				</div>
+				<div class="txt-r mT10">
+					<button class="mR5" kendoButton (click)="filter()">Filter</button>
+					<button kendoButton (click)="reset()">Reset</button>
+				</div>
+			</div>
+		</ng-template>
+	</kendo-panelbar-item>
+</kendo-panelbar>

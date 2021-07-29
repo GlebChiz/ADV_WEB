@@ -1,18 +1,77 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { StoreModule } from '@ngrx/store';
+import { MenusModule } from '@progress/kendo-angular-menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { JwtInterceptor, ErrorInterceptor } from './shared/interceptors';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './screens/home';
+import { LoginComponent } from './screens/login';
+import { RegisterComponent } from './screens/register';
+import { AlertComponent } from './shared/components';
+import { HeaderComponent } from './shared/layout/header/header.component';
+import { appReducers } from './core/store/reducers/app.reducers';
+import { MenuComponent } from './shared/layout/menu/menu.component';
+import { PatientsModule } from './screens/patients/patients.module';
+import { DropdownMenuComponent } from './shared/layout/dropdown-menu/dropdown-menu.component';
+import { PageTitleComponent } from './shared/layout/page-title/page-title.component';
+import { ReduxModule } from './core/modules/redux/redux.module';
+import { PayersModule } from './screens/payer/payer.module';
+import { CoreModule } from './core/modules/core.module';
+import { CallModule } from './screens/call/call.module';
+import { CheckListModule } from './screens/checklist/checklist.module';
+import { PersonModule } from './screens/person/person.module';
+import { ClinicianModule } from './screens/clinician/clinician.module';
+import { IntakeModule } from './screens/intake/intake.module';
+import { AdveniumFormModule } from './screens/form/form.module';
+import { SharedCallModule } from './screens/shared-call/shared-call.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HomeComponent,
+		LoginComponent,
+		RegisterComponent,
+		AlertComponent,
+		HeaderComponent,
+		MenuComponent,
+		DropdownMenuComponent,
+		PageTitleComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		PatientsModule,
+		PersonModule,
+		PayersModule,
+		MenusModule,
+		BrowserAnimationsModule,
+		CallModule,
+		CoreModule,
+		ClinicianModule,
+		ReduxModule,
+		CheckListModule,
+		IntakeModule,
+		AdveniumFormModule,
+		SharedCallModule,
+		StoreModule.forRoot(appReducers, {
+			runtimeChecks: {
+				strictStateImmutability: false,
+				strictActionImmutability: false,
+			},
+		}),
+	],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+	],
+	bootstrap: [AppComponent],
+	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

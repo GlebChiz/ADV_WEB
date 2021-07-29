@@ -1,0 +1,7 @@
+<label [for]="field" *ngIf="!this.clickable">
+	{{ label }}
+</label>
+
+<label [for]="field" *ngIf="this.clickable">
+	<a href="" (click)="onClick()">{{ label }}</a>
+</label>

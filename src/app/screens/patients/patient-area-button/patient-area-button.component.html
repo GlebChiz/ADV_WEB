@@ -1,0 +1,9 @@
+<kendo-dropdownbutton
+	style="width: 100%"
+	[data]="this.getAreas()"
+	textField="title"
+	*ngIf="this.show"
+	(itemClick)="onItemClick($event)"
+>
+	<span>{{ this.name }}</span>
+</kendo-dropdownbutton>

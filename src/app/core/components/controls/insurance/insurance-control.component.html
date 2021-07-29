@@ -1,0 +1,134 @@
+<div [formGroup]="form">
+	<div class="clearfix">
+		<input type="hidden" formControlName="id" name="id" />
+		<input type="hidden" formControlName="orderType" name="orderType" />
+
+		<label class="k-label">
+			<input
+				kendoCheckBox
+				formControlName="exists"
+				name="exists"
+				type="checkbox"
+				(change)="onExistsChanged($event)"
+			/>
+			{{ title() }} insurance
+		</label>
+	</div>
+	<div *ngIf="exists">
+		<input type="hidden" formControlName="verificationDate" />
+		<label class="k-label mL30">
+			<input
+				kendoCheckBox
+				formControlName="isVerified"
+				type="checkbox"
+				(change)="onVerification($event)"
+			/>
+			Is Verified
+		</label>
+		<span class="mL30" *ngIf="isVerified">{{ verificationDate() }}</span>
+		<div class="clearfix">
+			<div class="column">
+				<div class="clearfix">
+					<div>
+						<advenium-label [metaData]="metaData" field="payerId"></advenium-label>
+						<br />
+						<kendo-combobox
+							valueField="id"
+							style="min-width: 300px; width: 100%"
+							textField="name"
+							[data]="payers"
+							[kendoDropDownFilter]="filterSettings"
+							formControlName="payerId"
+							name="payerId"
+							[valuePrimitive]="true"
+						>
+						</kendo-combobox>
+					</div>
+					<div>
+						<div class="column">
+							<div>
+								<advenium-label [metaData]="metaData" field="copay"></advenium-label><br />
+								<input formControlName="copay" name="copay" class="k-textbox" />
+							</div>
+						</div>
+						<div class="column mL5">
+							<div>
+								<advenium-label [metaData]="metaData" field="deductible"></advenium-label><br />
+								<input formControlName="deductible" name="deductible" class="k-textbox" />
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="column">
+							<div>
+								<advenium-label [metaData]="metaData" field="memberId"></advenium-label><br />
+								<input formControlName="memberId" name="memberId" class="k-textbox" />
+							</div>
+						</div>
+						<div class="column mL5">
+							<div>
+								<advenium-label [metaData]="metaData" field="policyGroup"></advenium-label><br />
+								<input formControlName="policyGroup" name="policyGroup" class="k-textbox" />
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="column">
+							<div>
+								<advenium-label [metaData]="metaData" field="employee"></advenium-label><br />
+								<input formControlName="employee" name="employee" class="k-textbox" />
+							</div>
+						</div>
+						<div class="column mL5">
+							<div>
+								<advenium-label [metaData]="metaData" field="planName"></advenium-label><br />
+								<input formControlName="planName" name="planName" class="k-textbox" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="column mL30">
+				<div>
+					<advenium-label
+						[metaData]="metaData"
+						field="insuranceHolderId"
+						[clickable]="this.value.insuranceHolderId != this.value.personId"
+						(action)="openPerson(this.value.insuranceHolderId)"
+					></advenium-label>
+					<br />
+					<kendo-combobox
+						valueField="personId"
+						style="min-width: 300px; width: 100%"
+						textField="title"
+						[data]="links"
+						[kendoDropDownFilter]="filterSettings"
+						formControlName="insuranceHolderId"
+						name="insuranceHolderId"
+						[valuePrimitive]="true"
+						(valueChange)="onHolderChanged($event)"
+					>
+					</kendo-combobox>
+					<div
+						*ngIf="
+							this.showHolderInsurances && this.form.value.insuranceHolderId !== this.value.personId
+						"
+					>
+						<ul *ngIf="this.holderInsurances.length > 0">
+							<li *ngFor="let insurance of this.holderInsurances">
+								<a href="" (click)="copyInsurance(insurance)" title="Copy this insurance">
+									{{ insuranceDescription(insurance) }}
+								</a>
+							</li>
+						</ul>
+						<div *ngIf="this.holderInsurances.length === 0">
+							<ul>
+								<li>No insurance</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

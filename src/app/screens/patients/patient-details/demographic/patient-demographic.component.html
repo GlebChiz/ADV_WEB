@@ -1,0 +1,100 @@
+<form *ngIf="this.demographicForm" [formGroup]="demographicForm" novalidate>
+	<div class="clearfix">
+		<div class="column">
+			<div>
+				<advenium-label [metaData]="metaData" field="sexId"></advenium-label>
+				<br />
+				<kendo-combobox
+					valueField="id"
+					style="min-width: 200px; width: 100%"
+					textField="name"
+					[data]="sexLookup"
+					[kendoDropDownFilter]="filterSettings"
+					formControlName="sexId"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+		</div>
+		<div class="column mL15">
+			<div>
+				<advenium-label [metaData]="metaData" field="genderId"></advenium-label>
+				<br />
+				<kendo-combobox
+					valueField="id"
+					style="min-width: 200px; width: 100%"
+					textField="name"
+					[data]="sexLookup"
+					[kendoDropDownFilter]="filterSettings"
+					formControlName="genderId"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+		</div>
+		<div class="column mL15">
+			<div>
+				<advenium-label [metaData]="metaData" field="maritalStatusId"> </advenium-label>
+				<br />
+				<kendo-combobox
+					valueField="id"
+					style="min-width: 200px; width: 100%"
+					textField="name"
+					[data]="maritalLookup"
+					[kendoDropDownFilter]="filterSettings"
+					formControlName="maritalStatusId"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+		</div>
+		<div class="column mL15">
+			<div>
+				<advenium-label [metaData]="metaData" field="employementId"> </advenium-label>
+				<br />
+				<kendo-combobox
+					valueField="id"
+					style="min-width: 200px; width: 100%"
+					textField="name"
+					[data]="employementLookup"
+					[kendoDropDownFilter]="filterSettings"
+					formControlName="employementId"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix">
+		<div>
+			<advenium-label [metaData]="metaData" field="raceIds"></advenium-label>
+			<br />
+			<kendo-multiselect
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="raceLookup"
+				[kendoDropDownFilter]="filterSettings"
+				formControlName="raceIds"
+				[valuePrimitive]="true"
+			>
+			</kendo-multiselect>
+		</div>
+	</div>
+	<div class="clearfix">
+		<div>
+			<advenium-label [metaData]="metaData" field="languageIds"> </advenium-label>
+			<br />
+			<kendo-multiselect
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="languageLookup"
+				[kendoDropDownFilter]="filterSettings"
+				formControlName="languageIds"
+				[valuePrimitive]="true"
+			>
+			</kendo-multiselect>
+		</div>
+	</div>
+</form>

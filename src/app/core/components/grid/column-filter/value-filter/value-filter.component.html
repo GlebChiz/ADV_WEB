@@ -1,0 +1,8 @@
+<form *ngIf="this.form" [formGroup]="form" novalidate>
+	<input
+		type="search"
+		formControlName="value"
+		class="k-textbox w-100"
+		(keydown)="onKeyDown($event)"
+	/>
+</form>

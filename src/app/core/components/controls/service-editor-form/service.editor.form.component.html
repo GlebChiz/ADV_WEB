@@ -1,0 +1,99 @@
+<div *ngIf="active">
+	<form novalidate [formGroup]="editForm" class="k-form-inline" id="eventForm">
+		<input type="hidden" formControlName="id" />
+		<input type="hidden" formControlName="units" />
+		<input type="hidden" formControlName="unitType" />
+		<div>
+			<div class="k-form-field" *ngIf="fields.patient > 0; else patient">
+				<span>Patient</span>
+				<kendo-combobox
+					[readonly]="fields.patient <= 1"
+					valueField="id"
+					style="min-width: 300px; width: 100%"
+					textField="name"
+					[data]="patientLookup"
+					formControlName="patientId"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+			<ng-template #patient>
+				<input type="hidden" formControlName="patientId" />
+			</ng-template>
+			<div class="k-form-field" *ngIf="fields.clinician > 0; else clinician">
+				<span>Clinician</span>
+				<kendo-combobox
+					[readonly]="fields.clinician <= 1"
+					valueField="id"
+					style="min-width: 300px; width: 100%"
+					textField="name"
+					[data]="clinicianLookup"
+					formControlName="clinicianId"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+			<ng-template #clinician>
+				<input type="hidden" formControlName="clinicianId" />
+			</ng-template>
+			<div class="k-form-field" *ngIf="fields.serviceType > 0; else serviceType">
+				<span>Service Type</span>
+				<kendo-combobox
+					[readonly]="fields.serviceType <= 1"
+					valueField="id"
+					style="min-width: 300px; width: 100%"
+					textField="name"
+					[data]="serviceTypeLookup"
+					formControlName="serviceTypeId"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+			<ng-template #serviceType>
+				<input type="hidden" formControlName="serviceTypeId" />
+			</ng-template>
+			<div class="k-form-field" *ngIf="fields.status > 0; else status">
+				<span>Status</span>
+				<kendo-combobox
+					[readonly]="fields.status <= 1"
+					valueField="id"
+					style="min-width: 300px; width: 100%"
+					textField="name"
+					[data]="statusLookup"
+					formControlName="status"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+			<ng-template #status>
+				<input type="hidden" formControlName="status" />
+			</ng-template>
+			<div class="k-form-field" *ngIf="deliveryType > 0; else delivery">
+				<span>Delivery Method</span>
+				<kendo-combobox
+					[readonly]="deliveryType <= 1"
+					valueField="id"
+					style="min-width: 300px; width: 100%"
+					textField="name"
+					[data]="deliveryTypeLookup"
+					formControlName="deliveryType"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+			<ng-template #delivery>
+				<input type="hidden" formControlName="deliveryType" />
+			</ng-template>
+			<div class="k-form-field k-datetime-picker-wrapper">
+				<span>Start</span>
+				<kendo-datepicker formControlName="start" [readonly]="fields.time <= 1"> </kendo-datepicker>
+				<kendo-timepicker formControlName="start" [readonly]="fields.time <= 1"> </kendo-timepicker>
+			</div>
+			<div class="k-form-field k-datetime-picker-wrapper">
+				<span>End</span>
+				<kendo-datepicker formControlName="end" [readonly]="fields.time <= 1"> </kendo-datepicker>
+				<kendo-timepicker formControlName="end" [readonly]="fields.time <= 1"> </kendo-timepicker>
+			</div>
+		</div>
+	</form>
+</div>

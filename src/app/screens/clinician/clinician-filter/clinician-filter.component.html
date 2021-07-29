@@ -1,0 +1,24 @@
+<kendo-dialog *ngIf="show" title="Filter" (close)="close()" [minWidth]="520" [width]="550">
+	<div class="p10 form" [formGroup]="filterForm">
+		<div class="clearfix">
+			<div class="column">
+				<div>
+					<label>Search:</label>
+					<br />
+					<input
+						class="k-textbox"
+						style="width: 100%"
+						type="text"
+						formControlName="search"
+						(keydown)="onKeyDown($event)"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<kendo-dialog-actions>
+		<button kendoButton (click)="close()">Close</button>
+		<button kendoButton (click)="reset()">Reset</button>
+		<button kendoButton (click)="filter()" primary="true">Apply</button>
+	</kendo-dialog-actions>
+</kendo-dialog>

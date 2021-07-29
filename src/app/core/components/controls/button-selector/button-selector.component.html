@@ -1,0 +1,11 @@
+<button
+	kendoButton
+	[disabled]="disabled === true"
+	style="text-align:center;width:{{ 100 / items.length }}%"
+	class="column"
+	*ngFor="let item of items; let i = index"
+	[primary]="value === item[valueField]"
+	(click)="onClick($event, item)"
+>
+	{{ item[textField] }}
+</button>

@@ -1,0 +1,22 @@
+<div>
+	<div *ngFor="let item of columns()" class="mB10">
+		<span
+			*ngIf="showAsc(item) || showDesc(item)"
+			(click)="moveUp(item)"
+			style="cursor: pointer"
+			class="k-icon k-i-sort-asc-sm k-link"
+		></span>
+		<span
+			*ngIf="showAsc(item) || showDesc(item)"
+			(click)="moveDown(item)"
+			style="cursor: pointer"
+			class="k-icon k-i-sort-desc-sm k-link"
+		></span>
+		<span (click)="onSelect(item)" style="cursor: pointer">
+			<span *ngIf="item.direction > 0">{{ item.order }}. </span>{{ item.title }}
+			<span *ngIf="showAsc(item)" class="fa fa-sort-asc k-link"></span>
+			<span *ngIf="showDesc(item)" class="fa fa-sort-desc k-link"></span>
+			<span *ngIf="showNone(item)" class="fa fa-sort"></span>
+		</span>
+	</div>
+</div>

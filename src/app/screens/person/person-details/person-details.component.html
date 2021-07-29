@@ -1,0 +1,357 @@
+<form [formGroup]="myForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="validation" *ngIf="errors">
+				<div class="validation-summary-errors">
+					<ul>
+						<li *ngFor="let error of errors">{{ error }}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="confirmation" *ngIf="messages">
+				<div class="validation-summary-messages">
+					<ul>
+						<li *ngFor="let message of messages">{{ message }}</li>
+					</ul>
+				</div>
+			</div>
+			<kendo-tabstrip>
+				<kendo-tabstrip-tab title="General" [selected]="this.selectedTab('general')">
+					<ng-template kendoTabContent>
+						<div class="clearfix">
+							<div class="column">
+								<div>
+									<advenium-label [metaData]="metaData" field="lastname"></advenium-label>
+									<br />
+									<input
+										name="lastname"
+										formControlName="lastname"
+										kendoTextBox
+										class="k-textbox"
+										style="width: 110px"
+										maxlength="250"
+									/>
+								</div>
+							</div>
+							<div class="column mL15">
+								<div>
+									<advenium-label [metaData]="metaData" field="firstname"> </advenium-label><br />
+									<input
+										name="firstname"
+										formControlName="firstname"
+										kendoTextBox
+										class="k-textbox"
+										style="width: 110px"
+										maxlength="250"
+									/>
+								</div>
+							</div>
+							<div class="column mL15">
+								<div>
+									<advenium-label [metaData]="metaData" field="middlename"> </advenium-label><br />
+									<input
+										name="middlename"
+										formControlName="middlename"
+										kendoTextBox
+										class="k-textbox"
+										style="width: 110px"
+										maxlength="250"
+									/>
+								</div>
+							</div>
+							<div class="column mL15">
+								<div>
+									<advenium-label [metaData]="metaData" field="dob"></advenium-label>
+									<br />
+									<kendo-datepicker name="dob" formControlName="dob"> </kendo-datepicker>
+								</div>
+							</div>
+							<advenium-address formControlName="address" name="address"></advenium-address>
+						</div>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Demographic" [selected]="this.selectedTab('demo')">
+					<ng-template kendoTabContent>
+						<div class="clearfix">
+							<div class="column">
+								<div>
+									<advenium-label [metaData]="metaData" field="sexId"></advenium-label>
+									<br />
+									<kendo-combobox
+										valueField="id"
+										style="min-width: 200px; width: 100%"
+										textField="name"
+										[data]="sexLookup"
+										[kendoDropDownFilter]="filterSettings"
+										formControlName="sexId"
+										[valuePrimitive]="true"
+									>
+									</kendo-combobox>
+								</div>
+							</div>
+							<div class="column mL15">
+								<div>
+									<advenium-label [metaData]="metaData" field="genderId"></advenium-label>
+									<br />
+									<kendo-combobox
+										valueField="id"
+										style="min-width: 200px; width: 100%"
+										textField="name"
+										[data]="sexLookup"
+										[kendoDropDownFilter]="filterSettings"
+										formControlName="genderId"
+										[valuePrimitive]="true"
+									>
+									</kendo-combobox>
+								</div>
+							</div>
+							<div class="column mL15">
+								<div>
+									<advenium-label [metaData]="metaData" field="maritalStatusId"> </advenium-label>
+									<br />
+									<kendo-combobox
+										valueField="id"
+										style="min-width: 200px; width: 100%"
+										textField="name"
+										[data]="maritalLookup"
+										[kendoDropDownFilter]="filterSettings"
+										formControlName="maritalStatusId"
+										[valuePrimitive]="true"
+									>
+									</kendo-combobox>
+								</div>
+							</div>
+							<div class="column mL15">
+								<div>
+									<advenium-label [metaData]="metaData" field="employementId"> </advenium-label>
+									<br />
+									<kendo-combobox
+										valueField="id"
+										style="min-width: 200px; width: 100%"
+										textField="name"
+										[data]="employementLookup"
+										[kendoDropDownFilter]="filterSettings"
+										formControlName="employementId"
+										[valuePrimitive]="true"
+									>
+									</kendo-combobox>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix">
+							<div>
+								<advenium-label [metaData]="metaData" field="raceIds"></advenium-label>
+								<br />
+								<kendo-multiselect
+									valueField="id"
+									style="min-width: 200px; width: 100%"
+									textField="name"
+									[data]="raceLookup"
+									[kendoDropDownFilter]="filterSettings"
+									formControlName="raceIds"
+									[valuePrimitive]="true"
+								>
+								</kendo-multiselect>
+							</div>
+						</div>
+						<div class="clearfix">
+							<div>
+								<advenium-label [metaData]="metaData" field="languageIds"> </advenium-label>
+								<br />
+								<kendo-multiselect
+									valueField="id"
+									style="min-width: 200px; width: 100%"
+									textField="name"
+									[data]="languageLookup"
+									[kendoDropDownFilter]="filterSettings"
+									formControlName="languageIds"
+									[valuePrimitive]="true"
+								>
+								</kendo-multiselect>
+							</div>
+						</div>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Contacts" [selected]="this.selectedTab('contacts')">
+					<ng-template kendoTabContent>
+						<div class="clearfix">
+							<div class="column">
+								<advenium-label [metaData]="metaData" style="width: 100px" field="email">
+								</advenium-label>
+							</div>
+							<div class="column">
+								<input
+									name="email"
+									formControlName="email"
+									kendoTextBox
+									class="k-textbox"
+									style="width: 300px"
+									maxlength="250"
+								/>
+							</div>
+						</div>
+						<div class="clearfix">
+							<div class="column">
+								<advenium-label [metaData]="metaData" style="width: 100px" field="mobilePhone">
+								</advenium-label>
+							</div>
+							<div class="column mL5">
+								<kendo-maskedtextbox
+									[mask]="phoneMask"
+									formControlName="mobilePhone"
+									style="width: 150px"
+								></kendo-maskedtextbox>
+							</div>
+							<div class="column mL5">
+								<kendo-combobox
+									valueField="id"
+									style="min-width: 200px; width: 100%"
+									textField="name"
+									[data]="phonePolicyLookup"
+									[kendoDropDownFilter]="filterSettings"
+									formControlName="mobilePhonePolicyId"
+									[valuePrimitive]="true"
+								>
+								</kendo-combobox>
+							</div>
+						</div>
+						<div class="clearfix">
+							<div class="column">
+								<advenium-label [metaData]="metaData" style="width: 100px" field="workPhone">
+								</advenium-label>
+							</div>
+							<div class="column mL5">
+								<kendo-maskedtextbox
+									[mask]="phoneMask"
+									formControlName="workPhone"
+									style="width: 150px"
+								></kendo-maskedtextbox>
+							</div>
+							<div class="column mL5">
+								<kendo-combobox
+									valueField="id"
+									style="min-width: 200px; width: 100%"
+									textField="name"
+									[data]="phonePolicyLookup"
+									[kendoDropDownFilter]="filterSettings"
+									formControlName="workPhonePolicyId"
+									[valuePrimitive]="true"
+								>
+								</kendo-combobox>
+							</div>
+						</div>
+						<div class="clearfix">
+							<div class="column">
+								<advenium-label [metaData]="metaData" style="width: 100px" field="homePhone">
+								</advenium-label>
+							</div>
+							<div class="column mL5">
+								<kendo-maskedtextbox
+									[mask]="phoneMask"
+									formControlName="homePhone"
+									style="width: 150px"
+								></kendo-maskedtextbox>
+							</div>
+							<div class="column mL5">
+								<kendo-combobox
+									valueField="id"
+									style="min-width: 200px; width: 100%"
+									textField="name"
+									[data]="phonePolicyLookup"
+									[kendoDropDownFilter]="filterSettings"
+									formControlName="homePhonePolicyId"
+									[valuePrimitive]="true"
+								>
+								</kendo-combobox>
+							</div>
+						</div>
+						<div class="clearfix">
+							<div class="column">
+								<advenium-label [metaData]="metaData" style="width: 100px" field="otherPhone">
+								</advenium-label>
+							</div>
+							<div class="column mL5">
+								<kendo-maskedtextbox
+									formControlName="otherPhone"
+									[mask]="phoneMask"
+									style="width: 150px"
+								></kendo-maskedtextbox>
+							</div>
+							<div class="column mL5">
+								<kendo-combobox
+									valueField="id"
+									style="min-width: 200px; width: 100%"
+									textField="name"
+									[data]="phonePolicyLookup"
+									[kendoDropDownFilter]="filterSettings"
+									formControlName="otherPhonePolicyId"
+									[valuePrimitive]="true"
+								>
+								</kendo-combobox>
+							</div>
+						</div>
+						<div class="clearfix">
+							<div class="column">
+								<advenium-label [metaData]="metaData" style="width: 100px" field="primaryPhoneType">
+								</advenium-label>
+							</div>
+							<div class="column mL5">
+								<kendo-combobox
+									valueField="id"
+									style="min-width: 200px; width: 100%"
+									textField="name"
+									[data]="phoneTypeLookup"
+									[kendoDropDownFilter]="filterSettings"
+									formControlName="primaryPhoneType"
+									[valuePrimitive]="true"
+								>
+								</kendo-combobox>
+							</div>
+						</div>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Insurance" [selected]="this.selectedTab('insurance')">
+					<ng-template kendoTabContent>
+						<advenium-insurance formControlName="primaryInsurance" name="primaryInsurance">
+						</advenium-insurance>
+						<advenium-insurance formControlName="secondaryInsurance" name="secondaryInsurance">
+						</advenium-insurance>
+					</ng-template>
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Connections" [selected]="this.selectedTab('connections')">
+				</kendo-tabstrip-tab>
+				<kendo-tabstrip-tab title="Intake" [selected]="this.selectedTab('intake')">
+					<ng-template kendoTabContent>
+						<advenium-intake-scheduler
+							[patientIds]="this.model.wardPatientIds"
+						></advenium-intake-scheduler>
+					</ng-template>
+				</kendo-tabstrip-tab>
+			</kendo-tabstrip>
+		</div>
+	</div>
+	<div class="txt-r mT10">
+		<a
+			id="btnSavePatient"
+			data-role="button"
+			class="k-button"
+			role="button"
+			aria-disabled="false"
+			tabindex="0"
+			(click)="submit()"
+			*ngIf="isEditMode"
+			>Update Patient</a
+		>
+		<a
+			id="btnCancelSavePatient"
+			*ngIf="showCancel"
+			data-role="button"
+			class="k-button mL5"
+			role="button"
+			aria-disabled="false"
+			tabindex="0"
+			(click)="cancel()"
+			>Cancel</a
+		>
+	</div>
+</form>

@@ -1,0 +1,55 @@
+<advenium-validation-message [service]="validationService"></advenium-validation-message>
+
+<kendo-dialog
+	title="Edit Availability"
+	*ngIf="editedEvent"
+	(close)="closeEditDialog('cancel')"
+	[minWidth]="500"
+	[width]="600"
+>
+	<advenium-person-availability-editor
+		[model]="editedEvent"
+		(valueChanged)="keepEditedEvent($event)"
+	></advenium-person-availability-editor>
+	<kendo-dialog-actions>
+		<button kendoButton (click)="closeEdit('cancel')">Cancel</button>
+		<button kendoButton (click)="closeEdit('save')" primary="true">Save</button>
+	</kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog
+	title="Delete availability"
+	*ngIf="deletedEvent"
+	(close)="closeDeleteDialog('cancel')"
+	[minWidth]="250"
+	[width]="450"
+>
+	<p style="margin: 30px; text-align: center">
+		{{ this.deleteMessage }}
+	</p>
+	<kendo-dialog-actions>
+		<button
+			kendoButton
+			*ngFor="let btn of this.deleteButtons"
+			(click)="closeDeleteDialog(btn.value)"
+			primary="{{ btn.isPrimary }}"
+		>
+			{{ btn.title }}
+		</button>
+	</kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-scheduler
+	style="height: 600px"
+	(slotDblClick)="createEvent($event)"
+	[kendoSchedulerBinding]="this.events"
+	(dateChange)="onDateChange($event)"
+	[editable]="true"
+	(resizeEnd)="resizeEndEvent($event)"
+	(remove)="deleteEvent($event)"
+	[eventStyles]="getEventStyles"
+	(eventDblClick)="editEvent($event)"
+	timezone="Etc/UTC"
+>
+	<kendo-scheduler-week-view startTime="07:00"> </kendo-scheduler-week-view>
+</kendo-scheduler>

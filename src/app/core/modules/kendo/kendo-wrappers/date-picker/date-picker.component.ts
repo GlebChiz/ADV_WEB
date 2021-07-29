@@ -1,0 +1,179 @@
+import {
+	Component,
+	Input,
+	Output,
+	EventEmitter,
+	forwardRef,
+	OnDestroy,
+	ViewChild,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
+import { Subject } from 'rxjs';
+import {
+	CalendarView,
+	DateInputFormatPlaceholder,
+	PopupSettings,
+	PreventableEvent,
+	DatePickerComponent,
+} from '@progress/kendo-angular-dateinputs';
+import moment from 'moment';
+import { DateTimeTypes } from 'src/app/core/enums/date-time.types';
+
+@Component({
+	selector: 'advenium-date-picker',
+	templateUrl: './date-picker.component.html',
+	styleUrls: ['./date-picker.component.scss'],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => DatePickerWrapperComponent),
+			multi: true,
+		},
+	],
+})
+export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestroy {
+	private readonly unsubscribeAll$ = new Subject();
+
+	readonly dateTimeTypes = DateTimeTypes;
+
+	formControl = this._fb.control(null);
+
+	@Input() activeView: CalendarView = 'month';
+
+	@Input() bottomView: CalendarView = 'month';
+
+	@Input() class = '';
+
+	@Input() disabled = false;
+
+	@Input() readonly = false;
+
+	@Input() disabledDates: ((date: Date) => boolean | Date[]) | null = null;
+
+	@Input() disabledDatesValidation = false;
+
+	@Input() focusedDate = new Date();
+
+	@Input() format = '';
+
+	@Input() formatPlaceholder: DateInputFormatPlaceholder = 'wide';
+
+	@Input() label = '';
+
+	@Input() max: Date | null = null;
+
+	@Input() min: Date | null = null;
+
+	@Input() navigation = false;
+
+	@Input() placeholder = '';
+
+	@Input() popupSettings: PopupSettings = { animate: true, appendTo: 'root' };
+
+	@Input() rangeValidation = true;
+
+	@Input() tabindex: number | null = null;
+
+	@Input() title = '';
+
+	@Input() topView: CalendarView = 'century';
+
+	@Input() type = DateTimeTypes.Date;
+
+	@Input() value: Date | null = null;
+
+	@Input() weekNumber = false;
+
+	@Input() showTitle = false;
+
+	@Output() blur = new EventEmitter();
+
+	@Output() close = new EventEmitter<PreventableEvent>();
+
+	@Output() focus = new EventEmitter();
+
+	@Output() open = new EventEmitter<PreventableEvent>();
+
+	@Output() valueChange = new EventEmitter<Date>();
+
+	@ViewChild(DatePickerComponent) datePicker!: DatePickerComponent;
+
+	get today(): Date {
+		return new Date();
+	}
+
+	constructor(private _fb: FormBuilder) {}
+
+	ngOnDestroy(): void {
+		this.unsubscribeAll$.next();
+		this.unsubscribeAll$.complete();
+	}
+
+	onChange = (delta: Date) => {};
+
+	onTouched = () => {};
+
+	checkDate(date: Date): boolean {
+		switch (this.datePicker.calendar.activeView) {
+			case 'month':
+				return this.datePicker.calendar.focusedDate.getMonth() === date.getMonth();
+
+			case 'year':
+				return this.datePicker.calendar.focusedDate.getFullYear() === date.getFullYear();
+
+			case 'decade':
+				const selectedDecade = Math.floor(
+					(this.datePicker.calendar.focusedDate.getFullYear() % 100) / 10,
+				);
+				const decade = Math.floor((date.getFullYear() % 100) / 10);
+				return selectedDecade === decade;
+		}
+
+		return false;
+	}
+
+	navigate(event: Event, dir: 1 | -1): void {
+		event.stopPropagation();
+		const units = this.datePicker.calendar.activeView === 'month' ? 'month' : 'year';
+		const amount =
+			dir *
+			(this.datePicker.calendar.activeView === 'decade'
+				? 10
+				: this.datePicker.calendar.activeView === 'century'
+				? 100
+				: 1);
+		const newDate = moment(this.datePicker.calendar.focusedDate).add(amount, units).toDate();
+		this.datePicker.calendar.focusedDate = newDate;
+	}
+
+	registerOnChange(fn: (v: Date) => void): void {
+		this.onChange = fn;
+	}
+
+	registerOnTouched(fn: () => void): void {
+		this.onTouched = fn;
+	}
+
+	selectToday(): void {
+		this.formControl.patchValue(this.today);
+		this.datePicker.toggle(false);
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		if (isDisabled) {
+			this.formControl.disable();
+		} else {
+			this.formControl.enable();
+		}
+	}
+
+	valueChanged(value: Date): void {
+		this.valueChange.emit(value);
+		this.onChange(value);
+	}
+
+	writeValue(value: Date): void {
+		this.focusedDate = value;
+		this.formControl.patchValue(value);
+	}
+}

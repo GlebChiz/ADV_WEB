@@ -1,0 +1,19 @@
+<div id="dropdown-menu" #anchor>
+	<a href="#" (click)="onToggle()" class="menu-icon">&#9776;</a>
+</div>
+<kendo-popup
+	id="dropdown-menu-content"
+	[anchor]="anchor"
+	(anchorViewportLeave)="show = false"
+	*ngIf="this.show"
+>
+	<kendo-menu [vertical]="true" (select)="onSelect($event)" style="display: inline-block">
+		<kendo-menu-item
+			*ngFor="let item of items"
+			text="{{ item.text }}"
+			cssClass="{{ item.cssClass }}"
+			[data]="item"
+		>
+		</kendo-menu-item>
+	</kendo-menu>
+</kendo-popup>

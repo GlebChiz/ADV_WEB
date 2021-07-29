@@ -1,0 +1,13 @@
+@function get-vw($target) {
+	$vw-context: (1000 * 0.01) * 1px;
+	@return ($target/$vw-context) * 1vw;
+}
+
+@function pxPlusVw($px, $vw) {
+	@return calc(#{$px}px + #{$vw}vw);
+}
+
+$headerHeight: 70;
+$titleHeight: 32;
+
+$small-screen: 768px;

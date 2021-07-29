@@ -1,0 +1,84 @@
+<div *ngIf="data" class="center w-100">
+	<div class="wcenter">
+		<input
+			#range
+			style="width: 100%; display: none /*block*/"
+			type="range"
+			value="{{ zoom }}"
+			min="0.1"
+			max="1"
+			step="0.1"
+			(input)="this.zoom = range.value"
+		/>
+		<!--(input)="this.zoom = range.value"-->
+	</div>
+	<advenium-sign
+		*ngIf="signItem"
+		(closeDialog)="signItem = null"
+		(saveSignature)="saveSignature($event)"
+	>
+	</advenium-sign>
+
+	<form>
+		<div *ngIf="form && pages">
+			<div
+				#container
+				*ngFor="let page of this.pages"
+				class="input-page"
+				[ngStyle]="getContainerStyle(page.pageNumber)"
+			>
+				<input
+					class="input-field"
+					*ngFor="let input of getInputs(page.pageNumber)"
+					[type]="input.type"
+					[name]="input.fieldName"
+					[ngStyle]="getInputPosition(input, container)"
+					[value]="input.value"
+					(change)="input.value = $event.target.value; changed()"
+					(keypress)="changed()"
+				/>
+				<input
+					class="input-field"
+					*ngFor="let input of getCheckboxes(page.pageNumber)"
+					kendoCheckBox
+					[type]="input.type"
+					[name]="input.fieldName"
+					[ngStyle]="getInputPosition(input, container)"
+					[checked]="input.value === true"
+					(change)="input.value = $event.target.checked; changed()"
+				/>
+				<a
+					href="#"
+					class="input-field"
+					*ngFor="let input of getSignatures(page.pageNumber)"
+					[name]="input.fieldName"
+					[ngStyle]="getInputPosition(input, container)"
+					(click)="openSignature(input)"
+				>
+					<img
+						[src]="getSignature(input)"
+						[ngStyle]="getSignPosition(input, container)"
+						*ngIf="getSignature(input)"
+					/>
+				</a>
+
+				<!--[formControlName]="input.name"-->
+
+				<pdf-viewer
+					[page]="page.pageNumber"
+					[src]="data"
+					[original-size]="false"
+					[show-borders]="true"
+					[show-all]="false"
+					[zoom-scale]="'page-width'"
+					[autoresize]="true"
+					(after-load-complete)="loadComplete($event, page.pageNumber)"
+				>
+				</pdf-viewer>
+				<!--<div *ngFor="let log of this.pages[pageNumber - 1].log">
+                {{log}}
+            </div>-->
+			</div>
+		</div>
+	</form>
+</div>

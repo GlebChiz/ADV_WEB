@@ -1,0 +1,12 @@
+<kendo-dialog title="Please Sign" (close)="close()" [minWidth]="520" [width]="550">
+	<signature-pad
+		[options]="signaturePadOptions"
+		(onBeginEvent)="drawStart()"
+		(onEndEvent)="drawComplete()"
+	>
+	</signature-pad>
+	<kendo-dialog-actions>
+		<button kendoButton (click)="clear()">Clear</button>
+		<button kendoButton (click)="save()" primary="true">Save</button>
+	</kendo-dialog-actions>
+</kendo-dialog>

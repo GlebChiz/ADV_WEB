@@ -1,0 +1,40 @@
+@import 'variables.scss';
+
+#dashboard {
+	position: relative;
+	width: 100%;
+	height: 1024px;
+	/* Grey/Grey 1 */
+	background-color: #f7f9fb;
+}
+
+#central-panel {
+	position: absolute;
+	width: 71.62vw;
+	height: 763px;
+	left: 22.19vw;
+	top: pxPlusVw($headerHeight, 6.785);
+	/* BW / White */
+	background-color: #ffffff;
+	border-radius: 0.1875vw;
+}
+
+@media screen and (max-width: 768px) {
+	#left-panel {
+		display: none;
+	}
+	#central-panel {
+		left: 6.57vw !important;
+	}
+}
+
+#left-panel {
+	/* Frame 2 */
+	position: absolute;
+	width: 15.62vw;
+	height: 954px;
+	left: 0px;
+	top: 4.375vw;
+	background: #ffffff;
+	padding-top: 2vw;
+}

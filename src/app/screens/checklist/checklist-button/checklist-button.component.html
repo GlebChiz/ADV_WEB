@@ -1,0 +1,13 @@
+<kendo-dropdownbutton
+	[data]="this.checklist?.items"
+	textField="statusName"
+	(itemClick)="onItemClick($event)"
+>
+	<span class="{{ checkListClass(this.checklist?.status) }}"
+		>{{ this.checklist?.name }} Check List: {{ this.checklist?.statusName }}</span
+	>
+	<ng-template kendoDropDownButtonItemTemplate let-dataItem>
+		<span>{{ dataItem.typeName }}</span> -
+		<span class="{{ checkListClass(dataItem.status) }}">{{ dataItem.statusName }}</span>
+	</ng-template>
+</kendo-dropdownbutton>

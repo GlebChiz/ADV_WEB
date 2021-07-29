@@ -1,0 +1,64 @@
+@import '../../../variables.scss';
+$iconHeight: 32;
+
+.menu-icon {
+	font-size: 32px;
+	text-decoration: none !important;
+	color: #631ed3 !important;
+	display: flex !important;
+	position: absolute;
+	left: 0px;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+#dropdown-menu-content {
+	z-index: 100;
+	position: absolute;
+	display: flex;
+	top: #{$headerHeight}px;
+	background-color: white;
+	padding-top: 0px;
+}
+
+@media screen and (max-width: $small-screen) {
+	#dropdown-menu {
+		display: flex !important;
+	}
+}
+
+#dropdown-menu {
+	display: none;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	position: absolute;
+	width: 48px;
+	left: -16px;
+	top: #{($headerHeight - $iconHeight) / 2}px;
+}
+
+.dropdown-menu-item {
+	position: relative !important;
+	left: 16px;
+	width: 1200px;
+	/* Menu */
+	height: 36px !important;
+
+	font-family: Poppins;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 36px;
+	letter-spacing: 1px;
+
+	color: #631ed3 !important;
+}
+
+.parent-dropdown-menu-item {
+	left: 1vw !important;
+}
+
+.child-dropdown-menu-item {
+	left: 3vw !important;
+}

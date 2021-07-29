@@ -1,0 +1,28 @@
+<advenium-payer-filter [filterId]="filterId"></advenium-payer-filter>
+<advenium-validation-message [service]="validationService"></advenium-validation-message>
+<advenium-data-list
+	[gridId]="gridId"
+	[filterId]="filterId"
+	[controller]="'payer'"
+	[columns]="columns()"
+	[group]="group()"
+	showModify="true"
+	showDuplicate="true"
+	showRemove="true"
+	[createButton]="createButton()"
+	(editItem)="openDetails($event)"
+	(duplicateItem)="openDuplicate($event)"
+	(removeItem)="remove($event)"
+	(createItem)="openNewItem($event)"
+	[showCheck]="true"
+	[showFilterButton]="true"
+	[buttons]="[
+		{ title: 'test 1', position: 'left' },
+		{ title: 'test 2', position: 'left' },
+		{ title: 'test 3', position: 'right' },
+		{ title: 'test 4', position: 'right' }
+	]"
+>
+</advenium-data-list>
+<advenium-payer-details *ngIf="payerModel" [model]="payerModel" (savePayer)="onSave($event)">
+</advenium-payer-details>

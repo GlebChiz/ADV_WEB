@@ -1,0 +1,14 @@
+<a
+	*ngIf="allow"
+	href="javascript:void(0);"
+	(click)="onClick()"
+	class="fa fa-plus k-link # if (!&quot; + allow + &quot;) { # hidden # } #"
+	title="Add"
+></a>
+<a
+	*ngIf="!allow"
+	href="javascript:void(0);"
+	(click)="onClick()"
+	class="fa fa-plus k-link"
+	title="Add"
+></a>

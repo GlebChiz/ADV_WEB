@@ -1,0 +1,29 @@
+<div *ngIf="false">
+	<div *ngFor="let page of pages" style="position: relative; width: 50%">
+		<img style="width: 100%; border: 1px solid green" src="{{ page }}" />
+	</div>
+</div>
+
+<div *ngIf="data" class="center w-100">
+	<div class="wcenter">
+		<input
+			#range
+			style="width: 100%; display: block"
+			type="range"
+			value="{{ zoom }}"
+			min="0.1"
+			max="1"
+			step="0.1"
+			(input)="this.zoom = range.value"
+		/>
+	</div>
+	<pdf-viewer
+		[src]="data"
+		[original-size]="false"
+		[autoresize]="true"
+		[show-borders]="true"
+		[show-all]="true"
+		[zoom]="zoom"
+	>
+	</pdf-viewer>
+</div>

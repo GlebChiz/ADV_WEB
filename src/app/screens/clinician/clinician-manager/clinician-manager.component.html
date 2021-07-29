@@ -1,0 +1,18 @@
+<advenium-clinician-filter [filterId]="filterId"> </advenium-clinician-filter>
+<advenium-clinician-details
+	*ngIf="clinicianModel$ | async"
+	[isEditMode]="'true'"
+	[model]="clinicianModel$ | async"
+	(cancelEditing)="closeEditor()"
+	(reloadData)="reloadGrid()"
+>
+</advenium-clinician-details>
+
+<advenium-data-list
+	[gridId]="gridId"
+	[filterId]="filterId"
+	[controller]="'clinician'"
+	[createButton]="createButton()"
+	[columns]="columns()"
+>
+</advenium-data-list>

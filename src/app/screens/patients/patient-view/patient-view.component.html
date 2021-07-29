@@ -1,0 +1,10 @@
+<advenium-patient-details
+	*ngIf="this.showDetails === true"
+	[isEditMode]="'true'"
+	[personId]="this.personId"
+	[patientId]="this.patientId"
+	(cancelEditing)="closeEditor()"
+	(reloadData)="reloadData()"
+	[fragment]="this.fragment"
+>
+</advenium-patient-details>

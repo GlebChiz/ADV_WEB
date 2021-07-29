@@ -1,0 +1,52 @@
+.ng2-pdf-viewer-container {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.wcenter {
+	margin: auto;
+	width: 50%;
+	padding: 10px;
+}
+.container1 {
+	margin: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+#input-form {
+	position: absolute;
+	z-index: 1;
+	& input {
+		position: absolute;
+		background: transparent;
+		border: 1px solid red;
+	}
+}
+
+.input-page {
+	position: relative;
+	border: 1px solid blue;
+	padding: 0px;
+	margin: 0px;
+}
+.input-field {
+	position: absolute;
+	background: #dde4ff;
+	border: 0px;
+	z-index: 100;
+}
+
+pdf-viewer {
+	display: block;
+	margin: 0px;
+	padding: 0px;
+}
+
+.pdfViewer .page {
+	border: 0px !important;
+	border-image: none !important;
+}

@@ -1,0 +1,100 @@
+<kendo-dialog
+	[title]="title()"
+	(close)="closeEditDialog('cancel')"
+	[minWidth]="500"
+	[width]="600"
+	*ngIf="model"
+>
+	<advenium-validation-message [service]="validationService"></advenium-validation-message>
+	<form [formGroup]="myForm" novalidate>
+		<div>
+			<div class="p10 form">
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100">
+							<advenium-label [metaData]="metaData" field="name"></advenium-label><br />
+							<input
+								name="name"
+								formControlName="name"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100">
+							<advenium-label [metaData]="metaData" field="carrierCode"></advenium-label>
+							<br />
+							<input
+								name="carrierCode"
+								formControlName="carrierCode"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100">
+							<advenium-label [metaData]="metaData" field="type"></advenium-label><br />
+							<kendo-combobox
+								valueField="id"
+								style="min-width: 200px; width: 100%"
+								textField="name"
+								[data]="payerTypes"
+								[kendoDropDownFilter]="filterSettings"
+								formControlName="type"
+								[valuePrimitive]="true"
+							>
+							</kendo-combobox>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100">
+							<advenium-label [metaData]="metaData" field="payerId"></advenium-label><br />
+							<input
+								name="payerId"
+								formControlName="payerId"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100">
+							<advenium-label [metaData]="metaData" field="notes"></advenium-label><br />
+							<textarea
+								name="notes"
+								formControlName="notes"
+								kendoTextBox
+								class="k-textarea"
+								style="width: 100%"
+							>
+							</textarea>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix">
+					<advenium-address formControlName="address" name="address"></advenium-address>
+				</div>
+			</div>
+		</div>
+	</form>
+	<kendo-dialog-actions>
+		<button kendoButton (click)="cancel()">Cancel</button>
+		<button kendoButton (click)="submit()" primary="true">Save</button>
+	</kendo-dialog-actions>
+</kendo-dialog>

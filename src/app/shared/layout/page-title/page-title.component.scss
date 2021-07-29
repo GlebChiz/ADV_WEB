@@ -1,0 +1,25 @@
+@import '../../../variables.scss';
+
+#page-title {
+	/* Projects */
+	position: absolute;
+	width: 50.75vw;
+	height: 32px;
+	left: 22.19vw;
+	top: pxPlusVw($headerHeight - $titleHeight, 4.625);
+	font-family: Poppins;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 36px;
+	/* identical to box height, or 150% */
+	letter-spacing: 1px;
+	/* BW / Black */
+	color: #0e1317;
+}
+
+@media screen and (max-width: 768px) {
+	#page-title {
+		left: 6.57vw !important;
+	}
+}

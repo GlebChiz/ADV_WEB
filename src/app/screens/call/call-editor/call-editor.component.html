@@ -1,0 +1,197 @@
+<form [formGroup]="myForm" *ngIf="myForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="validation" *ngIf="errors">
+				<div class="validation-summary-errors">
+					<ul>
+						<li *ngFor="let error of errors">{{ error }}</li>
+					</ul>
+				</div>
+			</div>
+			<div class="confirmation" *ngIf="messages">
+				<div class="validation-summary-messages">
+					<ul>
+						<li *ngFor="let message of messages">{{ message }}</li>
+					</ul>
+				</div>
+			</div>
+			<div>
+				<input type="hidden" formControlName="callTime" />
+				<div class="clearfix">
+					<div class="column" style="width: 150px">Call accepted</div>
+					<div class="column">{{ formatCallTime(model?.callTime) }}</div>
+				</div>
+				<div class="clearfix">
+					<div class="column" style="width: 150px">From</div>
+					<div class="column">
+						<kendo-maskedtextbox
+							[mask]="phoneMask"
+							formControlName="fromPhone"
+							style="width: 150px"
+						>
+						</kendo-maskedtextbox>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="column" style="width: 150px">To</div>
+					<div class="column">
+						<kendo-maskedtextbox [mask]="phoneMask" formControlName="toPhone" style="width: 150px">
+						</kendo-maskedtextbox>
+					</div>
+				</div>
+			</div>
+			<input type="hidden" formControlName="endTime" />
+			<div class="clearfix" *ngIf="model?.endTime">
+				<div class="column" style="width: 150px">Call ended at</div>
+				<div class="column">
+					<div>
+						<span>{{ formatCallTime(model?.endTime) }}</span>
+						<span class="mL15">Duration: {{ model?.duration }}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="clearfix" *ngIf="!model?.endTime">
+				<a href="javascript:void(0);" (click)="endCall()" class="k-button" title="End Call"
+					>End Call</a
+				>
+			</div>
+			<div class="clearfix">
+				<div class="column" style="width: 150px">
+					<advenium-label [metaData]="metaData" field="callerType"></advenium-label>
+				</div>
+				<div class="column">
+					<div class="column">
+						<advenium-button-selector
+							[disabled]="!isNew()"
+							[items]="callerTypes"
+							textField="name"
+							valueField="id"
+							formControlName="callerType"
+							style="min-width: 300px; width: 100%"
+							[defaultValue]="0"
+						></advenium-button-selector>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="column" style="width: 150px">
+					<advenium-label [metaData]="metaData" style="width: 100px" field="areaId">
+					</advenium-label>
+				</div>
+				<div class="column">
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 300px; width: 100%"
+						textField="title"
+						[data]="areas"
+						[kendoDropDownFilter]="filterSettings"
+						formControlName="areaId"
+						[valuePrimitive]="true"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="column" style="width: 150px">
+					<advenium-label [metaData]="metaData" style="width: 100px" field="callerId">
+					</advenium-label>
+				</div>
+				<div class="column">
+					<input
+						formControlName="callerId"
+						kendoTextBox
+						class="k-textbox"
+						style="width: 300px"
+						maxlength="250"
+					/>
+				</div>
+			</div>
+			<div *ngIf="isNew(); else hideperson">
+				<div class="clearfix">
+					<div class="column" style="width: 150px">
+						<advenium-label [metaData]="metaData" field="firstname"> </advenium-label>
+					</div>
+					<div class="column">
+						<input
+							formControlName="firstname"
+							kendoTextBox
+							class="k-textbox"
+							style="min-width: 300px; width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="column" style="width: 150px">
+						<advenium-label [metaData]="metaData" field="middlename"> </advenium-label>
+					</div>
+					<div class="column">
+						<input
+							formControlName="middlename"
+							kendoTextBox
+							class="k-textbox"
+							style="min-width: 300px; width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="column" style="width: 150px">
+						<advenium-label [metaData]="metaData" field="lastname"> </advenium-label>
+					</div>
+					<div class="column">
+						<input
+							formControlName="lastname"
+							kendoTextBox
+							class="k-textbox"
+							style="min-width: 300px; width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<ng-template #hideperson>
+				<input type="hidden" formControlName="firstname" />
+				<input type="hidden" formControlName="middlename" />
+				<input type="hidden" formControlName="lastname" />
+			</ng-template>
+
+			<div class="clearfix">
+				<div class="column" style="width: 150px">
+					<advenium-label [metaData]="metaData" field="notes"></advenium-label>
+				</div>
+				<div class="column">
+					<textarea
+						formControlName="notes"
+						kendoTextBox
+						class="k-textarea"
+						style="min-width: 300px; width: 100%"
+					>
+					</textarea>
+				</div>
+			</div>
+			<div class="clearfix">
+				<div class="column" style="width: 150px">
+					<advenium-label [metaData]="metaData" field="confirmationCode"> </advenium-label>
+				</div>
+				<div class="column">
+					<input
+						formControlName="confirmationCode"
+						kendoTextBox
+						class="k-textbox"
+						style="min-width: 300px; width: 100%"
+						maxlength="4"
+					/>
+				</div>
+			</div>
+			<div class="clearfix" *ngIf="this.model.confirmationCode?.length === 4">
+				<div class="column" style="width: 150px">Share with caller</div>
+				<div class="column" style="width: 100%">
+					<input value="{{ sharedCallUrl() }}" style="width: 100%" />
+					<button kendoButton (click)="copyUrl()">Copy Link</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

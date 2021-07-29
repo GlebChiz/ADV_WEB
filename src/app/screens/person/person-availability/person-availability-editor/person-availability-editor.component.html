@@ -1,0 +1,32 @@
+<form [formGroup]="availabilityForm" novalidate>
+	<div class="clearfix">
+		<div class="k-form-field k-datetime-picker-wrapper">
+			<span>Start Date</span>
+			<kendo-datepicker formControlName="startDate"> </kendo-datepicker>
+			<span>End Date</span>
+			<kendo-datepicker formControlName="endDate"> </kendo-datepicker>
+		</div>
+		<div class="k-form-field k-datetime-picker-wrapper">
+			<span>Start Time</span>
+			<kendo-timepicker formControlName="startTime"> </kendo-timepicker>
+			<span>End Time</span>
+			<kendo-timepicker formControlName="endTime"> </kendo-timepicker>
+		</div>
+		<div class="column">
+			<div>
+				<advenium-label [metaData]="metaData" field="status"></advenium-label>
+				<br />
+				<kendo-combobox
+					valueField="id"
+					style="min-width: 200px; width: 100%"
+					textField="name"
+					[data]="statusLookup"
+					[kendoDropDownFilter]="filterSettings"
+					formControlName="status"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,33 @@
+<kendo-grid class="w-100 mT10 mB10" [data]="this.persons" *ngIf="this.persons">
+	<kendo-grid-column field="title" title="Person">
+		<ng-template kendoGridCellTemplate let-dataItem>
+			{{ dataItem.person.lastname }} {{ dataItem.person.firstname }}
+		</ng-template>
+	</kendo-grid-column>
+	<kendo-grid-column field="matches" title="Matches">
+		<ng-template kendoGridCellTemplate let-dataItem>
+			<div *ngFor="let match of dataItem.matches">
+				<span class="column">{{ match.matchMessage }} </span>
+				<span class="column mL5" style="color: red; font-weight: bold">{{ match.matchValue }}</span>
+			</div>
+		</ng-template>
+	</kendo-grid-column>
+	<kendo-grid-column field="roles" title="Roles">
+		<ng-template kendoGridCellTemplate let-dataItem>
+			<div *ngFor="let role of dataItem.roles">
+				{{ getRoleName(role) }}
+			</div>
+		</ng-template>
+	</kendo-grid-column>
+	<kendo-grid-column field="calls" title="Calls">
+		<ng-template kendoGridCellTemplate let-dataItem>
+			<div *ngFor="let call of dataItem.calls">
+				<a target="_blank" [routerLink]="['/call', call.id]">
+					<span class="column"> {{ formatCallTime(call.callTime) }}</span>
+					<span class="column" *ngIf="call.endTime"> - {{ formatCallTime(model?.endTime) }}</span>
+					<span class="column mL15" *ngIf="call.endTime">Duration: {{ call?.duration }}</span>
+				</a>
+			</div>
+		</ng-template>
+	</kendo-grid-column>
+</kendo-grid>

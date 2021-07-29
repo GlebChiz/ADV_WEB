@@ -1,0 +1,9 @@
+<advenium-person-details
+	*ngIf="this.personModel$ | async"
+	[isEditMode]="'true'"
+	[model]="personModel$ | async"
+	(cancelEditing)="closeEditor()"
+	(reloadData)="reloadData()"
+	[fragment]="this.fragment"
+>
+</advenium-person-details>
