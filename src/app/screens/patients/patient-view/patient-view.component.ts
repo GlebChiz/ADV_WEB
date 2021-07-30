@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Guid } from 'guid-typescript';
@@ -12,14 +12,14 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	selector: 'advenium-patient-view',
 	templateUrl: './patient-view.component.html',
 })
-export class PatientViewComponent implements OnInit, OnChanges, OnDestroy {
+export class PatientViewComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
 	fragment = '';
 
-	patientId!: Guid | string;
+	patientId!: Guid | null;
 
-	personId!: Guid | string;
+	personId!: Guid;
 
 	showDetails = false;
 
@@ -44,9 +44,9 @@ export class PatientViewComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnInit(): void {}
+	// ngOnInit(): void {}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

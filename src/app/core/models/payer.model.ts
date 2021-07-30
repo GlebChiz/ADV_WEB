@@ -1,13 +1,13 @@
 import { Guid } from 'guid-typescript';
-import { Address } from './address.model';
+import { IAddress } from './address.model';
 
-export interface Payer {
+export interface IPayer {
 	id: Guid | null;
 	name: string;
 	notes: string | null;
 	type: string;
 	payerId: string;
-	address: Address | null;
+	address: IAddress | null;
 	phone: string;
 	fax: string;
 	carrierCode: string;

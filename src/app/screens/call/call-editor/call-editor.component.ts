@@ -1,17 +1,15 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable, Subject, Subscription } from 'rxjs';
-import { Call, CallerType, CallPatientIndex, MetaData } from 'src/app/core/models/call.model';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { ICall, CallerType, ICallPatientIndex, MetaData } from 'src/app/core/models/call.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
 
 import { CallActions } from 'src/app/core/store/call/call.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { DropDownService } from 'src/app/shared/services/dropdown.service';
-import { Person, personTitle } from 'src/app/core/models/person.model';
+import { IPerson, personTitle } from 'src/app/core/models/person.model';
 import { formatDate } from '@angular/common';
-import { Guid } from 'guid-typescript';
 import { CheckListItemStatus } from 'src/app/core/enums/checklist.types';
 import { checkListClassName } from 'src/app/core/models/checklist.model';
 import { CallService } from 'src/app/core/services/call.service';
@@ -26,7 +24,7 @@ import { CRMSearchActions } from 'src/app/core/store/crmsearch/crmsearch.actions
 export class CallEditorComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() model!: Call;
+	@Input() model!: ICall;
 
 	@Input() saveEvent!: Observable<void>;
 
@@ -34,13 +32,13 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 
 	private saveSubscription!: Subscription;
 
-	advertisementSources = Array<DropDownData>();
+	advertisementSources = Array<IDropDownData>();
 
-	callerTypes = Array<DropDownData>();
+	callerTypes = Array<IDropDownData>();
 
-	areas = Array<DropDownData>();
+	areas = Array<IDropDownData>();
 
-	patientStatuses = Array<DropDownData>();
+	patientStatuses = Array<IDropDownData>();
 
 	suppressMessages = false;
 
@@ -62,7 +60,7 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 
 	constructor(
 		public _store: Store<IAppState>,
-		private actions$: Actions,
+		// private actions$: Actions,
 		private _dropDownService: DropDownService,
 		private _callService: CallService,
 		private _router: Router,
@@ -145,7 +143,7 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 			notes: new FormControl(this.model.notes || ''),
 			confirmationCode: new FormControl(this.model.confirmationCode || ''),
 		});
-		this.myForm.valueChanges.subscribe((x) => {
+		this.myForm.valueChanges.subscribe(() => {
 			const model = this.getModel();
 			this._store.dispatch(
 				CRMSearchActions.AddPhone({ key: 'call-from-phone', phone: model.fromPhone }),
@@ -173,7 +171,8 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		return this._dropDownService.getName(patient.statusId, this.patientStatuses);
 	}
 
-	availablePatientStatuses(patient: any) {
+	availablePatientStatuses() {
+		// patient: any
 		/* var item = this._dropDownService.getItem(patient.statusId, this.patientStatuses);
         if (item.orderNumber == PatientStatus.Prospective)
             return this._dropDownService.filterByOrderNumbers([PatientStatus.Prospective,
@@ -196,18 +195,18 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		return this.model.callerType === CallerType.Parent;
 	}
 
-	getPatientControl(i: number) {
-		return this.myForm.get('requestedPatients').controls[i];
+	getPatientControl(_i: number) {
+		// return this.myForm.get('requestedPatients').controls[i];
 	}
 
-	getPatientModel(i: number) {
-		const control = this.getPatientControl(i);
+	getPatientModel(_i: number) {
+		// const control = this.getPatientControl(i);
 		const result = {
 			callId: this.model.id,
 			patient: {
-				person: { ...control.value, id: Guid.EMPTY },
+				// person: { ...control.value, id: Guid.EMPTY },
 			},
-		} as CallPatientIndex;
+		} as ICallPatientIndex;
 		return result;
 	}
 
@@ -233,14 +232,14 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 	}
 
 	getCallerTypeName() {
-		return this.callerTypes.filter((x) => x.id === this.model.callerType.toString())[0].name;
+		return this.callerTypes.filter((x) => x.id === this.model.callerType.toString())[0]!.name;
 	}
 
 	submit(): void {
 		this.errors = null;
 		const model = this.getModel();
 		this._callService.updateModel(model).subscribe((result) => {
-			console.log(result);
+			// console.log(result);
 			if (result.isSuccess === false) {
 				this.errors = [result.error];
 			} else {
@@ -252,7 +251,7 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 	}
 
 	formatCallTime(date: Date | null) {
-		return formatDate(date, 'MM/dd/yyyy hh:mm a', 'en-US');
+		return formatDate(date!, 'MM/dd/yyyy hh:mm a', 'en-US');
 	}
 
 	getModel(): any {
@@ -286,7 +285,7 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 				lastname: value.lastname,
 				firstname: value.firstname,
 				middlename: value.middlename,
-			} as Person,
+			} as IPerson,
 			patients: [],
 		};
 

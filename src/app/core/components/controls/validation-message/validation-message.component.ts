@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
 
@@ -7,7 +7,7 @@ import { ValidationMessageService } from 'src/app/core/services/validation.messa
 	selector: 'advenium-validation-message',
 	templateUrl: './validation-message.component.html',
 })
-export class ValidationMessageComponent implements OnInit, OnChanges, OnDestroy {
+export class ValidationMessageComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
 	errors: string[] | null = null;
@@ -18,7 +18,7 @@ export class ValidationMessageComponent implements OnInit, OnChanges, OnDestroy 
 
 	@Input() service!: ValidationMessageService;
 
-	constructor() {}
+	// constructor() {}
 
 	ngOnInit(): void {
 		if (this.service) {
@@ -28,7 +28,7 @@ export class ValidationMessageComponent implements OnInit, OnChanges, OnDestroy 
 		}
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

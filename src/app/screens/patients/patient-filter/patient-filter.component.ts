@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
 import { FilterActions } from 'src/app/core/store/filter/filter.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { DropDownService } from 'src/app/shared/services/dropdown.service';
@@ -20,7 +20,7 @@ export class PatientFilterComponent implements OnInit {
 
 	filterForm!: FormGroup;
 
-	patientStatusesData = Array<DropDownData>();
+	patientStatusesData = Array<IDropDownData>();
 
 	@Input() filterId!: string;
 
@@ -41,7 +41,7 @@ export class PatientFilterComponent implements OnInit {
 			.subscribe((x) => (this.patientStatusesData = x));
 	}
 
-	onKeyDown(pressedKey) {
+	onKeyDown(pressedKey: KeyboardEvent) {
 		if (pressedKey.key === 'Enter') {
 			this.filter();
 		}
@@ -54,9 +54,9 @@ export class PatientFilterComponent implements OnInit {
 	}
 
 	reset(): void {
-		if (!confirm('Are you sure you want to reset Filters?')) {
-			return;
-		}
+		// if (!confirm('Are you sure you want to reset Filters?')) {
+		// 	return;
+		// }
 
 		this.filterForm.reset();
 		this.filter();

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { EMPTY, of } from 'rxjs';
 import { switchMap, map, catchError, mergeMap } from 'rxjs/operators';
 import { PersonGridService } from 'src/app/core/services/person.service';
-import { GeneralPersonData } from '../../models/person.model';
-import { IAppState } from '../state/app.state';
+import { IGeneralPersonData } from '../../models/person.model';
 import { PersonActions } from './person.actions';
 
 @Injectable()
@@ -107,7 +105,7 @@ export class PersonEffects {
 		this.actions$.pipe(
 			ofType(PersonActions.UpdateGeneralPersonData),
 			switchMap((payload) =>
-				this.gridService.updatePersonGeneral(payload as GeneralPersonData).pipe(
+				this.gridService.updatePersonGeneral(payload as IGeneralPersonData).pipe(
 					map((result) => {
 						if (result && result.isValid === true) {
 							return PersonActions.UpdatePersonComplete();
@@ -167,9 +165,5 @@ export class PersonEffects {
 		),
 	);
 
-	constructor(
-		private store: Store<IAppState>,
-		private actions$: Actions,
-		private gridService: PersonGridService,
-	) {}
+	constructor(private actions$: Actions, private gridService: PersonGridService) {}
 }

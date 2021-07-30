@@ -7,7 +7,7 @@ import { CommonGridService } from 'src/app/core/services/grid.service';
 import { FilterActions } from 'src/app/core/store/filter/filter.actions';
 import { GridActions } from 'src/app/core/store/grid/grid.actions';
 import { selectGridInfo } from 'src/app/core/store/grid/grid.selectors';
-import { GridInfo } from 'src/app/core/store/grid/grid.state';
+import { IGridInfo } from 'src/app/core/store/grid/grid.state';
 
 import { IAppState } from 'src/app/core/store/state/app.state';
 
@@ -17,14 +17,14 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	styleUrls: ['./grid-settings-chooser.component.scss'],
 	encapsulation: ViewEncapsulation.None,
 })
-export class GridSettingsChooserComponent implements OnInit, OnDestroy {
+export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
 	@Input() gridId!: string;
 
 	@Input() filterId!: string;
 
-	lookup: GridInfo[] = [];
+	lookup: IGridInfo[] = [];
 
-	currentId: Guid | null = null;
+	currentId!: Guid;
 
 	currentTitle!: string;
 
@@ -98,7 +98,7 @@ export class GridSettingsChooserComponent implements OnInit, OnDestroy {
 		return list;
 	}
 
-	onSave(result: any, id: Guid | string) {
+	onSave(result: any, id: Guid | string | null) {
 		if (result.isSuccess === true) {
 			this.setCurrent(id, 'last');
 		}
@@ -112,11 +112,11 @@ export class GridSettingsChooserComponent implements OnInit, OnDestroy {
 				if (s.columns) {
 					if (!s.id || s.id.toString() === Guid.EMPTY || duplicate === true) {
 						s.id = Guid.EMPTY;
-						this._service.createGridSettings(s).subscribe((result) => {
+						this._service.createIGridSettings(s).subscribe((result) => {
 							this.onSave(result, null);
 						});
 					} else {
-						this._service.updateGridSettings(s).subscribe((result) => {
+						this._service.updateIGridSettings(s).subscribe((result) => {
 							this.onSave(result, s.id);
 						});
 					}
@@ -126,7 +126,7 @@ export class GridSettingsChooserComponent implements OnInit, OnDestroy {
 
 	makeDefault() {
 		if (this.currentId) {
-			this._service.makeGridSettingsDefault(this.currentId).subscribe((result) => {
+			this._service.makeIGridSettingsDefault(this.currentId).subscribe((result) => {
 				this.onSave(result, this.currentId);
 			});
 		}
@@ -143,21 +143,24 @@ export class GridSettingsChooserComponent implements OnInit, OnDestroy {
 			case 'default':
 				this.makeDefault();
 				break;
+			default:
+				break;
 		}
 	}
 
-	setCurrent(id: Guid | string, type: string | null) {
+	setCurrent(id: Guid | string | null, type: string | null) {
 		this._service.getGridViews(this.gridId).subscribe((x) => {
 			this.lookup = x;
 			if (x && x.length > 0) {
 				const gridInfo$ = this._store
 					.pipe(select(selectGridInfo, { gridId: this.gridId }))
 					.pipe(take(2));
+				// eslint-disable-next-line no-nested-ternary
 				const action$ = id
-					? this._service.getGridSettings(id)
+					? this._service.getIGridSettings(id)
 					: type === 'default'
-					? this._service.getDefaultGridSettings(this.gridId)
-					: this._service.getLastGridSettings(this.gridId);
+					? this._service.getDefaultIGridSettings(this.gridId)
+					: this._service.getLastIGridSettings(this.gridId);
 				combineLatest([gridInfo$, action$]).subscribe(([grid, settings]) => {
 					let info = this._service.getGridInfo(Object.values(grid.columns), this.gridId);
 					info = this._service.mergeGridInfo(info, settings);

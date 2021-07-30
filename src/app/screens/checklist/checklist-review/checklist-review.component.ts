@@ -1,59 +1,62 @@
-import {
-	Component,
-	EventEmitter,
-	Input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	Output,
-} from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
 import { CheckListItemStatus } from 'src/app/core/enums/checklist.types';
-import { CheckList, CheckListReviewGroup } from 'src/app/core/models/checklist.model';
+import { ICheckList, ICheckListReviewGroup } from 'src/app/core/models/checklist.model';
 import { CallService } from 'src/app/core/services/call.service';
-import { IAppState } from 'src/app/core/store/state/app.state';
 
 @Component({
 	providers: [],
 	selector: 'advenium-checklist-review',
 	templateUrl: './checklist-review.component.html',
 })
-export class ChecklistReviewComponent implements OnInit, OnChanges, OnDestroy {
+export class ChecklistReviewComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() id!: Guid;
+	@Input() id!: Guid | null;
 
 	@Output() edit: EventEmitter<any> = new EventEmitter();
 
-	checkList!: CheckList;
+	checkList!: ICheckList;
 
-	constructor(private _store: Store<IAppState>, private _callService: CallService) {}
+	constructor(
+		// private _store: Store<IAppState>,
+		private _callService: CallService,
+	) {}
 
 	ngOnInit(): void {
-		this._callService.getChecklist(this.id).subscribe((x) => {
+		this._callService.getChecklist(this.id!).subscribe((x) => {
 			this.checkList = x;
 		});
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();
 	}
 
 	getStatusClassName(status: CheckListItemStatus) {
-		return status === CheckListItemStatus.Empty
-			? 'dot-empty'
-			: status === CheckListItemStatus.Completed
-			? 'dot-completed'
-			: status === CheckListItemStatus.InProgress
-			? 'dot-in-progress'
-			: 'dot-hidden';
+		switch (status) {
+			case CheckListItemStatus.Empty:
+				return 'dot-empty';
+			case CheckListItemStatus.Completed:
+				return 'dot-completed';
+			case CheckListItemStatus.InProgress:
+				return 'dot-in-progress';
+			default:
+				return 'dot-hidden';
+		}
+		// return status === CheckListItemStatus.Empty
+		// 	? 'dot-empty'
+		// 	: status === CheckListItemStatus.Completed
+		// 	? 'dot-completed'
+		// 	: status === CheckListItemStatus.InProgress
+		// 	? 'dot-in-progress'
+		// 	: 'dot-hidden';
 	}
 
-	onEdit(e: any, reviewGroup: CheckListReviewGroup) {
+	onEdit(e: any, reviewGroup: ICheckListReviewGroup) {
 		e.preventDefault();
 		this.edit.emit({
 			checkListId: this.id,

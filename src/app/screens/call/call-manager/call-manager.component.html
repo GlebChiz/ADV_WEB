@@ -3,11 +3,11 @@
 		<advenium-call-editor
 			[model]="this.model"
 			[saveEvent]="beforeNext.asObservable()"
-			(confirmSave)="confirmSave($event)"
+			(confirmSave)="confirmSave()"
 		>
 		</advenium-call-editor>
 	</div>
-	<div *ngIf="currentStep.controlType.startsWith('children')" class="clearfix">
+	<div *ngIf="currentStep!.controlType.startsWith('children')" class="clearfix">
 		<div class="column grey">
 			<h4>Children</h4>
 		</div>
@@ -16,70 +16,70 @@
 		</div>
 		<hr class="clearfix" />
 		<advenium-call-patient
-			[callPatients]="getPatientIndexes(currentStep)"
-			[title]="getPatientTitle(currentStep)"
+			[callPatients]="getPatientIndexes(currentStep!)"
+			[title]="getPatientTitle(currentStep!)"
 			[saveEvent]="beforeNext.asObservable()"
-			(confirmSave)="confirmSave($event)"
+			(confirmSave)="confirmSave()"
 			(deletePatient)="deletePatient()"
 		>
 		</advenium-call-patient>
 	</div>
-	<div *ngIf="currentStep.controlType === 'person-general'">
+	<div *ngIf="currentStep!.controlType === 'person-general'">
 		<h1>Personal Info</h1>
-		<h3>{{ currentStep.person?.firstname }} {{ currentStep.person?.lastname }}</h3>
+		<h3>{{ currentStep!.person?.firstname }} {{ currentStep!.person?.lastname }}</h3>
 		<div>
 			<span class="column">Area:</span>
 			<advenium-patient-area-button
 				class="column mL5"
-				[patientId]="currentStep.patientId"
-				[areaId]="currentStep.patientAreaId"
+				[patientId]="currentStep!.patientId"
+				[areaId]="currentStep!.patientAreaId"
 			></advenium-patient-area-button>
 		</div>
 	</div>
-	<div *ngIf="currentStep.controlType === 'demographic'">
+	<div *ngIf="currentStep!.controlType === 'demographic'">
 		<h1>Demographic</h1>
-		<h3>{{ currentStep.person?.firstname }} {{ currentStep.person?.lastname }}</h3>
+		<h3>{{ currentStep!.person?.firstname }} {{ currentStep!.person?.lastname }}</h3>
 	</div>
-	<div *ngIf="currentStep.controlType === 'contacts'">
+	<div *ngIf="currentStep!.controlType === 'contacts'">
 		<h1>Contacts</h1>
-		<h3>{{ currentStep.person?.firstname }} {{ currentStep.person?.lastname }}</h3>
+		<h3>{{ currentStep!.person?.firstname }} {{ currentStep!.person?.lastname }}</h3>
 	</div>
-	<div *ngIf="currentStep.controlType === 'insurance'">
+	<div *ngIf="currentStep!.controlType === 'insurance'">
 		<h1>Insurance</h1>
-		<h3>{{ currentStep.person?.firstname }} {{ currentStep.person?.lastname }}</h3>
+		<h3>{{ currentStep!.person?.firstname }} {{ currentStep!.person?.lastname }}</h3>
 	</div>
-	<div *ngIf="currentStep.controlType === 'intake-schedule'">
+	<div *ngIf="currentStep!.controlType === 'intake-schedule'">
 		<h1>Intake Schedule</h1>
 		<advenium-intake-scheduler
 			[patientIds]="getIntakeSchedulePatients(currentStep)"
 		></advenium-intake-scheduler>
 	</div>
-	<div *ngIf="currentStep.controlType === 'modality'">
+	<div *ngIf="currentStep!.controlType === 'modality'">
 		<h1>Modality Selection</h1>
-		<h3>{{ currentStep.person?.firstname }} {{ currentStep.person?.lastname }}</h3>
+		<h3>{{ currentStep!.person?.firstname }} {{ currentStep!.person?.lastname }}</h3>
 	</div>
-	<div *ngIf="currentStep.controlType === 'forms'">
-		<h5>Forms for {{ currentStep.person?.firstname }} {{ currentStep.person?.lastname }}</h5>
+	<div *ngIf="currentStep!.controlType === 'forms'">
+		<h5>Forms for {{ currentStep!.person?.firstname }} {{ currentStep!.person?.lastname }}</h5>
 		<advenium-patient-forms
 			class="mT10"
-			[personId]="currentStep.personId"
+			[personId]="currentStep!.personId!"
 			[formGroupTypes]="getIntakeGroupTypes()"
 		></advenium-patient-forms>
 	</div>
-	<div *ngIf="currentStep.controlType === 'availability'">
+	<div *ngIf="currentStep!.controlType === 'availability'">
 		<h1>Availability</h1>
-		<h3>{{ currentStep.person?.firstname }} {{ currentStep.person?.lastname }}</h3>
+		<h3>{{ currentStep!.person?.firstname }} {{ currentStep!.person?.lastname }}</h3>
 		<advenium-person-availability
-			[filter]="getPatientAvailabilityFilter(currentStep)"
+			[filter]="getPatientAvailabilityFilter(currentStep!)"
 		></advenium-person-availability>
 	</div>
-	<div *ngIf="currentStep.controlType === 'review'">
+	<div *ngIf="currentStep!.controlType === 'review'">
 		<advenium-checklist-review
-			[id]="currentStep.checkList?.id"
+			[id]="currentStep!.checkList?.id!"
 			(edit)="gotoCheckList($event)"
 		></advenium-checklist-review>
 	</div>
-	<div *ngIf="currentStep.controlType === 'full-review'">
+	<div *ngIf="currentStep!.controlType === 'full-review'">
 		<div *ngFor="let review of this.reviews">
 			<h4>{{ review.title }}</h4>
 			<advenium-checklist-review
@@ -90,19 +90,19 @@
 	</div>
 	<button
 		kendoButton
-		(click)="changeStep($event, currentStep.back)"
+		(click)="changeStep($event, currentStep!.back)"
 		class="back-button"
-		*ngIf="currentStep.back"
+		*ngIf="currentStep!.back"
 	>
 		Back
 	</button>
 	<button kendoButton (click)="save()" class="save-button" [primary]="false">Save</button>
 	<button
 		kendoButton
-		(click)="changeStep($event, currentStep.next)"
+		(click)="changeStep($event, currentStep!.next)"
 		class="next-button"
 		[primary]="true"
-		*ngIf="currentStep.next || currentStep.gotoNext === true"
+		*ngIf="currentStep!.next || currentStep!.gotoNext === true"
 	>
 		Next Step
 	</button>

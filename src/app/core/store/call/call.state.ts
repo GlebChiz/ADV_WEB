@@ -1,8 +1,8 @@
-import { Call } from '../../models/call.model';
+import { ICall } from '../../models/call.model';
 
 export interface ICallState {
-	call: Call | null;
-	activeCall: Call | null;
+	call: ICall | null;
+	activeCall: ICall | null;
 }
 
 export const initialCallState: ICallState = {

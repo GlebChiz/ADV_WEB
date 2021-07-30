@@ -1,10 +1,10 @@
-export interface ColumnFilter {
+export interface IColumnFilter {
 	column: string;
 	data: any;
 	type: ColumnFilterType;
-	dataType: ColumnFilterDataType;
+	dataType: IColumnFilterDataType;
 }
-export interface ColumnSort {
+export interface IColumnSort {
 	order: number;
 	column: string;
 	direction: SortDirection;
@@ -15,7 +15,7 @@ export enum SortDirection {
 	Asc = 1,
 	Desc = 2,
 }
-export enum ColumnFilterDataType {
+export enum IColumnFilterDataType {
 	String = 0,
 	Date = 1,
 	Interval = 2,
@@ -48,16 +48,16 @@ export const ColumnFilterTypeNames = [
 	'Empty',
 ];
 
-export interface StringSubFilter {
+export interface IStringSubFilter {
 	type: ColumnFilterType;
 	value: string;
 }
 
-export interface DateSubFilter {
+export interface IDateSubFilter {
 	type: ColumnFilterType;
 	date: Date;
 }
-export interface IntervalSubFilter {
+export interface IIntervalSubFilter {
 	type: ColumnFilterType;
 	from: Date;
 	to: Date;

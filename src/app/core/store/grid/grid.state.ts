@@ -1,5 +1,9 @@
 import { Guid } from 'guid-typescript';
-import { ColumnFilter, ColumnSort, SortDirection } from '../../models/filters/column-filter.model';
+import {
+	IColumnFilter,
+	IColumnSort,
+	SortDirection,
+} from '../../models/filters/column-filter.model';
 
 export interface IGridState {
 	gridData: any;
@@ -26,16 +30,16 @@ export const initialGridState: IGridState = {
 	gridUpdate: {},
 	gridSorting: {},
 };
-export interface GridInfo {
+export interface IGridInfo {
 	id: Guid | string;
 	title: string;
 	gridId: string;
 	isDefault: boolean;
-	columns: GridColumnInfo[];
-	filters: ColumnFilter[];
-	sorting: ColumnSort[];
+	columns: IGridColumnInfo[];
+	filters: IColumnFilter[];
+	sorting: IColumnSort[] | any;
 }
-export interface GridColumnInfo {
+export interface IGridColumnInfo {
 	name: string;
 	title: string;
 	visible: boolean;
@@ -49,13 +53,13 @@ export interface GridColumnInfo {
 	sortOrder: number | null;
 }
 
-export interface GridButtonInfo {
+export interface IGridButtonInfo {
 	title: string;
 	name: string;
 	position: string;
 }
 
-export interface GridSettings {
+export interface IGridSettings {
 	id: Guid;
 	title: string;
 	gridId: string;

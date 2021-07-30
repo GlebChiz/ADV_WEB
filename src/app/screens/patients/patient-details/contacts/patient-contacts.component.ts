@@ -6,9 +6,9 @@ import { Guid } from 'guid-typescript';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
 import { MetaData } from 'src/app/core/models/patient.model';
-import { PersonContactsData } from 'src/app/core/models/person.model';
+import { IPersonContactsData } from 'src/app/core/models/person.model';
 import { PersonActions } from 'src/app/core/store/person/person.actions';
 import { selectPersonContactsModel } from 'src/app/core/store/person/person.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -28,15 +28,15 @@ export class PatientContactsComponent
 		operator: 'contains',
 	};
 
-	@Input() personId!: string | Guid;
+	@Input() personId!: null | Guid;
 
 	@Input() isSelected = false;
 
 	@Input() saveEvent!: Observable<void>;
 
-	phonePolicyLookup = Array<DropDownData>();
+	phonePolicyLookup = Array<IDropDownData>();
 
-	phoneTypeLookup = Array<DropDownData>();
+	phoneTypeLookup = Array<IDropDownData>();
 
 	contactsForm!: FormGroup;
 
@@ -46,7 +46,7 @@ export class PatientContactsComponent
 
 	private _destroy$ = new Subject();
 
-	personContactsModel$: Observable<PersonContactsData> | null = null;
+	personContactsModel$: Observable<IPersonContactsData> | null = null;
 
 	constructor(public _store: Store<IAppState>, private _dropDownService: DropDownService) {
 		super();
@@ -55,15 +55,15 @@ export class PatientContactsComponent
 	ngOnInit(): void {
 		this._dropDownService
 			.getLookup(LookupTypeCodes.phonePolicy)
-			.subscribe((x: DropDownData[]) => (this.phonePolicyLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.phonePolicyLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.phoneType)
-			.subscribe((x: DropDownData[]) => (this.phoneTypeLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.phoneTypeLookup = x));
 
 		this._store.dispatch(PersonActions.GetPersonContactsData({ id: this.personId }));
 
 		this.personContactsModel$ = this._store.pipe(
-			select(selectPersonContactsModel),
+			select<any, any>(selectPersonContactsModel),
 			takeUntil(this._destroy$),
 		);
 
@@ -74,7 +74,7 @@ export class PatientContactsComponent
 		});
 	}
 
-	initForm(personContactsModel: PersonContactsData): void {
+	initForm(personContactsModel: IPersonContactsData): void {
 		if (personContactsModel != null) {
 			this.contactsForm = new FormGroup({
 				id: new FormControl(this.personId || ''),
@@ -90,7 +90,7 @@ export class PatientContactsComponent
 				otherPhonePolicyId: new FormControl(personContactsModel.otherPhonePolicyId),
 			});
 
-			this.contactsForm.valueChanges.subscribe((x) => {
+			this.contactsForm.valueChanges.subscribe(() => {
 				this.submitForm();
 			});
 		}

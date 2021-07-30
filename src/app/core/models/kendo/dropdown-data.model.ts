@@ -1,4 +1,4 @@
-export interface DropDownData {
+export interface IDropDownData {
 	id: string;
 	name: string;
 	isDisabled: boolean;

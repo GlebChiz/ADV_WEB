@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { PermissionType } from './core/enums/permission.type';
-import { User } from './core/models/user.model';
+import { IUser } from './core/models/user.model';
 import { CallActions } from './core/store/call/call.actions';
 import { IAppState } from './core/store/state/app.state';
 import { AuthUserActions } from './core/store/user/user.actions';
@@ -16,7 +16,7 @@ import { AuthenticationService } from './shared/services';
 export class AppComponent {
 	title = 'NG';
 
-	currentUser!: User;
+	currentUser!: IUser | null;
 
 	constructor(
 		private router: Router,

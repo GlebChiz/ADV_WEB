@@ -1,28 +1,25 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, Subject } from 'rxjs';
-import { Call, CallerType } from 'src/app/core/models/call.model';
+import { Subject } from 'rxjs';
+import { ICall } from 'src/app/core/models/call.model';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { CallActions } from 'src/app/core/store/call/call.actions';
-import { selectActiveCall, selectCall } from 'src/app/core/store/call/call.selectors';
+import { selectCall } from 'src/app/core/store/call/call.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
-import { AuthenticationService } from 'src/app/shared/services';
 
 @Component({
 	templateUrl: './call-open.component.html',
 	providers: [],
 })
-export class OpenCallComponent implements OnInit, OnChanges, OnDestroy {
+export class OpenCallComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	call!: Call;
+	call!: ICall;
 
 	constructor(
 		private route: ActivatedRoute,
-		private _store: Store<IAppState>,
-		private router: Router,
-		private auth: AuthenticationService,
+		private _store: Store<IAppState>, // private router: Router, // private auth: AuthenticationService,
 	) {}
 
 	ngOnInit(): void {
@@ -36,7 +33,7 @@ export class OpenCallComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

@@ -3,15 +3,14 @@ import {
 	EventEmitter,
 	Input,
 	OnDestroy,
-	OnInit,
 	Output,
 	ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Guid } from 'guid-typescript';
 import { combineLatest, Subject } from 'rxjs';
-import { DropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
-import { EditingService, ServiceFieldsSettings } from 'src/app/core/models/service.model';
+import { IDropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IEditingService, IServiceFieldsSettings } from 'src/app/core/models/service.model';
 import { addTimezone, fixDate, removeTimezone } from 'src/app/shared/services/date.utils';
 import { DropDownService } from 'src/app/shared/services/dropdown.service';
 
@@ -21,7 +20,7 @@ import { DropDownService } from 'src/app/shared/services/dropdown.service';
 	encapsulation: ViewEncapsulation.None,
 	templateUrl: './service.editor.form.component.html',
 })
-export class ServiceEditorFormComponent implements OnInit, OnDestroy {
+export class ServiceEditorFormComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
 	active = false;
@@ -30,25 +29,25 @@ export class ServiceEditorFormComponent implements OnInit, OnDestroy {
 
 	editForm!: FormGroup;
 
-	@Input() fields!: ServiceFieldsSettings;
+	@Input() fields!: IServiceFieldsSettings;
 
 	@Input() editableFields!: string[];
 
 	@Input() displayedFields!: string[];
 
-	patientLookup!: DropDownData[];
+	patientLookup!: IDropDownData[];
 
-	clinicianLookup!: DropDownData[];
+	clinicianLookup!: IDropDownData[];
 
-	serviceTypeLookup!: DropDownData[];
+	serviceTypeLookup!: IDropDownData[];
 
-	statusLookup!: DropDownData[];
+	statusLookup!: IDropDownData[];
 
-	deliveryTypeLookup!: DropDownData[];
+	deliveryTypeLookup!: IDropDownData[];
 
 	@Output() valueChanged: EventEmitter<any> = new EventEmitter();
 
-	@Input() set event(ev: EditingService) {
+	@Input() set event(ev: IEditingService) {
 		if (ev) {
 			this.patientLookup = ev.patientLookup;
 			this.serviceTypeLookup = ev.serviceTypeLookup;
@@ -77,11 +76,14 @@ export class ServiceEditorFormComponent implements OnInit, OnDestroy {
 		this.valueChanged.emit(value);
 	}
 
-	get event(): EditingService {
+	get event(): IEditingService {
 		return this.editForm.value;
 	}
 
-	constructor(private formBuilder: FormBuilder, private _dropDownService: DropDownService) {}
+	constructor(
+		// private formBuilder: FormBuilder,
+		private _dropDownService: DropDownService,
+	) {}
 
 	initForm(value: any) {
 		if (this.editForm) {
@@ -106,8 +108,8 @@ export class ServiceEditorFormComponent implements OnInit, OnDestroy {
 			this._dropDownService.getServiceDeliveryTypes(),
 			this._dropDownService.getServiceStatuses(),
 		]).subscribe(([xTypes, xStatuses]) => {
-			this.deliveryTypeLookup = xTypes;
-			this.statusLookup = xStatuses;
+			this.deliveryTypeLookup = xTypes as IDropDownData[];
+			this.statusLookup = xStatuses as IDropDownData[];
 			this.active = true;
 		});
 	}
@@ -135,7 +137,7 @@ export class ServiceEditorFormComponent implements OnInit, OnDestroy {
         this.save.emit(value);
     } */
 
-	ngOnInit(): void {}
+	// ngOnInit(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

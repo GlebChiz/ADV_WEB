@@ -7,9 +7,9 @@ import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Guid } from 'guid-typescript';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Insurance, InsuranceOrderType, MetaData } from 'src/app/core/models/insurance.model';
-import { Payer } from 'src/app/core/models/payer.model';
-import { PrivatePersonLink } from 'src/app/core/models/person.model';
+import { IInsurance, InsuranceOrderType, MetaData } from 'src/app/core/models/insurance.model';
+import { IPayer } from 'src/app/core/models/payer.model';
+import { IPrivatePersonLink } from 'src/app/core/models/person.model';
 import { PersonGridService } from 'src/app/core/services/person.service';
 import { PersonActions } from 'src/app/core/store/person/person.actions';
 import { selectPersonPrivateLinks } from 'src/app/core/store/person/person.selectors';
@@ -35,15 +35,15 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 
 	metaData: any = MetaData;
 
-	payers: Payer[] = [];
+	payers: IPayer[] = [];
 
-	holderInsurances: Insurance[] | null = null;
+	holderInsurances: IInsurance[] | null = null;
 
 	showHolderInsurances = false;
 
 	private _destroy$ = new Subject();
 
-	links!: PrivatePersonLink[];
+	links!: IPrivatePersonLink[];
 
 	readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -58,11 +58,11 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		return this.form.value.verificationDate != null;
 	}
 
-	get value(): Insurance {
+	get value(): IInsurance {
 		return this.form.value;
 	}
 
-	set value(value: Insurance) {
+	set value(value: IInsurance) {
 		this.form.setValue(value);
 		this.onChange(value);
 		this.onTouched();
@@ -84,7 +84,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 	}
 
 	private getPayerName(payerId: Guid): string {
-		return this.payers.filter((x) => x.id === payerId)[0].name;
+		return this.payers.filter((x) => x.id === payerId)[0]!.name;
 	}
 
 	private getTitle(type: InsuranceOrderType): string {
@@ -98,7 +98,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		}
 	}
 
-	onHolderChanged(e: any) {
+	onHolderChanged() {
 		this.holderInsurances = null;
 		this.showHolderInsurances = false;
 		this.personService.getInsurances(this.form.value.insuranceHolderId).subscribe((x) => {
@@ -119,11 +119,11 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		return false;
 	}
 
-	insuranceDescription(insurance: Insurance): string {
+	insuranceDescription(insurance: IInsurance): string {
 		return `${this.getTitle(insurance.orderType)}: ${this.getPayerName(insurance.payerId)}`;
 	}
 
-	copyInsurance(insurance: Insurance) {
+	copyInsurance(insurance: IInsurance) {
 		const value = {
 			...this.value,
 			exists: true,
@@ -176,7 +176,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 			}),
 		);
 
-		this.dropDownService.getPayers().subscribe((x) => (this.payers = x));
+		this.dropDownService.getPayers().subscribe((x: IPayer[]) => (this.payers = x));
 	}
 
 	writeValue(obj: any): void {

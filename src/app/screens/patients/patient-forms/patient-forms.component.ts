@@ -4,13 +4,13 @@ import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import {
-	EditingForm,
+	IEditingForm,
+	IFormGroupItem,
 	FormGroupType,
 	FormPersonRole,
-	FormSection,
+	IFormSection,
 } from 'src/app/core/models/form.model';
 import { FormService } from 'src/app/core/services/form.service';
-import { Router } from '@angular/router';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
 import { Guid } from 'guid-typescript';
 
@@ -37,15 +37,14 @@ export class PatientFormsComponent implements OnInit, OnDestroy {
 
 	@Output() confirmSave: EventEmitter<any> = new EventEmitter();
 
-	formSection!: FormSection;
+	formSection!: IFormSection;
 
-	formModel: EditingForm | null = null;
+	formModel: IEditingForm | null = null;
 
 	constructor(
 		public _store: Store<IAppState>,
 		public validationService: ValidationMessageService,
-		private _formService: FormService,
-		private router: Router,
+		private _formService: FormService, // private router: Router,
 	) {}
 
 	ngOnInit(): void {
@@ -79,10 +78,10 @@ export class PatientFormsComponent implements OnInit, OnDestroy {
 	}
 
 	availableFormTypes() {
-		const list = [];
+		const list: Object[] = [];
 
 		this.formSection.groups.forEach((g) => {
-			g.items.forEach((i) => {
+			g.items.forEach((i: IFormGroupItem) => {
 				if (i.formTypeId) {
 					list.push({
 						id: i.formTypeId,
@@ -122,18 +121,18 @@ export class PatientFormsComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	openForm(e: any, formId: Guid) {
+	openForm(e: MouseEvent, formId: Guid) {
 		e.preventDefault();
 		this.loadForm(formId);
 	}
 
-	closeForm(e: any) {
+	closeForm(e: MouseEvent) {
 		e.preventDefault();
 		this.loadFormSection();
 		this.formModel = null;
 	}
 
-	downloadForm(e: any, file) {
+	downloadForm(e: MouseEvent, file: any) {
 		e.preventDefault();
 		this._formService.getPdfFile(file.id).subscribe((response) => {
 			const a = document.createElement('a');

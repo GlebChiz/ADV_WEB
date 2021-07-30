@@ -1,10 +1,10 @@
 import { Guid } from 'guid-typescript';
 import { CheckListItemStatus, CheckListItemType } from '../enums/checklist.types';
-import { CheckList } from './checklist.model';
-import { Patient } from './patient.model';
-import { Person } from './person.model';
+import { ICheckList } from './checklist.model';
+import { IPatient } from './patient.model';
+import { IPerson } from './person.model';
 
-export interface Call {
+export interface ICall {
 	id: Guid;
 	userId: number;
 	callerId: string | null;
@@ -15,18 +15,18 @@ export interface Call {
 	toPhone: string | null;
 	callTime: Date;
 	endTime: Date | null;
-	person: Person;
+	person: IPerson;
 	notes: string | null;
-	patients: CallPatientIndex[];
+	patients: ICallPatientIndex[];
 	requestedPatients: number | null;
 	duration: string;
 	confirmationCode: string | null;
 }
 
-export interface CallPatientIndex {
+export interface ICallPatientIndex {
 	id: Guid;
 	callId: Guid;
-	patient: Patient;
+	patient: IPatient;
 }
 
 export const MetaData = {
@@ -49,10 +49,10 @@ export enum CallerType {
 	Parent = 2,
 }
 
-export interface CallManagerStep {
+export interface ICallManagerStep {
 	id: string;
 	parentStepId: string;
-	person: Person;
+	person: IPerson;
 	personId: Guid | null;
 	patientId: Guid | null;
 	patientStatusId: Guid | null;
@@ -63,10 +63,10 @@ export interface CallManagerStep {
 	controlType: string;
 	status: CheckListItemStatus;
 	type: CheckListItemType | null;
-	back: CallManagerStep;
-	next: CallManagerStep;
+	back: ICallManagerStep;
+	next: ICallManagerStep;
 	left: number;
 	test: boolean;
-	items: CallManagerStep[];
-	checkList: CheckList;
+	items: ICallManagerStep[];
+	checkList: ICheckList;
 }

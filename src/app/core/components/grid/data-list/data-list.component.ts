@@ -10,13 +10,14 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GridDirective } from 'src/app/core/directives/grid.directive';
 import {
-	ColumnFilterDataType,
+	IColumnFilterDataType,
 	ColumnFilterType,
-	DateSubFilter,
-	IntervalSubFilter,
-	StringSubFilter,
+	IColumnSort,
+	IDateSubFilter,
+	IIntervalSubFilter,
+	IStringSubFilter,
 } from 'src/app/core/models/filters/column-filter.model';
-import { User } from 'src/app/core/models/user.model';
+import { IUser } from 'src/app/core/models/user.model';
 import { CommonGridService } from 'src/app/core/services/grid.service';
 import { FilterActions } from 'src/app/core/store/filter/filter.actions';
 import { selectFilterData } from 'src/app/core/store/filter/filter.selectors';
@@ -28,7 +29,7 @@ import {
 	selectGridInfo,
 	selectGridUpdate,
 } from 'src/app/core/store/grid/grid.selectors';
-import { GridButtonInfo, GridColumnInfo, GridInfo } from 'src/app/core/store/grid/grid.state';
+import { IGridButtonInfo, IGridColumnInfo, IGridInfo } from 'src/app/core/store/grid/grid.state';
 
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { selectUser } from 'src/app/core/store/user/user.selectors';
@@ -65,7 +66,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 
 	@Input() createButton!: any;
 
-	@Input() columns!: GridColumnInfo[];
+	@Input() columns!: IGridColumnInfo[];
 
 	@Input() showCheck!: boolean;
 
@@ -75,11 +76,11 @@ export class DataListComponent implements OnInit, OnDestroy {
 
 	@Input() group: any;
 
-	leftButtons: GridButtonInfo[] | null = null;
+	leftButtons: IGridButtonInfo[] | null = null;
 
-	rightButtons: GridButtonInfo[] | null = null;
+	rightButtons: IGridButtonInfo[] | null = null;
 
-	@Input() set buttons(list: GridButtonInfo[]) {
+	@Input() set buttons(list: IGridButtonInfo[]) {
 		const left = list.filter((x) => x.position === 'left');
 		const right = list.filter((x) => x.position === 'right');
 		if (left.length > 0) {
@@ -90,11 +91,11 @@ export class DataListComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	@Input() displayItem!: (column: GridColumnInfo, item: any) => string;
+	@Input() displayItem!: (column: IGridColumnInfo, item: any) => string;
 
-	@Input() clickItem!: (column: GridColumnInfo, item: any) => void;
+	@Input() clickItem!: (column: IGridColumnInfo, item: any) => void;
 
-	@Input() linkArray!: (column: GridColumnInfo, item: any) => any;
+	@Input() linkArray!: (column: IGridColumnInfo, item: any) => any;
 
 	@Output() editItem = new EventEmitter<any>();
 
@@ -112,7 +113,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 
 	gridInfo$: any;
 
-	gridInfo: GridInfo | null = null;
+	gridInfo: IGridInfo | null = null;
 
 	reload$: any;
 
@@ -120,7 +121,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 
 	user$ = this.store.pipe(select(selectUser), takeUntil(this._destroy$));
 
-	user!: User;
+	user!: IUser;
 
 	showGrid = false;
 
@@ -140,14 +141,14 @@ export class DataListComponent implements OnInit, OnDestroy {
 
 	selectedAll$: any;
 
-	click(column: GridColumnInfo, item: any) {
+	click(column: IGridColumnInfo, item: any) {
 		if (this.clickItem) {
 			this.clickItem(column, item);
 		}
 		return false;
 	}
 
-	visibleColumns(): GridColumnInfo[] {
+	visibleColumns(): IGridColumnInfo[] {
 		if (!this.gridInfo?.columns) {
 			return [];
 		}
@@ -164,14 +165,14 @@ export class DataListComponent implements OnInit, OnDestroy {
 		if (this.columns) {
 			let gridInfo = this.service.getGridInfo(this.columns, this.gridId);
 			if (this.gridSettingsId) {
-				this.service.getGridSettings(this.gridSettingsId).subscribe((x) => {
+				this.service.getIGridSettings(this.gridSettingsId).subscribe((x) => {
 					if (x) {
 						gridInfo = this.service.mergeGridInfo(gridInfo, x);
 						this.store.dispatch(GridActions.SetGridInfo({ gridId: this.gridId, grid: gridInfo }));
 					}
 				});
 			} else {
-				this.service.getDefaultGridSettings(this.gridId).subscribe((x) => {
+				this.service.getDefaultIGridSettings(this.gridId).subscribe((x) => {
 					gridInfo = this.service.mergeGridInfo(gridInfo, x);
 					this.store.dispatch(GridActions.SetGridInfo({ gridId: this.gridId, grid: gridInfo }));
 				});
@@ -211,7 +212,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		}
 		this.user$.subscribe((user) => (user ? (this.user = user) : null));
 
-		this.gridInfo$.subscribe((gi: GridInfo | null) => {
+		this.gridInfo$.subscribe((gi: IGridInfo | null) => {
 			if (gi!.columns) {
 				this.gridInfo = gi;
 				if (this.showGrid === false) {
@@ -297,60 +298,108 @@ export class DataListComponent implements OnInit, OnDestroy {
 	}
 
 	private addColumnSorting() {
-		const list = [];
+		const list: (IColumnSort | undefined)[] = [];
 		if (this.gridInfo?.sorting && this.gridInfo?.columns) {
-			for (const key in this.gridInfo.sorting) {
-				if (this.gridInfo.sorting[key]) {
-					const column = this.gridInfo.columns[key];
-					const sorting = this.gridInfo.sorting[key];
+			Object.keys(this.gridInfo.sorting).forEach((_value: string, key: number) => {
+				if (this.gridInfo!.sorting[key]) {
+					const column = this.gridInfo!.columns[key];
+					const sorting = this.gridInfo!.sorting[key];
 					if (column?.sortDirection && sorting!.direction > 0) {
 						list.push(sorting);
 					}
 				}
-			}
+			});
+			// for (const key in this.gridInfo.sorting) {
+			// 	if (this.gridInfo.sorting[key]) {
+			// 		const column = this.gridInfo.columns[key];
+			// 		const sorting = this.gridInfo.sorting[key];
+			// 		if (column?.sortDirection && sorting!.direction > 0) {
+			// 			list.push(sorting);
+			// 		}
+			// 	}
+			// }
 		}
 		this.filterModel.sorting = list.sort((a, b) => (a!.order || 0) - (b!.order || 0));
 	}
 
 	private addColumnFilters() {
 		if (this.gridInfo?.filters && this.gridInfo?.columns) {
-			for (const key in this.gridInfo.filters) {
-				if (this.gridInfo.filters[key]) {
-					const column = this.gridInfo.columns[key];
-					const filter = this.gridInfo.filters[key];
+			Object.keys(this.gridInfo.filters).forEach((_value: string, key: number) => {
+				if (this.gridInfo!.filters[key]) {
+					const column = this.gridInfo!.columns[key];
+					const filter = this.gridInfo!.filters[key];
 					if (column?.filter?.field && filter) {
 						let filterData = {};
 						const type = filter.type > 0 ? filter.type : -filter.type;
 						const isNegative = filter.type < 0;
 						switch (filter.dataType) {
-							case ColumnFilterDataType.String:
+							case IColumnFilterDataType.String:
 								filterData = {
 									type,
 									isNegative,
 									value: filter.data,
-								} as StringSubFilter;
+								} as IStringSubFilter;
 								break;
-							case ColumnFilterDataType.Date:
+							case IColumnFilterDataType.Date:
 								if (filter.type === ColumnFilterType.Between) {
 									filterData = {
 										type,
 										isNegative,
 										from: filter.data[0],
 										to: filter.data[1],
-									} as IntervalSubFilter;
+									} as IIntervalSubFilter;
 								} else {
 									filterData = {
 										type,
 										isNegative,
 										date: filter.data,
-									} as DateSubFilter;
+									} as IDateSubFilter;
 								}
+								break;
+							default:
 								break;
 						}
 						this.filterModel[column.filter.field] = filterData;
 					}
 				}
-			}
+			});
+			// for (const key in this.gridInfo.filters) {
+			// 	if (this.gridInfo.filters[key]) {
+			// 		const column = this.gridInfo.columns[key];
+			// 		const filter = this.gridInfo.filters[key];
+			// 		if (column?.filter?.field && filter) {
+			// 			let filterData = {};
+			// 			const type = filter.type > 0 ? filter.type : -filter.type;
+			// 			const isNegative = filter.type < 0;
+			// 			switch (filter.dataType) {
+			// 				case ColumnFilterDataType.String:
+			// 					filterData = {
+			// 						type,
+			// 						isNegative,
+			// 						value: filter.data,
+			// 					} as IStringSubFilter;
+			// 					break;
+			// 				case ColumnFilterDataType.Date:
+			// 					if (filter.type === ColumnFilterType.Between) {
+			// 						filterData = {
+			// 							type,
+			// 							isNegative,
+			// 							from: filter.data[0],
+			// 							to: filter.data[1],
+			// 						} as IIntervalSubFilter;
+			// 					} else {
+			// 						filterData = {
+			// 							type,
+			// 							isNegative,
+			// 							date: filter.data,
+			// 						} as IDateSubFilter;
+			// 					}
+			// 					break;
+			// 			}
+			// 			this.filterModel[column.filter.field] = filterData;
+			// 		}
+			// 	}
+			// }
 		}
 	}
 
@@ -358,11 +407,11 @@ export class DataListComponent implements OnInit, OnDestroy {
 		console.log('test');
 	}
 
-	isSortable(column: GridColumnInfo) {
+	isSortable(column: IGridColumnInfo) {
 		return column.sortDirection! >= 0;
 	}
 
-	isFilterable(column: GridColumnInfo) {
+	isFilterable(column: IGridColumnInfo) {
 		return column.filter?.field;
 	}
 
@@ -373,15 +422,15 @@ export class DataListComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	canModify(dataItem: any): boolean {
+	canModify(): boolean {
 		return this.isReadOnly !== true;
 	}
 
-	canRemove(dataItem: any): boolean {
+	canRemove(): boolean {
 		return this.isReadOnly !== true;
 	}
 
-	canDuplicate(dataItem: any): boolean {
+	canDuplicate(): boolean {
 		return this.isReadOnly !== true;
 	}
 
@@ -399,7 +448,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		this.removeItem.emit(model);
 	}
 
-	display(column: GridColumnInfo, item: any) {
+	display(column: IGridColumnInfo, item: any) {
 		if (column.dataType === 'datetime') {
 			const date = item[column.name];
 			return date == null ? '' : formatDate(item[column.name], 'MM/dd/yyyy hh:mm a', 'en-US');

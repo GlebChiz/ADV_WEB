@@ -1,10 +1,10 @@
 <kendo-dialog
 	[title]="title()"
-	(close)="closeEditDialog('cancel')"
 	[minWidth]="500"
 	[width]="600"
 	*ngIf="model"
 >
+<!-- (close)="closeEditDialog('cancel')" -->
 	<advenium-validation-message [service]="validationService"></advenium-validation-message>
 	<form [formGroup]="myForm" novalidate>
 		<div>
@@ -95,6 +95,6 @@
 	</form>
 	<kendo-dialog-actions>
 		<button kendoButton (click)="cancel()">Cancel</button>
-		<button kendoButton (click)="submit()" primary="true">Save</button>
+		<button kendoButton (click)="submit()" [primary]="true">Save</button>
 	</kendo-dialog-actions>
 </kendo-dialog>

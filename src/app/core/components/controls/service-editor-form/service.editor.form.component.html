@@ -68,10 +68,11 @@
 			<ng-template #status>
 				<input type="hidden" formControlName="status" />
 			</ng-template>
-			<div class="k-form-field" *ngIf="deliveryType > 0; else delivery">
+			<div class="k-form-field" 
+			>
+			<!-- *ngIf="deliveryType > 0; else delivery" -->
 				<span>Delivery Method</span>
 				<kendo-combobox
-					[readonly]="deliveryType <= 1"
 					valueField="id"
 					style="min-width: 300px; width: 100%"
 					textField="name"
@@ -79,6 +80,7 @@
 					formControlName="deliveryType"
 					[valuePrimitive]="true"
 				>
+				<!-- [readonly]="deliveryType <= 1" -->
 				</kendo-combobox>
 			</div>
 			<ng-template #delivery>

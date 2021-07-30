@@ -1,7 +1,7 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { Call } from 'src/app/core/models/call.model';
+import { ICall } from 'src/app/core/models/call.model';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { Guid } from 'guid-typescript';
 import { AuthenticationService } from 'src/app/shared/services/authentification.service';
@@ -13,10 +13,10 @@ import { selectCall } from 'src/app/core/store/call/call.selectors';
 	providers: [],
 	templateUrl: './shared-call-home.component.html',
 })
-export class SharedCallHomeComponent implements OnInit, OnChanges, OnDestroy {
+export class SharedCallHomeComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	call!: Call;
+	call!: ICall;
 
 	show = true;
 
@@ -38,7 +38,7 @@ export class SharedCallHomeComponent implements OnInit, OnChanges, OnDestroy {
 		}
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

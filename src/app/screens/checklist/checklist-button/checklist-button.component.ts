@@ -1,6 +1,5 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import {
 	CheckListItemStatus,
@@ -8,23 +7,25 @@ import {
 	CheckListType,
 } from 'src/app/core/enums/checklist.types';
 import { CheckList, checkListClassName } from 'src/app/core/models/checklist.model';
-import { IAppState } from 'src/app/core/store/state/app.state';
 
 @Component({
 	providers: [],
 	selector: 'advenium-checklist-button',
 	templateUrl: './checklist-button.component.html',
 })
-export class ChecklistButtonComponent implements OnInit, OnChanges, OnDestroy {
+export class ChecklistButtonComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
 	@Input() checklist!: CheckList;
 
-	constructor(private _store: Store<IAppState>, private router: Router) {}
+	constructor(
+		// private _store: Store<IAppState>,
+		private router: Router,
+	) {}
 
-	ngOnInit(): void {}
+	// ngOnInit(): void {}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();
@@ -68,6 +69,8 @@ export class ChecklistButtonComponent implements OnInit, OnChanges, OnDestroy {
 						break;
 					case CheckListItemType.PaymentInfo:
 						break;
+					default:
+						break;
 				}
 				break;
 			case CheckListType.Guardian:
@@ -81,7 +84,11 @@ export class ChecklistButtonComponent implements OnInit, OnChanges, OnDestroy {
 					case CheckListItemType.IntakeScheduled:
 						this.router.navigate([`/person`, this.checklist.personId], { fragment: 'intake' });
 						break;
+					default:
+						break;
 				}
+				break;
+			default:
 				break;
 		}
 	}

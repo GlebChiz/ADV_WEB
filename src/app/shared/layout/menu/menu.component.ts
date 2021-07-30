@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 		this.items.forEach((i) => {
 			this.refreshItem(i);
 			if (i.items) {
-				i.items.forEach((x) => this.refreshItem(x));
+				i.items.forEach((x: any) => this.refreshItem(x));
 			}
 		});
 	}

@@ -1,6 +1,6 @@
 <advenium-clinician-details
 	*ngIf="this.clinicianModel$ | async"
-	[isEditMode]="'true'"
+	[isEditMode]='true'
 	[model]="clinicianModel$ | async"
 	(cancelEditing)="closeEditor()"
 	(reloadData)="reloadData()"

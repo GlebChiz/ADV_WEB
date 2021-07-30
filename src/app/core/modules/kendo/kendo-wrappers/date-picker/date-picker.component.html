@@ -23,10 +23,10 @@
 		[topView]="topView"
 		[value]="value"
 		[weekNumber]="weekNumber"
-		(blur)="blur.emit($event)"
-		(close)="close.emit($event)"
-		(focus)="focus.emit($event)"
-		(open)="open.emit($event)"
+		(blur)="onblur.emit($event)"
+		(close)="onclose.emit($event)"
+		(focus)="onfocus.emit($event)"
+		(open)="onopen.emit($event)"
 		(valueChange)="valueChanged($event)"
 	>
 		<ng-template kendoCalendarHeaderTitleTemplate let-title let-date="date">
@@ -73,10 +73,10 @@
 		[title]="title"
 		[value]="value"
 		[weekNumber]="weekNumber"
-		(blur)="blur.emit($event)"
-		(close)="close.emit($event)"
-		(focus)="focus.emit($event)"
-		(open)="open.emit($event)"
+		(blur)="onblur.emit($event)"
+		(close)="onclose.emit($event)"
+		(focus)="onfocus.emit($event)"
+		(open)="onopen.emit($event)"
 		(valueChange)="valueChanged($event)"
 	>
 	</kendo-datetimepicker>
@@ -114,10 +114,10 @@
 		[topView]="topView"
 		[value]="value"
 		[weekNumber]="weekNumber"
-		(blur)="blur.emit($event)"
-		(close)="close.emit($event)"
-		(focus)="focus.emit($event)"
-		(open)="open.emit($event)"
+		(blur)="onblur.emit($event)"
+		(close)="onclose.emit($event)"
+		(focus)="onfocus.emit($event)"
+		(open)="onopen.emit($event)"
 		(valueChange)="valueChanged($event)"
 	>
 		<ng-template kendoCalendarHeaderTitleTemplate let-title let-date="date">
@@ -166,10 +166,10 @@
 		[title]="title"
 		[value]="value"
 		[weekNumber]="weekNumber"
-		(blur)="blur.emit($event)"
-		(close)="close.emit($event)"
-		(focus)="focus.emit($event)"
-		(open)="open.emit($event)"
+		(blur)="onblur.emit($event)"
+		(close)="onclose.emit($event)"
+		(focus)="onfocus.emit($event)"
+		(open)="onopen.emit($event)"
 		(valueChange)="valueChanged($event)"
 	>
 	</kendo-datetimepicker>

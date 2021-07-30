@@ -10,7 +10,7 @@ export function patientReducers(
 		initialPatientState,
 		on(PatientActions.ResetPatients, (state) => ({ ...state, patients: null })),
 		on(PatientActions.GetPrivatePersonLinksSuccess, (state, payload) => {
-			const newState = { ...state };
+			const newState: any = { ...state };
 			newState.privatePersonLinks[payload.patientId] = payload.data;
 			return newState;
 		}),

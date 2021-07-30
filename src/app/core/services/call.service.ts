@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
 import { AuthenticationService, GridDataService } from 'src/app/shared/services';
-import { Call, CallPatientIndex } from '../models/call.model';
-import { CheckList } from '../models/checklist.model';
+import { ICall, ICallPatientIndex } from '../models/call.model';
+import { ICheckList } from '../models/checklist.model';
 
 @Injectable({ providedIn: 'root' })
 export class CallService extends GridDataService {
@@ -12,7 +12,7 @@ export class CallService extends GridDataService {
 		super(http, auth, 'call');
 	}
 
-	getActiveCall(): Observable<Call> {
+	getActiveCall(): Observable<ICall> {
 		return this.get(`${this.auth.getCurrentUser().userId}/active`);
 	}
 
@@ -20,15 +20,15 @@ export class CallService extends GridDataService {
 		return this.put(`${callId}/end`);
 	}
 
-	createPatientIndex(model: CallPatientIndex): Observable<any> {
+	createPatientIndex(model: ICallPatientIndex): Observable<any> {
 		return this.post(`createPatientIndex`, model);
 	}
 
-	updatePatientIndexes(model: CallPatientIndex[]): Observable<any> {
+	updatePatientIndexes(model: ICallPatientIndex[]): Observable<any> {
 		return this.post(`updatePatientIndexes`, model);
 	}
 
-	getChecklist(id: Guid): Observable<CheckList> {
+	getChecklist(id: Guid): Observable<ICheckList> {
 		return this.get(`${id}/checklist`);
 	}
 }

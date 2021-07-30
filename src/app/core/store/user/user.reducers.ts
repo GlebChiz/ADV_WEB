@@ -1,5 +1,4 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as _ from 'lodash';
 import { AuthUserActions, UserActions } from './user.actions';
 import { IUserState, initialUserState } from './user.state';
 

@@ -43,7 +43,7 @@ import { GridIntervalFilterComponent } from '../components/grid/column-filter/in
 import { KendoModule } from './kendo/kendo.module';
 import { GridColumnTitleComponent } from '../components/grid/column-title/column-title.component';
 import { GridColumnsSortEditorComponent } from '../components/grid/column-sort-editor/column-sort-editor.component';
-import { GridSettingsChooserComponent } from '../components/grid/grid-settings-chooser/grid-settings-chooser.component';
+import { IGridSettingsChooserComponent } from '../components/grid/grid-settings-chooser/grid-settings-chooser.component';
 
 @NgModule({
 	imports: [
@@ -66,7 +66,7 @@ import { GridSettingsChooserComponent } from '../components/grid/grid-settings-c
 	],
 	declarations: [
 		GridColumnsChooserComponent,
-		GridSettingsChooserComponent,
+		IGridSettingsChooserComponent,
 		GridColumnFilterComponent,
 		GridColumnsSortEditorComponent,
 		GridColumnTitleComponent,
@@ -96,7 +96,7 @@ import { GridSettingsChooserComponent } from '../components/grid/grid-settings-c
 		ButtonSelectorComponent,
 	],
 	exports: [
-		GridSettingsChooserComponent,
+		IGridSettingsChooserComponent,
 		GridColumnsChooserComponent,
 		GridColumnFilterComponent,
 		GridColumnsSortEditorComponent,

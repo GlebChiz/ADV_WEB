@@ -51,6 +51,7 @@
 		"@progress/kendo-drawing": "^1.11.0",
 		"@progress/kendo-licensing": "^1.2.0",
 		"@progress/kendo-recurrence": "^1.0.2",
+		"@types/pdfjs-dist": "^2.7.4",
 		"angular2-signaturepad": "^3.0.4",
 		"commitlint": "^13.1.0",
 		"eslint-plugin-import": "^2.23.4",

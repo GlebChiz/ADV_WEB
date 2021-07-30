@@ -18,6 +18,13 @@ import { MenuService } from '../../services/menu.service';
 export class DropdownMenuComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
+	constructor(
+		private _store: Store<IAppState>,
+		public menuService: MenuService,
+		private router: Router,
+		private authenticationService: AuthenticationService,
+	) {}
+
 	items: any[] = [];
 
 	user$ = this._store.pipe(select(selectUser));
@@ -27,13 +34,6 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 	hasActiveCall = false;
 
 	show = false;
-
-	constructor(
-		public menuService: MenuService,
-		private router: Router,
-		private authenticationService: AuthenticationService,
-		private _store: Store<IAppState>,
-	) {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();
@@ -46,7 +46,7 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 				x.cssClass = 'parent-dropdown-menu-item dropdown-menu-item';
 				this.items.push(x);
 				if (x.items != null) {
-					x.items.forEach((i) => {
+					x.items.forEach((i: any) => {
 						i.cssClass = 'child-dropdown-menu-item dropdown-menu-item';
 						this.items.push(i);
 					});
@@ -57,14 +57,14 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 	}
 
 	onSelect({ item }: any): void {
-		item = item.data;
+		const locItem: any = item.data;
 
 		if (
-			(!item.items || item.items.length === 0) &&
-			item.path &&
-			this.router.config.map((r) => r.path).includes(item.path)
+			(!locItem.items || locItem.items.length === 0) &&
+			locItem.path &&
+			this.router.config.map((r) => r.path).includes(locItem.path)
 		) {
-			this.router.navigate([item.path]);
+			this.router.navigate([locItem.path]);
 		}
 		this.show = false;
 	}
@@ -82,7 +82,7 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 		this.items.forEach((i) => {
 			this.refreshItem(i);
 			if (i.items) {
-				i.items.forEach((x) => this.refreshItem(x));
+				i.items.forEach((x: any) => this.refreshItem(x));
 			}
 		});
 	}

@@ -5,10 +5,10 @@ import { Guid } from 'guid-typescript';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { Address } from 'src/app/core/models/address.model';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IAddress } from 'src/app/core/models/address.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
 import { MetaData } from 'src/app/core/models/patient.model';
-import { GeneralPersonData } from 'src/app/core/models/person.model';
+import { IGeneralPersonData } from 'src/app/core/models/person.model';
 import { PersonActions } from 'src/app/core/store/person/person.actions';
 import { selectGeneralPersonModel } from 'src/app/core/store/person/person.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -27,9 +27,9 @@ export class PatientGeneralComponent
 
 	@Input() saveEvent!: Observable<void>;
 
-	areas = Array<DropDownData>();
+	areas = Array<IDropDownData>();
 
-	patientStatuses = Array<DropDownData>();
+	patientStatuses = Array<IDropDownData>();
 
 	generalForm!: FormGroup;
 
@@ -37,7 +37,7 @@ export class PatientGeneralComponent
 
 	private _destroy$ = new Subject();
 
-	personGeneralModel$: Observable<GeneralPersonData> | null = null;
+	personGeneralModel$: Observable<IGeneralPersonData> | null = null;
 
 	constructor(public _store: Store<IAppState>, private _dropDownService: DropDownService) {
 		super();
@@ -46,15 +46,15 @@ export class PatientGeneralComponent
 	ngOnInit(): void {
 		this._dropDownService
 			.getLookup(LookupTypeCodes.patientStatus)
-			.subscribe((x: DropDownData[]) => (this.patientStatuses = x));
-		this._dropDownService.getLookup(LookupTypeCodes.area).subscribe((x) => {
-			this.areas = x.map((i) => ({ ...i, title: `${i.abbreviation} - ${i.name}` }));
+			.subscribe((x: IDropDownData[]) => (this.patientStatuses = x));
+		this._dropDownService.getLookup(LookupTypeCodes.area).subscribe((x: any) => {
+			this.areas = x.map((i: any) => ({ ...i, title: `${i.abbreviation} - ${i.name}` }));
 		});
 
 		this._store.dispatch(PersonActions.GetGeneralPersonData({ id: this.personId }));
 
 		this.personGeneralModel$ = this._store.pipe(
-			select(selectGeneralPersonModel),
+			select<any, any>(selectGeneralPersonModel),
 			takeUntil(this._destroy$),
 		);
 
@@ -65,7 +65,7 @@ export class PatientGeneralComponent
 		});
 	}
 
-	initForm(personGeneralModel: GeneralPersonData): void {
+	initForm(personGeneralModel: IGeneralPersonData): void {
 		if (personGeneralModel != null) {
 			this.generalForm = new FormGroup({
 				id: new FormControl(personGeneralModel.id),
@@ -76,10 +76,10 @@ export class PatientGeneralComponent
 					value: personGeneralModel.dob ? new Date(personGeneralModel.dob) : null,
 					disabled: false,
 				}),
-				address: new FormControl(personGeneralModel.address as Address),
+				address: new FormControl(personGeneralModel.address as IAddress),
 			});
 
-			this.generalForm.valueChanges.subscribe((x) => {
+			this.generalForm.valueChanges.subscribe(() => {
 				this.submitForm();
 			});
 		}

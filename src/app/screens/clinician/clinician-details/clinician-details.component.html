@@ -133,11 +133,11 @@
 									valueField="id"
 									style="min-width: 200px; width: 100%"
 									textField="name"
-									[data]="phonePolicyLookup"
 									[kendoDropDownFilter]="filterSettings"
 									formControlName="mobilePhonePolicyId"
 									[valuePrimitive]="true"
 								>
+								<!-- [data]="phonePolicyLookup" -->
 								</kendo-combobox>
 							</div>
 						</div>
@@ -158,11 +158,11 @@
 									valueField="id"
 									style="min-width: 200px; width: 100%"
 									textField="name"
-									[data]="phonePolicyLookup"
 									[kendoDropDownFilter]="filterSettings"
 									formControlName="workPhonePolicyId"
 									[valuePrimitive]="true"
 								>
+								<!-- [data]="phonePolicyLookup" -->
 								</kendo-combobox>
 							</div>
 						</div>
@@ -183,11 +183,11 @@
 									valueField="id"
 									style="min-width: 200px; width: 100%"
 									textField="name"
-									[data]="phonePolicyLookup"
 									[kendoDropDownFilter]="filterSettings"
 									formControlName="homePhonePolicyId"
 									[valuePrimitive]="true"
 								>
+								[data]="phonePolicyLookup"
 								</kendo-combobox>
 							</div>
 						</div>
@@ -208,11 +208,11 @@
 									valueField="id"
 									style="min-width: 200px; width: 100%"
 									textField="name"
-									[data]="phonePolicyLookup"
 									[kendoDropDownFilter]="filterSettings"
 									formControlName="otherPhonePolicyId"
 									[valuePrimitive]="true"
 								>
+								<!-- [data]="phonePolicyLookup" -->
 								</kendo-combobox>
 							</div>
 						</div>
@@ -226,11 +226,11 @@
 									valueField="id"
 									style="min-width: 200px; width: 100%"
 									textField="name"
-									[data]="phoneTypeLookup"
 									[kendoDropDownFilter]="filterSettings"
 									formControlName="primaryPhoneType"
 									[valuePrimitive]="true"
 								>
+								<!-- [data]="phoneTypeLookup" -->
 								</kendo-combobox>
 							</div>
 						</div>
@@ -239,7 +239,7 @@
 				<kendo-tabstrip-tab title="Schedule" [selected]="this.selectedTab('schedule')">
 					<ng-template kendoTabContent>
 						<advenium-clinician-service-scheduler
-							[clinicianId]="this.model.id"
+							[clinicianId]="this.model!.id"
 						></advenium-clinician-service-scheduler>
 					</ng-template>
 				</kendo-tabstrip-tab>

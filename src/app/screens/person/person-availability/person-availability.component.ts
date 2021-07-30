@@ -18,13 +18,14 @@ import {
 	EventStyleArgs,
 	RemoveEvent,
 	ResizeEndEvent,
+	SchedulerEvent,
 	SlotClickEvent,
 } from '@progress/kendo-angular-scheduler';
 import { PersonAvailabilityService } from 'src/app/core/services/availability.service';
 import {
 	AvailabilityStatus,
-	PersonAvailability,
-	PersonAvailabilityFilter,
+	IPersonAvailability,
+	IPersonAvailabilityFilter,
 } from 'src/app/core/models/availability.model';
 import { addTimezone, fixDate } from 'src/app/shared/services/date.utils';
 import { Guid } from 'guid-typescript';
@@ -40,7 +41,7 @@ import * as _ from 'lodash';
 export class PersonAvailabilityComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() filter!: PersonAvailabilityFilter;
+	@Input() filter!: IPersonAvailabilityFilter;
 
 	@Input() saveEvent!: Observable<void>;
 
@@ -48,7 +49,7 @@ export class PersonAvailabilityComponent implements OnInit, OnDestroy {
 
 	@Output() confirmSave: EventEmitter<any> = new EventEmitter();
 
-	events = [];
+	events: SchedulerEvent[] = [];
 
 	range!: DateRange;
 
@@ -110,7 +111,7 @@ export class PersonAvailabilityComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	createEvent({ start, end, isAllDay }: SlotClickEvent): void {
+	createEvent({ start, end }: SlotClickEvent): void {
 		this.isNew = true;
 		this.editedEvent = null;
 		const availability = {
@@ -123,7 +124,7 @@ export class PersonAvailabilityComponent implements OnInit, OnDestroy {
 			status: AvailabilityStatus.Available,
 			day: start.getDay(),
 			person: null,
-		} as PersonAvailability;
+		} as unknown as IPersonAvailability;
 		this.service.createAvailability(availability).subscribe((x) => {
 			this.validationService.displayResponse(x);
 			if (x.isValid === true) {
@@ -172,7 +173,7 @@ export class PersonAvailabilityComponent implements OnInit, OnDestroy {
 	}
 
 	deleteEvent(e: RemoveEvent): void {
-		const availability = e.event.dataItem.dataItem as PersonAvailability;
+		const availability = e.event.dataItem.dataItem as IPersonAvailability;
 		const startDate = new Date(availability.startDate);
 		const clickedDate = e.event.start;
 		this.deletedDate = clickedDate;
@@ -231,30 +232,32 @@ export class PersonAvailabilityComponent implements OnInit, OnDestroy {
 	}
 
 	getEventClass = (args: EventStyleArgs) => {
-		const availability = args.event?.dataItem?.dataItem as PersonAvailability;
+		const availability = args.event?.dataItem?.dataItem as IPersonAvailability;
 		switch (availability.status) {
 			case AvailabilityStatus.Available:
 				return 'available';
 			case AvailabilityStatus.Possible:
 				return 'possible';
+			default:
+				return '';
 		}
-		return '';
 	};
 
 	getEventStyles = (args: EventStyleArgs) => {
-		const availability = args.event?.dataItem?.dataItem as PersonAvailability;
+		const availability = args.event?.dataItem?.dataItem as IPersonAvailability;
 		switch (availability.status) {
 			case AvailabilityStatus.Available:
 				return { backgroundColor: 'lightgreen', color: 'red', textAlign: 'center' };
 			case AvailabilityStatus.Possible:
 				return { backgroundColor: 'yellow', color: 'red', textAlign: 'center' };
+			default:
+				return {};
 		}
-		return {};
 	};
 
 	editEvent(args: EventClickEvent): void {
 		this.editedEventValue = null;
-		const availability = args.event.dataItem.dataItem as PersonAvailability;
+		const availability = args.event.dataItem.dataItem as IPersonAvailability;
 		fixDate(availability, 'startTime');
 		fixDate(availability, 'endTime');
 

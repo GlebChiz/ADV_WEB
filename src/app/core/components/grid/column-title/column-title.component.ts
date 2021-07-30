@@ -1,26 +1,11 @@
-import {
-	Component,
-	Output,
-	EventEmitter,
-	Input,
-	OnInit,
-	OnDestroy,
-	ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {
-	ColumnFilter,
-	ColumnFilterDataType,
-	ColumnFilterType,
-	ColumnFilterTypeNames,
-	ColumnSort,
-	SortDirection,
-} from 'src/app/core/models/filters/column-filter.model';
+import { IColumnSort, SortDirection } from 'src/app/core/models/filters/column-filter.model';
 import { FilterActions } from 'src/app/core/store/filter/filter.actions';
 import { GridActions } from 'src/app/core/store/grid/grid.actions';
-import { selectGridFilter, selectGridSorting } from 'src/app/core/store/grid/grid.selectors';
+import { selectGridSorting } from 'src/app/core/store/grid/grid.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
 
 @Component({
@@ -29,7 +14,7 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	encapsulation: ViewEncapsulation.None,
 })
 export class GridColumnTitleComponent implements OnInit, OnDestroy {
-	sorting: ColumnSort | null = null;
+	sorting: IColumnSort | null = null;
 
 	sorting$: any;
 
@@ -80,7 +65,7 @@ export class GridColumnTitleComponent implements OnInit, OnDestroy {
 		return this.sorting?.direction === SortDirection.Desc;
 	}
 
-	onSelect(item: any): void {
+	onSelect(): void {
 		if (this.sorting) {
 			const direction = (this.sorting.direction + 1) % 3;
 			this._store.dispatch(

@@ -1,3 +1,3 @@
-export interface PageSettings {
+export interface IPageSettings {
 	title: string;
 }

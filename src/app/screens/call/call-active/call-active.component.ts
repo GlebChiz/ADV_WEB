@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -13,20 +13,20 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	selector: 'advenium-call-active',
 	templateUrl: './call-active.component.html',
 })
-export class CallActiveComponent implements OnInit, OnChanges, OnDestroy {
+export class CallActiveComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
 	call$ = this._store.pipe(select(selectActiveCall), takeUntil(this._destroy$));
 
 	constructor(
-		private route: ActivatedRoute,
+		// private route: ActivatedRoute,
 		private _store: Store<IAppState>,
 		private router: Router,
 	) {}
 
 	ngOnInit(): void {
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: `Active Call` } }));
-		this._store.dispatch(CallActions.SetActiveCall(null));
+		this._store.dispatch(CallActions.SetActiveCall({ call: null }));
 		this._store.dispatch(CallActions.GetActiveCall());
 		this._store.pipe(select(selectActiveCall), takeUntil(this._destroy$)).subscribe((x) => {
 			if (x != null) {
@@ -35,7 +35,7 @@ export class CallActiveComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { AuthenticationService, GridDataService } from 'src/app/shared/services';
-import { Clinician } from '../models/clinician.model';
-import { Person } from '../models/person.model';
+import { IClinician } from '../models/clinician.model';
+import { IPerson } from '../models/person.model';
 
 @Injectable({ providedIn: 'root' })
 export class ClinicianGridService extends GridDataService {
@@ -11,11 +11,11 @@ export class ClinicianGridService extends GridDataService {
 		super(http, auth, 'clinician');
 	}
 
-	newClinicianModel(): Observable<Clinician> {
+	newClinicianModel(): Observable<IClinician> {
 		const model = {
 			userId: null,
-			person: {} as Person,
-		} as Clinician;
+			person: {} as IPerson,
+		} as IClinician;
 		return of(model);
 	}
 }

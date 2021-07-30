@@ -1,5 +1,5 @@
-import { Component, forwardRef, Input, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, Input } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
 	selector: 'advenium-button-selector',
@@ -13,27 +13,27 @@ import { ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR } from '@angular/f
 		},
 	],
 })
-export class ButtonSelectorComponent implements ControlValueAccessor, OnDestroy {
+export class ButtonSelectorComponent implements ControlValueAccessor {
 	@Input() items!: any[];
 
 	@Input() valueField = 'id';
 
 	@Input() textField = 'name';
 
-	@Input() defaultValue: string | null = null;
+	@Input() defaultValue: number | null = null;
 
-	_value: string | null = null;
+	_value: number | null = null;
 
 	_disabled = false;
 
-	@Input() set value(value: string | null) {
-		if (value === null || value === '') {
+	@Input() set value(value: number | null) {
+		if (!value) {
 			this._value = this.defaultValue;
 		} else {
 			this._value = value;
 		}
 		this.onChange(value);
-		this.onTouched();
+		this.vonTouched();
 	}
 
 	@Input() set disabled(value: boolean) {
@@ -44,13 +44,13 @@ export class ButtonSelectorComponent implements ControlValueAccessor, OnDestroy 
 		return this._disabled;
 	}
 
-	get value(): string | null {
+	get value(): number | null {
 		return this._value;
 	}
 
-	constructor(private formBuilder: FormBuilder) {}
+	// constructor(private formBuilder: FormBuilder) {}
 
-	writeValue(obj: string): void {
+	writeValue(obj: number): void {
 		this.value = obj;
 	}
 
@@ -59,14 +59,17 @@ export class ButtonSelectorComponent implements ControlValueAccessor, OnDestroy 
 	}
 
 	registerOnTouched(fn: any): void {
-		this.onTouched = fn;
+		this.vonTouched = fn;
 	}
 
 	setDisabledState?(isDisabled: boolean): void {
 		this._disabled = isDisabled;
 	}
 
-	onClick(e: any, item: any) {
+	onClick(
+		// e: any,
+		item: any,
+	) {
 		if (this.value === item[this.valueField]) {
 			this.value = this.defaultValue;
 		} else {
@@ -74,7 +77,7 @@ export class ButtonSelectorComponent implements ControlValueAccessor, OnDestroy 
 		}
 	}
 
-	ngOnDestroy(): void {}
+	// ngOnDestroy(): void {}
 
 	onChange: any = () => {};
 

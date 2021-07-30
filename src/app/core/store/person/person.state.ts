@@ -1,17 +1,17 @@
-import { Insurance } from '../../models/insurance.model';
+import { IInsurance } from '../../models/insurance.model';
 import {
-	GeneralPersonData,
-	Person,
-	PersonContactsData,
-	PersonDemographicData,
+	IGeneralPersonData,
+	IPerson,
+	IPersonContactsData,
+	IPersonDemographicData,
 } from '../../models/person.model';
 
 export interface IPersonState {
-	person: Person | null;
-	generalPersonData: GeneralPersonData | null;
-	personDemographicData: PersonDemographicData | null;
-	personContactsData: PersonContactsData | null;
-	personInsuranceData: Insurance[] | null;
+	person: IPerson | null;
+	generalPersonData: IGeneralPersonData | null;
+	personDemographicData: IPersonDemographicData | null;
+	personContactsData: IPersonContactsData | null;
+	personInsuranceData: IInsurance[] | null;
 	privatePersonLinks: {};
 }
 

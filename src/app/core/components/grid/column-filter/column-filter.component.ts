@@ -1,18 +1,10 @@
-import {
-	Component,
-	Output,
-	EventEmitter,
-	Input,
-	OnInit,
-	OnDestroy,
-	ViewEncapsulation,
-} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {
-	ColumnFilter,
-	ColumnFilterDataType,
+	IColumnFilter,
+	IColumnFilterDataType,
 	ColumnFilterType,
 	ColumnFilterTypeNames,
 } from 'src/app/core/models/filters/column-filter.model';
@@ -27,7 +19,7 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	encapsulation: ViewEncapsulation.None,
 })
 export class GridColumnFilterComponent implements OnInit, OnDestroy {
-	filter: ColumnFilter | null = null;
+	filter!: IColumnFilter;
 
 	@Input() gridId!: string;
 
@@ -39,7 +31,7 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 
 	show = false;
 
-	filter$: Observable<ColumnFilter> | null = null;
+	filter$: Observable<IColumnFilter> | null = null;
 
 	private _destroy$ = new Subject();
 
@@ -50,7 +42,7 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.filter = null;
+		this.filter = null!;
 		this.filter$ = this._store.pipe(
 			select(selectGridFilter, {
 				gridId: this.gridId,
@@ -67,15 +59,15 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 	}
 
 	isValueFilter() {
-		return this.show && this.filter?.dataType === ColumnFilterDataType.String;
+		return this.show && this.filter?.dataType === IColumnFilterDataType.String;
 	}
 
 	isIntervalFilter() {
-		return this.show && this.filter?.dataType === ColumnFilterDataType.Interval;
+		return this.show && this.filter?.dataType === IColumnFilterDataType.Interval;
 	}
 
 	isDateFilter() {
-		return this.show && this.filter?.dataType === ColumnFilterDataType.Date;
+		return this.show && this.filter?.dataType === IColumnFilterDataType.Date;
 	}
 
 	title() {
@@ -106,11 +98,11 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 	}
 
 	operationTypes() {
-		let list: any = [];
+		let list: ColumnFilterType[] = [];
 
 		if (
-			this.filter!.dataType === ColumnFilterDataType.Date ||
-			this.filter!.dataType === ColumnFilterDataType.Interval
+			this.filter!.dataType === IColumnFilterDataType.Date ||
+			this.filter!.dataType === IColumnFilterDataType.Interval
 		) {
 			list = [
 				ColumnFilterType.Equal,
@@ -120,10 +112,10 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 				ColumnFilterType.LessEqual,
 				ColumnFilterType.Empty,
 			];
-			if (this.filter!.dataType === ColumnFilterDataType.Interval) {
+			if (this.filter!.dataType === IColumnFilterDataType.Interval) {
 				list.push(ColumnFilterType.Between);
 			}
-		} else if (this.filter!.dataType === ColumnFilterDataType.String) {
+		} else if (this.filter!.dataType === IColumnFilterDataType.String) {
 			list = [
 				ColumnFilterType.Equal,
 				ColumnFilterType.Contains,

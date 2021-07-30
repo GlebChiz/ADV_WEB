@@ -1,8 +1,8 @@
 import { GridDataResult } from '@progress/kendo-angular-grid';
-import { Patient } from 'src/app/core/models/patient.model';
+import { IPatient } from 'src/app/core/models/patient.model';
 
 export interface IPatientState {
-	patient: Patient | null;
+	patient: IPatient | null;
 	patients: GridDataResult | null;
 	privatePersonLinks: {};
 }

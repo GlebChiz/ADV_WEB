@@ -1,35 +1,34 @@
-import { HttpClient } from '@angular/common/http';
 import { Guid } from 'guid-typescript';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { SchedulerViewModel, Service, SchedulerFilter } from 'src/app/core/models/service.model';
+import { ISchedulerViewModel, IService, ISchedulerFilter } from 'src/app/core/models/service.model';
 import { DataService } from 'src/app/shared/services/data.service';
 
 export interface IServiceSchedulerService {
-	loadView: (filter: SchedulerFilter) => Observable<SchedulerViewModel>;
-	getServiceModel: (id: Guid, filter: SchedulerFilter) => Observable<any>;
-	getNewServiceModel: (start: Date, end: Date, filter: SchedulerFilter) => Observable<any>;
+	loadView: (filter: ISchedulerFilter) => Observable<ISchedulerViewModel>;
+	getServiceModel: (id: Guid, filter: ISchedulerFilter) => Observable<any>;
+	getNewServiceModel: (start: Date, end: Date, filter: ISchedulerFilter) => Observable<any>;
 	deleteService: (id: Guid) => Observable<any>;
-	createService: (service: Service) => Observable<any>;
-	updateService: (service: Service) => Observable<any>;
-	subscriptionToSaving: () => Observable<Service>;
+	createService: (service: IService) => Observable<any>;
+	updateService: (service: IService) => Observable<any>;
+	subscriptionToSaving: () => Observable<IService | null>;
 }
 
 export abstract class ServiceSchedulerService
 	extends DataService
 	implements IServiceSchedulerService
 {
-	private saveSubscription = new BehaviorSubject<Service>(null);
+	private saveSubscription = new BehaviorSubject<IService | null>(null);
 
-	subscriptionToSaving(): Observable<Service> {
+	subscriptionToSaving(): Observable<IService | null> {
 		return this.saveSubscription.asObservable();
 	}
 
-	constructor(http: HttpClient, controller: string) {
-		super(http, controller);
-	}
+	// constructor(http: HttpClient, controller: string) {
+	// 	super(http, controller);
+	// }
 
-	sendToSave(service: Service) {
+	sendToSave(service: IService) {
 		if (service) {
 			this.saveSubscription.next(service);
 		}
@@ -40,7 +39,7 @@ export abstract class ServiceSchedulerService
 		return this.post(url);
 	}
 
-	getNewServiceModel(start: Date, end: Date, filter: SchedulerFilter): Observable<any> {
+	getNewServiceModel(start: Date, end: Date, filter: ISchedulerFilter): Observable<any> {
 		const filterId = Guid.create();
 		const createServiceModel = {
 			data: filter,
@@ -49,11 +48,11 @@ export abstract class ServiceSchedulerService
 		};
 		const url = `${filterId}/new-service-model`;
 		return this.saveFilterData('save-service-data', filterId, createServiceModel).pipe(
-			switchMap((response) => this.get(url)),
+			switchMap(() => this.get(url)),
 		);
 	}
 
-	getServiceModel(id: Guid, filter: SchedulerFilter): Observable<any> {
+	getServiceModel(id: Guid, filter: ISchedulerFilter): Observable<any> {
 		const filterId = Guid.create();
 		const editServiceModel = {
 			data: filter,
@@ -61,7 +60,7 @@ export abstract class ServiceSchedulerService
 		};
 		const url = `${filterId}/service-model`;
 		return this.saveFilterData('save-service-data', filterId, editServiceModel).pipe(
-			switchMap((response) => this.get(url)),
+			switchMap(() => this.get(url)),
 		);
 	}
 
@@ -69,17 +68,17 @@ export abstract class ServiceSchedulerService
 		return this.saveFilterData('save-scheduler-filter', filterId, filter);
 	}
 
-	createService(service: Service): Observable<any> {
+	createService(service: IService): Observable<any> {
 		return this.post('create-service', service);
 	}
 
-	updateService(service: Service): Observable<any> {
+	updateService(service: IService): Observable<any> {
 		return this.post('update-service', service);
 	}
 
-	loadView(filter: SchedulerFilter): Observable<SchedulerViewModel> {
+	loadView(filter: ISchedulerFilter): Observable<ISchedulerViewModel> {
 		const filterId = Guid.create();
 		const url = `${filterId}/get-scheduler-view`;
-		return this.saveSchedulerFilter(filterId, filter).pipe(switchMap((response) => this.get(url)));
+		return this.saveSchedulerFilter(filterId, filter).pipe(switchMap(() => this.get(url)));
 	}
 }

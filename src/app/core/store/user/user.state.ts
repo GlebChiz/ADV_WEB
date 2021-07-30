@@ -1,10 +1,10 @@
 import { PermissionType } from 'src/app/core/enums/permission.type';
-import { User } from 'src/app/core/models/user.model';
+import { IUser } from 'src/app/core/models/user.model';
 
 export interface IUserState {
-	user: User | null;
+	user: IUser | null;
 	permissions: PermissionType[];
-	editing: User | null;
+	editing: IUser | null;
 }
 
 export const initialUserState: IUserState = {

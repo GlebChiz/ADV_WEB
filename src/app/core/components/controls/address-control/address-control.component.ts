@@ -1,7 +1,7 @@
 import { Component, forwardRef, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Address, MetaData } from 'src/app/core/models/address.model';
+import { IAddress, MetaData } from 'src/app/core/models/address.model';
 
 @Component({
 	selector: 'advenium-address',
@@ -22,11 +22,11 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy 
 
 	metaData: any = MetaData;
 
-	get value(): Address {
+	get value(): IAddress {
 		return this.form.value;
 	}
 
-	set value(value: Address) {
+	set value(value: IAddress) {
 		this.form.setValue(value);
 		this.onChange(value);
 		this.onTouched();

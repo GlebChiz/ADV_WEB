@@ -12,12 +12,12 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import {
 	AvailabilityType,
-	EditingService,
-	SchedulerSettings,
-	SchedulerViewModel,
-	Service,
+	IEditingService,
+	ISchedulerSettings,
+	ISchedulerViewModel,
+	IService,
 	ServiceStatus,
-	SlotDecorationModel,
+	ISlotDecorationModel,
 } from 'src/app/core/models/service.model';
 import * as _ from 'lodash';
 import { fixDate, removeTimezone } from 'src/app/shared/services/date.utils';
@@ -34,7 +34,7 @@ import '@progress/kendo-date-math/tz/Europe/Sofia';
 export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() settings!: SchedulerSettings;
+	@Input() settings!: ISchedulerSettings;
 
 	@Input() schedulerService!: IServiceSchedulerService;
 
@@ -44,15 +44,15 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 
 	range!: DateRange;
 
-	viewModel!: SchedulerViewModel;
+	viewModel!: ISchedulerViewModel;
 
 	isNew!: boolean;
 
-	editedEvent!: EditingService;
+	editedEvent!: IEditingService;
 
 	editedEventValue: any;
 
-	constructor(private validationService: ValidationMessageService) {}
+	constructor(public validationService: ValidationMessageService) {}
 
 	ngOnInit(): void {
 		this.onFiltering.subscribe((x) => {
@@ -101,7 +101,7 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 		);
 	}
 
-	sumIntersectionMinutes(start1: Date, end1: Date, slots: SlotDecorationModel[]): number {
+	sumIntersectionMinutes(start1: Date, end1: Date, slots: ISlotDecorationModel[]): number {
 		return slots.reduce(
 			(total, slot) => total + this.getIntersectionMinutes(start1, end1, slot.start, slot.end),
 			0,
@@ -129,20 +129,28 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 	getSlotClass = (args: SlotClassArgs) => {
 		if (this.viewModel && args.isAllDay === false) {
 			const availability = this.getSlotAvailability(
-				removeTimezone(args.start),
-				removeTimezone(args.end),
+				removeTimezone(args.start!),
+				removeTimezone(args.end!),
 			);
-			return availability === AvailabilityType.Available
-				? 'available'
-				: availability === AvailabilityType.Possible
-				? 'possible'
-				: '';
+			switch (availability) {
+				case AvailabilityType.Available:
+					return 'available';
+				case AvailabilityType.Possible:
+					return 'possible';
+				default:
+					return '';
+			}
+			// return availability === AvailabilityType.Available
+			// 	? 'available'
+			// 	: availability === AvailabilityType.Possible
+			// 	? 'possible'
+			// 	: '';
 		}
 		return '';
 	};
 
 	getEventClass = (args: EventStyleArgs) => {
-		const service = args.event?.dataItem?.dataItem as Service;
+		const service = args.event?.dataItem?.dataItem as IService;
 		switch (service?.status) {
 			case ServiceStatus.Cancelled:
 				return 'service-cancelled';
@@ -150,8 +158,9 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 				return 'service-delivered';
 			case ServiceStatus.Scheduled:
 				return 'service-scheduled';
+			default:
+				return '';
 		}
-		return '';
 	};
 
 	onEventDblClick({ event }: EventClickEvent): void {
@@ -165,7 +174,7 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 		}
 		this.isNew = false;
 		this.editedEventValue = null;
-		this.editedEvent = null;
+		this.editedEvent = null!;
 
 		this.schedulerService.getServiceModel(service.id, this.filter).subscribe((x) => {
 			this.validationService.displayResponse(x);
@@ -175,12 +184,10 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	onSlotDblClick({ start, end, isAllDay }: SlotClickEvent): void {
+	onSlotDblClick({ start, end }: SlotClickEvent): void {
 		const timezone = start.getTimezoneOffset();
 		const dt = new Date(start);
 		dt.setMinutes(dt.getMinutes() - timezone);
-		const str1 = start.toString();
-		const str2 = dt.toString();
 		if (this.viewModel?.canCreate === false) {
 			this.validationService.display([this.viewModel.createDenyMessage], false);
 			return;
@@ -195,7 +202,7 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 
 		this.isNew = true;
 		this.editedEventValue = null;
-		this.editedEvent = null;
+		this.editedEvent = null!;
 		this.schedulerService.getNewServiceModel(start, end, this.filter).subscribe((x) => {
 			this.validationService.displayResponse(x);
 			if (x.isValid === true) {
@@ -206,7 +213,7 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 
 	onEventDeleteClick(e: RemoveEvent) {
 		e.preventDefault();
-		if (!confirm('Are you sure you want to delete appointment?')) {
+		if (!window.confirm('Are you sure you want to delete appointment?')) {
 			return;
 		}
 		if (
@@ -224,7 +231,7 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		this.schedulerService.deleteService(e.dataItem.dataItem.id).subscribe((x) => {
+		this.schedulerService.deleteService(e.dataItem.dataItem.id).subscribe(() => {
 			this.load();
 		});
 	}
@@ -250,7 +257,7 @@ export class ServiceSchedulerComponent implements OnInit, OnDestroy {
 				});
 			}
 		}
-		this.editedEvent = null;
+		this.editedEvent = null!;
 	}
 
 	keepEditedEvent(value: any) {

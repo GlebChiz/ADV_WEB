@@ -1,19 +1,8 @@
-import {
-	Component,
-	EventEmitter,
-	Input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	Output,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
 import { PatientGridService } from 'src/app/core/services/patient.service';
-import { IAppState } from 'src/app/core/store/state/app.state';
 import { DropDownService } from 'src/app/shared/services/dropdown.service';
 
 @Component({
@@ -22,26 +11,26 @@ import { DropDownService } from 'src/app/shared/services/dropdown.service';
 	templateUrl: './patient-status-button.component.html',
 	styleUrls: ['./patient-status-button.component.scss'],
 })
-export class PatientStatusButtonComponent implements OnInit, OnChanges, OnDestroy {
+export class PatientStatusButtonComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() patientId!: Guid;
+	@Input() patientId!: Guid | null;
 
 	@Input() statusId!: Guid | null;
 
 	@Input() availableStatuses!: Guid[] | null;
 
-	patientStatuses!: DropDownData[];
+	patientStatuses!: IDropDownData[];
 
 	name: string | null = null;
 
 	show = false;
 
-	@Output() change = new EventEmitter<any>();
+	@Output() manuallyChange = new EventEmitter<any>();
 
 	constructor(
-		private _store: Store<IAppState>,
-		private router: Router,
+		// private _store: Store<IAppState>,
+		// private router: Router,
 		private _dropDownService: DropDownService,
 		private _patientService: PatientGridService,
 	) {}
@@ -49,7 +38,7 @@ export class PatientStatusButtonComponent implements OnInit, OnChanges, OnDestro
 	ngOnInit(): void {
 		this._dropDownService
 			.getLookup(LookupTypeCodes.patientStatus)
-			.subscribe((x: DropDownData[]) => {
+			.subscribe((x: IDropDownData[]) => {
 				this.patientStatuses = x;
 				this.name = this.statusName();
 				this.show = true;
@@ -63,27 +52,27 @@ export class PatientStatusButtonComponent implements OnInit, OnChanges, OnDestro
 		return this.availableStatuses.includes(item.id);
 	}
 
-	getStatuses(): DropDownData[] {
+	getStatuses(): IDropDownData[] {
 		const list = this.patientStatuses.filter((x) => this.isAvailable(x));
 		return list;
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();
 	}
 
 	statusName(): string {
-		const name = this._dropDownService.getName(this.statusId, this.patientStatuses);
+		const name = this._dropDownService.getName(this.statusId!, this.patientStatuses);
 		return name === '' ? 'None' : name;
 	}
 
 	onItemClick(e: any): void {
-		this._patientService.updateStatus(this.patientId, e.id).subscribe((x) => {
+		this._patientService.updateStatus(this.patientId!, e.id).subscribe((x) => {
 			this.statusId = e.id;
 			this.name = this.statusName();
-			this.change.emit({ patientId: this.patientId, statusId: e.id });
+			this.manuallyChange.emit({ patientId: this.patientId, statusId: e.id });
 		});
 	}
 }

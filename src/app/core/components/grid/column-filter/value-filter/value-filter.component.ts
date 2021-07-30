@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { ColumnFilter } from 'src/app/core/models/filters/column-filter.model';
+import { IColumnFilter } from 'src/app/core/models/filters/column-filter.model';
 import { FilterActions } from 'src/app/core/store/filter/filter.actions';
 import { GridActions } from 'src/app/core/store/grid/grid.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -17,14 +17,14 @@ export class GridValueFilterComponent
 	extends UnsubscriableBaseDirective
 	implements OnInit, OnDestroy
 {
-	_filter: ColumnFilter | null = null;
+	_filter: IColumnFilter | null = null;
 
-	@Input() set filter(value: ColumnFilter) {
+	@Input() set filter(value: IColumnFilter) {
 		this._filter = value;
 		this.initForm(value);
 	}
 
-	get filter(): ColumnFilter {
+	get filter(): IColumnFilter {
 		return this._filter!;
 	}
 
@@ -34,7 +34,7 @@ export class GridValueFilterComponent
 
 	form!: FormGroup;
 
-	private _destroy$ = new Subject();
+	// private _destroy$ = new Subject();
 
 	model$: Observable<any> | null = null;
 
@@ -46,7 +46,7 @@ export class GridValueFilterComponent
 		this.initForm(this.filter);
 	}
 
-	initForm(filter: ColumnFilter): void {
+	initForm(filter: IColumnFilter): void {
 		if (filter != null) {
 			if (this.form) {
 				this.form.setValue({ value: filter.data || '' });
@@ -55,7 +55,7 @@ export class GridValueFilterComponent
 					value: new FormControl(filter.data || ''),
 				});
 
-				this.form.valueChanges.subscribe((x) => {
+				this.form.valueChanges.subscribe(() => {
 					this.submitForm();
 				});
 			}

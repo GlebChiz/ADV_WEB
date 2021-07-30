@@ -9,7 +9,7 @@ export function personReducers(
 	return createReducer(
 		initialPersonState,
 		on(PersonActions.GetPrivatePersonLinksSuccess, (state, payload) => {
-			const newState = { ...state };
+			const newState: any = { ...state };
 			newState.privatePersonLinks[payload.personId.toString()] = payload.data;
 			return newState;
 		}),

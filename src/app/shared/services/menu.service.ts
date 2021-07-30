@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { PermissionType } from 'src/app/core/enums/permission.type';
-import { CacheSection, User } from 'src/app/core/models/user.model';
-import { IAppState } from 'src/app/core/store/state/app.state';
+import { CacheSection, IUser } from 'src/app/core/models/user.model';
 import { DataService } from 'src/app/shared/services';
 import { AuthenticationService } from './authentification.service';
 
@@ -16,7 +14,7 @@ export class MenuService extends DataService {
 
 	constructor(
 		http: HttpClient,
-		private _store: Store<IAppState>,
+		// private _store: Store<IAppState>,
 		private _auth: AuthenticationService,
 	) {
 		super(http, 'menu');
@@ -33,7 +31,7 @@ export class MenuService extends DataService {
 		return menu;
 	}
 
-	private validateMenu(menuItem: any, user: User) {
+	private validateMenu(menuItem: any, user: IUser) {
 		if (menuItem.items) {
 			menuItem.items.forEach((x: any) => this.validateMenu(x, user));
 		}
@@ -56,16 +54,28 @@ export class MenuService extends DataService {
 			{
 				text: 'Administration',
 				items: [
-					{ text: 'Reset Cache', path: 'reset' },
-					{ text: 'Patients', path: 'patients', permissionType: PermissionType.CanViewPatientList },
+					{ text: 'Reset Cache', path: 'reset', cssClass: '' },
+					{
+						text: 'Patients',
+						path: 'patients',
+						permissionType: PermissionType.CanViewPatientList,
+						cssClass: '',
+					},
 					{
 						text: 'Clinicians',
 						path: 'clinicians',
 						permissionType: PermissionType.CanViewClinicianList,
+						cssClass: '',
 					},
-					{ text: 'Payers', path: 'payers', permissionType: PermissionType.CanViewPayerList },
-					{ text: 'Users', path: 'users' },
+					{
+						text: 'Payers',
+						path: 'payers',
+						permissionType: PermissionType.CanViewPayerList,
+						cssClass: '',
+					},
+					{ text: 'Users', path: 'users', cssClass: '' },
 				],
+				cssClass: '',
 			},
 			{
 				text: 'Calls',
@@ -78,6 +88,7 @@ export class MenuService extends DataService {
 					},
 					{ text: 'My Calls', path: 'my-calls', permissionType: PermissionType.CanViewMyCalls },
 				],
+				cssClass: '',
 			},
 		];
 	}

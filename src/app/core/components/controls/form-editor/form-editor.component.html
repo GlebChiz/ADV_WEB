@@ -17,14 +17,14 @@
 			[text]="'Reset To Initial Form'"
 			#btnReset
 			*ngIf="isEditingForm()"
-			(click)="onResetClick(btnReset)"
+			(click)="onResetClick()"
 		></kendo-toolbar-button>
 		<kendo-toolbar-button
 			[text]="'Save Form'"
 			#btnSave
 			*ngIf="isEditingForm()"
 			[primary]="formEditorService.changed"
-			(click)="onSaveClick(btnSave)"
+			(click)="onSaveClick()"
 			[disabled]="!formEditorService.changed"
 		></kendo-toolbar-button>
 		<kendo-toolbar-button
@@ -32,36 +32,36 @@
 			#btnPublish
 			*ngIf="isEditingForm()"
 			[disabled]="formEditorService.changed"
-			(click)="onPublishClick(btnPublish)"
+			(click)="onPublishClick()"
 		></kendo-toolbar-button>
 		<kendo-toolbar-button
 			[text]="'Download'"
 			#btnDownload
 			*ngIf="isDownloadable()"
-			(click)="onDownloadClick(btnDownload)"
+			(click)="onDownloadClick()"
 		></kendo-toolbar-button>
 		<kendo-toolbar-button
 			[text]="'Append Pages'"
 			*ngIf="canAppend()"
 			#btnAppend
-			(click)="onAppendClick(btnAppend)"
+			(click)="onAppendClick()"
 		></kendo-toolbar-button>
 		<kendo-toolbar-button
 			[text]="'Upload File'"
 			*ngIf="canUpload()"
 			#btnUpload
-			(click)="onUploadClick(btnUpload)"
+			(click)="onUploadClick()"
 		></kendo-toolbar-button>
 		<kendo-toolbar-button
 			[text]="'Delete All Pages'"
 			*ngIf="canRemoveFiles()"
 			#btnRemoveFiles
-			(click)="onRemoveFilesClick(btnRemoveFiles)"
+			(click)="onRemoveFilesClick()"
 		></kendo-toolbar-button>
 		<kendo-toolbar-button
 			[text]="'Reopen for Edit'"
 			#btnReopen
-			(click)="onReopenClick(btnReopen)"
+			(click)="onReopenClick()"
 			*ngIf="canReopen()"
 		>
 		</kendo-toolbar-button>

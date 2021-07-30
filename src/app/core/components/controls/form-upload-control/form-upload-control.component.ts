@@ -8,8 +8,8 @@ import {
 } from '@progress/kendo-angular-upload';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
-import { FormPerson } from 'src/app/core/models/form.model';
-import { DropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IFormPerson } from 'src/app/core/models/form.model';
+import { IDropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
 import { FormEditorService } from 'src/app/core/services/form.editor.service';
 import { FormService } from 'src/app/core/services/form.service';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
@@ -40,9 +40,9 @@ export class FormUploadComponent implements OnInit, OnDestroy {
 
 	@Input() displayedFields!: string[];
 
-	@Input() formTypeLookup!: DropDownData[];
+	@Input() formTypeLookup!: IDropDownData[];
 
-	@Input() formPersons!: FormPerson[];
+	@Input() formPersons!: IFormPerson[];
 
 	@Input() formTypeId!: Guid;
 
@@ -94,8 +94,8 @@ export class FormUploadComponent implements OnInit, OnDestroy {
 	selectFile(e: SelectEvent) {
 		const formData: FormData = new FormData();
 		e.files.forEach((f) => {
-			this.files[f.uid] = f.name;
-			formData.append(f.uid, f.rawFile);
+			this.files[f.uid!] = f.name;
+			formData.append(f.uid!, f.rawFile!);
 		});
 		this.formService.uploadFile(formData).subscribe((response) => {
 			this.validationService.displayResponse(response);
@@ -104,22 +104,30 @@ export class FormUploadComponent implements OnInit, OnDestroy {
 
 	removeFile(e: RemoveEvent) {
 		e.files.forEach((f) => {
-			delete this.files[f.uid];
-			this.formService.removeFile(f.uid).subscribe((response) => {});
+			delete this.files[f.uid!];
+			this.formService.removeFile(f.uid!).subscribe(() => {});
 		});
 	}
 
-	save(upload) {
+	save(upload: UploadComponent) {
 		this.submitted = true;
-		const fileNames = [];
-		for (const uid in this.files) {
+		const fileNames: Object[] = [];
+		Object.keys(this.files).forEach((_value: string, uid: number) => {
 			if (uid) {
 				fileNames.push({
 					uid,
 					name: this.files[uid],
 				});
 			}
-		}
+		});
+		// for (const uid in this.files) {
+		// 	if (uid) {
+		// 		fileNames.push({
+		// 			uid,
+		// 			name: this.files[uid],
+		// 		});
+		// 	}
+		// }
 
 		const value = {
 			...this.uploadForm.value,

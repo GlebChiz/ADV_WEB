@@ -3,8 +3,8 @@ import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { DataService } from 'src/app/shared/services';
 import { PermissionType } from '../enums/permission.type';
-import { User } from '../models/user.model';
-import { Person } from '../models/person.model';
+import { IUser } from '../models/user.model';
+import { IPerson } from '../models/person.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService extends DataService {
@@ -16,23 +16,23 @@ export class UserService extends DataService {
 		return this.post('permissions', permissions);
 	}
 
-	getUserModel(id: number | null): Observable<User> {
+	getUserModel(id: number | null): Observable<IUser> {
 		return this.get(`${id}/get-model`);
 	}
 
-	newUserModel(): Observable<User> {
+	newUserModel(): Observable<IUser> {
 		const model = {
 			userId: null,
-			person: {} as Person,
-		} as User;
+			person: {} as IPerson,
+		} as unknown as IUser;
 		return of(model);
 	}
 
-	updateUser(user: User): Observable<any> {
+	updateUser(user: IUser): Observable<any> {
 		return this.post('update', user);
 	}
 
-	createUser(user: User): Observable<any> {
+	createUser(user: IUser): Observable<any> {
 		return this.post('create', user);
 	}
 }

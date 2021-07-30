@@ -3,10 +3,10 @@
 <kendo-dialog
 	title="Edit Availability"
 	*ngIf="editedEvent"
-	(close)="closeEditDialog('cancel')"
 	[minWidth]="500"
 	[width]="600"
 >
+<!-- (close)="closeEditDialog('cancel')" -->
 	<advenium-person-availability-editor
 		[model]="editedEvent"
 		(valueChanged)="keepEditedEvent($event)"

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { switchMap, map, catchError, mergeMap } from 'rxjs/operators';
 import { ClinicianGridService } from 'src/app/core/services/clinician.service';
-import { IAppState } from '../state/app.state';
 import { ClinicianActions } from './clinician.actions';
 
 @Injectable()
@@ -65,9 +63,5 @@ export class ClinicianEffects {
 		),
 	);
 
-	constructor(
-		private store: Store<IAppState>,
-		private actions$: Actions,
-		private gridService: ClinicianGridService,
-	) {}
+	constructor(private actions$: Actions, private gridService: ClinicianGridService) {}
 }

@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
-import { PdfFile } from 'src/app/core/models/form.model';
-import { FormEditorService } from 'src/app/core/services/form.editor.service';
+import { IPdfFile } from 'src/app/core/models/form.model';
 import { FormService } from 'src/app/core/services/form.service';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
 
@@ -15,7 +14,7 @@ import { ValidationMessageService } from 'src/app/core/services/validation.messa
 export class ViewPdfFileComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() file!: PdfFile;
+	@Input() file!: IPdfFile;
 
 	pages!: string[];
 
@@ -24,7 +23,7 @@ export class ViewPdfFileComponent implements OnInit, OnDestroy {
 	zoom = 1;
 
 	constructor(
-		private formEditorService: FormEditorService,
+		// private formEditorService: FormEditorService,
 		private formService: FormService,
 		public validationService: ValidationMessageService,
 	) {}

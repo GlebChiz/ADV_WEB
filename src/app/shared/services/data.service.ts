@@ -99,7 +99,7 @@ export abstract class DataService {
 		return this.post(action, data);
 	}
 
-	getModel(id: Guid | string): Observable<any> {
+	getModel(id: Guid | null): Observable<any> {
 		return this.get(`${id || Guid.EMPTY}`);
 	}
 

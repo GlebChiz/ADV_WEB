@@ -6,7 +6,7 @@ import { SortDirection } from 'src/app/core/models/filters/column-filter.model';
 import { FilterActions } from 'src/app/core/store/filter/filter.actions';
 import { GridActions } from 'src/app/core/store/grid/grid.actions';
 import { selectGridInfo } from 'src/app/core/store/grid/grid.selectors';
-import { GridInfo } from 'src/app/core/store/grid/grid.state';
+import { IGridColumnInfo, IGridInfo } from 'src/app/core/store/grid/grid.state';
 
 import { IAppState } from 'src/app/core/store/state/app.state';
 
@@ -23,7 +23,7 @@ export class GridColumnsSortEditorComponent implements OnInit, OnDestroy {
 
 	gridInfo$: any;
 
-	gridInfo: GridInfo | null = null;
+	gridInfo: IGridInfo | null = null;
 
 	show = false;
 
@@ -66,11 +66,11 @@ export class GridColumnsSortEditorComponent implements OnInit, OnDestroy {
 
 	columns() {
 		let active: any[] = [];
-		const inactive = [];
-		Object.values(this.gridInfo.columns)
-			.filter((c) => c.sortDirection)
-			.forEach((c) => {
-				const sorting = this.gridInfo.sorting[c.name] || null;
+		const inactive: Object[] = [];
+		Object.values(this.gridInfo!.columns)
+			.filter((c: IGridColumnInfo) => c.sortDirection)
+			.forEach((c: IGridColumnInfo) => {
+				const sorting = this.gridInfo!.sorting[c.name] || null;
 				const sort = {
 					direction: sorting?.direction || SortDirection.None,
 					order: sorting?.order || 0,
@@ -90,19 +90,19 @@ export class GridColumnsSortEditorComponent implements OnInit, OnDestroy {
 		return active.concat(inactive);
 	}
 
-	showAsc(item) {
+	showAsc(item: any) {
 		return item.direction === SortDirection.Asc;
 	}
 
-	showDesc(item) {
+	showDesc(item: any) {
 		return item.direction === SortDirection.Desc;
 	}
 
-	showNone(item) {
+	showNone(item: any) {
 		return item.direction === SortDirection.None;
 	}
 
-	onSelect(item) {
+	onSelect(item: any) {
 		const direction = (item.direction + 1) % 3;
 		this._store.dispatch(
 			GridActions.SetColumnSortingDirection({
@@ -114,14 +114,14 @@ export class GridColumnsSortEditorComponent implements OnInit, OnDestroy {
 		this._store.dispatch(FilterActions.TriggerFilter({ id: this.filterId }));
 	}
 
-	isNotFirst(item) {
+	isNotFirst(item: any) {
 		return item.direction !== SortDirection.None && item.order > 1;
 	}
 
-	private move(item, step) {
+	private move(item: any, step: number) {
 		const next = this.columns().filter((x) => x.direction > 0 && x.order === item.order + step)[0];
 		if (next) {
-			const newSorting = {};
+			const newSorting: any = {};
 			this.columns().forEach((c) => {
 				let { order } = c;
 				if (order === item.order) {
@@ -129,6 +129,7 @@ export class GridColumnsSortEditorComponent implements OnInit, OnDestroy {
 				} else if (order === item.order + step) {
 					order -= step;
 				}
+
 				newSorting[c.name] = {
 					order,
 					column: c.name,
@@ -145,11 +146,11 @@ export class GridColumnsSortEditorComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	moveUp(item) {
+	moveUp(item: any) {
 		this.move(item, -1);
 	}
 
-	moveDown(item) {
+	moveDown(item: any) {
 		this.move(item, 1);
 	}
 }

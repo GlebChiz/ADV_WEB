@@ -1,8 +1,8 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, Subject } from 'rxjs';
-import { EditingForm } from 'src/app/core/models/form.model';
+import { IEditingForm } from 'src/app/core/models/form.model';
 import { FormService } from 'src/app/core/services/form.service';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -12,10 +12,10 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	selector: 'advenium-form-view',
 	templateUrl: './form-view.component.html',
 })
-export class FormViewComponent implements OnInit, OnChanges, OnDestroy {
+export class FormViewComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
-	formModel!: EditingForm;
+	formModel!: IEditingForm;
 
 	fragment = '';
 
@@ -40,9 +40,9 @@ export class FormViewComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnInit(): void {}
+	// ngOnInit(): void {}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

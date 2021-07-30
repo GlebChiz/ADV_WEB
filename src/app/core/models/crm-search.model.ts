@@ -1,9 +1,9 @@
 import { Guid } from 'guid-typescript';
-import { Call } from './call.model';
-import { Person } from './person.model';
+import { ICall } from './call.model';
+import { IPerson } from './person.model';
 
-export interface CRMSearch {
-	call: Call;
+export interface ICRMSearch {
+	call: ICall;
 	phones: any;
 	lastnames: any;
 	emails: any;
@@ -12,7 +12,7 @@ export interface CRMSearch {
 	persons: any;
 }
 
-export interface CRMResult {
+export interface ICRMResult {
 	byPhone: any;
 	byLastname: any;
 	byEmail: any;
@@ -21,12 +21,12 @@ export interface CRMResult {
 	byPerson: any;
 }
 
-export interface CRMPersonFound {
-	person: Person;
-	call: Call;
-	calls: Call[];
+export interface ICRMPersonFound {
+	person: IPerson;
+	call: ICall;
+	calls: ICall[];
 	roles: CRMPersonMatchRole[];
-	matches: CRMMatch[];
+	matches: ICRMMatch[];
 }
 
 export enum CRMPersonMatchRole {
@@ -35,7 +35,7 @@ export enum CRMPersonMatchRole {
 	Parent = 3,
 }
 
-export interface CRMMatch {
+export interface ICRMMatch {
 	type: CRMSearchType;
 	matchValue: string;
 	matchMessage: string;
@@ -47,7 +47,7 @@ export enum CRMSearchType {
 	Lastname = 3,
 }
 
-export interface CRMSearchFilter {
+export interface ICRMSearchFilter {
 	phones: string[];
 	lastnames: string[];
 	callerId: string;

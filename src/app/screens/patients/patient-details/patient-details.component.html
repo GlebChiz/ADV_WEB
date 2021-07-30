@@ -15,7 +15,7 @@
 					</ul>
 				</div>
 			</div>
-			<kendo-tabstrip #tab (tabSelect)="changeTab($event, tab)">
+			<kendo-tabstrip #tab (tabSelect)="changeTab($event)">
 				<kendo-tabstrip-tab title="General" [selected]="this.selectedTab('general')">
 					<ng-template kendoTabContent>
 						<advenium-patient-general
@@ -55,16 +55,16 @@
 				</kendo-tabstrip-tab>
 				<kendo-tabstrip-tab title="Modality Selection" [selected]="this.selectedTab('modality')">
 					<ng-template kendoTabContent>
-						<advenium-patient-modality-selection
+						<!-- <advenium-patient-modality-selection
 							[model]="model"
-						></advenium-patient-modality-selection>
+						></advenium-patient-modality-selection> -->
 					</ng-template>
 				</kendo-tabstrip-tab>
 				<kendo-tabstrip-tab title="Connections" [selected]="this.selectedTab('connections')">
 				</kendo-tabstrip-tab>
 				<kendo-tabstrip-tab title="Intake" [selected]="this.selectedTab('intake')">
 					<ng-template kendoTabContent>
-						<advenium-intake-scheduler [patientIds]="[this.model.id]"></advenium-intake-scheduler>
+						<!-- <advenium-intake-scheduler [patientIds]="[this.model.id]"></advenium-intake-scheduler> -->
 					</ng-template>
 				</kendo-tabstrip-tab>
 				<kendo-tabstrip-tab title="Forms" [selected]="this.selectedTab('forms')">

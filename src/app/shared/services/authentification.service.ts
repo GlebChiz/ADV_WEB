@@ -3,24 +3,24 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { User } from 'src/app/core/models/user.model';
+import { IUser } from 'src/app/core/models/user.model';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { AuthUserActions } from 'src/app/core/store/user/user.actions';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-	public currentUser: BehaviorSubject<User>;
+	public currentUser: BehaviorSubject<IUser | null>;
 
 	constructor(private http: HttpClient, private _store: Store<IAppState>) {
-		this.currentUser = new BehaviorSubject<User>(this.getCurrentUser());
+		this.currentUser = new BehaviorSubject<IUser | null>(this.getCurrentUser());
 	}
 
-	public getCurrentUser(): User {
+	public getCurrentUser(): IUser {
 		return JSON.parse(localStorage.getItem('currentUser')!);
 	}
 
-	private setCurrentUser(user: User): void {
+	private setCurrentUser(user: IUser): void {
 		// store user details and jwt token in local storage to keep user logged in between page refreshes
 		localStorage.setItem('currentUser', JSON.stringify(user));
 		this.currentUser.next(user);
@@ -33,8 +33,8 @@ export class AuthenticationService {
 		this._store.dispatch(AuthUserActions.SetUser({ user: null }));
 	}
 
-	login(username, password) {
-		console.log(`${environment.apiUrl}/users/authenticate`);
+	login(username: string, password: string) {
+		// console.log(`${environment.apiUrl}/users/authenticate`);
 		return this.http
 			.post<any>(`${environment.apiUrl}/users/authenticate`, {
 				Username: username,
@@ -48,7 +48,7 @@ export class AuthenticationService {
 			);
 	}
 
-	sharedCalllogin(sharedCallId, code) {
+	sharedCalllogin(sharedCallId: string, code: any) {
 		return this.http
 			.post<any>(`${environment.apiUrl}/users/shared-call-authenticate`, {
 				id: sharedCallId,

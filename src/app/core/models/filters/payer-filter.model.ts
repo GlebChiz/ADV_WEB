@@ -1,5 +1,3 @@
-import { Guid } from 'guid-typescript';
-
-export interface PayerFilterModel {
+export interface IPayerFilterModel {
 	search: string;
 }

@@ -1,10 +1,10 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Guid } from 'guid-typescript';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Clinician } from 'src/app/core/models/clinician.model';
+import { IClinician } from 'src/app/core/models/clinician.model';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { ClinicianActions } from 'src/app/core/store/clinician/clinician.actions';
@@ -15,10 +15,10 @@ import { selectClinicianModel } from 'src/app/core/store/clinician/clinician.sel
 	selector: 'advenium-clinician-view',
 	templateUrl: './clinician-view.component.html',
 })
-export class ClinicianViewComponent implements OnInit, OnChanges, OnDestroy {
+export class ClinicianViewComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
-	clinicianModel$: Observable<Clinician> | null = null;
+	clinicianModel$: Observable<IClinician> | null = null;
 
 	fragment!: string;
 
@@ -47,9 +47,9 @@ export class ClinicianViewComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnInit(): void {}
+	// ngOnInit(): void {}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

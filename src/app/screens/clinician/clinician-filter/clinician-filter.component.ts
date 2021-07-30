@@ -6,7 +6,6 @@ import { take, takeUntil } from 'rxjs/operators';
 import { FilterActions } from 'src/app/core/store/filter/filter.actions';
 import { selectFilterData, selectFilterStatus } from 'src/app/core/store/filter/filter.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
-import { DropDownService } from 'src/app/shared/services/dropdown.service';
 
 @Component({
 	providers: [],
@@ -26,7 +25,7 @@ export class ClinicianFilterComponent implements OnInit, OnDestroy {
 
 	constructor(
 		private _fb: FormBuilder,
-		private _dropDownService: DropDownService,
+		// private _dropDownService: DropDownService,
 		private _store: Store<IAppState>,
 	) {}
 
@@ -63,7 +62,7 @@ export class ClinicianFilterComponent implements OnInit, OnDestroy {
 		this.filterForm.setValue(value);
 	}
 
-	onKeyDown(pressedKey) {
+	onKeyDown(pressedKey: KeyboardEvent) {
 		if (pressedKey.key === 'Enter') {
 			this.filter();
 		}

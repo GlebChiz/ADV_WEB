@@ -126,29 +126,29 @@
 					{{ display(column, dataItem) }}
 				</ng-template>
 			</kendo-grid-column>
-			<kendo-grid-column field="Modify" title=" " width="35" *ngIf="!isReadOnly && showModify">
+			<kendo-grid-column field="Modify" title=" " [width]="35" *ngIf="!isReadOnly && showModify">
 				<ng-template kendoGridCellTemplate let-dataItem>
-					<advenium-grid-modify-cell (action)="edit(dataItem)" [allow]="canModify(dataItem)">
+					<advenium-grid-modify-cell (action)="edit(dataItem)" [allow]="canModify()">
 					</advenium-grid-modify-cell>
 				</ng-template>
 			</kendo-grid-column>
 			<kendo-grid-column
 				field="Duplicate"
 				title=" "
-				width="35"
+				[width]="35"
 				*ngIf="!isReadOnly && showDuplicate"
 			>
 				<ng-template kendoGridCellTemplate let-dataItem>
 					<advenium-grid-duplicate-cell
 						(action)="duplicate(dataItem)"
-						[allow]="canDuplicate(dataItem)"
+						[allow]="canDuplicate()"
 					>
 					</advenium-grid-duplicate-cell>
 				</ng-template>
 			</kendo-grid-column>
-			<kendo-grid-column field="Remove" title=" " width="35" *ngIf="!isReadOnly && showRemove">
+			<kendo-grid-column field="Remove" title=" " [width]="35" *ngIf="!isReadOnly && showRemove">
 				<ng-template kendoGridCellTemplate let-dataItem>
-					<advenium-grid-remove-cell (action)="remove(dataItem)" [allow]="canRemove(dataItem)">
+					<advenium-grid-remove-cell (action)="remove(dataItem)" [allow]="canRemove()">
 					</advenium-grid-remove-cell>
 				</ng-template>
 			</kendo-grid-column>

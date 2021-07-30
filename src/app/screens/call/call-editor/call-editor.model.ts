@@ -1,10 +1,10 @@
-import { Call } from 'src/app/core/models/call.model';
-import { Insurance } from 'src/app/core/models/insurance.model';
-import { Person } from 'src/app/core/models/person.model';
+import { ICall } from 'src/app/core/models/call.model';
+import { IInsurance } from 'src/app/core/models/insurance.model';
+import { IPerson } from 'src/app/core/models/person.model';
 
-export interface CallEditorModel {
+export interface ICallEditorModel {
 	isSaved: boolean;
-	call: Call;
-	person: Person;
-	primaryInsurance: Insurance;
+	call: ICall;
+	person: IPerson;
+	primaryInsurance: IInsurance;
 }

@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript';
-import { SchedulerFilter } from '../service.model';
+import { ISchedulerFilter } from '../service.model';
 
-export interface IntakeSchedulerFilter extends SchedulerFilter {
+export interface IIntakeSchedulerFilter extends ISchedulerFilter {
 	patientIds: Guid[];
 }

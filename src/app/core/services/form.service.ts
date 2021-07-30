@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DataService } from 'src/app/shared/services';
 import { PdfDataModel } from '../components/controls/edit_pdffile-control/input';
-import { EditingForm, FormDataModel, FormFieldValue, FormSection } from '../models/form.model';
+import { IEditingForm, IFormDataModel, IFormFieldValue, IFormSection } from '../models/form.model';
 
 @Injectable({ providedIn: 'root' })
 export class FormService extends DataService {
@@ -49,15 +49,15 @@ export class FormService extends DataService {
 		return this.get(`${revisionId}/pdf-template-page-count`);
 	}
 
-	getForm(id: Guid): Observable<EditingForm> {
+	getForm(id: Guid): Observable<IEditingForm> {
 		return this.get(`${id}/get-form`);
 	}
 
-	getFormValues(id: Guid): Observable<FormFieldValue[]> {
+	getFormValues(id: Guid): Observable<IFormFieldValue[]> {
 		return this.get(`${id}/form-values`);
 	}
 
-	saveFormValues(model: FormDataModel): Observable<any> {
+	saveFormValues(model: IFormDataModel): Observable<any> {
 		return this.put('save-form-values', model);
 	}
 
@@ -81,10 +81,10 @@ export class FormService extends DataService {
 		return this.put(`${formId}/reopen-form`);
 	}
 
-	getFormSection(filter: any): Observable<FormSection> {
+	getFormSection(filter: any): Observable<IFormSection> {
 		const filterId = Guid.create();
 		return this.saveFilterData('save-filter', filterId, filter).pipe(
-			switchMap((response) => this.get(`${filterId}/form-section`)),
+			switchMap(() => this.get(`${filterId}/form-section`)),
 		);
 	}
 }

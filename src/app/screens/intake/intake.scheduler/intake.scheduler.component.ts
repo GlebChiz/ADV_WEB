@@ -2,19 +2,18 @@ import { formatDate } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
-import { IntakeSchedulerFilter } from 'src/app/core/models/filters/intake-scheduler-filter';
+import { IIntakeSchedulerFilter } from 'src/app/core/models/filters/intake-scheduler-filter';
 import {
-	EditingService,
-	SchedulerSettings,
-	Service,
+	IEditingService,
+	ISchedulerSettings,
+	IService,
 	ServiceFieldEditRule,
-	ServiceFieldsSettings,
+	IServiceFieldsSettings,
 	ServiceStatus,
 } from 'src/app/core/models/service.model';
-import * as _ from 'lodash';
 import { PatientGridService } from 'src/app/core/services/patient.service';
 import { IntakeSchedulerService } from 'src/app/core/services/intake.service';
-import { Patient } from 'src/app/core/models/patient.model';
+import { IPatient } from 'src/app/core/models/patient.model';
 
 @Component({
 	selector: 'advenium-intake-scheduler',
@@ -25,11 +24,11 @@ import { Patient } from 'src/app/core/models/patient.model';
 export class IntakeSchedulerComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	filter: IntakeSchedulerFilter | null = null;
+	filter: IIntakeSchedulerFilter | null = null;
 
-	@Input() patientIds: Guid[] | null = null;
+	@Input() patientIds!: (Guid | null)[];
 
-	schedulerSettings: SchedulerSettings = {
+	schedulerSettings: ISchedulerSettings = {
 		slotDuration: 30,
 		fields: {
 			patient: ServiceFieldEditRule.Edit,
@@ -38,14 +37,14 @@ export class IntakeSchedulerComponent implements OnInit, OnDestroy {
 			deliveryType: ServiceFieldEditRule.Edit,
 			status: ServiceFieldEditRule.Edit,
 			time: ServiceFieldEditRule.Edit,
-		} as ServiceFieldsSettings,
-	} as SchedulerSettings;
+		} as IServiceFieldsSettings,
+	} as ISchedulerSettings;
 
-	editedEvent!: EditingService;
+	editedEvent!: IEditingService;
 
-	services: Service[] = [];
+	services: IService[] = [];
 
-	patients: Patient[] = [];
+	patients: IPatient[] = [];
 
 	isNew!: boolean;
 
@@ -57,7 +56,7 @@ export class IntakeSchedulerComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.filter = {
 			patientIds: this.patientIds,
-		} as IntakeSchedulerFilter;
+		} as IIntakeSchedulerFilter;
 		this.schedulerService.getIntakeServices(this.patientIds!).subscribe((x) => {
 			this.services = x;
 		});

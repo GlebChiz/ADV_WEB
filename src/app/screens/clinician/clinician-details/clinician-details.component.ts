@@ -17,11 +17,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
 import {
-	PersonAvailabilityFilter,
+	IPersonAvailabilityFilter,
 	PersonAvailabilityType,
 } from 'src/app/core/models/availability.model';
-import { Clinician } from 'src/app/core/models/clinician.model';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IClinician } from 'src/app/core/models/clinician.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
 import { MetaData } from 'src/app/core/models/person.model';
 import { ClinicianActions } from 'src/app/core/store/clinician/clinician.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -45,7 +45,7 @@ export class ClinicianDetailsComponent
 
 	@Input() isEditMode = true;
 
-	@Input() model!: Clinician;
+	@Input() model!: IClinician | null;
 
 	@Input() showCancel = false;
 
@@ -65,9 +65,9 @@ export class ClinicianDetailsComponent
 
 	phoneMask = '(999) 000-0000';
 
-	areas = Array<DropDownData>();
+	areas = Array<IDropDownData>();
 
-	serviceTypes = Array<DropDownData>();
+	serviceTypes = Array<IDropDownData>();
 
 	constructor(
 		public _store: Store<IAppState>,
@@ -80,10 +80,10 @@ export class ClinicianDetailsComponent
 	}
 
 	ngOnInit(): void {
-		this._dropDownService.getLookup(LookupTypeCodes.area).subscribe((x) => {
-			this.areas = x.map((i) => ({ ...i, title: `${i.abbreviation} - ${i.name}` }));
+		this._dropDownService.getLookup(LookupTypeCodes.area).subscribe((x: any) => {
+			this.areas = x.map((i: any) => ({ ...i, title: `${i.abbreviation} - ${i.name}` }));
 		});
-		this._dropDownService.getServiceTypes().subscribe((x) => (this.serviceTypes = x));
+		this._dropDownService.getServiceTypes().subscribe((x: any) => (this.serviceTypes = x));
 	}
 
 	ngOnChanges(): void {
@@ -95,11 +95,11 @@ export class ClinicianDetailsComponent
 	}
 
 	isNew() {
-		return !this.model.id || this.model.id.toString() === Guid.EMPTY;
+		return !this.model!.id || this.model!.id.toString() === Guid.EMPTY;
 	}
 
 	title(): string {
-		if (!this.model) {
+		if (!this.model!) {
 			return '';
 		}
 
@@ -107,7 +107,7 @@ export class ClinicianDetailsComponent
 			return 'View Clinician';
 		}
 
-		if (!this.model.id || this.model.id.toString() === Guid.EMPTY) {
+		if (!this.model!.id || this.model!.id.toString() === Guid.EMPTY) {
 			return 'Create New Clinician';
 		}
 
@@ -116,21 +116,21 @@ export class ClinicianDetailsComponent
 
 	initForm(): void {
 		this.myForm = new FormGroup({
-			lastname: new FormControl(this.model.person.lastname || ''),
-			firstname: new FormControl(this.model.person.firstname || ''),
-			middlename: new FormControl(this.model.person.middlename || ''),
-			email: new FormControl(this.model.person.email || ''),
-			mobilePhone: new FormControl(this.model.person.mobilePhone || ''),
-			homePhone: new FormControl(this.model.person.homePhone),
-			workPhone: new FormControl(this.model.person.workPhone),
-			otherPhone: new FormControl(this.model.person.otherPhone),
-			primaryPhoneType: new FormControl(this.model.person.primaryPhoneType),
-			mobilePhonePolicyId: new FormControl(this.model.person.mobilePhonePolicyId),
-			homePhonePolicyId: new FormControl(this.model.person.homePhonePolicyId),
-			workPhonePolicyId: new FormControl(this.model.person.workPhonePolicyId),
-			otherPhonePolicyId: new FormControl(this.model.person.otherPhonePolicyId),
-			areaIds: new FormControl(this.model.areaIds),
-			serviceTypeIds: new FormControl(this.model.serviceTypeIds),
+			lastname: new FormControl(this.model!.person.lastname || ''),
+			firstname: new FormControl(this.model!.person.firstname || ''),
+			middlename: new FormControl(this.model!.person.middlename || ''),
+			email: new FormControl(this.model!.person.email || ''),
+			mobilePhone: new FormControl(this.model!.person.mobilePhone || ''),
+			homePhone: new FormControl(this.model!.person.homePhone),
+			workPhone: new FormControl(this.model!.person.workPhone),
+			otherPhone: new FormControl(this.model!.person.otherPhone),
+			primaryPhoneType: new FormControl(this.model!.person.primaryPhoneType),
+			mobilePhonePolicyId: new FormControl(this.model!.person.mobilePhonePolicyId),
+			homePhonePolicyId: new FormControl(this.model!.person.homePhonePolicyId),
+			workPhonePolicyId: new FormControl(this.model!.person.workPhonePolicyId),
+			otherPhonePolicyId: new FormControl(this.model!.person.otherPhonePolicyId),
+			areaIds: new FormControl(this.model!.areaIds),
+			serviceTypeIds: new FormControl(this.model!.serviceTypeIds),
 		});
 
 		if (!this.isEditMode) {
@@ -155,12 +155,12 @@ export class ClinicianDetailsComponent
 	getModel(): any {
 		const { value } = this.myForm;
 		const result = {
-			...this.model,
+			...this.model!,
 			...{
 				areaIds: value.areaIds,
 				serviceTypeIds: value.serviceTypeIds,
 				person: {
-					...this.model.person,
+					...this.model!.person,
 					lastname: value.lastname,
 					firstname: value.firstname,
 					middlename: value.middlename,
@@ -214,15 +214,15 @@ export class ClinicianDetailsComponent
 
 	getIntakeAvailabilityFilter() {
 		return {
-			personId: this.model.person.id,
+			personId: this.model!.person.id,
 			type: PersonAvailabilityType.ClinicianIntake,
-		} as PersonAvailabilityFilter;
+		} as IPersonAvailabilityFilter;
 	}
 
 	getServicesAvailabilityFilter() {
 		return {
-			personId: this.model.person.id,
+			personId: this.model!.person.id,
 			type: PersonAvailabilityType.ClinicianService,
-		} as PersonAvailabilityFilter;
+		} as IPersonAvailabilityFilter;
 	}
 }

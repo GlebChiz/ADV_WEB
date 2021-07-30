@@ -16,11 +16,11 @@
 				</div>
 			</div>
 			<div formArrayName="patients">
-				<div *ngFor="let control of myForm.get('patients').controls; let i = index">
+				<!-- <div *ngFor="let control of myForm.get('patients').controls; let i = index">
 					<h5>{{ getTitle(i) }}</h5>
-					<button (click)="onDeletePatient(i)" *ngIf="isNew(i)" kendoButton>Delete</button>
+					<button (click)="onDeletePatient()" *ngIf="isNew(i)" kendoButton>Delete</button>
 					<advenium-person-short [formControl]="this.getPatientControl(i)"></advenium-person-short>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

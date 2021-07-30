@@ -8,8 +8,8 @@ export function checklistReducers(
 ): IChecklistState {
 	return createReducer(
 		initialChecklistState,
-		on(ChecklistActions.SetChecklist, (state, payload) => {
-			const newState = { ...state };
+		on(ChecklistActions.SetChecklist, (state: IChecklistState, payload) => {
+			const newState: IChecklistState = { ...state };
 			newState.checklists[payload.checklist.id.toString()] = payload.checklist;
 			return newState;
 		}),

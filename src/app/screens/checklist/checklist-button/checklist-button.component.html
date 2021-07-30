@@ -3,7 +3,7 @@
 	textField="statusName"
 	(itemClick)="onItemClick($event)"
 >
-	<span class="{{ checkListClass(this.checklist?.status) }}"
+	<span class="{{ checkListClass(this.checklist?.status!) }}"
 		>{{ this.checklist?.name }} Check List: {{ this.checklist?.statusName }}</span
 	>
 	<ng-template kendoDropDownButtonItemTemplate let-dataItem>

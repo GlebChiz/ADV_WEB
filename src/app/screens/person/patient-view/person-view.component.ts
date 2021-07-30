@@ -1,9 +1,9 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Person } from 'src/app/core/models/person.model';
+import { IPerson } from 'src/app/core/models/person.model';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { PersonActions } from 'src/app/core/store/person/person.actions';
 import { selectPersonModel } from 'src/app/core/store/person/person.selectors';
@@ -14,10 +14,10 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	selector: 'advenium-person-view',
 	templateUrl: './person-view.component.html',
 })
-export class PersonViewComponent implements OnInit, OnChanges, OnDestroy {
+export class PersonViewComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
-	personModel$: Observable<Person> | null = null;
+	personModel$: Observable<IPerson> | null = null;
 
 	fragment = '';
 
@@ -40,9 +40,9 @@ export class PersonViewComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnInit(): void {}
+	// ngOnInit(): void {}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();

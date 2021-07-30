@@ -1,6 +1,6 @@
 import { Guid } from 'guid-typescript';
 
-export interface Address {
+export interface IAddress {
 	id: Guid | null;
 	address1: string;
 	address2: string;
@@ -12,7 +12,7 @@ export interface Address {
 	longitude: number | null;
 }
 
-export function FullAddress(address: Address): string {
+export function FullAddress(address: IAddress): string {
 	if (!address) {
 		return '';
 	}

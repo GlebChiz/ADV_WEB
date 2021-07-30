@@ -1,19 +1,8 @@
-import {
-	Component,
-	EventEmitter,
-	Input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	Output,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
 import { PatientGridService } from 'src/app/core/services/patient.service';
-import { IAppState } from 'src/app/core/store/state/app.state';
 import { DropDownService } from 'src/app/shared/services/dropdown.service';
 
 @Component({
@@ -22,14 +11,14 @@ import { DropDownService } from 'src/app/shared/services/dropdown.service';
 	templateUrl: './patient-area-button.component.html',
 	styleUrls: ['./patient-area-button.component.scss'],
 })
-export class PatientAreaButtonComponent implements OnInit, OnChanges, OnDestroy {
+export class PatientAreaButtonComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() patientId!: Guid;
+	@Input() patientId!: Guid | null;
 
-	@Input() areaId!: Guid | null;
+	@Input() areaId!: Guid | null | string;
 
-	areas!: DropDownData[];
+	areas!: IDropDownData[];
 
 	name: string | null = null;
 
@@ -38,25 +27,25 @@ export class PatientAreaButtonComponent implements OnInit, OnChanges, OnDestroy 
 	@Output() changePatient = new EventEmitter<any>();
 
 	constructor(
-		private _store: Store<IAppState>,
-		private router: Router,
+		// private _store: Store<IAppState>,
+		// private router: Router,
 		private _dropDownService: DropDownService,
 		private _patientService: PatientGridService,
 	) {}
 
 	ngOnInit(): void {
-		this._dropDownService.getLookup(LookupTypeCodes.area).subscribe((x) => {
-			this.areas = x.map((i) => ({ ...i, title: `${i.abbreviation} - ${i.name}` }));
+		this._dropDownService.getLookup(LookupTypeCodes.area).subscribe((x: any) => {
+			this.areas = x.map((i: any) => ({ ...i, title: `${i.abbreviation} - ${i.name}` }));
 			this.name = this.areaName();
 			this.show = true;
 		});
 	}
 
-	getAreas(): DropDownData[] {
+	getAreas(): IDropDownData[] {
 		return this.areas;
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
 		this._destroy$.next();
@@ -68,7 +57,7 @@ export class PatientAreaButtonComponent implements OnInit, OnChanges, OnDestroy 
 	}
 
 	onItemClick(e: any): void {
-		this._patientService.updateArea(this.patientId, e.id).subscribe((x) => {
+		this._patientService.updateArea(this.patientId!, e.id).subscribe(() => {
 			this.areaId = e.id;
 			this.name = this.areaName();
 			this.changePatient.emit({ patientId: this.patientId, areaId: e.id });
