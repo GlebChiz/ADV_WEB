@@ -119,8 +119,6 @@ export class DataListComponent implements OnInit, OnDestroy {
 
 	filter$: any;
 
-	user$ = this.store.pipe(select(selectUser), takeUntil(this._destroy$));
-
 	user!: IUser;
 
 	showGrid = false;
@@ -161,7 +159,10 @@ export class DataListComponent implements OnInit, OnDestroy {
 		this.buttonClicked.emit(btn);
 	}
 
+	user$: any;
+
 	ngOnInit(): void {
+		this.user$ = this.store.pipe(select(selectUser), takeUntil(this._destroy$));
 		if (this.columns) {
 			let gridInfo = this.service.getGridInfo(this.columns, this.gridId);
 			if (this.gridSettingsId) {
@@ -210,7 +211,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 				this.setFilter(f);
 			});
 		}
-		this.user$.subscribe((user) => (user ? (this.user = user) : null));
+		this.user$.subscribe((user: any) => (user ? (this.user = user) : null));
 
 		this.gridInfo$.subscribe((gi: IGridInfo | null) => {
 			if (gi!.columns) {
@@ -233,7 +234,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 		this.store.dispatch(GridActions.ResetList({ gridId: this.gridId }));
 	}
 

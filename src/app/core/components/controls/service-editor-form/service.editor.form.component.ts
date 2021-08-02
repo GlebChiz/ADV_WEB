@@ -140,6 +140,6 @@ export class ServiceEditorFormComponent implements OnDestroy {
 	// ngOnInit(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

@@ -27,7 +27,7 @@ export class PatientManagerComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	columns(): IGridColumnInfo[] {

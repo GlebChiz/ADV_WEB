@@ -108,7 +108,7 @@ export class PayerDetailsComponent
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	submit(): void {

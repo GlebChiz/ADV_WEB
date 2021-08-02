@@ -10,8 +10,6 @@ import { LabelModule } from '@progress/kendo-angular-label';
 import { UploadModule } from '@progress/kendo-angular-upload';
 import { TooltipModule } from '@progress/kendo-angular-tooltip';
 import { ChartsModule } from '@progress/kendo-angular-charts';
-
-import 'hammerjs';
 import { SchedulerModule } from '@progress/kendo-angular-scheduler';
 import { ToolBarModule } from '@progress/kendo-angular-toolbar';
 import { KendoWrappersModule } from './kendo-wrappers/kendo-wrappers.module';

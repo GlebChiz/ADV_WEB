@@ -10,6 +10,7 @@ import {
 	FormPersonRole,
 	FormUploadRule,
 	PdfSourceType,
+	IFormSimpleUser,
 } from 'src/app/core/models/form.model';
 import { FormEditorService } from 'src/app/core/services/form.editor.service';
 import { FormService } from 'src/app/core/services/form.service';
@@ -54,7 +55,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 					role: '',
 					name: p.personName,
 					routerLink: null,
-				};
+				} as IFormSimpleUser;
 				switch (p.role) {
 					case FormPersonRole.Patient:
 						item.routerLink = ['/patientperson', p.personId];
@@ -76,7 +77,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	isNew(): boolean {

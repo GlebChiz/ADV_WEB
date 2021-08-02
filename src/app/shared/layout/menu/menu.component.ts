@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ICall } from 'src/app/core/models/call.model';
+import { IUser } from 'src/app/core/models/user.model';
 import { selectActiveCall } from 'src/app/core/store/call/call.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { selectUser } from 'src/app/core/store/user/user.selectors';
@@ -20,9 +22,9 @@ export class MenuComponent implements OnInit, OnDestroy {
 
 	items: any[] = [];
 
-	user$ = this._store.pipe(select(selectUser));
+	user$: Observable<IUser>;
 
-	call$ = this._store.pipe(select(selectActiveCall), takeUntil(this._destroy$));
+	call$: Observable<ICall>;
 
 	hasActiveCall = false;
 
@@ -57,6 +59,8 @@ export class MenuComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
+		this.call$ = this._store.pipe(select(selectActiveCall), takeUntil(this._destroy$));
+		this.user$ = this._store.pipe(select(selectUser));
 		if (this.authenticationService.getCurrentUser()) {
 			this.items = this.menuService.getMainMenu();
 			this.refreshItems();
@@ -78,6 +82,6 @@ export class MenuComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

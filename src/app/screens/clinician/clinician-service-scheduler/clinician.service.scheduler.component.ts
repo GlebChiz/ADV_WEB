@@ -46,7 +46,7 @@ export class ClinicianServiceSchedulerComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	save(e: IService) {

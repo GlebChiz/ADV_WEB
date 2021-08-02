@@ -36,6 +36,6 @@ export class OpenCallComponent implements OnInit, OnDestroy {
 	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

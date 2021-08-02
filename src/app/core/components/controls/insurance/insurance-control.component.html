@@ -93,7 +93,7 @@
 					<advenium-label
 						[metaData]="metaData"
 						field="insuranceHolderId"
-						[clickable]="this.value.insuranceHolderId != this.value.personId"
+						[clickable]="this.value.insuranceHolderId !== this.value.personId"
 						(action)="openPerson()"
 					></advenium-label>
 					<br />

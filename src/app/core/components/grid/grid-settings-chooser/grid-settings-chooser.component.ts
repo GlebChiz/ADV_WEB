@@ -35,7 +35,7 @@ export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
 	constructor(private _store: Store<IAppState>, private _service: CommonGridService) {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	getTitle() {

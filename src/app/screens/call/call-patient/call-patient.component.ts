@@ -99,7 +99,7 @@ export class CallPatientComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy(): void {
 		this.saveSubscription.unsubscribe();
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	isNew(i: number) {

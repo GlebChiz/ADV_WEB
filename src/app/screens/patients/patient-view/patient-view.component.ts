@@ -49,7 +49,7 @@ export class PatientViewComponent implements OnDestroy {
 	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	closeEditor(): void {}

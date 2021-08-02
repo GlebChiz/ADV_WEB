@@ -12,7 +12,7 @@ export function crmSearchReducers(
 		on(CRMSearchActions.Reset, (state, payload) => {
 			return { ...state, search: payload.search };
 		}),
-		on(CRMSearchActions.AddPhone, (state, payload) => {
+		on(CRMSearchActions.AddPhone, (state: any, payload) => {
 			const isValidPhone = payload.phone && /^\d{10}$/.test(payload.phone);
 			const phones = state.search?.phones || {};
 
@@ -30,7 +30,7 @@ export function crmSearchReducers(
 			const search = { ...(state?.search || {}), phones };
 			return { ...state, search };
 		}),
-		on(CRMSearchActions.AddLastname, (state, payload) => {
+		on(CRMSearchActions.AddLastname, (state: any, payload) => {
 			const lastnames = state.search?.lastnames || {};
 			if (payload.lastname && payload.lastname.length > 0) {
 				if (lastnames[payload.key] === payload.lastname) {
@@ -46,7 +46,7 @@ export function crmSearchReducers(
 			const search = { ...(state?.search || {}), lastnames };
 			return { ...state, search };
 		}),
-		on(CRMSearchActions.AddCallerId, (state, payload) => {
+		on(CRMSearchActions.AddCallerId, (state: any, payload) => {
 			if (state?.search!.callerId === payload.value) {
 				return state;
 			}

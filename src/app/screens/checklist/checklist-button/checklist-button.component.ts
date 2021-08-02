@@ -6,7 +6,7 @@ import {
 	CheckListItemType,
 	CheckListType,
 } from 'src/app/core/enums/checklist.types';
-import { CheckList, checkListClassName } from 'src/app/core/models/checklist.model';
+import { ICheckList, checkListClassName } from 'src/app/core/models/checklist.model';
 
 @Component({
 	providers: [],
@@ -16,7 +16,7 @@ import { CheckList, checkListClassName } from 'src/app/core/models/checklist.mod
 export class ChecklistButtonComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() checklist!: CheckList;
+	@Input() checklist!: ICheckList;
 
 	constructor(
 		// private _store: Store<IAppState>,
@@ -28,7 +28,7 @@ export class ChecklistButtonComponent implements OnDestroy {
 	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	checkListClass(status: CheckListItemStatus): string {

@@ -47,6 +47,6 @@ export class NewCallComponent implements OnInit, OnDestroy {
 	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

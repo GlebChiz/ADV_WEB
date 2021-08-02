@@ -153,3 +153,9 @@ export interface IFormSection {
 	groups: IFormGroup[];
 	forms: IEditingForm[];
 }
+
+export interface IFormSimpleUser {
+	role: string;
+	name: string;
+	routerLink: (string | Guid)[] | null;
+}

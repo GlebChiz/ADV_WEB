@@ -60,7 +60,7 @@ export class PatientStatusButtonComponent implements OnInit, OnDestroy {
 	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	statusName(): string {
@@ -69,7 +69,7 @@ export class PatientStatusButtonComponent implements OnInit, OnDestroy {
 	}
 
 	onItemClick(e: any): void {
-		this._patientService.updateStatus(this.patientId!, e.id).subscribe((x) => {
+		this._patientService.updateStatus(this.patientId!, e.id).subscribe(() => {
 			this.statusId = e.id;
 			this.name = this.statusName();
 			this.manuallyChange.emit({ patientId: this.patientId, statusId: e.id });

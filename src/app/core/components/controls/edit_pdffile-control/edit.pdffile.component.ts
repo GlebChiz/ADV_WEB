@@ -14,8 +14,9 @@ import { FormEditorService } from 'src/app/core/services/form.editor.service';
 import { FormService } from 'src/app/core/services/form.service';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
 import { PDFDocumentProxy, PDFPageProxy } from 'ng2-pdf-viewer';
-import { PDFAnnotationData } from 'pdfjs-dist';
-import { PdfInput, PdfPage } from './input';
+// import { PDFAnnotationData } from 'pdfjs-dist';
+import * as pdfjs from 'pdfjs-dist';
+import { PdfInput, IPdfPage } from './input';
 
 @Component({
 	providers: [],
@@ -37,7 +38,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 
 	readonly dpiRatio = 96 / 72;
 
-	pages: PdfPage[] | null = null;
+	pages: IPdfPage[] | null = null;
 
 	isLoadCompleted = false;
 
@@ -164,7 +165,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 							inputs: [],
 							fields: {},
 							completed: false,
-						} as PdfPage;
+						} as IPdfPage;
 						this.form.revision.fields.forEach((f) => {
 							page.fields[f.code] = {
 								formField: f,
@@ -183,7 +184,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	private resetForm(form: IEditingForm) {
@@ -303,7 +304,8 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 			.then((ann: any) => {
 				// ugly cast due to missing typescript definitions
 				// please contribute to complete @types/pdfjs-dist
-				const annotations = ann as PDFAnnotationData[];
+				const annotations = ann as pdfjs.MissingPDFException[];
+				// PDFAnnotationData
 
 				annotations
 					.filter((a) => a.subtype === 'Widget') // get the form field annotation only

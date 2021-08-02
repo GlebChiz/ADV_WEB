@@ -6,8 +6,9 @@ import {
 	forwardRef,
 	OnDestroy,
 	ViewChild,
+	OnInit,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import {
 	CalendarView,
@@ -32,12 +33,12 @@ import { Day } from '@progress/kendo-date-math';
 		},
 	],
 })
-export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestroy {
+export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestroy, OnInit {
 	private readonly unsubscribeAll$ = new Subject();
 
 	readonly dateTimeTypes = DateTimeTypes;
 
-	formControl = this._fb.control(null);
+	formControl: FormControl;
 
 	@Input() activeView: CalendarView = 'month';
 
@@ -106,13 +107,17 @@ export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestr
 	constructor(private _fb: FormBuilder) {}
 
 	ngOnDestroy(): void {
-		this.unsubscribeAll$.next();
+		this.unsubscribeAll$.next(null);
 		this.unsubscribeAll$.complete();
 	}
 
 	onChange = (_v: Date) => {};
 
 	onTouched = () => {};
+
+	ngOnInit(): void {
+		this.formControl = this._fb.control(null);
+	}
 
 	checkDate(date: Date): boolean {
 		const selectedDecade = Math.floor(

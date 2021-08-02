@@ -121,7 +121,7 @@ export class PatientDetailsComponent
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	/*
@@ -190,7 +190,7 @@ export class PatientDetailsComponent
 	}
 
 	save(): void {
-		this.beforeNext.next();
+		this.beforeNext.next(null);
 	}
 
 	saved(): void {

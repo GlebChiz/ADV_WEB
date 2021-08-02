@@ -22,10 +22,10 @@ import { appReducers } from '../../store/reducers/app.reducers';
 		}),
 		EffectsModule.forRoot([
 			PatientEffects,
-			GridEffects,
-			CallEffects,
-			PersonEffects,
-			ClinicianEffects,
+			// GridEffects,
+			// CallEffects,
+			// PersonEffects,
+			// ClinicianEffects,
 		]),
 		StoreRouterConnectingModule.forRoot({
 			serializer: DefaultRouterStateSerializer,
@@ -35,4 +35,8 @@ import { appReducers } from '../../store/reducers/app.reducers';
 	],
 	exports: [],
 })
-export class ReduxModule {}
+export class ReduxModule {
+	constructor() {
+		console.log('1312');
+	}
+}

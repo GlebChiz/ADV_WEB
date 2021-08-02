@@ -4,7 +4,7 @@ import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DataService } from 'src/app/shared/services';
-import { PdfDataModel } from '../components/controls/edit_pdffile-control/input';
+import { IPdfDataModel } from '../components/controls/edit_pdffile-control/input';
 import { IEditingForm, IFormDataModel, IFormFieldValue, IFormSection } from '../models/form.model';
 
 @Injectable({ providedIn: 'root' })
@@ -65,7 +65,7 @@ export class FormService extends DataService {
 		return this.post('create', model);
 	}
 
-	savePdfForm(model: PdfDataModel): Observable<any> {
+	savePdfForm(model: IPdfDataModel): Observable<any> {
 		return this.put('save-pdf-form', model);
 	}
 

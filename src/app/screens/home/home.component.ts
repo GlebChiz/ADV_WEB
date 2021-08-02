@@ -3,6 +3,8 @@ import { select, Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { selectUser } from 'src/app/core/store/user/user.selectors';
+import { IUser } from 'src/app/core/models/user.model';
+import { Observable } from 'rxjs';
 import { AlertService, AuthenticationService } from '../../shared/services';
 
 @Component({
@@ -13,7 +15,7 @@ import { AlertService, AuthenticationService } from '../../shared/services';
 export class HomeComponent implements OnInit {
 	apiUser!: string;
 
-	user$ = this._store.pipe(select(selectUser));
+	user$: Observable<IUser>;
 
 	constructor(
 		private authenticationService: AuthenticationService,
@@ -22,6 +24,7 @@ export class HomeComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		this.user$ = this._store.pipe(select(selectUser));
 		this.authenticationService.apiUser().subscribe(
 			(user) => {
 				this.apiUser = user?.userName;

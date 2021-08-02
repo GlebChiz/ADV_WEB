@@ -49,7 +49,7 @@ export const PersonActions = {
 
 	GetPersonDemographicData: createAction(
 		'[Person] Get Person Demographic Data Model',
-		props<{ id: Guid | null }>(),
+		props<{ id: Guid | string }>(),
 	),
 	GetPersonDemographicModelSuccess: createAction(
 		'[Person] Get Person Demographic Model Success',

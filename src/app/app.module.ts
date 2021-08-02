@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { StoreModule } from '@ngrx/store';
 import { MenusModule } from '@progress/kendo-angular-menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,7 +13,6 @@ import { LoginComponent } from './screens/login';
 import { RegisterComponent } from './screens/register';
 import { AlertComponent } from './shared/components';
 import { HeaderComponent } from './shared/layout/header/header.component';
-import { appReducers } from './core/store/reducers/app.reducers';
 import { MenuComponent } from './shared/layout/menu/menu.component';
 import { PatientsModule } from './screens/patients/patients.module';
 import { DropdownMenuComponent } from './shared/layout/dropdown-menu/dropdown-menu.component';
@@ -29,6 +27,13 @@ import { ClinicianModule } from './screens/clinician/clinician.module';
 import { IntakeModule } from './screens/intake/intake.module';
 import { AdveniumFormModule } from './screens/form/form.module';
 import { SharedCallModule } from './screens/shared-call/shared-call.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { appReducers } from './core/store/reducers/app.reducers';
+import { DefaultRouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { PatientEffects } from './core/store/patient/patient.effects';
 
 @NgModule({
 	declarations: [
@@ -44,8 +49,27 @@ import { SharedCallModule } from './screens/shared-call/shared-call.module';
 	],
 	imports: [
 		BrowserModule,
+		StoreModule.forRoot(appReducers, {
+			runtimeChecks: {
+				strictStateImmutability: false,
+				strictActionImmutability: false,
+			},
+		}),
+		EffectsModule.forRoot([
+			PatientEffects,
+			// GridEffects,
+			// CallEffects,
+			// PersonEffects,
+			// ClinicianEffects,
+		]),
+		StoreRouterConnectingModule.forRoot({
+			serializer: DefaultRouterStateSerializer,
+			stateKey: 'router',
+		}),
+		!environment.production ? StoreDevtoolsModule.instrument() : [],
 		AppRoutingModule,
 		ReactiveFormsModule,
+		CommonModule,
 		HttpClientModule,
 		PatientsModule,
 		PersonModule,
@@ -55,17 +79,17 @@ import { SharedCallModule } from './screens/shared-call/shared-call.module';
 		CallModule,
 		CoreModule,
 		ClinicianModule,
-		ReduxModule,
+		// ReduxModule,
 		CheckListModule,
 		IntakeModule,
 		AdveniumFormModule,
 		SharedCallModule,
-		StoreModule.forRoot(appReducers, {
-			runtimeChecks: {
-				strictStateImmutability: false,
-				strictActionImmutability: false,
-			},
-		}),
+		// StoreModule.forRoot(appReducers, {
+		// 	runtimeChecks: {
+		// 		strictStateImmutability: false,
+		// 		strictActionImmutability: false,
+		// 	},
+		// }),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -62,7 +62,7 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 
 	save() {
 		this.interStep = this.currentStep;
-		this.beforeNext.next();
+		this.beforeNext.next(null);
 		if (this.currentStep?.test === true) {
 			this.confirmSave();
 		}
@@ -77,7 +77,7 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 	changeStep(e: any, step: ICallManagerStep) {
 		e.preventDefault();
 		this.interStep = step;
-		this.beforeNext.next();
+		this.beforeNext.next(null);
 		if (this.currentStep?.test === true) {
 			this.confirmSave();
 		}
@@ -161,7 +161,7 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	existingPatients() {
@@ -565,7 +565,7 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 		)[0];
 		if (step) {
 			this.interStep = step;
-			this.beforeNext.next();
+			this.beforeNext.next(null);
 			if (this.currentStep?.test === true) {
 				this.confirmSave();
 			}

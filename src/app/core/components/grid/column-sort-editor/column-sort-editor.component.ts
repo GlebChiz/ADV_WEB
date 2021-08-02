@@ -32,7 +32,7 @@ export class GridColumnsSortEditorComponent implements OnInit, OnDestroy {
 	constructor(private _store: Store<IAppState>) {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	ngOnInit(): void {

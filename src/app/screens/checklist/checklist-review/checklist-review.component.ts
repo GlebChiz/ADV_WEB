@@ -33,7 +33,7 @@ export class ChecklistReviewComponent implements OnInit, OnDestroy {
 	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	getStatusClassName(status: CheckListItemStatus) {

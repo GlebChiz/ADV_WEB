@@ -32,7 +32,7 @@ export class SharedCallHomeComponent implements OnInit, OnDestroy {
 
 			this._store.dispatch(CallActions.SetCall({ call: null }));
 			this._store.dispatch(CallActions.GetCall({ callId: user?.sharedCallId }));
-			this._store.pipe(select(selectCall)).subscribe((xCall) => {
+			this._store.select(selectCall).subscribe((xCall) => {
 				this.call = xCall!;
 			});
 		}
@@ -41,6 +41,6 @@ export class SharedCallHomeComponent implements OnInit, OnDestroy {
 	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

@@ -1,6 +1,6 @@
-import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { selectCRMSearch } from 'src/app/core/store/crmsearch/crmsearch.selectors';
 import {
@@ -19,10 +19,10 @@ import { formatDate } from '@angular/common';
 	templateUrl: './crm-search.component.html',
 	encapsulation: ViewEncapsulation.None,
 })
-export class CRMSearchComponent implements OnDestroy {
+export class CRMSearchComponent implements OnDestroy, OnInit {
 	private _destroy$ = new Subject();
 
-	search$ = this._store.pipe(select(selectCRMSearch), takeUntil(this._destroy$));
+	search$: Observable<ICRMSearch>;
 
 	persons: ICRMPersonFound[] = [];
 
@@ -54,8 +54,6 @@ export class CRMSearchComponent implements OnDestroy {
 		return formatDate(date, 'MM/dd/yyyy hh:mm a', 'en-US');
 	}
 
-	// ngOnInit(): void {}
-
 	getRoleName(value: CRMPersonMatchRole) {
 		switch (value) {
 			case CRMPersonMatchRole.Caller:
@@ -69,9 +67,11 @@ export class CRMSearchComponent implements OnDestroy {
 		}
 	}
 
-	// ngOnChanges(): void {}
+	ngOnInit(): void {
+		this.search$ = this._store.pipe(select(selectCRMSearch), takeUntil(this._destroy$));
+	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

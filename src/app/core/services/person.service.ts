@@ -30,7 +30,7 @@ export class PersonGridService extends GridDataService {
 		return this.get(`${id}/general`);
 	}
 
-	getPersonDemographicDataModel(id: Guid | null): Observable<IPersonDemographicData> {
+	getPersonDemographicDataModel(id: Guid | null | string): Observable<IPersonDemographicData> {
 		return this.get(`${id}/demographic`);
 	}
 

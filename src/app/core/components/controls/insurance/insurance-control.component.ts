@@ -206,7 +206,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 
 	ngOnDestroy(): void {
 		this.subscriptions.forEach((s) => s.unsubscribe());
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	onChange: any = () => {};

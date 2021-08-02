@@ -70,7 +70,7 @@ export class PatientFormsComponent implements OnInit, OnDestroy {
 		if (this.saveSubscription) {
 			this.saveSubscription.unsubscribe();
 		}
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	submit(): void {

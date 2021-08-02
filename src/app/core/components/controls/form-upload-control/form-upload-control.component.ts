@@ -88,7 +88,7 @@ export class FormUploadComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	selectFile(e: SelectEvent) {
