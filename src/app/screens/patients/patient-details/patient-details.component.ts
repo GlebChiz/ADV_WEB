@@ -1,29 +1,19 @@
-import {
-	Component,
-	EventEmitter,
-	Input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
+import { SelectEvent } from '@progress/kendo-angular-layout';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
 import { PatientModalityStatus } from 'src/app/core/enums/patient.modality.status';
 import { FormPersonRole } from 'src/app/core/models/form.model';
-import { DropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
-import { MetaData, PatientModality } from 'src/app/core/models/patient.model';
-import { FormService } from 'src/app/core/services/form.service';
+import { IDropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
+import { MetaData, IPatientModality } from 'src/app/core/models/patient.model';
 import { PatientActions } from 'src/app/core/store/patient/patient.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
-import { DropDownService } from 'src/app/shared/services/dropdown.service';
 
 @Component({
 	providers: [],
@@ -32,7 +22,7 @@ import { DropDownService } from 'src/app/shared/services/dropdown.service';
 })
 export class PatientDetailsComponent
 	extends UnsubscriableBaseDirective
-	implements OnInit, OnChanges, OnDestroy
+	implements OnChanges, OnDestroy
 {
 	private _destroy$ = new Subject();
 
@@ -43,9 +33,9 @@ export class PatientDetailsComponent
 
 	@Input() isEditMode = true;
 
-	@Input() personId!: Guid | string;
+	@Input() personId!: Guid;
 
-	@Input() patientId!: Guid | string;
+	@Input() patientId!: Guid | string | null;
 
 	@Input() showCancel = false;
 
@@ -67,7 +57,7 @@ export class PatientDetailsComponent
 
 	phoneMask = '(999) 000-0000';
 
-	areas = Array<DropDownData>();
+	areas = Array<IDropDownData>();
 
 	beforeNext: Subject<void> = new Subject<void>();
 
@@ -75,10 +65,7 @@ export class PatientDetailsComponent
 
 	constructor(
 		public _store: Store<IAppState>,
-		private actions$: Actions,
-		private _dropDownService: DropDownService,
-		private formService: FormService,
-		private router: Router,
+		private actions$: Actions, // private _dropDownService: DropDownService, // private formService: FormService, // private router: Router,
 	) {
 		super();
 		this.saveActions();
@@ -93,10 +80,10 @@ export class PatientDetailsComponent
 		];
 	}
 
-	ngOnInit(): void {}
+	// ngOnInit(): void {}
 
 	ngOnChanges(): void {
-		console.log('on changes');
+		// console.log('on changes');
 		this.initForm();
 	}
 
@@ -115,7 +102,7 @@ export class PatientDetailsComponent
 		return 'Edit Patient';
 	}
 
-	changeTab(e) {
+	changeTab(e: SelectEvent) {
 		this.canSaveNow = e.title !== 'Forms';
 	}
 
@@ -134,7 +121,7 @@ export class PatientDetailsComponent
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	/*
@@ -149,7 +136,7 @@ export class PatientDetailsComponent
 			return {
 				modalityId: x,
 				status,
-			} as PatientModality;
+			} as IPatientModality;
 		});
 		return items;
 	}

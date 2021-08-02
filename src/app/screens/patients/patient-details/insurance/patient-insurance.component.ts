@@ -6,12 +6,11 @@ import { Guid } from 'guid-typescript';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { Insurance } from 'src/app/core/models/insurance.model';
-import { MetaData, Patient } from 'src/app/core/models/patient.model';
+import { IInsurance } from 'src/app/core/models/insurance.model';
+import { MetaData } from 'src/app/core/models/patient.model';
 import { PersonActions } from 'src/app/core/store/person/person.actions';
 import { selectPersonInsuranceModel } from 'src/app/core/store/person/person.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
-import { DropDownService } from 'src/app/shared/services/dropdown.service';
 
 @Component({
 	providers: [],
@@ -35,11 +34,13 @@ export class PatientInsuranceComponent
 
 	metaData: any = MetaData;
 
-	personInsuranceModel$: Observable<Insurance[]> | null = null;
+	personInsuranceModel$: Observable<IInsurance[]> | null = null;
 
 	private _destroy$ = new Subject();
 
-	constructor(public _store: Store<IAppState>, private _dropDownService: DropDownService) {
+	constructor(
+		public _store: Store<IAppState>, // private _dropDownService: DropDownService
+	) {
 		super();
 	}
 
@@ -47,7 +48,7 @@ export class PatientInsuranceComponent
 		this._store.dispatch(PersonActions.GetInsurancePersonData({ id: this.personId }));
 
 		this.personInsuranceModel$ = this._store.pipe(
-			select(selectPersonInsuranceModel),
+			select<any, any>(selectPersonInsuranceModel),
 			takeUntil(this._destroy$),
 		);
 
@@ -58,7 +59,7 @@ export class PatientInsuranceComponent
 		});
 	}
 
-	initForm(insurances: Insurance[]): void {
+	initForm(insurances: IInsurance[]): void {
 		this.insuranceForm = new FormGroup({
 			primaryInsurance: new FormControl(insurances?.filter((x) => x.orderType === 0)),
 			secondaryInsurance: new FormControl(insurances?.filter((x) => x.orderType === 1)),
@@ -66,7 +67,7 @@ export class PatientInsuranceComponent
 	}
 
 	submitForm() {
-		console.log(this.insuranceForm.value);
+		// console.log(this.insuranceForm.value);
 		this._store.dispatch(PersonActions.UpdateInsurancePersonData(this.insuranceForm.value));
 	}
 }

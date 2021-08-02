@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Guid } from 'guid-typescript';
 import { Observable, throwError, of } from 'rxjs';
 
@@ -12,54 +12,54 @@ export abstract class DataService {
 		return `${environment.apiUrl}/${controller}`;
 	}
 
-	getWithController(
+	getWithController<T>(
 		controller: string,
 		action?: string,
 		params: HttpParams = new HttpParams(),
-	): Observable<any> {
+	): Observable<T> {
 		const options = {
 			params,
 		};
 		const url = this.getUrl(controller);
-		return this.http.get(`${url}/${action || ''}`, options).pipe(catchError(this.formatErrors));
+		return this.http.get<T>(`${url}/${action || ''}`, options).pipe(catchError(this.formatErrors));
 	}
 
-	get(action?: string, params: HttpParams = new HttpParams()): Observable<any> {
-		return this.getWithController(this.controller, action, params);
+	get<T>(action?: string, params: HttpParams = new HttpParams()): Observable<T> {
+		return this.getWithController<T>(this.controller, action, params);
 	}
 
-	post(action?: string, body: Object = {}, additionalOptions: Object = {}): Observable<any> {
-		return this.postWithController(this.controller, action, body, additionalOptions);
+	post<T>(action?: string, body: Object = {}, additionalOptions: Object = {}): Observable<any> {
+		return this.postWithController<T>(this.controller, action, body, additionalOptions);
 	}
 
-	postWithController(
+	postWithController<T>(
 		controller: string,
 		action?: string,
 		body: Object = {},
 		additionalOptions: Object = {},
-	): Observable<any> {
+	): Observable<T> {
 		if (additionalOptions) {
 			return this.http
-				.post(`${this.getUrl(controller)}/${action || ''}`, body, additionalOptions)
+				.post<T>(`${this.getUrl(controller)}/${action || ''}`, body, additionalOptions)
 				.pipe(catchError(this.formatErrors));
 		}
 		return this.http
-			.post(`${this.getUrl(controller)}/${action || ''}`, body)
+			.post<T>(`${this.getUrl(controller)}/${action || ''}`, body)
 			.pipe(catchError(this.formatErrors));
 	}
 
-	put(action?: string, body: Object = {}): Observable<any> {
+	put<T>(action?: string, body: Object = {}): Observable<T> {
 		return this.http
-			.put(`${this.getUrl(this.controller)}/${action || ''}`, body)
+			.put<T>(`${this.getUrl(this.controller)}/${action || ''}`, body)
 			.pipe(catchError(this.formatErrors));
 	}
 
-	delete(action?: string, params: HttpParams = new HttpParams()): Observable<any> {
+	delete<T>(action?: string, params: HttpParams = new HttpParams()): Observable<T> {
 		const options = {
 			params,
 		};
 		return this.http
-			.delete(`${this.getUrl(this.controller)}/${action || ''}`, options)
+			.delete<T>(`${this.getUrl(this.controller)}/${action || ''}`, options)
 			.pipe(catchError(this.formatErrors));
 	}
 
@@ -67,7 +67,7 @@ export abstract class DataService {
 		action?: string,
 		body: any = null,
 		fileType: string = 'application/pdf',
-	): Observable<any> {
+	): Observable<HttpResponse<Blob>> {
 		let headers = new HttpHeaders();
 		headers = headers.set('Accept', fileType);
 
@@ -91,27 +91,27 @@ export abstract class DataService {
 		return of();
 	}
 
-	protected saveFilterData(action: string, filterId: Guid, filterModel: any): Observable<any> {
+	protected saveFilterData<T>(action: string, filterId: Guid, filterModel: any): Observable<T> {
 		const data = {
 			...filterModel,
 			FilterId: filterId.toString(),
 		};
-		return this.post(action, data);
+		return this.post<T>(action, data);
 	}
 
-	getModel(id: Guid | string): Observable<any> {
-		return this.get(`${id || Guid.EMPTY}`);
+	getModel<T>(id: Guid | null): Observable<T> {
+		return this.get<T>(`${id || Guid.EMPTY}`);
 	}
 
-	updateModel(model: any): Observable<any> {
-		return this.post('update', model);
+	updateModel<T>(model: any): Observable<any> {
+		return this.post<T>('update', model);
 	}
 
-	createModel(model: any): Observable<any> {
-		return this.put('create', model);
+	createModel<T>(model: any): Observable<T> {
+		return this.put<T>('create', model);
 	}
 
-	deleteModel(id: Guid): Observable<any> {
-		return this.delete(`${id}/delete`);
+	deleteModel<T>(id: Guid): Observable<T> {
+		return this.delete<T>(`${id}/delete`);
 	}
 }

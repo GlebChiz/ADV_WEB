@@ -1,10 +1,10 @@
 import { Guid } from 'guid-typescript';
-import { SchedulerFilter } from '../service.model';
+import { ISchedulerFilter } from '../service.model';
 
-export interface ClinicianFilterModel {
+export interface IClinicianFilterModel {
 	search: string;
 }
 
-export interface ClinicianSchedulerFilter extends SchedulerFilter {
+export interface IClinicianSchedulerFilter extends ISchedulerFilter {
 	clinicianId: Guid | null;
 }

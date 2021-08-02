@@ -1,11 +1,12 @@
 <advenium-patient-filter [filterId]="filterId"> </advenium-patient-filter>
 <advenium-patient-details
 	*ngIf="false"
-	[isEditMode]="'true'"
-	[model]="patientModel$ | async"
-	(cancelEditing)="closeEditor()"
-	(reloadData)="reloadGrid()"
+	[isEditMode]=true
 >
+<!-- (cancelEditing)="closeEditor()" -->
+<!-- (reloadData)="reloadGrid()" -->
+<!-- [model]="patientModel$ | async" -->
+
 </advenium-patient-details>
 
 <advenium-data-list

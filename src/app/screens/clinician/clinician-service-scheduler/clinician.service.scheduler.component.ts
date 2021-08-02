@@ -2,15 +2,14 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
 import {
-	EditingService,
-	SchedulerSettings,
-	Service,
+	IEditingService,
+	ISchedulerSettings,
+	IService,
 	ServiceFieldEditRule,
-	ServiceFieldsSettings,
+	IServiceFieldsSettings,
 } from 'src/app/core/models/service.model';
-import * as _ from 'lodash';
 import { ClinicianSchedulerService } from 'src/app/core/services/clinician.scheduler.service';
-import { ClinicianSchedulerFilter } from 'src/app/core/models/filters/clinician-filter.model';
+import { IClinicianSchedulerFilter } from 'src/app/core/models/filters/clinician-filter.model';
 
 @Component({
 	selector: 'advenium-clinician-service-scheduler',
@@ -20,11 +19,11 @@ import { ClinicianSchedulerFilter } from 'src/app/core/models/filters/clinician-
 export class ClinicianServiceSchedulerComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	filter: ClinicianSchedulerFilter | null = null;
+	filter: IClinicianSchedulerFilter | null = null;
 
 	@Input() clinicianId!: Guid;
 
-	schedulerSettings: SchedulerSettings = {
+	schedulerSettings: ISchedulerSettings = {
 		slotDuration: 30,
 		fields: {
 			patient: ServiceFieldEditRule.Edit,
@@ -33,24 +32,24 @@ export class ClinicianServiceSchedulerComponent implements OnInit, OnDestroy {
 			deliveryType: ServiceFieldEditRule.Edit,
 			status: ServiceFieldEditRule.Edit,
 			time: ServiceFieldEditRule.Edit,
-		} as ServiceFieldsSettings,
-	} as SchedulerSettings;
+		} as IServiceFieldsSettings,
+	} as ISchedulerSettings;
 
-	editedEvent!: EditingService;
+	editedEvent!: IEditingService;
 
 	constructor(public schedulerService: ClinicianSchedulerService) {}
 
 	ngOnInit(): void {
 		this.filter = {
 			clinicianId: this.clinicianId,
-		} as ClinicianSchedulerFilter;
+		} as IClinicianSchedulerFilter;
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
-	save(e: Service) {
+	save(e: IService) {
 		this.schedulerService.sendToSave(e);
 	}
 }

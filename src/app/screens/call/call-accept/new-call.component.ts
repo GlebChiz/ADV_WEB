@@ -1,9 +1,9 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Call, CallerType } from 'src/app/core/models/call.model';
+import { ICall, CallerType } from 'src/app/core/models/call.model';
 import { CallActions } from 'src/app/core/store/call/call.actions';
 import { selectActiveCall } from 'src/app/core/store/call/call.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -14,7 +14,7 @@ import { AuthenticationService } from 'src/app/shared/services';
 	selector: 'advenium-call-accept',
 	templateUrl: './new-call.component.html',
 })
-export class NewCallComponent implements OnInit, OnChanges, OnDestroy {
+export class NewCallComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
 	constructor(
@@ -33,8 +33,8 @@ export class NewCallComponent implements OnInit, OnChanges, OnDestroy {
 				userId: this.auth.getCurrentUser().userId,
 				callerType: CallerType.Unknown,
 				patients: [],
-			} as Call;
-			this._store.dispatch(CallActions.SetActiveCall(null));
+			} as unknown as ICall;
+			this._store.dispatch(CallActions.SetActiveCall({ call: null }));
 			this._store.dispatch(CallActions.CreateCall({ call }));
 			this._store.pipe(select(selectActiveCall), takeUntil(this._destroy$)).subscribe((x) => {
 				if (x != null) {
@@ -44,9 +44,9 @@ export class NewCallComponent implements OnInit, OnChanges, OnDestroy {
 		});
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

@@ -8,15 +8,14 @@ import {
 	Output,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { groupBy } from '@progress/kendo-data-query';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
-import { MetaData, Payer } from 'src/app/core/models/payer.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { MetaData, IPayer } from 'src/app/core/models/payer.model';
 import { PayerGridService } from 'src/app/core/services/payer.service';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -40,9 +39,9 @@ export class PayerDetailsComponent
 
 	@Input() readonly = false;
 
-	@Input() model!: Payer | null;
+	@Input() model!: IPayer | null;
 
-	payerTypes: any = Array<DropDownData>();
+	payerTypes: any = Array<IDropDownData>();
 
 	@Output() savePayer: EventEmitter<any> = new EventEmitter();
 
@@ -54,7 +53,6 @@ export class PayerDetailsComponent
 
 	constructor(
 		public _store: Store<IAppState>,
-		private actions$: Actions,
 		private _dropDownService: DropDownService,
 		public validationService: ValidationMessageService,
 		private _service: PayerGridService,
@@ -63,10 +61,10 @@ export class PayerDetailsComponent
 	}
 
 	ngOnInit(): void {
-		this._dropDownService.getLookup(LookupTypeCodes.payerType).subscribe((x) => {
-			x.forEach((k) => (k.parentName = this._dropDownService.getName(k.parentId, x)));
+		this._dropDownService.getLookup(LookupTypeCodes.payerType).subscribe((x: any) => {
+			x.forEach((k: any) => (k.parentName = this._dropDownService.getName(k.parentId, x)));
 			this.payerTypes = groupBy(
-				x.filter((y) => y.parentId != null),
+				x.filter((y: any) => y.parentId != null),
 				[{ field: 'parentName' }],
 			);
 		});
@@ -110,7 +108,7 @@ export class PayerDetailsComponent
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	submit(): void {
@@ -149,7 +147,7 @@ export class PayerDetailsComponent
 		this.model = null;
 	}
 
-	saveActions(result): void {
+	saveActions(result: any): void {
 		if (result.isSuccess === true) {
 			this.saved();
 		} else {

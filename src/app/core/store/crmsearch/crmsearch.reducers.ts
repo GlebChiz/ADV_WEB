@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { CRMSearch } from '../../models/crm-search.model';
+import { ICRMSearch } from '../../models/crm-search.model';
 import { CRMSearchActions } from './crmsearch.actions';
 import { ICRMSearchState, initialCRMSearchState } from './crmsearch.state';
 
@@ -12,25 +12,25 @@ export function crmSearchReducers(
 		on(CRMSearchActions.Reset, (state, payload) => {
 			return { ...state, search: payload.search };
 		}),
-		on(CRMSearchActions.AddPhone, (state, payload) => {
+		on(CRMSearchActions.AddPhone, (state: any, payload) => {
 			const isValidPhone = payload.phone && /^\d{10}$/.test(payload.phone);
 			const phones = state.search?.phones || {};
 
 			if (isValidPhone === true) {
 				if (phones[payload.key] === payload.phone) {
-					return state;
+					return { ...state, search: null };
 				}
 				phones[payload.key] = payload.phone;
 			} else {
 				if (!phones[payload.key]) {
-					return state;
+					return { ...state, search: null };
 				}
 				delete phones[payload.key];
 			}
 			const search = { ...(state?.search || {}), phones };
 			return { ...state, search };
 		}),
-		on(CRMSearchActions.AddLastname, (state, payload) => {
+		on(CRMSearchActions.AddLastname, (state: any, payload) => {
 			const lastnames = state.search?.lastnames || {};
 			if (payload.lastname && payload.lastname.length > 0) {
 				if (lastnames[payload.key] === payload.lastname) {
@@ -46,8 +46,8 @@ export function crmSearchReducers(
 			const search = { ...(state?.search || {}), lastnames };
 			return { ...state, search };
 		}),
-		on(CRMSearchActions.AddCallerId, (state, payload) => {
-			if (state?.search.callerId === payload.value) {
+		on(CRMSearchActions.AddCallerId, (state: any, payload) => {
+			if (state?.search!.callerId === payload.value) {
 				return state;
 			}
 			const callerId = payload.value || null;
@@ -56,7 +56,7 @@ export function crmSearchReducers(
 		}),
 
 		on(CRMSearchActions.SetCall, (state, payload) => {
-			const search = { ...(state.search || ({} as CRMSearch)) };
+			const search = { ...(state.search || ({} as ICRMSearch)) };
 			search.call = payload.call;
 			return { ...state, search };
 		}),

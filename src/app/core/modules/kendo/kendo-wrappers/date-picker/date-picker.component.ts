@@ -6,8 +6,9 @@ import {
 	forwardRef,
 	OnDestroy,
 	ViewChild,
+	OnInit,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder, FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import {
 	CalendarView,
@@ -18,6 +19,7 @@ import {
 } from '@progress/kendo-angular-dateinputs';
 import moment from 'moment';
 import { DateTimeTypes } from 'src/app/core/enums/date-time.types';
+import { Day } from '@progress/kendo-date-math';
 
 @Component({
 	selector: 'advenium-date-picker',
@@ -31,12 +33,12 @@ import { DateTimeTypes } from 'src/app/core/enums/date-time.types';
 		},
 	],
 })
-export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestroy {
+export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestroy, OnInit {
 	private readonly unsubscribeAll$ = new Subject();
 
 	readonly dateTimeTypes = DateTimeTypes;
 
-	formControl = this._fb.control(null);
+	formControl!: FormControl;
 
 	@Input() activeView: CalendarView = 'month';
 
@@ -48,7 +50,7 @@ export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestr
 
 	@Input() readonly = false;
 
-	@Input() disabledDates: ((date: Date) => boolean | Date[]) | null = null;
+	@Input() disabledDates!: ((date: Date) => boolean) | Date[] | Day[];
 
 	@Input() disabledDatesValidation = false;
 
@@ -60,9 +62,9 @@ export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestr
 
 	@Input() label = '';
 
-	@Input() max: Date | null = null;
+	@Input() max!: Date;
 
-	@Input() min: Date | null = null;
+	@Input() min!: Date;
 
 	@Input() navigation = false;
 
@@ -72,7 +74,7 @@ export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestr
 
 	@Input() rangeValidation = true;
 
-	@Input() tabindex: number | null = null;
+	@Input() tabindex!: number;
 
 	@Input() title = '';
 
@@ -80,19 +82,19 @@ export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestr
 
 	@Input() type = DateTimeTypes.Date;
 
-	@Input() value: Date | null = null;
+	@Input() value!: Date;
 
 	@Input() weekNumber = false;
 
 	@Input() showTitle = false;
 
-	@Output() blur = new EventEmitter();
+	@Output() onblur = new EventEmitter();
 
-	@Output() close = new EventEmitter<PreventableEvent>();
+	@Output() onclose = new EventEmitter<PreventableEvent>();
 
-	@Output() focus = new EventEmitter();
+	@Output() onfocus = new EventEmitter();
 
-	@Output() open = new EventEmitter<PreventableEvent>();
+	@Output() onopen = new EventEmitter<PreventableEvent>();
 
 	@Output() valueChange = new EventEmitter<Date>();
 
@@ -105,43 +107,53 @@ export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestr
 	constructor(private _fb: FormBuilder) {}
 
 	ngOnDestroy(): void {
-		this.unsubscribeAll$.next();
+		this.unsubscribeAll$.next(null);
 		this.unsubscribeAll$.complete();
 	}
 
-	onChange = (delta: Date) => {};
+	onChange = (_v: Date) => {};
 
 	onTouched = () => {};
 
+	ngOnInit(): void {
+		this.formControl = this._fb.control(null);
+	}
+
 	checkDate(date: Date): boolean {
+		const selectedDecade = Math.floor(
+			(this.datePicker.calendar.focusedDate.getFullYear() % 100) / 10,
+		);
+		const decade = Math.floor((date.getFullYear() % 100) / 10);
 		switch (this.datePicker.calendar.activeView) {
 			case 'month':
 				return this.datePicker.calendar.focusedDate.getMonth() === date.getMonth();
 
 			case 'year':
 				return this.datePicker.calendar.focusedDate.getFullYear() === date.getFullYear();
-
 			case 'decade':
-				const selectedDecade = Math.floor(
-					(this.datePicker.calendar.focusedDate.getFullYear() % 100) / 10,
-				);
-				const decade = Math.floor((date.getFullYear() % 100) / 10);
 				return selectedDecade === decade;
+			default:
+				return false;
 		}
-
-		return false;
 	}
 
 	navigate(event: Event, dir: 1 | -1): void {
 		event.stopPropagation();
 		const units = this.datePicker.calendar.activeView === 'month' ? 'month' : 'year';
-		const amount =
-			dir *
-			(this.datePicker.calendar.activeView === 'decade'
-				? 10
-				: this.datePicker.calendar.activeView === 'century'
-				? 100
-				: 1);
+		let number: number;
+		switch (this.datePicker.calendar.activeView) {
+			case 'decade':
+				number = 10;
+				break;
+			case 'century':
+				number = 100;
+				break;
+			default:
+				number = 1;
+				break;
+		}
+
+		const amount = dir * number;
 		const newDate = moment(this.datePicker.calendar.focusedDate).add(amount, units).toDate();
 		this.datePicker.calendar.focusedDate = newDate;
 	}

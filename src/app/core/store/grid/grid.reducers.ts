@@ -21,9 +21,9 @@ export function gridReducers(gridState: IGridState | undefined, action: Action):
 		on(GridActions.CheckAll, (state, payload) => {
 			const newState = { ...state };
 			const rows = newState.gridData[payload.gridId]?.data || [];
-			const checks = {};
+			const checks: any = {};
 			if (rows && rows.length > 0) {
-				rows.forEach((r) => {
+				rows.forEach((r: any) => {
 					checks[r['grid-uid']] = payload.checked;
 				});
 			}

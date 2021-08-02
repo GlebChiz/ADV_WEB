@@ -1,5 +1,4 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import * as _ from 'lodash';
 import { PageSettingsActions } from '../../actions/page-settings/page-settings.actions';
 import {
 	initialPageSettings,
@@ -7,11 +6,11 @@ import {
 } from '../../state/page-settings/page-settings.state';
 
 export function pageSettingsReducers(
-	pageState: IPageSettingsState,
+	pageState: IPageSettingsState | undefined,
 	action: Action,
 ): IPageSettingsState {
 	return createReducer(
 		initialPageSettings,
-		on(PageSettingsActions.SetTitle, (state, payload) => payload.settings),
+		on(PageSettingsActions.SetTitle, (_state, payload) => payload.settings),
 	)(pageState, action);
 }

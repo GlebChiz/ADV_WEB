@@ -4,9 +4,12 @@ import { IPersonState } from './person.state';
 
 const personState = (state: IAppState) => state.personState;
 
-export const selectPersonPrivateLinks = createSelector(personState, (state: IPersonState, data) => {
-	return state.privatePersonLinks[data.personId] || null;
-});
+export const selectPersonPrivateLinks = createSelector(
+	personState,
+	(state: IPersonState | any, data: any) => {
+		return state.privatePersonLinks[data.personId] || null;
+	},
+);
 
 export const selectPersonModel = createSelector(
 	personState,

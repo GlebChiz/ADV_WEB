@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { CallService } from '../../services/call.service';
-import { IAppState } from '../state/app.state';
 import { CallActions } from './call.actions';
 
 @Injectable()
@@ -40,8 +38,8 @@ export class CallEffects {
 			ofType(CallActions.GetCall),
 			mergeMap(({ callId }) =>
 				this.service
-					.getModel(callId)
-					.pipe(map((payload) => CallActions.SetCall({ call: payload }))),
+					.getModel<any>(callId)
+					.pipe(map((payload: any) => CallActions.SetCall({ call: payload }))),
 			),
 		),
 	);
@@ -49,9 +47,9 @@ export class CallEffects {
 	updateCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.UpdateCall),
-			switchMap((payload) =>
-				this.service.updateModel(payload.call).pipe(
-					map((result) => {
+			switchMap((payload: any) =>
+				this.service.updateModel<any>(payload.call).pipe(
+					map((result: any) => {
 						if (result && result.isSuccess === true) {
 							CallActions.GetActiveCall();
 							return CallActions.RefreshCall({ id: payload.call.id });
@@ -66,9 +64,9 @@ export class CallEffects {
 	createCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.CreateCall),
-			switchMap((payload) =>
+			switchMap((payload: any) =>
 				this.service.createModel(payload.call).pipe(
-					map((result) => {
+					map((result: any) => {
 						if (result && result.isSuccess === true) {
 							return CallActions.GetActiveCall();
 						}
@@ -95,9 +93,5 @@ export class CallEffects {
 		),
 	);
 
-	constructor(
-		private store: Store<IAppState>,
-		private actions$: Actions,
-		private service: CallService,
-	) {}
+	constructor(private actions$: Actions, private service: CallService) {}
 }

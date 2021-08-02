@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
 import { PatientModalityStatus } from 'src/app/core/enums/patient.modality.status';
-import { DropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
-import { MetaData, Patient } from 'src/app/core/models/patient.model';
+import { IDropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
+import { MetaData, IPatient } from 'src/app/core/models/patient.model';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { DropDownService } from 'src/app/shared/services/dropdown.service';
 
@@ -23,9 +23,9 @@ export class PatientModalitySelectionComponent
 		operator: 'contains',
 	};
 
-	@Input() model!: Patient;
+	@Input() model!: IPatient;
 
-	modalities = Array<DropDownData>();
+	modalities = Array<IDropDownData>();
 
 	modalitySelectionForm!: FormGroup;
 
@@ -68,7 +68,7 @@ export class PatientModalitySelectionComponent
 	ngOnInit(): void {
 		this._dropDownService
 			.getModalities()
-			.subscribe((modalities: DropDownData[]) => (this.modalities = modalities));
+			.subscribe((modalities: IDropDownData[]) => (this.modalities = modalities));
 		this.initForm();
 	}
 

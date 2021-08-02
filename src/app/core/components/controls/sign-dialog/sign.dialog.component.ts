@@ -4,7 +4,6 @@ import {
 	EventEmitter,
 	Input,
 	OnDestroy,
-	OnInit,
 	Output,
 	ViewChild,
 } from '@angular/core';
@@ -16,14 +15,14 @@ import { Subject } from 'rxjs';
 	templateUrl: './sign.dialog.component.html',
 	styleUrls: ['./sign.dialog.component.scss'],
 })
-export class SignDialogComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SignDialogComponent implements OnDestroy, AfterViewInit {
 	private _destroy$ = new Subject();
 
 	@Input() opened = false;
 
 	@ViewChild(SignaturePad) signaturePad!: SignaturePad;
 
-	signaturePadOptions: Object = {
+	signaturePadOptions: any = {
 		// passed through to szimek/signature_pad constructor
 		minWidth: 5,
 		canvasWidth: 500,
@@ -36,7 +35,7 @@ export class SignDialogComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	@Output() saveSignature: EventEmitter<any> = new EventEmitter<any>();
 
-	constructor() {}
+	// constructor() {}
 
 	ngAfterViewInit(): void {
 		this.signaturePad.set('minWidth', 5); // set szimek/signature_pad options at runtime
@@ -50,7 +49,7 @@ export class SignDialogComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	drawStart() {}
 
-	ngOnInit(): void {}
+	// ngOnInit(): void {}
 
 	close() {
 		this.opened = false;
@@ -59,7 +58,7 @@ export class SignDialogComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	clear() {
 		this.signaturePad.clear();
-		this.signature = null;
+		this.signature = null!;
 	}
 
 	save() {
@@ -71,6 +70,6 @@ export class SignDialogComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { Patient } from 'src/app/core/models/patient.model';
-import { PrivatePersonLink } from '../../models/person.model';
+import { IPatient } from 'src/app/core/models/patient.model';
+import { IPrivatePersonLink } from '../../models/person.model';
 
 export const PatientActions = {
 	ResetPatients: createAction('[Patient] Reset patients'),
-	UpdatePatient: createAction('[Patient] Update Patient', props<Patient>()),
+	UpdatePatient: createAction('[Patient] Update Patient', props<IPatient>()),
 	UpdatePatientComplete: createAction('[Patient] Update Patient Compete'),
 	UpdatePatientFail: createAction('[Patient] Update Patient Fail', props<{ errors: any }>()),
 	GetGridColumns: createAction('[Patient] Get Grid Columns'),
@@ -20,6 +20,6 @@ export const PatientActions = {
 	// tslint:disable-next-line:max-line-length
 	GetPrivatePersonLinksSuccess: createAction(
 		'[Patient] Get private persons links success',
-		props<{ patientId: string; data: PrivatePersonLink[] }>(),
+		props<{ patientId: string; data: IPrivatePersonLink[] }>(),
 	),
 };

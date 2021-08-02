@@ -1,5 +1,5 @@
 export interface IChecklistState {
-	checklists: {};
+	checklists: {} | any;
 }
 
 export const initialChecklistState: IChecklistState = {

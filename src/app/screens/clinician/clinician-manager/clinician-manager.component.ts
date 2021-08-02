@@ -2,11 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
-import { Clinician } from 'src/app/core/models/clinician.model';
-import { CommonGridService } from 'src/app/core/services/grid.service';
+import { IClinician } from 'src/app/core/models/clinician.model';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { GridActions } from 'src/app/core/store/grid/grid.actions';
-import { GridColumnInfo } from 'src/app/core/store/grid/grid.state';
+import { IGridColumnInfo } from 'src/app/core/store/grid/grid.state';
 import { IAppState } from 'src/app/core/store/state/app.state';
 
 @Component({
@@ -20,16 +19,21 @@ export class ClinicianManagerComponent implements OnInit, OnDestroy {
 
 	filterId = 'clinician-manager-filter';
 
-	clinicianModel: Clinician | null = null;
+	clinicianModel: IClinician | null = null;
 
-	constructor(private _store: Store<IAppState>, private _service: CommonGridService) {}
+	constructor(
+		private _store: Store<IAppState>, // private _service: CommonGridService
+	) {}
 
-	linkArray(column: GridColumnInfo, item: any) {
+	linkArray(
+		// column: IGridColumnInfo,
+		item: any,
+	) {
 		return ['/clinician', item.id];
 	}
 
-	columns(): GridColumnInfo[] {
-		return [{ name: 'name', title: 'Name', link: true } as GridColumnInfo];
+	columns(): IGridColumnInfo[] {
+		return [{ name: 'name', title: 'Name', link: true } as IGridColumnInfo];
 	}
 
 	ngOnInit(): void {
@@ -39,7 +43,7 @@ export class ClinicianManagerComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	reloadGrid() {

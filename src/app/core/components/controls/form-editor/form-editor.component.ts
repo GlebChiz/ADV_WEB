@@ -2,14 +2,15 @@ import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular
 import { Guid } from 'guid-typescript';
 import { Subject, Subscription } from 'rxjs';
 import {
-	EditingForm,
-	FormEditorAction,
+	IEditingForm,
+	IFormEditorAction,
 	FormEditorActionType,
 	FormEditorType,
-	FormPerson,
+	IFormPerson,
 	FormPersonRole,
 	FormUploadRule,
 	PdfSourceType,
+	IFormSimpleUser,
 } from 'src/app/core/models/form.model';
 import { FormEditorService } from 'src/app/core/services/form.editor.service';
 import { FormService } from 'src/app/core/services/form.service';
@@ -25,11 +26,11 @@ import { ValidationMessageService } from 'src/app/core/services/validation.messa
 export class FormEditorComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() form!: EditingForm;
+	@Input() form!: IEditingForm;
 
 	@Input() readOnly!: boolean;
 
-	@Input() formPersons!: FormPerson[];
+	@Input() formPersons!: IFormPerson[];
 
 	@Input() showUpload = false;
 
@@ -37,10 +38,10 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
 	reloadSubscription!: Subscription;
 
-	formAction: FormEditorAction | null = null;
+	formAction!: IFormEditorAction;
 
 	constructor(
-		private formEditorService: FormEditorService,
+		public formEditorService: FormEditorService,
 		private formService: FormService,
 		public validationService: ValidationMessageService,
 	) {}
@@ -54,28 +55,29 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 					role: '',
 					name: p.personName,
 					routerLink: null,
-				};
+				} as IFormSimpleUser;
 				switch (p.role) {
 					case FormPersonRole.Patient:
 						item.routerLink = ['/patientperson', p.personId];
 						item.role = 'Patient';
-						break;
+						return item;
 					case FormPersonRole.Clinician:
 						item.role = 'Clinician';
-						break;
+						return item;
+					default:
+						return item;
 				}
-				return item;
 			});
 	}
 
 	ngOnInit(): void {
 		this.reloadSubscription = this.formEditorService
 			.subscriptionToReload()
-			.subscribe((x) => this.reload());
+			.subscribe(() => this.reload());
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	isNew(): boolean {
@@ -130,7 +132,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 	}
 
 	onRemoveFilesClick() {
-		this.formService.unpublish(this.form.id).subscribe((response) => {
+		this.formService.unpublish(this.form.id).subscribe(() => {
 			this.reload();
 		});
 	}
@@ -170,8 +172,8 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
 	reload() {
 		const { id } = this.form;
-		this.form = null;
-		this.formAction = null;
+		this.form = null!;
+		this.formAction = null!;
 		this.formService.getForm(id).subscribe((x) => {
 			this.form = x;
 			this.showUpload = false;

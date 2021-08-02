@@ -1,9 +1,11 @@
+import { AuthUserActions } from 'src/app/core/store/user/user.actions';
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { selectUser } from 'src/app/core/store/user/user.selectors';
-import { AlertService, AuthenticationService } from '../../shared/services';
+import { IUser } from 'src/app/core/models/user.model';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'advenium-home',
@@ -13,23 +15,15 @@ import { AlertService, AuthenticationService } from '../../shared/services';
 export class HomeComponent implements OnInit {
 	apiUser!: string;
 
-	user$ = this._store.pipe(select(selectUser));
+	user$: Observable<IUser | null> = this._store.select(selectUser);
 
-	constructor(
-		private authenticationService: AuthenticationService,
-		private alertService: AlertService,
-		private _store: Store<IAppState>,
-	) {}
+	constructor(private _store: Store<IAppState>) {}
 
 	ngOnInit() {
-		this.authenticationService.apiUser().subscribe(
-			(user) => {
-				this.apiUser = user?.userName;
-			},
-			(error) => {
-				this.alertService.error(error);
-			},
-		);
+		this.user$.subscribe((user: IUser | null) => {
+			this.apiUser = user?.userName ?? '';
+		});
+		this._store.dispatch(AuthUserActions.CheckToken());
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: 'Home' } }));
 		this.test();
 	}

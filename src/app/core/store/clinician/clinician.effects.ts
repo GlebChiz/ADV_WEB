@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { switchMap, map, catchError, mergeMap } from 'rxjs/operators';
 import { ClinicianGridService } from 'src/app/core/services/clinician.service';
-import { IAppState } from '../state/app.state';
 import { ClinicianActions } from './clinician.actions';
 
 @Injectable()
@@ -14,7 +12,7 @@ export class ClinicianEffects {
 			ofType(ClinicianActions.GetClinicianModel),
 			mergeMap(({ id }) =>
 				this.gridService.getModel(id).pipe(
-					map((payload) => ClinicianActions.GetClinicianModelSuccess({ clinician: payload })),
+					map((payload: any) => ClinicianActions.GetClinicianModelSuccess({ clinician: payload })),
 					catchError(() => of(ClinicianActions.GetClinicianModelFail())),
 				),
 			),
@@ -26,7 +24,7 @@ export class ClinicianEffects {
 			ofType(ClinicianActions.NewClinicianModel),
 			mergeMap(() =>
 				this.gridService.newClinicianModel().pipe(
-					map((payload) => ClinicianActions.GetClinicianModelSuccess({ clinician: payload })),
+					map((payload: any) => ClinicianActions.GetClinicianModelSuccess({ clinician: payload })),
 					catchError(() => of(ClinicianActions.GetClinicianModelFail())),
 				),
 			),
@@ -52,9 +50,9 @@ export class ClinicianEffects {
 	createClinician$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(ClinicianActions.CreateClinician),
-			switchMap((payload) =>
+			switchMap((payload: any) =>
 				this.gridService.createModel(payload.clinician).pipe(
-					map((result) => {
+					map((result: any) => {
 						if (result && result.isSuccess === true) {
 							return ClinicianActions.CreateClinicianComplete({ id: result.id });
 						}
@@ -65,9 +63,5 @@ export class ClinicianEffects {
 		),
 	);
 
-	constructor(
-		private store: Store<IAppState>,
-		private actions$: Actions,
-		private gridService: ClinicianGridService,
-	) {}
+	constructor(private actions$: Actions, private gridService: ClinicianGridService) {}
 }

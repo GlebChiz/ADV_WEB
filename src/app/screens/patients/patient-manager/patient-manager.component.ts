@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { CommonGridService } from 'src/app/core/services/grid.service';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
-import { GridColumnInfo } from 'src/app/core/store/grid/grid.state';
+import { IGridColumnInfo } from 'src/app/core/store/grid/grid.state';
 import { IAppState } from 'src/app/core/store/state/app.state';
 
 @Component({
@@ -17,7 +16,9 @@ export class PatientManagerComponent implements OnInit, OnDestroy {
 
 	filterId = 'patient-manager-filter';
 
-	constructor(private _store: Store<IAppState>, private _service: CommonGridService) {}
+	constructor(
+		private _store: Store<IAppState>, // private _service: CommonGridService
+	) {}
 
 	ngOnInit(): void {
 		this._store.dispatch(
@@ -26,14 +27,14 @@ export class PatientManagerComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
-	columns(): GridColumnInfo[] {
-		return [{ name: 'name', title: 'Name', link: true } as GridColumnInfo];
+	columns(): IGridColumnInfo[] {
+		return [{ name: 'name', title: 'Name', link: true } as IGridColumnInfo];
 	}
 
-	linkArray(column: GridColumnInfo, item: any) {
+	linkArray(item: any) {
 		return ['/patient', item.id];
 	}
 }

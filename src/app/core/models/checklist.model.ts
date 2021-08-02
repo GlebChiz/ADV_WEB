@@ -1,20 +1,20 @@
 import { Guid } from 'guid-typescript';
 import { CheckListType, CheckListItemType, CheckListItemStatus } from '../enums/checklist.types';
 
-export interface CheckList {
+export interface ICheckList {
 	id: Guid;
 	checkListType: CheckListType;
 	personId: Guid;
 	name: string;
-	items: CheckListItem[];
+	items: ICheckListItem[];
 	status: CheckListItemStatus;
 	progress: number | null;
 	statusName: string;
-	context: ChecklistContext | null;
-	review: CheckListReviewGroup[];
+	context: IChecklistContext | null;
+	review: ICheckListReviewGroup[];
 }
 
-export interface CheckListItem {
+export interface ICheckListItem {
 	id: Guid;
 	type: CheckListItemType;
 	status: CheckListItemStatus;
@@ -23,20 +23,20 @@ export interface CheckListItem {
 	statusName: string;
 }
 
-export interface CheckListReviewGroup {
+export interface ICheckListReviewGroup {
 	title: string;
 	itemType: CheckListItemType;
 	listType: CheckListType;
 	status: CheckListItemStatus;
-	items: CheckListReviewItem[];
+	items: ICheckListReviewItem[];
 }
-export interface CheckListReviewItem {
+export interface ICheckListReviewItem {
 	title: string;
 	value: string;
 	status: CheckListItemStatus;
 }
 
-export interface ChecklistContext {
+export interface IChecklistContext {
 	patientId: Guid | null;
 }
 export function checkListClassName(status: CheckListItemStatus) {

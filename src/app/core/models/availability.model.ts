@@ -1,5 +1,5 @@
 import { Guid } from 'guid-typescript';
-import { Person } from './person.model';
+import { IPerson } from './person.model';
 
 export enum PersonAvailabilityType {
 	ClinicianIntake = 1,
@@ -12,27 +12,27 @@ export enum AvailabilityStatus {
 	Possible = 2,
 }
 
-export interface PersonAvailabilityFilter {
+export interface IPersonAvailabilityFilter {
 	personId: Guid | string | null;
 	type: PersonAvailabilityType | null;
 	start: Date;
 	end: Date;
 }
 
-export interface PersonAvailability {
+export interface IPersonAvailability {
 	id: Guid | string;
 	personId: Guid | string;
 	type: PersonAvailabilityType;
 	startDate: Date;
 	endDate: Date | null;
-	person: Person;
+	person: IPerson;
 	day: number;
 	startTime: Date;
 	endTime: Date;
 	status: AvailabilityStatus;
 }
 
-export interface AvailabilitySchedulerFilter {
+export interface IAvailabilitySchedulerFilter {
 	start: Date;
 	end: Date;
 	serviceStart: Date | null;

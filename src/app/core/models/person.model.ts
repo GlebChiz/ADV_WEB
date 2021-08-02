@@ -1,10 +1,10 @@
 import { formatDate } from '@angular/common';
 import { Guid } from 'guid-typescript';
-import { Address } from './address.model';
-import { CheckList } from './checklist.model';
-import { Insurance } from './insurance.model';
+import { IAddress } from './address.model';
+import { ICheckList } from './checklist.model';
+import { IInsurance } from './insurance.model';
 
-export interface Person {
+export interface IPerson {
 	id: Guid;
 	lastname: string;
 	firstname: string;
@@ -16,8 +16,8 @@ export interface Person {
 	otherphone: string;
 	homephone: string;
 	email: string;
-	address: Address;
-	guardianCheckList: CheckList;
+	address: IAddress;
+	guardianCheckList: ICheckList;
 
 	sexId: string | null;
 	raceIds: string[];
@@ -36,21 +36,21 @@ export interface Person {
 	otherPhonePolicyId: string | null;
 	primaryPhoneType: string | null;
 
-	primaryInsurance: Insurance | null;
-	secondaryInsurance: Insurance | null;
+	primaryInsurance: IInsurance | null;
+	secondaryInsurance: IInsurance | null;
 	wardPatientIds: Guid[];
 }
 
-export interface GeneralPersonData {
+export interface IGeneralPersonData {
 	id: string;
 	lastname: string;
 	firstname: string;
 	middlename: string;
 	dob: Date | null;
-	address: Address;
+	address: IAddress;
 }
 
-export interface PersonDemographicData {
+export interface IPersonDemographicData {
 	id: Guid | null;
 	sexId: string | null;
 	raceIds: string[];
@@ -60,7 +60,7 @@ export interface PersonDemographicData {
 	employementId: string | null;
 }
 
-export interface PersonContactsData {
+export interface IPersonContactsData {
 	id: Guid | null;
 	email: string;
 	mobilePhone: string;
@@ -74,7 +74,7 @@ export interface PersonContactsData {
 	primaryPhoneType: string | null;
 }
 
-export interface PersonInsuranceData {
+export interface IPersonInsuranceData {
 	id: Guid | null;
 	email: string;
 	mobilePhone: string;
@@ -88,7 +88,7 @@ export interface PersonInsuranceData {
 	primaryPhoneType: string | null;
 }
 
-export interface Caller {
+export interface ICaller {
 	id: Guid | null;
 	lastname: string;
 	firstname: string;
@@ -96,20 +96,20 @@ export interface Caller {
 	dob: Date | null;
 }
 
-export interface Relationship {
+export interface IRelationship {
 	id: string;
 	type: number;
 	definitionId: string;
 	title: string;
 }
 
-export interface PrivatePersonLink {
+export interface IPrivatePersonLink {
 	personId: string;
-	relationships: Relationship[];
+	relationships: IRelationship[];
 	title: string;
 }
 
-export interface PersonShortModel {
+export interface IPersonShortModel {
 	id: Guid;
 	lastname: string;
 	firstname: string;

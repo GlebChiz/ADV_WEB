@@ -8,7 +8,6 @@
 			min="0.1"
 			max="1"
 			step="0.1"
-			(input)="this.zoom = range.value"
 		/>
 		<!--(input)="this.zoom = range.value"-->
 	</div>
@@ -34,9 +33,9 @@
 					[name]="input.fieldName"
 					[ngStyle]="getInputPosition(input, container)"
 					[value]="input.value"
-					(change)="input.value = $event.target.value; changed()"
 					(keypress)="changed()"
 				/>
+				<!-- (change)="input.value = $event.target.value; changed()" -->
 				<input
 					class="input-field"
 					*ngFor="let input of getCheckboxes(page.pageNumber)"
@@ -45,8 +44,8 @@
 					[name]="input.fieldName"
 					[ngStyle]="getInputPosition(input, container)"
 					[checked]="input.value === true"
-					(change)="input.value = $event.target.checked; changed()"
 				/>
+				<!-- (change)="input.value = $event.target.checked; changed()" -->
 				<a
 					href="#"
 					class="input-field"

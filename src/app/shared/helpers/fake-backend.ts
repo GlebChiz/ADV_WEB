@@ -17,23 +17,15 @@ const users = [
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		const { url, method, headers, body } = request;
+		const { url, method, body } = request;
+		// helper functions
 
-		// wrap in delayed observable to simulate server api call
-		return of(null)
-			.pipe(mergeMap(handleRoute))
-			.pipe(materialize())
-			.pipe(delay(500))
-			.pipe(dematerialize());
+		function ok(b?: Object) {
+			return of(new HttpResponse({ status: 200, body: b }));
+		}
 
-		function handleRoute() {
-			switch (true) {
-				case url.endsWith('/users/authenticate') && method === 'POST':
-					return authenticate();
-				default:
-					// pass through any requests not handled above
-					return next.handle(request);
-			}
+		function error(message: string) {
+			return throwError({ error: { message } });
 		}
 
 		// route functions
@@ -52,16 +44,21 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 				token: 'fake-jwt-token',
 			});
 		}
-
-		// helper functions
-
-		function ok(b?) {
-			return of(new HttpResponse({ status: 200, body: b }));
+		function handleRoute() {
+			switch (true) {
+				case url.endsWith('/users/authenticate') && method === 'POST':
+					return authenticate();
+				default:
+					// pass through any requests not handled above
+					return next.handle(request);
+			}
 		}
-
-		function error(message) {
-			return throwError({ error: { message } });
-		}
+		// wrap in delayed observable to simulate server api call
+		return of(null)
+			.pipe(mergeMap(handleRoute))
+			.pipe(materialize())
+			.pipe(delay(500))
+			.pipe(dematerialize());
 	}
 }
 

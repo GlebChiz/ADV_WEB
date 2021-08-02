@@ -1,11 +1,13 @@
+import { IUser } from 'src/app/core/models/user.model';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, catchError, mergeMap } from 'rxjs/operators';
+import { map, catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
+import { AuthenticationService } from '../../services/authentification.service';
 import { IAppState } from '../state/app.state';
-import { UserActions } from './user.actions';
+import { AuthUserActions, UserActions } from './user.actions';
 
 @Injectable()
 export class UserEffects {
@@ -16,6 +18,34 @@ export class UserEffects {
 				this.userService.getUserModel(id).pipe(
 					map((payload) => UserActions.GetUserModelSuccess({ user: payload })),
 					catchError(() => of(UserActions.GetUserModelFail())),
+				),
+			),
+		),
+	);
+
+	login$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(AuthUserActions.SignIn),
+			switchMap(({ login, password }: { login: string; password: string }) =>
+				this.authenticationService.login(login, password).pipe(
+					map((user: IUser) => {
+						return AuthUserActions.SignInComplete({ user });
+					}),
+					catchError((errors) => of(AuthUserActions.SignInError({ errors }))),
+				),
+			),
+		),
+	);
+
+	checkToken$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(AuthUserActions.CheckToken),
+			switchMap(() =>
+				this.authenticationService.checkToken().pipe(
+					map((user: IUser) => {
+						return AuthUserActions.SignInComplete({ user });
+					}),
+					catchError((errors) => of(AuthUserActions.CheckTokenError({ errors }))),
 				),
 			),
 		),
@@ -58,5 +88,6 @@ export class UserEffects {
 		private store: Store<IAppState>,
 		private actions$: Actions,
 		private userService: UserService,
+		private authenticationService: AuthenticationService,
 	) {}
 }

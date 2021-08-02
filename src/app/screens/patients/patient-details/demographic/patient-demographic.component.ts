@@ -6,9 +6,9 @@ import { Guid } from 'guid-typescript';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
 import { MetaData } from 'src/app/core/models/patient.model';
-import { PersonDemographicData } from 'src/app/core/models/person.model';
+import { IPersonDemographicData } from 'src/app/core/models/person.model';
 import { PersonActions } from 'src/app/core/store/person/person.actions';
 import { selectPersonDemographicModel } from 'src/app/core/store/person/person.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -28,29 +28,29 @@ export class PatientDemographicComponent
 		operator: 'contains',
 	};
 
-	@Input() personId!: Guid;
+	@Input() personId!: string | Guid;
 
 	@Input() saveEvent!: Observable<void>;
 
 	demographicForm!: FormGroup;
 
-	sexLookup = Array<DropDownData>();
+	sexLookup = Array<IDropDownData>();
 
-	genderLookup = Array<DropDownData>();
+	genderLookup = Array<IDropDownData>();
 
-	raceLookup = Array<DropDownData>();
+	raceLookup = Array<IDropDownData>();
 
-	languageLookup = Array<DropDownData>();
+	languageLookup = Array<IDropDownData>();
 
-	maritalLookup = Array<DropDownData>();
+	maritalLookup = Array<IDropDownData>();
 
-	employementLookup = Array<DropDownData>();
+	employementLookup = Array<IDropDownData>();
 
 	metaData: any = MetaData;
 
 	private _destroy$ = new Subject();
 
-	personDemographicModel$: Observable<PersonDemographicData> | null = null;
+	personDemographicModel$: Observable<IPersonDemographicData> | null = null;
 
 	constructor(public _store: Store<IAppState>, private _dropDownService: DropDownService) {
 		super();
@@ -59,27 +59,27 @@ export class PatientDemographicComponent
 	ngOnInit(): void {
 		this._dropDownService
 			.getLookup(LookupTypeCodes.sex)
-			.subscribe((x: DropDownData[]) => (this.sexLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.sexLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.marital)
-			.subscribe((x: DropDownData[]) => (this.maritalLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.maritalLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.gender)
-			.subscribe((x: DropDownData[]) => (this.genderLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.genderLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.race)
-			.subscribe((x: DropDownData[]) => (this.raceLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.raceLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.language)
-			.subscribe((x: DropDownData[]) => (this.languageLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.languageLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.employement)
-			.subscribe((x: DropDownData[]) => (this.employementLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.employementLookup = x));
 
 		this._store.dispatch(PersonActions.GetPersonDemographicData({ id: this.personId }));
 
 		this.personDemographicModel$ = this._store.pipe(
-			select(selectPersonDemographicModel),
+			select<IAppState, IPersonDemographicData | any>(selectPersonDemographicModel),
 			takeUntil(this._destroy$),
 		);
 
@@ -90,7 +90,7 @@ export class PatientDemographicComponent
 		});
 	}
 
-	initForm(personDemographicModel: PersonDemographicData): void {
+	initForm(personDemographicModel: IPersonDemographicData): void {
 		if (personDemographicModel != null) {
 			this.demographicForm = new FormGroup({
 				id: new FormControl(this.personId),
@@ -102,7 +102,7 @@ export class PatientDemographicComponent
 				languageIds: new FormControl(personDemographicModel.languageIds),
 			});
 
-			this.demographicForm.valueChanges.subscribe((x) => {
+			this.demographicForm.valueChanges.subscribe(() => {
 				this.submitForm();
 			});
 		}

@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class LabelComponent implements OnInit {
 	@Input() metaData: any;
 
-	@Input() field?: string;
+	@Input() field!: string | { focus: Function };
 
 	@Input() clickable!: boolean;
 
@@ -17,7 +17,7 @@ export class LabelComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.label =
-			(this.metaData && this.field && this.metaData[this.field || '']) ||
+			(this.metaData && this.field && this.metaData[(this.field as string) || '']) ||
 			this.getDefaultField(this.field);
 	}
 
@@ -26,14 +26,16 @@ export class LabelComponent implements OnInit {
 		return false;
 	}
 
-	getDefaultField(field?: string): string {
+	getDefaultField(field?: string | { focus: Function }): string {
 		if (field == null) {
 			return '';
 		}
-
-		const splittedItems = (
-			field.substr(0, 1).toUpperCase() + field.substr(1, field.length - 1)
-		).match(/[A-Z][a-z]+/g);
+		const splittedItems =
+			typeof field === 'string'
+				? (field.substr(0, 1).toUpperCase() + field.substr(1, field.length - 1)).match(
+						/[A-Z][a-z]+/g,
+				  )
+				: [];
 
 		if (splittedItems == null) {
 			return '';

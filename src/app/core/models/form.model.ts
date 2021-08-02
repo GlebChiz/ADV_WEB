@@ -7,25 +7,25 @@ export enum FormPersonRole {
 	Supervisor = 4,
 }
 
-export interface FormPerson {
+export interface IFormPerson {
 	personId: Guid;
 	role: FormPersonRole;
 	personName: string;
 }
 
-export interface EditingForm {
+export interface IEditingForm {
 	id: Guid;
 	createdBy: string;
 	createdDate: Date;
 	updatedBy: string;
 	updatedDate: Date;
 	isActive: boolean;
-	file: PdfFile;
-	revision: FormRevision;
-	formPersons: FormPerson[];
+	file: IPdfFile;
+	revision: IFormRevision;
+	formPersons: IFormPerson[];
 }
 
-export interface FormRevision {
+export interface IFormRevision {
 	id: Guid;
 	title: string;
 	version: number;
@@ -33,28 +33,28 @@ export interface FormRevision {
 	uploadMessage: string;
 	formServiceName: string;
 	effectiveDate: Date;
-	definition: FormDefinition;
+	definition: IFormDefinition;
 	editorType: FormEditorType;
-	fields: FormField[];
+	fields: IFormField[];
 }
 
-export interface FormDefinition {
+export interface IFormDefinition {
 	id: Guid;
 	title: string;
 	code: string;
 }
 
-export interface PdfFile {
+export interface IPdfFile {
 	id: Guid;
 	sourceType: PdfSourceType;
 	pageCount: number;
 	title: string;
 	isEditable: boolean;
 	uniqueId: string;
-	values: PdfFileValue[];
+	values: IPdfFileValue[];
 }
 
-export interface PdfFileValue {
+export interface IPdfFileValue {
 	id: Guid;
 	fieldName: string;
 	value: string;
@@ -78,9 +78,9 @@ export enum FormEditorType {
 	None = 0,
 	PdfEditor = 1,
 }
-export interface CreateFormModel {
+export interface ICreateFormModel {
 	revisionId: Guid;
-	formPersons: FormPerson[];
+	formPersons: IFormPerson[];
 }
 
 export enum FormEditorActionType {
@@ -90,25 +90,25 @@ export enum FormEditorActionType {
 	Reopen = 4,
 }
 
-export interface FormEditorAction {
-	form: EditingForm;
+export interface IFormEditorAction {
+	form: IEditingForm;
 	action: FormEditorActionType;
 }
 
-export interface FormGroup {
+export interface IFormGroup {
 	title: string;
-	items: FormGroupItem[];
+	items: IFormGroupItem[];
 }
 
-export interface FormGroupItem {
-	definition: FormDefinition;
+export interface IFormGroupItem {
+	definition: IFormDefinition;
 	allowMultiple: boolean;
 	isRequired: boolean;
 	formTypeId: Guid | null;
 	formTypeName: string;
 }
 
-export interface FormField {
+export interface IFormField {
 	id: Guid;
 	pageNumber: number | null;
 	code: string;
@@ -119,17 +119,17 @@ export interface FormField {
 	isRequired: boolean;
 }
 
-export interface FormFieldValue {
+export interface IFormFieldValue {
 	id: Guid;
-	formField: FormField;
+	formField: IFormField;
 	value: string;
 }
 
-export interface FormDataModel {
+export interface IFormDataModel {
 	formId: Guid;
-	values: FormDataItem[];
+	values: IFormDataItem[];
 }
-export interface FormDataItem {
+export interface IFormDataItem {
 	fieldId: string;
 	value: string;
 }
@@ -149,7 +149,13 @@ export enum FormGroupType {
 	Intake = 1,
 }
 
-export interface FormSection {
-	groups: FormGroup[];
-	forms: EditingForm[];
+export interface IFormSection {
+	groups: IFormGroup[];
+	forms: IEditingForm[];
+}
+
+export interface IFormSimpleUser {
+	role: string;
+	name: string;
+	routerLink: (string | Guid)[] | null;
 }

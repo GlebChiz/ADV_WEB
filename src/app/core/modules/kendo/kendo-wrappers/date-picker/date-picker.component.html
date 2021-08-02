@@ -1,6 +1,6 @@
 <kendo-floatinglabel *ngIf="showTitle; else elseDatetime" [text]="label" [ngClass]="class">
 	<kendo-datepicker
-		*ngIf="!type || type == dateTimeTypes.Date"
+		*ngIf="!type || type === dateTimeTypes.Date"
 		#datePicker
 		[activeView]="activeView"
 		[bottomView]="bottomView"
@@ -23,10 +23,10 @@
 		[topView]="topView"
 		[value]="value"
 		[weekNumber]="weekNumber"
-		(blur)="blur.emit($event)"
-		(close)="close.emit($event)"
-		(focus)="focus.emit($event)"
-		(open)="open.emit($event)"
+		(blur)="onblur.emit($event)"
+		(close)="onclose.emit($event)"
+		(focus)="onfocus.emit($event)"
+		(open)="onopen.emit($event)"
 		(valueChange)="valueChanged($event)"
 	>
 		<ng-template kendoCalendarHeaderTitleTemplate let-title let-date="date">
@@ -55,7 +55,7 @@
 		</ng-template>
 	</kendo-datepicker>
 	<kendo-datetimepicker
-		*ngIf="type == dateTimeTypes.DateTime"
+		*ngIf="type === dateTimeTypes.DateTime"
 		[disabled]="disabled"
 		[disabledDates]="disabledDates"
 		[disabledDatesValidation]="disabledDatesValidation"
@@ -73,15 +73,15 @@
 		[title]="title"
 		[value]="value"
 		[weekNumber]="weekNumber"
-		(blur)="blur.emit($event)"
-		(close)="close.emit($event)"
-		(focus)="focus.emit($event)"
-		(open)="open.emit($event)"
+		(blur)="onblur.emit($event)"
+		(close)="onclose.emit($event)"
+		(focus)="onfocus.emit($event)"
+		(open)="onopen.emit($event)"
 		(valueChange)="valueChanged($event)"
 	>
 	</kendo-datetimepicker>
 	<kendo-timepicker
-		*ngIf="type == dateTimeTypes.Time"
+		*ngIf="type === dateTimeTypes.Time"
 		[formControl]="formControl"
 		[placeholder]="placeholder"
 		[value]="value"
@@ -91,7 +91,7 @@
 </kendo-floatinglabel>
 <ng-template #elseDatetime>
 	<kendo-datepicker
-		*ngIf="!type || type == dateTimeTypes.Date"
+		*ngIf="!type || type === dateTimeTypes.Date"
 		#datePicker
 		[activeView]="activeView"
 		[bottomView]="bottomView"
@@ -114,10 +114,10 @@
 		[topView]="topView"
 		[value]="value"
 		[weekNumber]="weekNumber"
-		(blur)="blur.emit($event)"
-		(close)="close.emit($event)"
-		(focus)="focus.emit($event)"
-		(open)="open.emit($event)"
+		(blur)="onblur.emit($event)"
+		(close)="onclose.emit($event)"
+		(focus)="onfocus.emit($event)"
+		(open)="onopen.emit($event)"
 		(valueChange)="valueChanged($event)"
 	>
 		<ng-template kendoCalendarHeaderTitleTemplate let-title let-date="date">
@@ -148,7 +148,7 @@
 		</ng-template>
 	</kendo-datepicker>
 	<kendo-datetimepicker
-		*ngIf="type == dateTimeTypes.DateTime"
+		*ngIf="type === dateTimeTypes.DateTime"
 		[disabled]="disabled"
 		[disabledDates]="disabledDates"
 		[disabledDatesValidation]="disabledDatesValidation"
@@ -166,15 +166,15 @@
 		[title]="title"
 		[value]="value"
 		[weekNumber]="weekNumber"
-		(blur)="blur.emit($event)"
-		(close)="close.emit($event)"
-		(focus)="focus.emit($event)"
-		(open)="open.emit($event)"
+		(blur)="onblur.emit($event)"
+		(close)="onclose.emit($event)"
+		(focus)="onfocus.emit($event)"
+		(open)="onopen.emit($event)"
 		(valueChange)="valueChanged($event)"
 	>
 	</kendo-datetimepicker>
 	<kendo-timepicker
-		*ngIf="type == dateTimeTypes.Time"
+		*ngIf="type === dateTimeTypes.Time"
 		[formControl]="formControl"
 		[placeholder]="placeholder"
 		[value]="value"

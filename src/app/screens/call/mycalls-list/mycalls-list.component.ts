@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
-import { GridColumnInfo } from 'src/app/core/store/grid/grid.state';
+import { IGridColumnInfo } from 'src/app/core/store/grid/grid.state';
 import { IAppState } from 'src/app/core/store/state/app.state';
 
 @Component({
@@ -14,17 +14,25 @@ export class MyCallsListComponent implements OnInit, OnDestroy {
 
 	gridId = 'mycalls-list';
 
-	linkArray(column: GridColumnInfo, item: any) {
+	linkArray(
+		// column: IGridColumnInfo,
+		item: any,
+	) {
 		return ['/call', item.id];
 	}
 
-	columns(): GridColumnInfo[] {
+	columns(): IGridColumnInfo[] {
 		return [
-			{ name: 'callTime', title: 'Start Time', link: true, dataType: 'datetime' } as GridColumnInfo,
-			{ name: 'endTime', title: 'End Time', dataType: 'datetime' } as GridColumnInfo,
-			{ name: 'duration', title: 'Duration' } as GridColumnInfo,
-			{ name: 'callerType', title: 'Type' } as GridColumnInfo,
-			{ name: 'description', title: 'Description' } as GridColumnInfo,
+			{
+				name: 'callTime',
+				title: 'Start Time',
+				link: true,
+				dataType: 'datetime',
+			} as IGridColumnInfo,
+			{ name: 'endTime', title: 'End Time', dataType: 'datetime' } as IGridColumnInfo,
+			{ name: 'duration', title: 'Duration' } as IGridColumnInfo,
+			{ name: 'callerType', title: 'Type' } as IGridColumnInfo,
+			{ name: 'description', title: 'Description' } as IGridColumnInfo,
 		];
 	}
 
@@ -35,6 +43,6 @@ export class MyCallsListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 }

@@ -56,7 +56,7 @@ export class PayerFilterComponent implements OnInit {
 		this.filterForm.setValue(value);
 	}
 
-	onKeyDown(pressedKey) {
+	onKeyDown(pressedKey: KeyboardEvent) {
 		if (pressedKey.key === 'Enter') {
 			this.filter();
 		}

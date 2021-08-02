@@ -16,7 +16,7 @@ export const selectPatientModel = createSelector(
 
 export const selectPatientPrivatePersonLinks = createSelector(
 	patientState,
-	(state: IPatientState, data) => {
+	(state: IPatientState | any, data: any) => {
 		return state.privatePersonLinks[data.patientId] || null;
 	},
 );

@@ -19,7 +19,7 @@
 				<input type="hidden" formControlName="callTime" />
 				<div class="clearfix">
 					<div class="column" style="width: 150px">Call accepted</div>
-					<div class="column">{{ formatCallTime(model?.callTime) }}</div>
+					<div class="column">{{ formatCallTime(model?.callTime!) }}</div>
 				</div>
 				<div class="clearfix">
 					<div class="column" style="width: 150px">From</div>
@@ -45,7 +45,7 @@
 				<div class="column" style="width: 150px">Call ended at</div>
 				<div class="column">
 					<div>
-						<span>{{ formatCallTime(model?.endTime) }}</span>
+						<span>{{ formatCallTime(model?.endTime!) }}</span>
 						<span class="mL15">Duration: {{ model?.duration }}</span>
 					</div>
 				</div>
@@ -85,10 +85,10 @@
 						style="min-width: 300px; width: 100%"
 						textField="title"
 						[data]="areas"
-						[kendoDropDownFilter]="filterSettings"
 						formControlName="areaId"
 						[valuePrimitive]="true"
 					>
+					<!-- [kendoDropDownFilter]="filterSettings" -->
 					</kendo-combobox>
 				</div>
 			</div>

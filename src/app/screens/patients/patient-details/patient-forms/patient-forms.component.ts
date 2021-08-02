@@ -2,9 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { FormGroup, FormPersonRole } from 'src/app/core/models/form.model';
-import { DropDownData, FormTypeLookupCodes } from 'src/app/core/models/kendo/dropdown-data.model';
-import { MetaData, Patient } from 'src/app/core/models/patient.model';
+import { IFormGroup, FormPersonRole } from 'src/app/core/models/form.model';
+import { IDropDownData, FormTypeLookupCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { MetaData, IPatient } from 'src/app/core/models/patient.model';
 import { FormService } from 'src/app/core/services/form.service';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { DropDownService } from 'src/app/shared/services/dropdown.service';
@@ -20,13 +20,13 @@ export class PatientFormsComponent extends UnsubscriableBaseDirective implements
 		operator: 'contains',
 	};
 
-	@Input() model!: Patient;
+	@Input() model!: IPatient;
 
-	formTypeLookup = Array<DropDownData>();
+	formTypeLookup = Array<IDropDownData>();
 
 	metaData: any = MetaData;
 
-	modalitySelectionForm!: FormGroup;
+	modalitySelectionForm!: IFormGroup;
 
 	constructor(
 		public _store: Store<IAppState>,
@@ -44,7 +44,7 @@ export class PatientFormsComponent extends UnsubscriableBaseDirective implements
 	}
 
 	availableFormTypes() {
-		const list = [];
+		const list: Object[] = [];
 		this.model.groups.forEach((g) => {
 			g.items.forEach((i) => {
 				if (i.formTypeId) {
@@ -70,7 +70,7 @@ export class PatientFormsComponent extends UnsubscriableBaseDirective implements
 				},
 			],
 		};
-		this.formService.createForm(createFormModel).subscribe((response) => {
+		this.formService.createForm(createFormModel).subscribe(() => {
 			/* if (response.isValid === true) {
                 this.router.navigate(['/form', response.formId]);
             } else {

@@ -1,17 +1,17 @@
 import { Guid } from 'guid-typescript';
 import { PermissionType } from '../enums/permission.type';
-import { Person } from './person.model';
 
-export interface User {
+export interface IUser {
 	userId: number;
 	userName: string;
-	userNameId: string;
+	// userNameId: string;
 	name: string;
 	token: string;
 	success: true;
 	permissions: PermissionType[];
 	sharedCallId: Guid | null;
-	person: Person;
+	roles: number[]; // TODO
+	// person: IPerson;
 }
 
 export enum CacheSection {

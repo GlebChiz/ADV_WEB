@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { SortDirection } from 'src/app/core/models/filters/column-filter.model';
-import { Payer } from 'src/app/core/models/payer.model';
+import { IPayer } from 'src/app/core/models/payer.model';
 import { PayerGridService } from 'src/app/core/services/payer.service';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { GridActions } from 'src/app/core/store/grid/grid.actions';
-import { GridColumnInfo } from 'src/app/core/store/grid/grid.state';
+import { IGridColumnInfo } from 'src/app/core/store/grid/grid.state';
 import { IAppState } from 'src/app/core/store/state/app.state';
 
 @Component({
@@ -21,7 +21,7 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 
 	filterId = 'payer-manager-filter';
 
-	payerModel: Payer | null = null;
+	payerModel: IPayer | null = null;
 
 	constructor(
 		private _store: Store<IAppState>,
@@ -46,7 +46,7 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 					field: 'name',
 				},
 				sortDirection: SortDirection.Asc,
-			} as GridColumnInfo,
+			} as IGridColumnInfo,
 			{
 				name: 'type',
 				title: 'Type',
@@ -54,7 +54,7 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 				filter: {
 					field: 'typename',
 				},
-			} as GridColumnInfo,
+			} as IGridColumnInfo,
 			{
 				name: 'payerId',
 				title: 'Payer Id',
@@ -62,7 +62,7 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 				filter: {
 					field: 'payerid',
 				},
-			} as GridColumnInfo,
+			} as IGridColumnInfo,
 			{
 				name: 'carrierCode',
 				title: 'Carrier Code',
@@ -70,42 +70,42 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 				filter: {
 					field: 'carrierCode',
 				},
-			} as GridColumnInfo,
+			} as IGridColumnInfo,
 		];
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
-	openNewItem(e: any) {
-		this.payerModel = {} as Payer;
+	openNewItem() {
+		this.payerModel = {} as IPayer;
 	}
 
 	openDetails(e: any) {
-		this._service.getModel(e.id).subscribe((x) => {
+		this._service.getModel(e.id).subscribe((x: any) => {
 			this.payerModel = x;
 		});
 	}
 
 	openDuplicate(e: any) {
-		this._service.getModel(e.id).subscribe((x) => {
+		this._service.getModel(e.id).subscribe((x: any) => {
 			x.id = null;
 			this.payerModel = x;
 		});
 	}
 
 	remove(e: any) {
-		if (!confirm('Are you sure you want to delete payer?')) {
+		if (!window.confirm('Are you sure you want to delete payer?')) {
 			return;
 		}
-		this._service.deleteModel(e.id).subscribe((response) => {
+		this._service.deleteModel(e.id).subscribe((response: any) => {
 			this.validationService.displayResponse(response);
 			this._store.dispatch(GridActions.ReloadGrid({ gridId: this.gridId }));
 		});
 	}
 
-	onSave(e: Payer) {
+	onSave() {
 		this._store.dispatch(GridActions.ReloadGrid({ gridId: this.gridId }));
 	}
 

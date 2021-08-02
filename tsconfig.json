@@ -21,7 +21,7 @@
 		"importHelpers": true,
 		"esModuleInterop": true,
 		"noEmitOnError": true,
-		"target": "esnext",
+		"target": "es5",
 		"module": "commonjs",
 		"lib": ["es2018", "dom"]
 	},

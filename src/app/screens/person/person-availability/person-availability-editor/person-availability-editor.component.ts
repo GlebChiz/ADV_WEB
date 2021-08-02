@@ -3,12 +3,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { AvailabilityStatus, PersonAvailability } from 'src/app/core/models/availability.model';
-import { DropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
+import { AvailabilityStatus, IPersonAvailability } from 'src/app/core/models/availability.model';
+import { IDropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
 import { MetaData } from 'src/app/core/models/patient.model';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { removeTimezone } from 'src/app/shared/services/date.utils';
-import { DropDownService } from 'src/app/shared/services/dropdown.service';
 
 @Component({
 	providers: [],
@@ -24,17 +23,19 @@ export class PersonAvailabilityEditorComponent
 		operator: 'contains',
 	};
 
-	@Input() model!: PersonAvailability;
+	@Input() model!: IPersonAvailability;
 
 	@Output() valueChanged: EventEmitter<any> = new EventEmitter();
 
 	availabilityForm!: FormGroup;
 
-	statusLookup = Array<DropDownData>();
+	statusLookup = Array<IDropDownData>();
 
 	metaData: any = MetaData;
 
-	constructor(public _store: Store<IAppState>, private _dropDownService: DropDownService) {
+	constructor(
+		public _store: Store<IAppState>, // private _dropDownService: DropDownService
+	) {
 		super();
 	}
 
@@ -43,11 +44,11 @@ export class PersonAvailabilityEditorComponent
 			{
 				id: AvailabilityStatus.Available.toString(),
 				name: 'Available',
-			} as DropDownData,
+			} as IDropDownData,
 			{
 				id: AvailabilityStatus.Possible.toString(),
 				name: 'Possible',
-			} as DropDownData,
+			} as IDropDownData,
 		];
 
 		this.initForm();

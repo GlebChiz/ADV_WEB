@@ -93,8 +93,8 @@
 					<advenium-label
 						[metaData]="metaData"
 						field="insuranceHolderId"
-						[clickable]="this.value.insuranceHolderId != this.value.personId"
-						(action)="openPerson(this.value.insuranceHolderId)"
+						[clickable]="this.value.insuranceHolderId !== this.value.personId"
+						(action)="openPerson()"
 					></advenium-label>
 					<br />
 					<kendo-combobox
@@ -106,7 +106,7 @@
 						formControlName="insuranceHolderId"
 						name="insuranceHolderId"
 						[valuePrimitive]="true"
-						(valueChange)="onHolderChanged($event)"
+						(valueChange)="onHolderChanged()"
 					>
 					</kendo-combobox>
 					<div
@@ -114,14 +114,14 @@
 							this.showHolderInsurances && this.form.value.insuranceHolderId !== this.value.personId
 						"
 					>
-						<ul *ngIf="this.holderInsurances.length > 0">
+						<ul *ngIf="this.holderInsurances!.length > 0">
 							<li *ngFor="let insurance of this.holderInsurances">
 								<a href="" (click)="copyInsurance(insurance)" title="Copy this insurance">
 									{{ insuranceDescription(insurance) }}
 								</a>
 							</li>
 						</ul>
-						<div *ngIf="this.holderInsurances.length === 0">
+						<div *ngIf="this.holderInsurances!.length === 0">
 							<ul>
 								<li>No insurance</li>
 							</ul>

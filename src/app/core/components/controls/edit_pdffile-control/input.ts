@@ -1,5 +1,5 @@
 import { Guid } from 'guid-typescript';
-import { PdfFileValue } from 'src/app/core/models/form.model';
+import { IPdfFileValue } from 'src/app/core/models/form.model';
 
 export class PdfInput {
 	name!: string;
@@ -35,14 +35,14 @@ export class PdfInput {
 	imageHeight!: number;
 }
 
-export interface PdfPage {
+export interface IPdfPage {
 	inputs: PdfInput[];
 	pageNumber: number;
 	completed: boolean;
 	fields: any;
 }
 
-export interface PdfDataModel {
+export interface IPdfDataModel {
 	formId: Guid;
-	values: PdfFileValue[];
+	values: IPdfFileValue[];
 }

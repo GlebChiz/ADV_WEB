@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GridActions } from 'src/app/core/store/grid/grid.actions';
 import { selectGridInfo } from 'src/app/core/store/grid/grid.selectors';
-import { GridColumnInfo } from 'src/app/core/store/grid/grid.state';
+import { IGridColumnInfo } from 'src/app/core/store/grid/grid.state';
 
 import { IAppState } from 'src/app/core/store/state/app.state';
 
@@ -22,7 +22,7 @@ export class GridColumnsChooserComponent implements OnInit, OnDestroy {
 
 	gridInfo$: any;
 
-	columns: GridColumnInfo[] | null = null;
+	columns: IGridColumnInfo[] | null = null;
 
 	show = false;
 
@@ -35,7 +35,7 @@ export class GridColumnsChooserComponent implements OnInit, OnDestroy {
 	constructor(private _store: Store<IAppState>) {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	ngOnInit(): void {
@@ -55,7 +55,7 @@ export class GridColumnsChooserComponent implements OnInit, OnDestroy {
 		this.show = !this.show;
 	}
 
-	onSelect(item: GridColumnInfo): void {
+	onSelect(item: IGridColumnInfo): void {
 		this._store.dispatch(
 			GridActions.SetColumnVisability({
 				gridId: this.gridId,

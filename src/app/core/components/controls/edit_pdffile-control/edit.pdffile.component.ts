@@ -1,21 +1,22 @@
 import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { combineLatest, Subject } from 'rxjs';
 import {
-	EditingForm,
-	FormDataItem,
-	FormDataModel,
-	FormEditorAction,
+	IEditingForm,
+	IFormDataItem,
+	IFormDataModel,
+	IFormEditorAction,
 	FormEditorActionType,
 	FormFieldDataType,
-	FormFieldValue,
-	PdfFile,
+	IFormFieldValue,
+	IPdfFile,
 } from 'src/app/core/models/form.model';
 import { FormEditorService } from 'src/app/core/services/form.editor.service';
 import { FormService } from 'src/app/core/services/form.service';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
 import { PDFDocumentProxy, PDFPageProxy } from 'ng2-pdf-viewer';
 // import { PDFAnnotationData } from 'pdfjs-dist';
-import { PdfInput, PdfPage } from './input';
+import * as pdfjs from 'pdfjs-dist';
+import { PdfInput, IPdfPage } from './input';
 
 @Component({
 	providers: [],
@@ -27,9 +28,9 @@ import { PdfInput, PdfPage } from './input';
 export class EditPdfFileComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	file!: PdfFile;
+	file!: IPdfFile;
 
-	@Input() form!: EditingForm;
+	@Input() form!: IEditingForm;
 
 	data!: string;
 
@@ -37,7 +38,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 
 	readonly dpiRatio = 96 / 72;
 
-	pages: PdfPage[] | null = null;
+	pages: IPdfPage[] | null = null;
 
 	isLoadCompleted = false;
 
@@ -49,7 +50,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 		this.formEditorService.changed = true;
 	}
 
-	@Input() set formAction(action: FormEditorAction) {
+	@Input() set formAction(action: IFormEditorAction) {
 		if (action) {
 			switch (action.action) {
 				case FormEditorActionType.Save:
@@ -61,11 +62,13 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 				case FormEditorActionType.Publish:
 					this.publishForm(action.form);
 					break;
+				default:
+					break;
 			}
 		}
 	}
 
-	@Input() set reset(form: EditingForm) {
+	@Input() set reset(form: IEditingForm) {
 		this.resetForm(form);
 	}
 
@@ -75,7 +78,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 		public validationService: ValidationMessageService,
 	) {}
 
-	getField(pageNumber: number, code: string): FormFieldValue {
+	getField(pageNumber: number, code: string): IFormFieldValue {
 		return this.pages![pageNumber - 1]!.fields[code];
 	}
 
@@ -95,8 +98,8 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 			const height = page.view[3];
 			const left = 0.58;
 			const top = 0;
-			input.top = rect[3];
-			input.left = rect[0];
+			input.top = rect[3]!;
+			input.left = rect[0]!;
 			input.height = rect[1] - rect[3];
 			input.width = rect[2] - rect[0];
 			input.pTop = top + (100 * (height - annotation.rect[3])) / height;
@@ -137,7 +140,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 		return false;
 	}
 
-	parseFormValue(item: FormFieldValue): string {
+	parseFormValue(item: IFormFieldValue): string {
 		switch (item.formField.dataType) {
 			case FormFieldDataType.Boolean:
 				return item.value === 'true' || item.value === '1' ? 'true' : 'false';
@@ -156,13 +159,13 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 				this.data = window.URL.createObjectURL(xPdf.body);
 				this.pages = Array(xPages)
 					.fill(0)
-					.map((x, i) => {
+					.map((_x, i) => {
 						const page = {
 							pageNumber: i + 1,
 							inputs: [],
 							fields: {},
 							completed: false,
-						} as PdfPage;
+						} as IPdfPage;
 						this.form.revision.fields.forEach((f) => {
 							page.fields[f.code] = {
 								formField: f,
@@ -181,10 +184,10 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
-	private resetForm(form: EditingForm) {
+	private resetForm(form: IEditingForm) {
 		if (!form) {
 			return;
 		}
@@ -194,7 +197,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	private publishForm(form: EditingForm) {
+	private publishForm(form: IEditingForm) {
 		if (!form) {
 			return;
 		}
@@ -204,23 +207,23 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	private saveForm(form: EditingForm) {
+	private saveForm(form: IEditingForm) {
 		if (!form) {
 			return;
 		}
-		const formDataModel: FormDataModel = {
+		const formDataModel: IFormDataModel = {
 			formId: form.id,
 			values: [],
 		};
 		this.pages!.forEach((p) => {
 			p.inputs.forEach((i) => {
 				if (i.type === 'sign') {
-					const u = 0;
+					// const u = 0;
 				}
 				formDataModel.values.push({
 					fieldId: i.fieldName,
 					value: i.value,
-				} as FormDataItem);
+				} as IFormDataItem);
 			});
 		});
 		this.formService.saveFormValues(formDataModel).subscribe((response) => {
@@ -242,7 +245,7 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 		};
 	}
 
-	getSignPosition(input: PdfInput, container: any): any {
+	getSignPosition(_input: PdfInput, _container: any): any {
 		return {
 			height: `100%`,
 		};
@@ -298,10 +301,11 @@ export class EditPdfFileComponent implements OnInit, OnDestroy {
 				// get the annotations of the current page
 				return p.getAnnotations();
 			})
-			.then((ann) => {
+			.then((ann: any) => {
 				// ugly cast due to missing typescript definitions
 				// please contribute to complete @types/pdfjs-dist
-				const annotations = (<any>ann) as PDFAnnotationData[];
+				const annotations = ann as pdfjs.MissingPDFException[];
+				// PDFAnnotationData
 
 				annotations
 					.filter((a) => a.subtype === 'Widget') // get the form field annotation only

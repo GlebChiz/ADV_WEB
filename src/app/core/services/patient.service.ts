@@ -4,9 +4,9 @@ import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AuthenticationService, GridDataService } from 'src/app/shared/services';
-import { PatientFilterModel } from '../models/filters/patient-filter.model';
-import { Patient } from '../models/patient.model';
-import { PrivatePersonLink } from '../models/person.model';
+import { IPatientFilterModel } from '../models/filters/patient-filter.model';
+import { IPatient } from '../models/patient.model';
+import { IPrivatePersonLink } from '../models/person.model';
 
 @Injectable({ providedIn: 'root' })
 export class PatientGridService extends GridDataService {
@@ -14,7 +14,7 @@ export class PatientGridService extends GridDataService {
 		super(http, auth, 'patient');
 	}
 
-	getModelByPerson(personId: Guid | string): Observable<Patient> {
+	getModelByPerson(personId: Guid | string): Observable<IPatient> {
 		return this.get(`${personId}/get-person-model`);
 	}
 
@@ -34,16 +34,16 @@ export class PatientGridService extends GridDataService {
 		return this.post('update-area', model);
 	}
 
-	getPrivatePersonLinks(patientId: string): Observable<PrivatePersonLink[]> {
+	getPrivatePersonLinks(patientId: string): Observable<IPrivatePersonLink[]> {
 		return this.post(`${patientId}/get-private-person-links`);
 	}
 
-	getPatients(patientIds: Guid[]): Observable<Patient[]> {
+	getPatients(patientIds: (Guid | null)[]): Observable<IPatient[]> {
 		const filterId = Guid.create();
-		const filter = { patientIds } as PatientFilterModel;
+		const filter = { patientIds } as IPatientFilterModel;
 		const url = `${filterId}/get-patients`;
 		return this.saveFilterData('save-patient-filter', filterId, filter).pipe(
-			switchMap((response) => this.get(url)),
+			switchMap(() => this.get<IPatient[]>(url)),
 		);
 	}
 }

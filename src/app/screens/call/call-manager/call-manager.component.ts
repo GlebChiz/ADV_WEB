@@ -1,20 +1,18 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { Call, CallerType, CallManagerStep } from 'src/app/core/models/call.model';
+import { ICall, CallerType, ICallManagerStep } from 'src/app/core/models/call.model';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { Guid } from 'guid-typescript';
 import { CheckListItemStatus, CheckListItemType } from 'src/app/core/enums/checklist.types';
 import { CallService } from 'src/app/core/services/call.service';
 import { FormGroupType } from 'src/app/core/models/form.model';
 import {
-	PersonAvailabilityFilter,
+	IPersonAvailabilityFilter,
 	PersonAvailabilityType,
 } from 'src/app/core/models/availability.model';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { Actions } from '@ngrx/effects';
 import { CRMSearchActions } from 'src/app/core/store/crmsearch/crmsearch.actions';
-import { CRMSearchService } from 'src/app/core/services/crmsearch.service';
 
 @Component({
 	providers: [],
@@ -23,13 +21,10 @@ import { CRMSearchService } from 'src/app/core/services/crmsearch.service';
 	styleUrls: ['./call-manager.component.scss'],
 	encapsulation: ViewEncapsulation.None,
 })
-export class CallManagerComponent
-	extends UnsubscriableBaseDirective
-	implements OnInit, OnChanges, OnDestroy
-{
+export class CallManagerComponent extends UnsubscriableBaseDirective implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() model!: Call | null;
+	@Input() model!: ICall | null;
 
 	show = true;
 
@@ -43,19 +38,17 @@ export class CallManagerComponent
 
 	messages: string[] | null = null;
 
-	currentStep: CallManagerStep | null = null;
+	currentStep: ICallManagerStep | null = null;
 
-	interStep: CallManagerStep | null = null;
+	interStep: ICallManagerStep | null = null;
 
-	steps: CallManagerStep[] = [];
+	steps: ICallManagerStep[] = [];
 
 	reviews!: any[];
 
 	constructor(
 		public _store: Store<IAppState>,
-		private _callService: CallService,
-		private _crmService: CRMSearchService,
-		private actions$: Actions,
+		private _callService: CallService, // private _crmService: CRMSearchService, // private actions$: Actions,
 	) {
 		super();
 		/* this.actions$.pipe(
@@ -81,7 +74,7 @@ export class CallManagerComponent
 		setTimeout(() => (this.show = true), 0);
 	}
 
-	changeStep(e: any, step: CallManagerStep) {
+	changeStep(e: any, step: ICallManagerStep) {
 		e.preventDefault();
 		this.interStep = step;
 		this.beforeNext.next();
@@ -98,23 +91,23 @@ export class CallManagerComponent
 		return this.expandedSteps.includes(id);
 	}
 
-	isStepExpandable(step: CallManagerStep) {
+	isStepExpandable(step: ICallManagerStep) {
 		return step.items && step.items.length > 0;
 	}
 
-	isStepVisible(step: CallManagerStep) {
+	isStepVisible(step: ICallManagerStep) {
 		if (step.parentStepId) {
 			return this.isStepExpanded(step.parentStepId);
 		}
 		return true;
 	}
 
-	expandStep(e: any, step: CallManagerStep) {
+	expandStep(e: any, step: ICallManagerStep) {
 		e.preventDefault();
 		this.expandedSteps.push(step.id);
 	}
 
-	collapseStep(e: any, step: CallManagerStep) {
+	collapseStep(e: any, step: ICallManagerStep) {
 		e.preventDefault();
 		delete this.expandedSteps[this.expandedSteps.indexOf(step.id)];
 	}
@@ -123,14 +116,14 @@ export class CallManagerComponent
 		const { id } = this.model!;
 		this.model = null;
 
-		this._callService.getModel(id).subscribe((x) => {
+		this._callService.getModel(id).subscribe((x: any) => {
 			this.model = x;
 			this._store.dispatch(CRMSearchActions.SetCall({ call: this.model! }));
 			this.setStep(this.interStep!);
 		});
 	}
 
-	private setStep(step: CallManagerStep | null) {
+	private setStep(step: ICallManagerStep | null) {
 		switch (this.model!.callerType) {
 			case CallerType.Unknown:
 				this.steps = this.getInitialSteps();
@@ -140,6 +133,8 @@ export class CallManagerComponent
 				break;
 			case CallerType.Patient:
 				this.steps = this.getPatientSteps();
+				break;
+			default:
 				break;
 		}
 		if (this.currentStep === null) {
@@ -160,13 +155,13 @@ export class CallManagerComponent
 	ngOnInit(): void {
 		this.setStep(null);
 		this._store.dispatch(CRMSearchActions.ResetResult());
-		this._store.dispatch(CRMSearchActions.SetCall({ call: this.model }));
+		this._store.dispatch(CRMSearchActions.SetCall({ call: this.model! }));
 	}
 
-	ngOnChanges(): void {}
+	// ngOnChanges(): void {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	existingPatients() {
@@ -177,7 +172,7 @@ export class CallManagerComponent
 		return this.model?.callerType === CallerType.Parent;
 	}
 
-	getStepStyle(step: CallManagerStep) {
+	getStepStyle(step: ICallManagerStep) {
 		return {
 			border: step.id === this.currentStep?.id ? '1px solid blue' : '0px',
 			'margin-left': `${step.left * 30}px`,
@@ -185,15 +180,26 @@ export class CallManagerComponent
 		};
 	}
 
-	getStepProgressClassName(step: CallManagerStep) {
+	getStepProgressClassName(step: ICallManagerStep) {
 		const status = step.type || step.checkList ? step.status : null;
-		return status === CheckListItemStatus.Empty
-			? 'dot-empty'
-			: status === CheckListItemStatus.Completed
-			? 'dot-completed'
-			: status === CheckListItemStatus.InProgress
-			? 'dot-in-progress'
-			: 'dot-hidden';
+
+		switch (status) {
+			case CheckListItemStatus.Empty:
+				return 'dot-empty';
+			case CheckListItemStatus.Completed:
+				return 'dot-completed';
+			case CheckListItemStatus.InProgress:
+				return 'dot-in-progress';
+			default:
+				return 'dot-hidden';
+		}
+		// return status === CheckListItemStatus.Empty
+		// 	? 'dot-empty'
+		// 	: status === CheckListItemStatus.Completed
+		// 	? 'dot-completed'
+		// 	: status === CheckListItemStatus.InProgress
+		// 	? 'dot-in-progress'
+		// 	: 'dot-hidden';
 	}
 
 	getParentProgress(): any {
@@ -204,13 +210,13 @@ export class CallManagerComponent
 		};
 	}
 
-	getPatientSteps(): CallManagerStep[] {
-		const steps: CallManagerStep[] = [
+	getPatientSteps(): ICallManagerStep[] {
+		const steps: ICallManagerStep[] = [
 			{
 				id: 'call',
 				title: `Call Info`,
 				controlType: 'call',
-			} as CallManagerStep,
+			} as ICallManagerStep,
 		];
 		const { person } = this.model!;
 		const step = {
@@ -228,15 +234,15 @@ export class CallManagerComponent
 			showPatientStatus: true,
 			status: this.model!.patients[0]!.patient.icCheckList?.status ?? CheckListItemStatus.Empty,
 			checkList: this.model!.patients[0]!.patient.icCheckList,
-		} as CallManagerStep;
+		} as ICallManagerStep;
 		step.items = this.getPatientCheckListSteps(step)!;
 		steps.push(step);
 		steps.push(this.getFullReviewStep());
 		return this.prepareSteps(steps);
 	}
 
-	getInitialSteps(): CallManagerStep[] {
-		const steps = [];
+	getInitialSteps(): ICallManagerStep[] {
+		const steps: ICallManagerStep[] = [];
 		steps.push({
 			id: 'call',
 			controlType: 'call',
@@ -244,11 +250,11 @@ export class CallManagerComponent
 			status: CheckListItemStatus.Empty,
 			left: 0,
 			gotoNext: true,
-		});
+		} as ICallManagerStep);
 		return steps;
 	}
 
-	getPatientIndexes(step: CallManagerStep) {
+	getPatientIndexes(step: ICallManagerStep) {
 		const currentIndex = step.controlType.split('-')[1];
 		if (currentIndex) {
 			return [this.getChildren()[parseInt(currentIndex, 10)].patient];
@@ -256,7 +262,7 @@ export class CallManagerComponent
 		return this.getChildren().map((x) => x.patient);
 	}
 
-	getPatientTitle(step: CallManagerStep) {
+	getPatientTitle(step: ICallManagerStep) {
 		const currentIndex = step.controlType.split('-')[1];
 		return currentIndex ? step.title : null;
 	}
@@ -303,37 +309,37 @@ export class CallManagerComponent
 			controlType: 'full-review',
 			title: 'Review All',
 			test: true,
-		} as CallManagerStep;
+		} as ICallManagerStep;
 		return completionStep;
 	}
 
-	private getParentSteps(): CallManagerStep[] {
+	private getParentSteps(): ICallManagerStep[] {
 		const checkList = this.model!.person.guardianCheckList;
-		const steps: CallManagerStep[] = [
+		const steps: ICallManagerStep[] = [
 			{
 				id: 'call',
 				title: `Call Info`,
 				controlType: 'call',
-			} as CallManagerStep,
+			} as ICallManagerStep,
 		];
 		const parentStep = {
 			id: 'parent',
 			controlType: 'person-general',
 			checkList,
 			test: true,
-			title: `Parent (${this.model.person.firstname} ${this.model.person.lastname})`,
-			person: this.model.person,
-			personId: this.model.person.id,
+			title: `Parent (${this.model!.person.firstname} ${this.model!.person.lastname})`,
+			person: this.model!.person,
+			personId: this.model!.person.id,
 			items: [],
-		} as CallManagerStep;
-		parentStep.items = this.getParentCheckListSteps(parentStep);
+		} as unknown as ICallManagerStep;
+		parentStep.items = this.getParentCheckListSteps(parentStep)!;
 		steps.push(parentStep);
 
 		parentStep.items.push({
 			id: 'children',
 			controlType: 'children',
 			title: 'Children',
-		} as CallManagerStep);
+		} as ICallManagerStep);
 
 		this.getChildrenSteps().forEach((s) => steps.push(s));
 		steps.push(this.getFullReviewStep());
@@ -341,7 +347,7 @@ export class CallManagerComponent
 	}
 
 	private getChildrenSteps() {
-		const steps = [];
+		const steps: ICallManagerStep[] = [];
 		this.getChildren().forEach((p, index) => {
 			const step = {
 				id: `child-${index + 1}`,
@@ -355,7 +361,7 @@ export class CallManagerComponent
 				showPatientStatus: true,
 				status: p.patient?.patient?.icCheckList?.status ?? CheckListItemStatus.Empty,
 				checkList: p.patient?.patient?.icCheckList,
-			} as CallManagerStep;
+			} as ICallManagerStep;
 
 			step.items = this.getPatientCheckListSteps(step)!;
 			steps.push(step);
@@ -363,15 +369,15 @@ export class CallManagerComponent
 		return steps;
 	}
 
-	private getParentCheckListSteps(step: CallManagerStep) {
+	private getParentCheckListSteps(step: ICallManagerStep) {
 		if (!step.checkList) {
 			return null;
 		}
 		const steps = [];
 		const ordered = this.getOrderedCheckListItemTypes();
-		const items = step.checkList.items.sort(function (a, b) {
-			return ordered.indexOf(a.type) - ordered.indexOf(b.type);
-		});
+		const items = step.checkList.items.sort(
+			(a, b) => ordered.indexOf(a.type) - ordered.indexOf(b.type),
+		);
 		items.forEach((i, cidx) => {
 			const personStep = {
 				id: `${step.id}-checklist-${cidx}`,
@@ -382,7 +388,7 @@ export class CallManagerComponent
 				personId: step.personId,
 				checkList: step.checkList,
 				type: i.type,
-			} as CallManagerStep;
+			} as ICallManagerStep;
 			if (personStep.type !== CheckListItemType.PersonalInfo) {
 				steps.push(personStep);
 			}
@@ -396,20 +402,20 @@ export class CallManagerComponent
 			personId: step.personId,
 			patientId: step.patientId,
 			checkList: step.checkList,
-		} as CallManagerStep;
+		} as ICallManagerStep;
 		steps.push(completionStep);
 		return steps;
 	}
 
-	private getPatientCheckListSteps(step: CallManagerStep) {
+	private getPatientCheckListSteps(step: ICallManagerStep) {
 		if (!step.checkList) {
 			return null;
 		}
 		const steps = [];
 		const ordered = this.getOrderedCheckListItemTypes();
-		const items = step.checkList.items.sort(function (a, b) {
-			return ordered.indexOf(a.type) - ordered.indexOf(b.type);
-		});
+		const items = step.checkList.items.sort(
+			(a, b) => ordered.indexOf(a.type) - ordered.indexOf(b.type),
+		);
 		items.forEach((i, cidx) => {
 			const patientStep = {
 				id: `${step.id}-checklist-${cidx}`,
@@ -421,7 +427,7 @@ export class CallManagerComponent
 				patientId: step.patientId,
 				checkList: step.checkList,
 				type: i.type,
-			} as CallManagerStep;
+			} as ICallManagerStep;
 			if (
 				i.type !== CheckListItemType.GuardianInfo &&
 				patientStep.type !== CheckListItemType.PersonalInfo
@@ -438,7 +444,7 @@ export class CallManagerComponent
 			personId: step.personId,
 			patientId: step.patientId,
 			checkList: step.checkList,
-		} as CallManagerStep;
+		} as ICallManagerStep;
 		steps.push(completionStep);
 		return steps;
 	}
@@ -469,19 +475,19 @@ export class CallManagerComponent
 		return '';
 	}
 
-	private prepareSteps(steps: CallManagerStep[]): CallManagerStep[] {
-		const result: CallManagerStep[] = [];
+	private prepareSteps(steps: ICallManagerStep[]): ICallManagerStep[] {
+		const result: ICallManagerStep[] = [];
 		steps.forEach((s) => {
 			this.addStep(result, s, 0);
 		});
 		result.forEach((s, index) => {
-			s.back = index === 0 ? null : result[index - 1];
-			s.next = index < result.length - 1 ? result[index + 1] : null;
+			s.back = index === 0 ? null! : result[index - 1]!;
+			s.next = index < result.length - 1 ? result[index + 1]! : null!;
 		});
 		return result;
 	}
 
-	private addStep(result: CallManagerStep[], step: CallManagerStep, level: number) {
+	private addStep(result: ICallManagerStep[], step: ICallManagerStep, level: number) {
 		step.left = level;
 		if (step.checkList) {
 			if (step.type) {
@@ -505,8 +511,8 @@ export class CallManagerComponent
 	addPatient() {
 		this.suppressMessages = true;
 
-		this.model.requestedPatients = (this.model.requestedPatients || 0) + 1;
-		this._callService.updateModel(this.model).subscribe((x) => {
+		this.model!.requestedPatients = (this.model!.requestedPatients || 0) + 1;
+		this._callService.updateModel(this.model).subscribe(() => {
 			this.refresh();
 		});
 	}
@@ -514,9 +520,9 @@ export class CallManagerComponent
 	deletePatient() {
 		this.suppressMessages = true;
 
-		if ((this.model.requestedPatients || 0) > 0) {
-			this.model.requestedPatients = (this.model.requestedPatients || 0) - 1;
-			this._callService.updateModel(this.model).subscribe((x) => {
+		if ((this.model!.requestedPatients || 0) > 0) {
+			this.model!.requestedPatients = (this.model!.requestedPatients || 0) - 1;
+			this._callService.updateModel(this.model).subscribe(() => {
 				this.refresh();
 			});
 		}
@@ -526,19 +532,19 @@ export class CallManagerComponent
 		return [FormGroupType.Intake];
 	}
 
-	getPatientAvailabilityFilter(step: CallManagerStep) {
+	getPatientAvailabilityFilter(step: ICallManagerStep) {
 		return {
 			personId: step.personId,
 			type: PersonAvailabilityType.PatientService,
-		} as PersonAvailabilityFilter;
+		} as IPersonAvailabilityFilter;
 	}
 
-	getIntakeSchedulePatients(step) {
-		if (step.id.startsWith('parent-')) {
-			const patientIds = this.model.patients.map((x) => x.patient.id);
+	getIntakeSchedulePatients(step: ICallManagerStep | null) {
+		if (step!.id.startsWith('parent-')) {
+			const patientIds = this.model!.patients.map((x) => x.patient.id);
 			return patientIds;
 		}
-		return [step.patientId];
+		return [step!.patientId];
 	}
 
 	getAllReviews(): any[] {
@@ -549,7 +555,7 @@ export class CallManagerComponent
 				id: x.checkList?.id,
 			};
 		});
-		console.log(reviewList);
+		// console.log(reviewList);
 		return reviewList;
 	}
 

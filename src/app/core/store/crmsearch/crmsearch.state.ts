@@ -1,7 +1,7 @@
-import { CRMSearch } from '../../models/crm-search.model';
+import { ICRMSearch } from '../../models/crm-search.model';
 
 export interface ICRMSearchState {
-	search: CRMSearch | null;
+	search: ICRMSearch | null;
 }
 
 export const initialCRMSearchState: ICRMSearchState = {

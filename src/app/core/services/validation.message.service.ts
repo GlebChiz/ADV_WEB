@@ -9,7 +9,7 @@ export class ValidationMessageService {
 		return this.messageSubscription.asObservable();
 	}
 
-	constructor() {}
+	// constructor() {}
 
 	clear() {
 		this.display(null, false);

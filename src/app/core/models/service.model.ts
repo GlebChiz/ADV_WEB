@@ -1,9 +1,9 @@
 import { SchedulerEvent } from '@progress/kendo-angular-scheduler';
 import { Guid } from 'guid-typescript';
-import { DropDownData } from './kendo/dropdown-data.model';
-import { Patient } from './patient.model';
+import { IDropDownData } from './kendo/dropdown-data.model';
+import { IPatient } from './patient.model';
 
-export interface Service {
+export interface IService {
 	id: Guid;
 	patientId: Guid;
 	clinicianId: Guid;
@@ -21,10 +21,10 @@ export interface Service {
 	timezone: number;
 }
 
-export interface EditingService extends Service {
-	patientLookup: DropDownData[];
-	clinicianLookup: DropDownData[];
-	serviceTypeLookup: DropDownData[];
+export interface IEditingService extends IService {
+	patientLookup: IDropDownData[];
+	clinicianLookup: IDropDownData[];
+	serviceTypeLookup: IDropDownData[];
 }
 
 export enum ServiceType {
@@ -52,19 +52,19 @@ export enum ServiceUnitType {
 	Min1 = 1,
 }
 
-export interface IntakeSchedulerPatientModel {
+export interface IIntakeSchedulerPatientModel {
 	patientId: Guid;
 	patientName: string;
-	patient: Patient;
-	scheduledService: Service;
-	deliveredService: Service;
+	patient: IPatient;
+	scheduledService: IService;
+	deliveredService: IService;
 	cancelledServices: string;
 }
 
-export interface IntakeSchedulerModel {
-	patientLookup: DropDownData[];
+export interface IIntakeSchedulerModel {
+	patientLookup: IDropDownData[];
 	filter: any;
-	clinicianLookup: DropDownData[];
+	clinicianLookup: IDropDownData[];
 	start: Date | null;
 	end: Date | null;
 }
@@ -75,32 +75,32 @@ export enum AvailabilityType {
 	Possible = 2,
 }
 
-export interface SlotDecorationModel {
+export interface ISlotDecorationModel {
 	start: Date;
 	end: Date;
 	type: AvailabilityType;
 }
 
-export interface SchedulerViewModel {
+export interface ISchedulerViewModel {
 	events: SchedulerEvent[];
-	slotDecoration: SlotDecorationModel[];
-	services: Service[];
+	slotDecoration: ISlotDecorationModel[];
+	services: IService[];
 	canCreate: boolean;
 	ignoreAvailability: boolean;
 	createDenyMessage: string;
 	canEdit: boolean;
 }
 
-export interface SchedulerSettings {
+export interface ISchedulerSettings {
 	min: Date | null;
 	max: Date | null;
 	slotDuration: number;
 	canChangeDelivered: boolean;
 	canChangeCancelled: boolean;
-	fields: ServiceFieldsSettings;
+	fields: IServiceFieldsSettings;
 }
 
-export interface SchedulerFilter {
+export interface ISchedulerFilter {
 	start: Date;
 	end: Date;
 }
@@ -111,7 +111,7 @@ export enum ServiceFieldEditRule {
 	Edit = 2,
 }
 
-export interface ServiceFieldsSettings {
+export interface IServiceFieldsSettings {
 	patient: ServiceFieldEditRule;
 	clinician: ServiceFieldEditRule;
 	serviceType: ServiceFieldEditRule;

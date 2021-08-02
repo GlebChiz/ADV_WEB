@@ -1,26 +1,26 @@
 import { createAction, props } from '@ngrx/store';
 import { Guid } from 'guid-typescript';
-import { Insurance } from '../../models/insurance.model';
+import { IInsurance } from '../../models/insurance.model';
 import {
-	GeneralPersonData,
-	Person,
-	PersonContactsData,
-	PersonDemographicData,
-	PrivatePersonLink,
+	IGeneralPersonData,
+	IPerson,
+	IPersonContactsData,
+	IPersonDemographicData,
+	IPrivatePersonLink,
 } from '../../models/person.model';
 
 export const PersonActions = {
 	GetPersonModel: createAction('[Person] Get Person Model', props<{ id: Guid | null }>()),
 	GetPersonModelSuccess: createAction(
 		'[Person] Get Person Model Success',
-		props<{ person: Person }>(),
+		props<{ person: IPerson }>(),
 	),
 	GetPersonModelFail: createAction('[Person] Get Person Model Fail'),
 	GetPrivatePersonLinks: createAction(
 		'[Person] Get private persons links',
 		props<{ personId: Guid }>(),
 	),
-	UpdatePerson: createAction('[Person] Update Person', props<Person>()),
+	UpdatePerson: createAction('[Person] Update Person', props<IPerson>()),
 
 	GetGeneralPersonData: createAction(
 		'[Person] Get Person General Data Model',
@@ -28,12 +28,12 @@ export const PersonActions = {
 	),
 	GetGeneralPersonModelSuccess: createAction(
 		'[Person] Get General Person Model Success',
-		props<{ person: GeneralPersonData }>(),
+		props<{ person: IGeneralPersonData }>(),
 	),
 	GetGeneralPersonModelFail: createAction('[Person] Get General Person Model Fail'),
 	UpdateGeneralPersonData: createAction(
 		'[Person] Update General Person Data',
-		props<GeneralPersonData>(),
+		props<IGeneralPersonData>(),
 	),
 
 	GetInsurancePersonData: createAction(
@@ -42,23 +42,23 @@ export const PersonActions = {
 	),
 	GetInsurancePersonModelSuccess: createAction(
 		'[Person] Get Insurance Person Model Success',
-		props<{ insurances: Insurance[] }>(),
+		props<{ insurances: IInsurance[] }>(),
 	),
 	GetInsurancePersonModelFail: createAction('[Person] Get Insurance Person Model Fail'),
 	UpdateInsurancePersonData: createAction('[Person] Update Insurance Person Data', props<any>()),
 
 	GetPersonDemographicData: createAction(
 		'[Person] Get Person Demographic Data Model',
-		props<{ id: Guid | null }>(),
+		props<{ id: Guid | string }>(),
 	),
 	GetPersonDemographicModelSuccess: createAction(
 		'[Person] Get Person Demographic Model Success',
-		props<{ person: PersonDemographicData }>(),
+		props<{ person: IPersonDemographicData }>(),
 	),
 	GetPersonDemographicModelFail: createAction('[Person] Get Person Demographic Model Fail'),
 	UpdatePersonDemographicData: createAction(
 		'[Person] Update Person Demographic Data',
-		props<PersonDemographicData>(),
+		props<IPersonDemographicData>(),
 	),
 
 	GetPersonContactsData: createAction(
@@ -67,12 +67,12 @@ export const PersonActions = {
 	),
 	GetPersonContactsModelSuccess: createAction(
 		'[Person] Get Person Contacts Model Success',
-		props<{ person: PersonContactsData }>(),
+		props<{ person: IPersonContactsData }>(),
 	),
 	GetPersonContactsModelFail: createAction('[Person] Get Person Contacts Model Fail'),
 	UpdatePersonContactsData: createAction(
 		'[Person] Update Person Contacts Data',
-		props<PersonContactsData>(),
+		props<IPersonContactsData>(),
 	),
 
 	UpdatePersonComplete: createAction('[Person] Update Person Compete'),
@@ -80,6 +80,6 @@ export const PersonActions = {
 	// tslint:disable-next-line:max-line-length
 	GetPrivatePersonLinksSuccess: createAction(
 		'[Person] Get private persons links success',
-		props<{ personId: Guid; data: PrivatePersonLink[] }>(),
+		props<{ personId: Guid; data: IPrivatePersonLink[] }>(),
 	),
 };

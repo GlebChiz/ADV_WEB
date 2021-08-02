@@ -5,15 +5,15 @@ import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DataService } from 'src/app/shared/services';
-import { Call } from '../models/call.model';
+import { ICall } from '../models/call.model';
 import {
-	CRMResult,
-	CRMSearch,
-	CRMPersonFound,
-	CRMSearchFilter,
+	ICRMResult,
+	ICRMSearch,
+	ICRMPersonFound,
+	ICRMSearchFilter,
 	CRMSearchType,
 } from '../models/crm-search.model';
-import { Person } from '../models/person.model';
+import { IPerson } from '../models/person.model';
 import { selectCRMSearch } from '../store/crmsearch/crmsearch.selectors';
 import { IAppState } from '../store/state/app.state';
 
@@ -24,42 +24,47 @@ export class CRMSearchService extends DataService {
 	}
 
 	private getKeys(arr: any) {
-		const keys = [];
+		const keys: number[] = [];
 		if (arr) {
-			for (const key in arr) {
+			Object.keys(arr).forEach((_value: string, key: number) => {
 				if (arr[key]) {
 					keys.push(key);
 				}
-			}
+			});
+			// for (const key in arr) {
+			// 	if (arr[key]) {
+			// 		keys.push(key);
+			// 	}
+			// }
 		}
 		return keys;
 	}
 
-	clearResult(result: CRMResult, search: CRMSearch) {
+	clearResult(result: ICRMResult, search: ICRMSearch) {
 		const filter = this.getFilter(search, null);
 
 		const phoneKeys = this.getKeys(result?.byPhone);
 		phoneKeys.forEach((key) => {
-			if (!filter.phones.includes(key)) {
+			if (!filter.phones.includes(key.toString())) {
 				delete result.byPhone[key];
 			}
 		});
 
 		const lastnameKeys = this.getKeys(result?.byLastname);
 		lastnameKeys.forEach((key) => {
-			if (!filter.lastnames.includes(key)) {
+			if (!filter.lastnames.includes(key.toString())) {
 				delete result.byLastname[key];
 			}
 		});
 		const callerIdKeys = this.getKeys(result?.byCallerId);
 		callerIdKeys.forEach((key) => {
-			if (filter.callerId !== key) {
+			if (filter.callerId !== key.toString()) {
 				delete result.byCallerId[key];
 			}
 		});
 	}
 
-	addResult(result: CRMResult, items: CRMPersonFound[]) {
+	addResult(result: ICRMResult, items: ICRMPersonFound[]) {
 		items.forEach((item) => {
 			item.matches.forEach((m) => {
 				switch (m.type) {
@@ -81,39 +86,41 @@ export class CRMSearchService extends DataService {
 						}
 						result.byCallerId[m.matchValue] = item;
 						break;
+					default:
+						break;
 				}
 			});
 		});
 	}
 
-	getFilter(search: CRMSearch, result: CRMResult | null) {
+	getFilter(search: ICRMSearch, result: ICRMResult | null) {
 		return {
 			phones: this.getSearchPhones(search, result?.byPhone),
 			callerId: search?.callerId || null,
 			lastnames: this.getSearchLastnames(search, result?.byLastname),
 			skipCallId: search?.call?.id,
 			skipPersonIds: this.getSkippedPersonIds(search?.call),
-		} as CRMSearchFilter;
+		} as ICRMSearchFilter;
 	}
 
-	search(search: CRMSearch, result: CRMResult): Observable<CRMPersonFound[]> {
+	search(search: ICRMSearch, result: ICRMResult): Observable<ICRMPersonFound[]> {
 		const filter = this.getFilter(search, result);
 
 		const filterId = Guid.create();
 		const url = `${filterId}/search`;
 		return this.saveFilterData('save-filter', filterId, filter).pipe(
-			switchMap((response) => this.get(url)),
+			switchMap(() => this.get<ICRMPersonFound[]>(url)),
 		);
 	}
 
-	combineResultPersons(list: CRMPersonFound[]): CRMPersonFound[] {
-		const keys = {};
+	combineResultPersons(list: ICRMPersonFound[]): ICRMPersonFound[] {
+		const keys: any = {};
 		list.forEach((p) => {
 			p.calls = p.call ? [p.call] : [];
 			if (!keys![p.person.id.toString()]) {
 				keys[p.person.id.toString()] = p;
 			} else {
-				const person = keys[p.person.id.toString()] as CRMPersonFound;
+				const person = keys[p.person.id.toString()] as ICRMPersonFound;
 				person.matches = person.matches.concat(p.matches);
 				if (p.roles) {
 					p.roles.forEach((r) => {
@@ -134,71 +141,91 @@ export class CRMSearchService extends DataService {
 			}
 		});
 
-		const output = [];
-		for (const key in keys) {
+		const output: ICRMPersonFound[] = [];
+		Object.keys(keys).forEach((_value: string, key: number) => {
 			if (keys[key]) {
 				output.push(keys[key]);
 			}
-		}
+		});
+		// for (const key in keys) {
+		// 	if (keys[key]) {
+		// 		output.push(keys[key]);
+		// 	}
+		// }
 		return output;
 	}
 
-	getResultPersons(result: CRMResult): CRMPersonFound[] {
-		const persons = [];
+	getResultPersons(result: ICRMResult): ICRMPersonFound[] {
+		const persons: any[] = [];
 		if (result?.byPhone) {
-			for (const p in result.byPhone) {
+			Object.keys(result.byPhone).forEach((_value: string, p: number) => {
 				if (result.byPhone[p]) {
 					persons.push(result.byPhone[p]);
 				}
-			}
+			});
+			// for (const p in result.byPhone) {
+			// 	if (result.byPhone[p]) {
+			// 		persons.push(result.byPhone[p]);
+			// 	}
+			// }
 		}
 		if (result?.byLastname) {
-			for (const p in result.byLastname) {
+			Object.keys(result.byLastname).forEach((_value: string, p: number) => {
 				if (result.byLastname[p]) {
 					persons.push(result.byLastname[p]);
 				}
-			}
+			});
+			// for (const p in result.byLastname) {
+			// 	if (result.byLastname[p]) {
+			// 		persons.push(result.byLastname[p]);
+			// 	}
+			// }
 		}
 		if (result?.byCallerId) {
-			for (const p in result.byCallerId) {
+			Object.keys(result.byCallerId).forEach((_value: string, p: number) => {
 				if (result.byCallerId[p]) {
 					persons.push(result.byCallerId[p]);
 				}
-			}
+			});
+			// for (const p in result.byCallerId) {
+			// 	if (result.byCallerId[p]) {
+			// 		persons.push(result.byCallerId[p]);
+			// 	}
+			// }
 		}
 
 		return persons;
 	}
 
-	getSearchPhones(search: CRMSearch, byPhone: any = null): string[] {
+	getSearchPhones(search: ICRMSearch, byPhone: any = null): string[] {
 		const phones = this.getCallPhones(search?.call);
 		if (search?.phones) {
-			for (const key in search.phones) {
+			Object.keys(search.phones).forEach((_value: string, key: number) => {
 				if (search.phones[key]) {
 					phones.push(search.phones[key]);
 				}
-			}
+			});
 		}
 		return this.validatePhones(phones, byPhone);
 	}
 
-	getSearchLastnames(search: CRMSearch, byLastname: any = null): string[] {
+	getSearchLastnames(search: ICRMSearch, byLastname: any = null): string[] {
 		const names = this.getCallLastnames(search?.call);
 		if (search?.lastnames) {
-			for (const key in search.lastnames) {
+			Object.keys(search.lastnames).forEach((_value: string, key: number) => {
 				if (search.lastnames[key]) {
 					names.push(search.lastnames[key]);
 				}
-			}
+			});
 		}
 		return this.validateLastnames(names, byLastname);
 	}
 
-	getSearch(): Observable<CRMSearch> {
+	getSearch(): Observable<ICRMSearch | null> {
 		return this._store.select(selectCRMSearch);
 	}
 
-	getCallLastnames(call: Call) {
+	getCallLastnames(call: ICall) {
 		const names = [];
 		if (call) {
 			names.push(call.person?.lastname);
@@ -211,7 +238,7 @@ export class CRMSearchService extends DataService {
 		return this.validateLastnames(names);
 	}
 
-	private getPersonPhones(person: Person): string[] {
+	private getPersonPhones(person: IPerson): string[] {
 		const phones = [];
 		if (person) {
 			phones.push(person.homePhone);
@@ -222,7 +249,7 @@ export class CRMSearchService extends DataService {
 		return this.validatePhones(phones);
 	}
 
-	getSkippedPersonIds(call: Call): Guid[] {
+	getSkippedPersonIds(call: ICall): Guid[] {
 		const ids: Guid[] = [];
 		if (call) {
 			ids.push(call.person?.id);
@@ -233,7 +260,7 @@ export class CRMSearchService extends DataService {
 		return ids.filter((x) => x && x.toString() !== Guid.EMPTY);
 	}
 
-	private getCallPhones(call: Call) {
+	private getCallPhones(call: ICall) {
 		const phones: string[] = [];
 		if (call) {
 			phones.push(call.fromPhone!);
@@ -264,7 +291,7 @@ export class CRMSearchService extends DataService {
 		const list: string[] = [];
 		names.forEach((p) => {
 			if (!byLastname || !byLastname[p]) {
-				const isValidPhone = p && /^\d{10}$/.test(p);
+				// const isValidPhone = p && /^\d{10}$/.test(p);
 				if (p && p.length > 0 && !list.includes(p)) {
 					list.push(p);
 				}

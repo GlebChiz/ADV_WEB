@@ -14,7 +14,7 @@ export enum InsuredParty {
 	Other = 4,
 }
 
-export interface Insurance {
+export interface IInsurance {
 	id: string;
 	payerId: Guid;
 	copay: number | null;
@@ -33,9 +33,9 @@ export interface Insurance {
 	isVerified: boolean;
 }
 
-export interface InsuranceSaveModel {
-	primaryInsurance: Insurance;
-	secondaryInsurance: Insurance;
+export interface IInsuranceSaveModel {
+	primaryInsurance: IInsurance;
+	secondaryInsurance: IInsurance;
 }
 
 export const MetaData = {

@@ -1,21 +1,21 @@
 import { Guid } from 'guid-typescript';
 import { PatientModalityStatus } from '../enums/patient.modality.status';
-import { CheckList } from './checklist.model';
-import { EditingForm, FormGroup } from './form.model';
-import { Person } from './person.model';
+import { ICheckList } from './checklist.model';
+import { IEditingForm, IFormGroup } from './form.model';
+import { IPerson } from './person.model';
 
-export interface Patient {
+export interface IPatient {
 	id: Guid;
-	person: Person | null;
+	person: IPerson | null;
 
 	statusId: Guid | null;
 	areaId: string | null;
 
-	icCheckList: CheckList | null;
+	icCheckList: ICheckList | null;
 
-	modalities: PatientModality[];
-	forms: EditingForm[];
-	groups: FormGroup[];
+	modalities: IPatientModality[];
+	forms: IEditingForm[];
+	groups: IFormGroup[];
 }
 
 export const MetaData = {
@@ -49,7 +49,7 @@ export const MetaData = {
 	primaryPhoneType: 'Primary Phone',
 };
 
-export interface PatientModality {
+export interface IPatientModality {
 	modalityId: Guid;
 	checked: boolean;
 	name: string;

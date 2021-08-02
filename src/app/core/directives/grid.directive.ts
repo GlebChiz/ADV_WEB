@@ -39,7 +39,7 @@ export class GridDirective implements OnInit, OnDestroy {
 	constructor(private _cd: ChangeDetectorRef, public gridComponent: GridComponent) {}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 		this._destroy$.complete();
 	}
 

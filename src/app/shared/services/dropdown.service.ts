@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Guid } from 'guid-typescript';
 import { DataService } from './data.service';
 
@@ -60,7 +60,7 @@ export class DropDownService extends DataService {
 		return found.length > 0 ? found[0].name : '';
 	}
 
-	getItem(valueId: Guid, values: any[]) {
+	getItem(valueId: Guid | null | string, values: any[]) {
 		if (!values) {
 			return '';
 		}

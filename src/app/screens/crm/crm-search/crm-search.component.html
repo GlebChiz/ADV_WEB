@@ -24,7 +24,7 @@
 			<div *ngFor="let call of dataItem.calls">
 				<a target="_blank" [routerLink]="['/call', call.id]">
 					<span class="column"> {{ formatCallTime(call.callTime) }}</span>
-					<span class="column" *ngIf="call.endTime"> - {{ formatCallTime(model?.endTime) }}</span>
+					<!-- <span class="column" *ngIf="call.endTime"> - {{ formatCallTime(model.endTime) }}</span> -->
 					<span class="column mL15" *ngIf="call.endTime">Duration: {{ call?.duration }}</span>
 				</a>
 			</div>

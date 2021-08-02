@@ -15,9 +15,9 @@ import { Guid } from 'guid-typescript';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
-import { Address } from 'src/app/core/models/address.model';
-import { DropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
-import { MetaData, Person } from 'src/app/core/models/person.model';
+import { IAddress } from 'src/app/core/models/address.model';
+import { IDropDownData, LookupTypeCodes } from 'src/app/core/models/kendo/dropdown-data.model';
+import { MetaData, IPerson } from 'src/app/core/models/person.model';
 import { PersonActions } from 'src/app/core/store/person/person.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { DropDownService } from 'src/app/shared/services/dropdown.service';
@@ -40,27 +40,27 @@ export class PersonDetailsComponent
 
 	@Input() isEditMode = true;
 
-	@Input() model!: Person;
+	@Input() model!: IPerson;
 
 	@Input() showCancel = false;
 
 	@Input() fragment = '';
 
-	sexLookup = Array<DropDownData>();
+	sexLookup = Array<IDropDownData>();
 
-	genderLookup = Array<DropDownData>();
+	genderLookup = Array<IDropDownData>();
 
-	raceLookup = Array<DropDownData>();
+	raceLookup = Array<IDropDownData>();
 
-	languageLookup = Array<DropDownData>();
+	languageLookup = Array<IDropDownData>();
 
-	maritalLookup = Array<DropDownData>();
+	maritalLookup = Array<IDropDownData>();
 
-	employementLookup = Array<DropDownData>();
+	employementLookup = Array<IDropDownData>();
 
-	phonePolicyLookup = Array<DropDownData>();
+	phonePolicyLookup = Array<IDropDownData>();
 
-	phoneTypeLookup = Array<DropDownData>();
+	phoneTypeLookup = Array<IDropDownData>();
 
 	@Output() reloadData: EventEmitter<any> = new EventEmitter();
 
@@ -89,28 +89,28 @@ export class PersonDetailsComponent
 		console.log(this.model.wardPatientIds);
 		this._dropDownService
 			.getLookup(LookupTypeCodes.sex)
-			.subscribe((x: DropDownData[]) => (this.sexLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.sexLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.race)
-			.subscribe((x: DropDownData[]) => (this.raceLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.raceLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.marital)
-			.subscribe((x: DropDownData[]) => (this.maritalLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.maritalLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.gender)
-			.subscribe((x: DropDownData[]) => (this.genderLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.genderLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.employement)
-			.subscribe((x: DropDownData[]) => (this.employementLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.employementLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.language)
-			.subscribe((x: DropDownData[]) => (this.languageLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.languageLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.phonePolicy)
-			.subscribe((x: DropDownData[]) => (this.phonePolicyLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.phonePolicyLookup = x));
 		this._dropDownService
 			.getLookup(LookupTypeCodes.phoneType)
-			.subscribe((x: DropDownData[]) => (this.phoneTypeLookup = x));
+			.subscribe((x: IDropDownData[]) => (this.phoneTypeLookup = x));
 
 		this.initForm();
 	}
@@ -144,7 +144,7 @@ export class PersonDetailsComponent
 				value: this.model.dob ? new Date(this.model.dob) : null,
 				disabled: false,
 			}),
-			address: new FormControl(this.model.address as Address),
+			address: new FormControl(this.model.address as IAddress),
 			sexId: new FormControl(this.model.sexId),
 			genderId: new FormControl(this.model.genderId),
 			maritalStatusId: new FormControl(this.model.maritalStatusId),
@@ -171,7 +171,7 @@ export class PersonDetailsComponent
 	}
 
 	ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	submit(): void {

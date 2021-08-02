@@ -1,11 +1,11 @@
 <advenium-clinician-filter [filterId]="filterId"> </advenium-clinician-filter>
 <advenium-clinician-details
-	*ngIf="clinicianModel$ | async"
-	[isEditMode]="'true'"
-	[model]="clinicianModel$ | async"
-	(cancelEditing)="closeEditor()"
+	[isEditMode]=true
 	(reloadData)="reloadGrid()"
 >
+<!-- (cancelEditing)="closeEditor()" -->
+<!-- [model]="clinicianModel$ | async" -->
+<!-- *ngIf="clinicianModel$ | async" -->
 </advenium-clinician-details>
 
 <advenium-data-list

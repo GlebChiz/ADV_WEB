@@ -1,9 +1,9 @@
 import { Guid } from 'guid-typescript';
-import { Person } from './person.model';
+import { IPerson } from './person.model';
 
-export interface Clinician {
+export interface IClinician {
 	id: Guid;
-	person: Person;
+	person: IPerson;
 	userId: number | null;
 	areaIds: Guid[];
 	serviceTypeIds: Guid[];

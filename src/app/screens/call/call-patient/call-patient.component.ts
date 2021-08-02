@@ -1,16 +1,14 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { CallPatientIndex, MetaData } from 'src/app/core/models/call.model';
+import { ICallPatientIndex, MetaData } from 'src/app/core/models/call.model';
 
 import { IAppState } from 'src/app/core/store/state/app.state';
-import { DropDownService } from 'src/app/shared/services/dropdown.service';
 import { CallService } from 'src/app/core/services/call.service';
 import { Guid } from 'guid-typescript';
-import { Person } from 'src/app/core/models/person.model';
+import { IPerson } from 'src/app/core/models/person.model';
 
 @Component({
 	providers: [],
@@ -25,9 +23,9 @@ export class CallPatientComponent implements OnInit, OnDestroy {
 		operator: 'contains',
 	};
 
-	@Input() callPatients!: CallPatientIndex[];
+	@Input() callPatients!: ICallPatientIndex[];
 
-	@Input() title!: string;
+	@Input() title!: string | null;
 
 	@Input() saveEvent!: Observable<void>;
 
@@ -55,8 +53,8 @@ export class CallPatientComponent implements OnInit, OnDestroy {
 
 	constructor(
 		public _store: Store<IAppState>,
-		private actions$: Actions,
-		private _dropDownService: DropDownService,
+		// private actions$: Actions,
+		// private _dropDownService: DropDownService,
 		private _callService: CallService,
 		private formBuilder: FormBuilder,
 	) {}
@@ -83,7 +81,8 @@ export class CallPatientComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	onDeletePatient(i) {
+	onDeletePatient() {
+		// i: number
 		this.deletePatient.emit();
 	}
 
@@ -94,29 +93,29 @@ export class CallPatientComponent implements OnInit, OnDestroy {
 		return `Child ${i + 1}`;
 	}
 
-	getPatientControl(i: number) {
-		return this.myForm.get('patients').controls[i];
+	getPatientControl(_i: number) {
+		// return this.myForm.get('patients')!.controls[i];
 	}
 
 	ngOnDestroy(): void {
 		this.saveSubscription.unsubscribe();
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	isNew(i: number) {
-		return this.callPatients[i].id.toString() === Guid.EMPTY;
+		return this.callPatients[i]!.id.toString() === Guid.EMPTY;
 	}
 
 	submit(): void {
 		this.errors = null;
 		const list = this.myForm.value.patients
-			.map((v: Person | null, index: number) => {
+			.map((v: IPerson | null, index: number) => {
 				const cp = this.callPatients[index];
 				cp!.patient.person = v;
 				return cp;
 			})
 			.filter(
-				(x) => x.patient.person.lastname?.length > 0 || x.patient.person.firstname?.length > 0,
+				(x: any) => x.patient.person.lastname?.length > 0 || x.patient.person.firstname?.length > 0,
 			);
 		this._callService.updatePatientIndexes(list).subscribe((result) => {
 			if (result.isValid === false) {

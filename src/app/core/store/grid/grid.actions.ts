@@ -2,10 +2,10 @@ import { createAction, props } from '@ngrx/store';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import {
 	ColumnFilterType,
-	ColumnSort,
+	IColumnSort,
 	SortDirection,
 } from '../../models/filters/column-filter.model';
-import { GridInfo } from './grid.state';
+import { IGridInfo } from './grid.state';
 
 export const GridActions = {
 	CheckAll: createAction('[Grid] Check All', props<{ gridId: string; checked: boolean }>()),
@@ -24,7 +24,7 @@ export const GridActions = {
 		props<{ gridId: string; data: GridDataResult }>(),
 	),
 
-	SetGridInfo: createAction('[Grid] Set grid info', props<{ gridId: string; grid: GridInfo }>()),
+	SetGridInfo: createAction('[Grid] Set grid info', props<{ gridId: string; grid: IGridInfo }>()),
 	SetColumnFilterValue: createAction(
 		'[Grid] Set column filter value',
 		props<{ gridId: string; name: string; data: any }>(),
@@ -62,6 +62,6 @@ export const GridActions = {
 
 	SetSorting: createAction(
 		'[Grid] Set sorting',
-		props<{ gridId: string; sorting: ColumnSort[] }>(),
+		props<{ gridId: string; sorting: IColumnSort[] }>(),
 	),
 };

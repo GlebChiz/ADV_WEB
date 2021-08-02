@@ -67,7 +67,7 @@ export class SharedCallLoginComponent implements OnInit {
 			.sharedCalllogin(this.sharedCallId, this.f.code!.value)
 			.pipe(first())
 			.subscribe(
-				(data) => {
+				() => {
 					this.router.navigate(['/sharedcall']);
 				},
 				(error) => {

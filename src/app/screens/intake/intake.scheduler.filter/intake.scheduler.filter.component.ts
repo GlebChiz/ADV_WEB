@@ -7,17 +7,17 @@ import {
 	QueryList,
 	ViewChildren,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { DropDownFilterSettings, FilterDirective } from '@progress/kendo-angular-dropdowns';
-import { IntakeSchedulerFilter } from 'src/app/core/models/filters/intake-scheduler-filter';
-import { DropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
+import { IIntakeSchedulerFilter } from 'src/app/core/models/filters/intake-scheduler-filter';
+import { IDropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
 
 @Component({
 	providers: [],
 	selector: 'advenium-intake-scheduler-filter',
 	templateUrl: './intake.scheduler.filter.component.html',
 })
-export class IntakeSchedulerFilterComponent implements OnInit {
+export class IIntakeSchedulerFilterComponent implements OnInit {
 	readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
@@ -25,32 +25,39 @@ export class IntakeSchedulerFilterComponent implements OnInit {
 
 	filterForm!: FormGroup;
 
-	filterModel!: IntakeSchedulerFilter;
+	filterModel!: IIntakeSchedulerFilter;
 
-	@Output() toggleFilterEvent: EventEmitter<IntakeSchedulerFilter> = new EventEmitter();
+	@Output() toggleFilterEvent: EventEmitter<IIntakeSchedulerFilter> = new EventEmitter();
 
-	@Input() clinicianLookup!: DropDownData[];
+	@Input() clinicianLookup!: IDropDownData[];
 
-	@Input() set initialFilter(model: IntakeSchedulerFilter) {
+	@Input() set initialFilter(model: IIntakeSchedulerFilter) {
 		this.filterModel = model;
-		this.initForm(this.filterModel);
+		this
+			.initForm
+			// this.filterModel
+			();
 	}
 
 	@ViewChildren(FilterDirective) filters!: QueryList<FilterDirective>;
 
-	constructor(private _fb: FormBuilder) {}
+	// constructor(private _fb: FormBuilder) {}
 
 	ngOnInit(): void {
-		this.initForm(this.filterModel);
+		this
+			.initForm
+			// this.filterModel
+			();
 	}
 
-	initForm(model: IntakeSchedulerFilter): void {
+	initForm(): // model: IIntakeSchedulerFilter
+	void {
 		/* this.filterForm = this._fb.group({
         clinicianIds: this._fb.control(model?.clinicianIds)
       }); */
 	}
 
-	onKeyDown(pressedKey) {
+	onKeyDown(pressedKey: any) {
 		if (pressedKey.key === 'Enter') {
 			this.filter();
 		}
@@ -67,9 +74,9 @@ export class IntakeSchedulerFilterComponent implements OnInit {
 	}
 
 	reset(): void {
-		if (!confirm('Are you sure you want to reset Filters?')) {
-			return;
-		}
+		// if (!confirm('Are you sure you want to reset Filters?')) {
+		// 	return;
+		// }
 
 		this.filterForm.reset();
 		this.filters.forEach((f: any) => f.filterChangeSubscription.next(''));

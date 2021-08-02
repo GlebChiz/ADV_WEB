@@ -3,7 +3,7 @@ import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from 
 import { Store } from '@ngrx/store';
 import { Guid } from 'guid-typescript';
 import { Subscription } from 'rxjs';
-import { MetaData, PersonShortModel } from 'src/app/core/models/person.model';
+import { MetaData, IPersonShortModel } from 'src/app/core/models/person.model';
 import { CRMSearchActions } from 'src/app/core/store/crmsearch/crmsearch.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
 
@@ -27,11 +27,11 @@ export class PersonShortComponent implements ControlValueAccessor, OnDestroy {
 
 	controlId: string = Guid.create().toString();
 
-	get value(): PersonShortModel {
+	get value(): IPersonShortModel {
 		return this.form.value;
 	}
 
-	set value(value: PersonShortModel) {
+	set value(value: IPersonShortModel) {
 		this.form.setValue(value);
 		this.onChange(value);
 		this.onTouched();
