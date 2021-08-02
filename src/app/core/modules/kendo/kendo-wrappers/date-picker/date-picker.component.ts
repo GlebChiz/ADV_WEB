@@ -38,7 +38,7 @@ export class DatePickerWrapperComponent implements ControlValueAccessor, OnDestr
 
 	readonly dateTimeTypes = DateTimeTypes;
 
-	formControl: FormControl;
+	formControl!: FormControl;
 
 	@Input() activeView: CalendarView = 'month';
 

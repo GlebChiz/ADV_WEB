@@ -62,7 +62,7 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 
 	save() {
 		this.interStep = this.currentStep;
-		this.beforeNext.next(null);
+		this.beforeNext.next();
 		if (this.currentStep?.test === true) {
 			this.confirmSave();
 		}
@@ -77,7 +77,7 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 	changeStep(e: any, step: ICallManagerStep) {
 		e.preventDefault();
 		this.interStep = step;
-		this.beforeNext.next(null);
+		this.beforeNext.next();
 		if (this.currentStep?.test === true) {
 			this.confirmSave();
 		}
@@ -565,7 +565,7 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 		)[0];
 		if (step) {
 			this.interStep = step;
-			this.beforeNext.next(null);
+			this.beforeNext.next();
 			if (this.currentStep?.test === true) {
 				this.confirmSave();
 			}

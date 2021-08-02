@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ICall } from 'src/app/core/models/call.model';
@@ -17,7 +17,7 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 export class CallActiveComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	call$: Observable<ICall>;
+	call$!: Observable<ICall | null>;
 
 	constructor(
 		// private route: ActivatedRoute,
@@ -26,15 +26,18 @@ export class CallActiveComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
-		this.call$ = this._store.pipe(select(selectActiveCall), takeUntil(this._destroy$));
+		this.call$ = this._store.select(selectActiveCall).pipe(takeUntil(this._destroy$));
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: `Active Call` } }));
 		this._store.dispatch(CallActions.SetActiveCall({ call: null }));
 		this._store.dispatch(CallActions.GetActiveCall());
-		this._store.pipe(select(selectActiveCall), takeUntil(this._destroy$)).subscribe((x) => {
-			if (x != null) {
-				this.router.navigate(['/call', x.id]);
-			}
-		});
+		this._store
+			.select(selectActiveCall)
+			.pipe(takeUntil(this._destroy$))
+			.subscribe((x) => {
+				if (x != null) {
+					this.router.navigate(['/call', x.id]);
+				}
+			});
 	}
 
 	// ngOnChanges(): void {}

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ICall } from 'src/app/core/models/call.model';
@@ -29,9 +29,9 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 
 	items: any[] = [];
 
-	user$: Observable<IUser>;
+	user$!: Observable<IUser | null>;
 
-	call$: Observable<ICall>;
+	call$!: Observable<ICall | null>;
 
 	hasActiveCall = false;
 
@@ -42,8 +42,8 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.user$ = this._store.pipe(select(selectUser));
-		this.call$ = this._store.pipe(select(selectActiveCall), takeUntil(this._destroy$));
+		this.user$ = this._store.select(selectUser);
+		this.call$ = this._store.select(selectActiveCall).pipe(takeUntil(this._destroy$));
 		if (this.authenticationService.getCurrentUser()) {
 			const items = this.menuService.getMainMenu();
 			items.forEach((x) => {

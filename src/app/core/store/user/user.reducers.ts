@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { AuthUserActions, UserActions } from './user.actions';
 import { IUserState, initialUserState } from './user.state';
 
-export function userReducers(userState: IUserState, action: Action): IUserState {
+export function userReducers(userState: IUserState | undefined, action: Action): IUserState {
 	return createReducer(
 		initialUserState,
 		on(AuthUserActions.SetUser, (state, payload) => ({ ...state, user: payload.user })),

@@ -190,7 +190,7 @@ export class PatientDetailsComponent
 	}
 
 	save(): void {
-		this.beforeNext.next(null);
+		this.beforeNext.next();
 	}
 
 	saved(): void {

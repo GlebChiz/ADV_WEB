@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { selectCRMSearch } from 'src/app/core/store/crmsearch/crmsearch.selectors';
@@ -22,7 +22,7 @@ import { formatDate } from '@angular/common';
 export class CRMSearchComponent implements OnDestroy, OnInit {
 	private _destroy$ = new Subject();
 
-	search$: Observable<ICRMSearch>;
+	search$!: Observable<ICRMSearch | null>;
 
 	persons: ICRMPersonFound[] = [];
 
@@ -68,7 +68,7 @@ export class CRMSearchComponent implements OnDestroy, OnInit {
 	}
 
 	ngOnInit(): void {
-		this.search$ = this._store.pipe(select(selectCRMSearch), takeUntil(this._destroy$));
+		this.search$ = this._store.select(selectCRMSearch).pipe(takeUntil(this._destroy$));
 	}
 
 	ngOnDestroy(): void {

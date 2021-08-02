@@ -6,12 +6,12 @@
 		"outDir": "./dist/out-tsc",
 		"forceConsistentCasingInFileNames": true,
 		"skipLibCheck": true,
-		"strict": false,
-		// "noUnusedLocals": true,
-		// "noUnusedParameters": true,
-		// "noImplicitReturns": true,
-		// "noFallthroughCasesInSwitch": true,
-		// "noUncheckedIndexedAccess": true,
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": true,
 		"sourceMap": true,
 		"declaration": true,
 		"downlevelIteration": true,
@@ -21,15 +21,15 @@
 		"importHelpers": true,
 		"esModuleInterop": true,
 		"noEmitOnError": true,
-		"target": "esnext",
+		"target": "es5",
 		"module": "commonjs",
 		"lib": ["es2018", "dom"]
 	},
 	"angularCompilerOptions": {
-		// "enableI18nLegacyMessageIdFormat": false,
-		// "strictInjectionParameters": true,
-		// "strictInputAccessModifiers": true,
-		// "strictTemplates": true
+		"enableI18nLegacyMessageIdFormat": false,
+		"strictInjectionParameters": true,
+		"strictInputAccessModifiers": true,
+		"strictTemplates": true
 	},
 	"include": ["src/**/*.ts"]
 }

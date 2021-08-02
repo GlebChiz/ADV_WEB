@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IPerson } from 'src/app/core/models/person.model';
@@ -17,7 +17,7 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 export class PersonViewComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
-	personModel$: Observable<IPerson> | null = null;
+	personModel$!: Observable<IPerson | null>;
 
 	fragment = '';
 
@@ -26,10 +26,7 @@ export class PersonViewComponent implements OnDestroy {
 			this.fragment = xFragment || '';
 			const personId = xParams.id;
 			this._store.dispatch(PersonActions.GetPersonModel({ id: personId }));
-			this.personModel$ = this._store.pipe(
-				select(selectPersonModel, { personId }),
-				takeUntil(this._destroy$),
-			);
+			this.personModel$ = this._store.select(selectPersonModel).pipe(takeUntil(this._destroy$));
 			this.personModel$.subscribe((x) => {
 				if (x != null) {
 					this._store.dispatch(

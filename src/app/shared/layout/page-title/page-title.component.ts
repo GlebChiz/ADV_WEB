@@ -13,7 +13,7 @@ import { IPageSettingsState } from 'src/app/core/store/state/page-settings/page-
 export class PageTitleComponent implements OnDestroy, OnInit {
 	constructor(private _store: Store<IAppState>) {}
 
-	pageSettings$: Observable<IPageSettingsState>;
+	pageSettings$!: Observable<IPageSettingsState>;
 
 	private _destroy$ = new Subject();
 

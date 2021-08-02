@@ -27,13 +27,6 @@ import { ClinicianModule } from './screens/clinician/clinician.module';
 import { IntakeModule } from './screens/intake/intake.module';
 import { AdveniumFormModule } from './screens/form/form.module';
 import { SharedCallModule } from './screens/shared-call/shared-call.module';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { appReducers } from './core/store/reducers/app.reducers';
-import { DefaultRouterStateSerializer, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { environment } from 'src/environments/environment';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { PatientEffects } from './core/store/patient/patient.effects';
 
 @NgModule({
 	declarations: [
@@ -49,24 +42,6 @@ import { PatientEffects } from './core/store/patient/patient.effects';
 	],
 	imports: [
 		BrowserModule,
-		StoreModule.forRoot(appReducers, {
-			runtimeChecks: {
-				strictStateImmutability: false,
-				strictActionImmutability: false,
-			},
-		}),
-		EffectsModule.forRoot([
-			PatientEffects,
-			// GridEffects,
-			// CallEffects,
-			// PersonEffects,
-			// ClinicianEffects,
-		]),
-		StoreRouterConnectingModule.forRoot({
-			serializer: DefaultRouterStateSerializer,
-			stateKey: 'router',
-		}),
-		!environment.production ? StoreDevtoolsModule.instrument() : [],
 		AppRoutingModule,
 		ReactiveFormsModule,
 		CommonModule,
@@ -79,17 +54,11 @@ import { PatientEffects } from './core/store/patient/patient.effects';
 		CallModule,
 		CoreModule,
 		ClinicianModule,
-		// ReduxModule,
+		ReduxModule,
 		CheckListModule,
 		IntakeModule,
 		AdveniumFormModule,
 		SharedCallModule,
-		// StoreModule.forRoot(appReducers, {
-		// 	runtimeChecks: {
-		// 		strictStateImmutability: false,
-		// 		strictActionImmutability: false,
-		// 	},
-		// }),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

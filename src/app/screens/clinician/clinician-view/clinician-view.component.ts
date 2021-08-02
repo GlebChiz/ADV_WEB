@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Guid } from 'guid-typescript';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { selectClinicianModel } from 'src/app/core/store/clinician/clinician.sel
 export class ClinicianViewComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
-	clinicianModel$: Observable<IClinician> | null = null;
+	clinicianModel$!: Observable<IClinician | null>;
 
 	fragment!: string;
 
@@ -31,10 +31,9 @@ export class ClinicianViewComponent implements OnDestroy {
 			} else {
 				this._store.dispatch(ClinicianActions.GetClinicianModel({ id: clinicianId }));
 			}
-			this.clinicianModel$ = this._store.pipe(
-				select(selectClinicianModel, { clinicianId }),
-				takeUntil(this._destroy$),
-			);
+			this.clinicianModel$ = this._store
+				.select(selectClinicianModel)
+				.pipe(takeUntil(this._destroy$));
 			this.clinicianModel$.subscribe((x) => {
 				if (x != null) {
 					const title =

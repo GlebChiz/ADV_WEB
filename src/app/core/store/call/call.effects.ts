@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { CallService } from '../../services/call.service';
-import { IAppState } from '../state/app.state';
 import { CallActions } from './call.actions';
 
 @Injectable()
@@ -95,9 +93,5 @@ export class CallEffects {
 		),
 	);
 
-	constructor(
-		private store: Store<IAppState>,
-		private actions$: Actions,
-		private service: CallService,
-	) {}
+	constructor(private actions$: Actions, private service: CallService) {}
 }

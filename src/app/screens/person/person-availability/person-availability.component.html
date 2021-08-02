@@ -13,7 +13,7 @@
 	></advenium-person-availability-editor>
 	<kendo-dialog-actions>
 		<button kendoButton (click)="closeEdit('cancel')">Cancel</button>
-		<button kendoButton (click)="closeEdit('save')" primary="true">Save</button>
+		<button kendoButton (click)="closeEdit('save')" [primary]="true">Save</button>
 	</kendo-dialog-actions>
 </kendo-dialog>
 
@@ -32,7 +32,7 @@
 			kendoButton
 			*ngFor="let btn of this.deleteButtons"
 			(click)="closeDeleteDialog(btn.value)"
-			primary="{{ btn.isPrimary }}"
+			[primary]="btn.isPrimary "
 		>
 			{{ btn.title }}
 		</button>

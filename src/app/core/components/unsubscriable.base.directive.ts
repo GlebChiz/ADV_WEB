@@ -6,7 +6,7 @@ export class UnsubscriableBaseDirective implements OnDestroy {
 	unsubscribe = new Subject<void>();
 
 	ngOnDestroy(): void {
-		this.unsubscribe.next(null);
+		this.unsubscribe.next();
 		this.unsubscribe.complete();
 	}
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { ICall } from 'src/app/core/models/call.model';
 import { IAppState } from 'src/app/core/store/state/app.state';

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/app/core/models/user.model';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -12,7 +12,7 @@ import { AuthenticationService } from '../../services';
 	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-	user$: Observable<IUser>;
+	user$!: Observable<IUser | null>;
 
 	constructor(
 		private _store: Store<IAppState>,
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.user$ = this._store.pipe(select(selectUser));
+		this.user$ = this._store.select(selectUser);
 	}
 
 	onLogout(): void {

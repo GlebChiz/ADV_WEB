@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { selectUser } from 'src/app/core/store/user/user.selectors';
@@ -15,7 +15,7 @@ import { AlertService, AuthenticationService } from '../../shared/services';
 export class HomeComponent implements OnInit {
 	apiUser!: string;
 
-	user$: Observable<IUser>;
+	user$!: Observable<IUser | null>;
 
 	constructor(
 		private authenticationService: AuthenticationService,
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.user$ = this._store.pipe(select(selectUser));
+		this.user$ = this._store.select(selectUser);
 		this.authenticationService.apiUser().subscribe(
 			(user) => {
 				this.apiUser = user?.userName;

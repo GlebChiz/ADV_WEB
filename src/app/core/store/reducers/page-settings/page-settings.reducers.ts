@@ -6,7 +6,7 @@ import {
 } from '../../state/page-settings/page-settings.state';
 
 export function pageSettingsReducers(
-	pageState: IPageSettingsState,
+	pageState: IPageSettingsState | undefined,
 	action: Action,
 ): IPageSettingsState {
 	return createReducer(
