@@ -1,7 +1,7 @@
 <div class="mT10 mB10 w-100" *ngIf="showGrid">
 	<div class="clearfix adv-toolbar-row">
-		<ng-container *ngIf="this.leftButtons">
-			<span *ngFor="let btn of this.leftButtons" class="column left adv-toolbar-right-margin">
+		<ng-container *ngIf="leftButtons">
+			<span *ngFor="let btn of leftButtons" class="column left adv-toolbar-right-margin">
 				<button
 					class="k-button-secondary adv-button"
 					title="{{ btn.title }}"
@@ -14,16 +14,16 @@
 		<span class="column right adv-toolbar-left-margin">
 			<button class="k-button-secondary fa fa-ellipsis-h adv-button"></button>
 		</span>
-		<span *ngIf="this.createButton" class="column right adv-toolbar-left-margin">
+		<span *ngIf="createButton" class="column right adv-toolbar-left-margin">
 			<button (click)="onCreate()" class="k-button adv-button">
-				{{ this.createButton.title || 'Create' }}
+				{{ createButton.title || 'Create' }}
 			</button>
 		</span>
 		<span class="column right adv-toolbar-left-margin">
 			<button class="k-button adv-button">Export</button>
 		</span>
-		<ng-container *ngIf="this.rightButtons">
-			<span *ngFor="let btn of this.rightButtons" class="column right adv-toolbar-left-margin">
+		<ng-container *ngIf="rightButtons">
+			<span *ngFor="let btn of rightButtons" class="column right adv-toolbar-left-margin">
 				<button
 					class="k-button-secondary adv-button"
 					title="{{ btn.title }}"
@@ -37,17 +37,17 @@
 	<div class="adv-toolbar-row">
 		<kendo-grid
 			class="w-100"
-			[adveniumGrid]="this.list$"
-			(dataStateChange)="this.onDataStateChange($event)"
-			(afterInit)="this.onAfterInit($event)"
-			[groupable]="this.groupable"
-			[group]="this.group"
+			[adveniumGrid]="list$"
+			(dataStateChange)="onDataStateChange($event)"
+			(afterInit)="onAfterInit($event)"
+			[groupable]="groupable"
+			[group]="group"
 		>
 			<ng-template kendoGridToolbarTemplate>
 				<div class="clearfix adv-toolbar-row">
 					<span
 						class="column right adv-toolbar-left-margin"
-						*ngIf="filterId && this.showFilterButton"
+						*ngIf="filterId && showFilterButton"
 					>
 						<button
 							class="k-button-secondary adv-button fa fa-filter"
@@ -57,7 +57,7 @@
 					</span>
 					<span
 						class="column right adv-toolbar-left-margin"
-						*ngIf="filterId && this.showFilterButton"
+						*ngIf="filterId && showFilterButton"
 					>
 						<button
 							class="k-button-secondary adv-button fa fa-filter"
@@ -79,14 +79,14 @@
 					</advenium-grid-settings-chooser>
 				</div>
 			</ng-template>
-			<kendo-grid-column *ngIf="this.showCheck">
+			<kendo-grid-column *ngIf="showCheck">
 				<ng-template kendoGridHeaderTemplate>
 					<input
 						type="checkbox"
 						#checkAll
 						title="Select\Unselect All"
 						(click)="selectAll()"
-						[checked]="this.selectedAll === true"
+						[checked]="selectedAll === true"
 					/>
 				</ng-template>
 				<ng-template kendoGridCellTemplate let-dataItem>
@@ -112,18 +112,37 @@
 						[column]="column.name"
 					></advenium-grid-column-filter>
 				</ng-template>
+				<ng-container *ngIf="column.dataType === 'lookup'">
+					<ng-template kendoGridCellTemplate let-dataItem>
+						<ng-container *ngIf="dataItem">
+							<div *ngFor="let line of dataItem">
+								{{ line }}
+							</div>
+						</ng-container>
+					</ng-template>
+				</ng-container>
+				<ng-container *ngIf="column.dataType === 'lookup-clickable'">
+					<ng-template kendoGridCellTemplate let-dataItem>
+						<ng-container *ngIf="dataItem">
+							<div *ngFor="let line of dataItem">
+								<a href="#" (click)="clickLookup(column, dataItem, line)">{{ line }}</a>
+							</div>
+						</ng-container>
+					</ng-template>
+				</ng-container>
 				<ng-container *ngIf="column.link">
 					<ng-template kendoGridCellTemplate let-dataItem>
-						<a [routerLink]="this.linkArray(column, dataItem)">{{ display(column, dataItem) }}</a>
+						<a [routerLink]="linkArray(column, dataItem)">{{ display(column, dataItem) }}</a>
 					</ng-template>
 				</ng-container>
 				<ng-container *ngIf="column.click">
 					<ng-template kendoGridCellTemplate let-dataItem>
-						<a href="#" (click)="this.click(column, dataItem)">{{ display(column, dataItem) }}</a>
+						<a href="#" (click)="click(column, dataItem)">{{ display(column, dataItem) }}</a>
 					</ng-template>
 				</ng-container>
 				<ng-template kendoGridCellTemplate let-dataItem>
 					{{ display(column, dataItem) }}
+					<ng-content select="[cell-description]"></ng-content>
 				</ng-template>
 			</kendo-grid-column>
 			<kendo-grid-column field="Modify" title=" " [width]="35" *ngIf="!isReadOnly && showModify">

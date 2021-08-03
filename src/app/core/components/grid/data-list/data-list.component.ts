@@ -95,6 +95,8 @@ export class DataListComponent implements OnInit, OnDestroy {
 
 	@Input() clickItem!: (column: IGridColumnInfo, item: any) => void;
 
+	@Input() clickLookupItem!: (column: IGridColumnInfo, item: any, subItem: any) => void;
+
 	@Input() linkArray!: (column: IGridColumnInfo, item: any) => any;
 
 	@Output() editItem = new EventEmitter<any>();
@@ -142,6 +144,13 @@ export class DataListComponent implements OnInit, OnDestroy {
 	click(column: IGridColumnInfo, item: any) {
 		if (this.clickItem) {
 			this.clickItem(column, item);
+		}
+		return false;
+	}
+
+	clickLookup(column: IGridColumnInfo, item: any, subType: any) {
+		if (this.clickLookupItem) {
+			this.clickLookupItem(column, item, subType);
 		}
 		return false;
 	}
