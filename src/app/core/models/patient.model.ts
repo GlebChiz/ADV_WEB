@@ -6,7 +6,7 @@ import { IPerson } from './person.model';
 
 export interface IPatient {
 	id: Guid;
-	person: IPerson | null;
+	person: IPerson;
 
 	statusId: Guid | null;
 	areaId: string | null;

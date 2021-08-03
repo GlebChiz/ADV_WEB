@@ -8,7 +8,7 @@ export class AlertService {
 
 	private keepAfterRouteChange = false;
 
-	constructor(private router: Router) {
+	public constructor(private router: Router) {
 		// clear alert messages on route change unless 'keepAfterRouteChange' flag is true
 		this.router.events.subscribe((event) => {
 			if (event instanceof NavigationStart) {
@@ -23,21 +23,21 @@ export class AlertService {
 		});
 	}
 
-	getAlert(): Observable<any> {
+	public getAlert(): Observable<any> {
 		return this.subject.asObservable();
 	}
 
-	success(message: string, keepAfterRouteChange = false) {
+	public success(message: string, keepAfterRouteChange = false): void {
 		this.keepAfterRouteChange = keepAfterRouteChange;
 		this.subject.next({ type: 'success', text: message });
 	}
 
-	error(message: string, keepAfterRouteChange = false) {
+	public error(message: string, keepAfterRouteChange = false): void {
 		this.keepAfterRouteChange = keepAfterRouteChange;
 		this.subject.next({ type: 'error', text: message });
 	}
 
-	clear() {
+	public clear(): void {
 		// clear by calling subject.next(null) without parameters
 		this.subject.next(null);
 	}

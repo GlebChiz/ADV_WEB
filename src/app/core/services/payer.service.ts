@@ -4,7 +4,7 @@ import { AuthenticationService, GridDataService } from 'src/app/shared/services'
 
 @Injectable({ providedIn: 'root' })
 export class PayerGridService extends GridDataService {
-	constructor(http: HttpClient, auth: AuthenticationService) {
+	public constructor(http: HttpClient, auth: AuthenticationService) {
 		super(http, auth, 'payer');
 	}
 }

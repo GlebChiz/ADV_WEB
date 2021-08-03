@@ -8,3 +8,8 @@ export interface IClinician {
 	areaIds: Guid[];
 	serviceTypeIds: Guid[];
 }
+
+export interface IClinicianEmpty {
+	userId: null;
+	person: IPerson;
+}

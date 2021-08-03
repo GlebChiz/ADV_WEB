@@ -24,58 +24,58 @@ import { ValidationMessageService } from 'src/app/core/services/validation.messa
 export class FormUploadComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	active = true;
+	public active = true;
 
-	submitted = false;
+	public submitted = false;
 
-	uploadForm!: FormGroup;
+	public uploadForm!: FormGroup;
 
-	files: any = {};
+	public files: any = {};
 
-	restrictions: FileRestrictions = {
+	public restrictions: FileRestrictions = {
 		allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'tif', 'tiff', 'bmp'],
 	};
 
-	@Input() editableFields!: string[];
+	@Input() public editableFields!: string[];
 
-	@Input() displayedFields!: string[];
+	@Input() public displayedFields!: string[];
 
-	@Input() formTypeLookup!: IDropDownData[];
+	@Input() public formTypeLookup!: IDropDownData[];
 
-	@Input() formPersons!: IFormPerson[];
+	@Input() public formPersons!: IFormPerson[];
 
-	@Input() formTypeId!: Guid;
+	@Input() public formTypeId!: Guid;
 
-	@Input() multiple = false;
+	@Input() public multiple = false;
 
-	@Input() showValidation = false;
+	@Input() public showValidation = false;
 
-	@Input() formId!: Guid;
+	@Input() public formId!: Guid;
 
-	@Input() formEditorService!: FormEditorService;
+	@Input() public formEditorService!: FormEditorService;
 
-	constructor(
+	public constructor(
 		private fb: FormBuilder,
 		private formService: FormService,
 		public validationService: ValidationMessageService,
 	) {}
 
-	showUpload(upload: UploadComponent) {
+	public showUpload(upload: UploadComponent) {
 		if (!this.uploadForm.value.formTypeId) {
 			return false;
 		}
 		return upload.fileList.count > 0;
 	}
 
-	isEditable(field: string): boolean {
+	public isEditable(field: string): boolean {
 		return this.editableFields && this.editableFields.includes(field);
 	}
 
-	isDisplayed(field: string): boolean {
+	public isDisplayed(field: string): boolean {
 		return (this.displayedFields && this.displayedFields.includes(field)) || this.isEditable(field);
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.uploadForm = this.fb.group({
 			formTypeId: [this.formTypeId, [Validators.required]],
 			files: [null, [Validators.required]],
@@ -83,15 +83,15 @@ export class FormUploadComponent implements OnInit, OnDestroy {
 		this.uploadForm.valueChanges.subscribe((data) => this.onValueChanged(data));
 	}
 
-	onValueChanged(_data?: any) {
+	public onValueChanged(_data?: any): void {
 		// handle model changes
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	selectFile(e: SelectEvent) {
+	public selectFile(e: SelectEvent): void {
 		const formData: FormData = new FormData();
 		e.files.forEach((f) => {
 			this.files[f.uid!] = f.name;
@@ -102,14 +102,14 @@ export class FormUploadComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	removeFile(e: RemoveEvent) {
+	public removeFile(e: RemoveEvent): void {
 		e.files.forEach((f) => {
 			delete this.files[f.uid!];
 			this.formService.removeFile(f.uid!).subscribe(() => {});
 		});
 	}
 
-	save(upload: UploadComponent) {
+	public save(upload: UploadComponent): void {
 		this.submitted = true;
 		const fileNames: Object[] = [];
 		Object.keys(this.files).forEach((_value: string, uid: number) => {

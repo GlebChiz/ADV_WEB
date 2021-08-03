@@ -39,6 +39,15 @@ export interface IGridInfo {
 	filters: IColumnFilter[];
 	sorting: IColumnSort[] | any;
 }
+export interface IGridInfoJsonFormat {
+	id: Guid | string;
+	title: string;
+	gridId: string;
+	isDefault: boolean;
+	columns: string;
+	filters: string;
+	sorting: string;
+}
 export interface IGridColumnInfo {
 	name: string;
 	title: string;
@@ -67,4 +76,8 @@ export interface IGridSettings {
 	columns: string;
 	filters: string;
 	sorting: string;
+}
+
+export interface IGridId {
+	gridId: string | null;
 }

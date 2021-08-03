@@ -11,7 +11,7 @@ export interface ICall {
 	areaId: string | null;
 	advertisementSourceId: string | null;
 	callerType: CallerType;
-	fromPhone: string | null;
+	fromPhone: string;
 	toPhone: string | null;
 	callTime: Date;
 	endTime: Date | null;

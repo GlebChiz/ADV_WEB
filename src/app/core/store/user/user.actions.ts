@@ -2,7 +2,10 @@ import { createAction, props } from '@ngrx/store';
 import { IUser } from 'src/app/core/models/user.model';
 
 export const AuthUserActions = {
-	SignIn: createAction('[Auth] SignIn', props<{ login: string; password: string }>()),
+	SignIn: createAction(
+		'[Auth] SignIn',
+		props<{ login: string | undefined; password: string | undefined }>(),
+	),
 	SignInComplete: createAction('[Auth] SignInComplete', props<{ user: IUser }>()),
 	SignInError: createAction('[Auth] SignInError', props<{ errors: any }>()),
 	CheckToken: createAction('[Auth] CheckToken'),

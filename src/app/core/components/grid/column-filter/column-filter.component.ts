@@ -19,29 +19,29 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	encapsulation: ViewEncapsulation.None,
 })
 export class GridColumnFilterComponent implements OnInit, OnDestroy {
-	filter!: IColumnFilter;
+	public filter!: IColumnFilter;
 
-	@Input() gridId!: string;
+	@Input() public gridId!: string;
 
-	@Input() filterId!: string;
+	@Input() public filterId!: string;
 
-	@Input() column!: string;
+	@Input() public column!: string;
 
-	showPopup = false;
+	public showPopup = false;
 
-	show = false;
+	public show = false;
 
-	filter$: Observable<IColumnFilter> | null = null;
+	public filter$: Observable<IColumnFilter> | null = null;
 
 	private _destroy$ = new Subject();
 
-	constructor(public _store: Store<IAppState>) {}
+	public constructor(public _store: Store<IAppState>) {}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.filter = null!;
 		this.filter$ = this._store.pipe(
 			select(selectGridFilter, {
@@ -58,19 +58,19 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	isValueFilter() {
+	public isValueFilter(): boolean {
 		return this.show && this.filter?.dataType === IColumnFilterDataType.String;
 	}
 
-	isIntervalFilter() {
+	public isIntervalFilter(): boolean {
 		return this.show && this.filter?.dataType === IColumnFilterDataType.Interval;
 	}
 
-	isDateFilter() {
+	public isDateFilter(): boolean {
 		return this.show && this.filter?.dataType === IColumnFilterDataType.Date;
 	}
 
-	title() {
+	public title() {
 		if (this.show !== true) {
 			return '';
 		}
@@ -79,7 +79,7 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 		return `${isNegative ? 'not ' : ''}${text}`;
 	}
 
-	operations() {
+	public operations(): any {
 		const list: any = [];
 		const types = this.operationTypes();
 		types.forEach((t) =>
@@ -97,7 +97,7 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 		return list;
 	}
 
-	operationTypes() {
+	public operationTypes(): ColumnFilterType[] {
 		let list: ColumnFilterType[] = [];
 
 		if (
@@ -131,7 +131,7 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 		this.showPopup = !this.showPopup;
 	}
 
-	onSelect(item: any): void {
+	public onSelect(item: any): void {
 		this._store.dispatch(
 			GridActions.SetColumnFilterType({
 				gridId: this.gridId,

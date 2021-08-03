@@ -13,13 +13,13 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-	apiUser!: string;
+	public apiUser!: string;
 
-	user$: Observable<IUser | null> = this._store.select(selectUser);
+	public user$: Observable<IUser | null> = this._store.select(selectUser);
 
-	constructor(private _store: Store<IAppState>) {}
+	public constructor(private _store: Store<IAppState>) {}
 
-	ngOnInit() {
+	public ngOnInit(): void {
 		this.user$.subscribe((user: IUser | null) => {
 			this.apiUser = user?.userName ?? '';
 		});
@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
 		this.test();
 	}
 
-	test() {
+	public test(): void {
 		/*
     const takeNth = (n: number) => <T>(source: Observable<T>) =>
      new Observable<T>(observer => {

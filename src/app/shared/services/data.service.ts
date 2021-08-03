@@ -6,13 +6,13 @@ import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 export abstract class DataService {
-	constructor(private http: HttpClient, protected controller: string) {}
+	public constructor(private http: HttpClient, protected controller: string) {}
 
 	protected getUrl(controller: string) {
 		return `${environment.apiUrl}/${controller}`;
 	}
 
-	getWithController<T>(
+	public getWithController<T>(
 		controller: string,
 		action?: string,
 		params: HttpParams = new HttpParams(),
@@ -24,15 +24,19 @@ export abstract class DataService {
 		return this.http.get<T>(`${url}/${action || ''}`, options).pipe(catchError(this.formatErrors));
 	}
 
-	get<T>(action?: string, params: HttpParams = new HttpParams()): Observable<T> {
+	public get<T>(action?: string, params: HttpParams = new HttpParams()): Observable<T> {
 		return this.getWithController<T>(this.controller, action, params);
 	}
 
-	post<T>(action?: string, body: Object = {}, additionalOptions: Object = {}): Observable<any> {
+	public post<T>(
+		action?: string,
+		body: Object = {},
+		additionalOptions: Object = {},
+	): Observable<any> {
 		return this.postWithController<T>(this.controller, action, body, additionalOptions);
 	}
 
-	postWithController<T>(
+	public postWithController<T>(
 		controller: string,
 		action?: string,
 		body: Object = {},
@@ -48,13 +52,13 @@ export abstract class DataService {
 			.pipe(catchError(this.formatErrors));
 	}
 
-	put<T>(action?: string, body: Object = {}): Observable<T> {
+	public put<T>(action?: string, body: Object = {}): Observable<T> {
 		return this.http
 			.put<T>(`${this.getUrl(this.controller)}/${action || ''}`, body)
 			.pipe(catchError(this.formatErrors));
 	}
 
-	delete<T>(action?: string, params: HttpParams = new HttpParams()): Observable<T> {
+	public delete<T>(action?: string, params: HttpParams = new HttpParams()): Observable<T> {
 		const options = {
 			params,
 		};
@@ -99,19 +103,19 @@ export abstract class DataService {
 		return this.post<T>(action, data);
 	}
 
-	getModel<T>(id: Guid | null): Observable<T> {
+	public getModel<T>(id: Guid | null): Observable<T> {
 		return this.get<T>(`${id || Guid.EMPTY}`);
 	}
 
-	updateModel<T>(model: any): Observable<any> {
+	public updateModel<T>(model: any): Observable<any> {
 		return this.post<T>('update', model);
 	}
 
-	createModel<T>(model: any): Observable<T> {
+	public createModel<T>(model: any): Observable<T> {
 		return this.put<T>('create', model);
 	}
 
-	deleteModel<T>(id: Guid): Observable<T> {
+	public deleteModel<T>(id: Guid): Observable<T> {
 		return this.delete<T>(`${id}/delete`);
 	}
 }

@@ -7,7 +7,7 @@ import { GridActions } from './grid.actions';
 
 @Injectable()
 export class GridEffects {
-	getList$ = createEffect(() =>
+	public getList$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(GridActions.GetList),
 			switchMap((payload) =>
@@ -23,7 +23,7 @@ export class GridEffects {
 		),
 	);
 
-	getSelectedItemModel$ = createEffect(() =>
+	public getSelectedItemModel$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(GridActions.GetSelectedItemModel),
 			switchMap((payload) =>
@@ -40,5 +40,5 @@ export class GridEffects {
 		),
 	);
 
-	constructor(private actions$: Actions, private service: CommonGridService) {}
+	public constructor(private actions$: Actions, private service: CommonGridService) {}
 }

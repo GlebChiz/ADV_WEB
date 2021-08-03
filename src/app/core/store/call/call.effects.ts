@@ -6,7 +6,7 @@ import { CallActions } from './call.actions';
 
 @Injectable()
 export class CallEffects {
-	getActiveCall$ = createEffect(() =>
+	public getActiveCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.GetActiveCall),
 			mergeMap(() =>
@@ -17,7 +17,7 @@ export class CallEffects {
 		),
 	);
 
-	endCall$ = createEffect(() =>
+	public endCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.EndCall),
 			switchMap((payload) =>
@@ -33,7 +33,7 @@ export class CallEffects {
 		),
 	);
 
-	getCall$ = createEffect(() =>
+	public getCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.GetCall),
 			mergeMap(({ callId }) =>
@@ -44,7 +44,7 @@ export class CallEffects {
 		),
 	);
 
-	updateCall$ = createEffect(() =>
+	public updateCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.UpdateCall),
 			switchMap((payload: any) =>
@@ -61,7 +61,7 @@ export class CallEffects {
 		),
 	);
 
-	createCall$ = createEffect(() =>
+	public createCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.CreateCall),
 			switchMap((payload: any) =>
@@ -77,7 +77,7 @@ export class CallEffects {
 		),
 	);
 
-	saveCallPatient$ = createEffect(() =>
+	public saveCallPatient$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.SaveCallPatient),
 			switchMap((payload) =>
@@ -93,5 +93,5 @@ export class CallEffects {
 		),
 	);
 
-	constructor(private actions$: Actions, private service: CallService) {}
+	public constructor(private actions$: Actions, private service: CallService) {}
 }

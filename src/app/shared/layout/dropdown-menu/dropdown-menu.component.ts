@@ -7,8 +7,6 @@ import { ICall } from 'src/app/core/models/call.model';
 import { IUser } from 'src/app/core/models/user.model';
 import { selectActiveCall } from 'src/app/core/store/call/call.selectors';
 import { IAppState } from 'src/app/core/store/state/app.state';
-import { selectUser } from 'src/app/core/store/user/user.selectors';
-import { AuthenticationService } from '../../services';
 import { MenuService } from '../../services/menu.service';
 
 @Component({
@@ -20,47 +18,60 @@ import { MenuService } from '../../services/menu.service';
 export class DropdownMenuComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	constructor(
+	public constructor(
 		private _store: Store<IAppState>,
 		public menuService: MenuService,
 		private router: Router,
-		private authenticationService: AuthenticationService,
 	) {}
 
-	items: any[] = [];
+	public items: any[] = [];
 
-	user$!: Observable<IUser | null>;
+	public call$!: Observable<ICall | null>;
 
-	call$!: Observable<ICall | null>;
+	public hasActiveCall = false;
 
-	hasActiveCall = false;
+	public show = false;
 
-	show = false;
-
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	ngOnInit(): void {
-		this.user$ = this._store.select(selectUser);
+	public ngOnInit(): void {
+		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
+			if (user) {
+				const items = this.menuService.getMainMenu(user);
+				items.forEach((x) => {
+					x.cssClass = 'parent-dropdown-menu-item dropdown-menu-item';
+					this.items.push(x);
+					if (x.items != null) {
+						x.items.forEach((i: any) => {
+							i.cssClass = 'child-dropdown-menu-item dropdown-menu-item';
+							this.items.push(i);
+						});
+					}
+				});
+				this.refreshItems();
+			}
+		});
 		this.call$ = this._store.select(selectActiveCall).pipe(takeUntil(this._destroy$));
-		if (this.authenticationService.getCurrentUser()) {
-			const items = this.menuService.getMainMenu();
-			items.forEach((x) => {
-				x.cssClass = 'parent-dropdown-menu-item dropdown-menu-item';
-				this.items.push(x);
-				if (x.items != null) {
-					x.items.forEach((i: any) => {
-						i.cssClass = 'child-dropdown-menu-item dropdown-menu-item';
-						this.items.push(i);
-					});
-				}
-			});
-			this.refreshItems();
-		}
+
+		// if (this.authenticationService.getCurrentUser()) {
+		// 	const items = this.menuService.getMainMenu();
+		// 	items.forEach((x) => {
+		// 		x.cssClass = 'parent-dropdown-menu-item dropdown-menu-item';
+		// 		this.items.push(x);
+		// 		if (x.items != null) {
+		// 			x.items.forEach((i: any) => {
+		// 				i.cssClass = 'child-dropdown-menu-item dropdown-menu-item';
+		// 				this.items.push(i);
+		// 			});
+		// 		}
+		// 	});
+		// 	this.refreshItems();
+		// }
 	}
 
-	onSelect({ item }: any): void {
+	public onSelect({ item }: any): void {
 		const locItem: any = item.data;
 
 		if (
@@ -77,12 +88,12 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 		this.show = !this.show;
 	}
 
-	refreshItem(item: any): void {
+	public refreshItem(item: any): void {
 		delete item.cssClass.hidden;
 		item.cssClass += this.isVisible(item) === false ? ' hidden' : '';
 	}
 
-	refreshItems(): void {
+	public refreshItems(): void {
 		this.items.forEach((i) => {
 			this.refreshItem(i);
 			if (i.items) {
@@ -91,7 +102,7 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	isVisible(item: any): boolean {
+	public isVisible(item: any): boolean {
 		if (item.isVisible === false) {
 			return false;
 		}

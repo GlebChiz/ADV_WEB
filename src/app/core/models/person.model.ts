@@ -117,6 +117,11 @@ export interface IPersonShortModel {
 	dob: Date;
 }
 
+export interface IPersonIdModel {
+	id: Guid;
+	valueId: Guid | string;
+}
+
 export const MetaData = {
 	lastname: 'Last name',
 	firstname: 'First name',

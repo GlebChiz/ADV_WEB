@@ -15,14 +15,14 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 export class OpenCallComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	call!: ICall;
+	public call!: ICall;
 
-	constructor(
+	public constructor(
 		private route: ActivatedRoute,
 		private _store: Store<IAppState>, // private router: Router, // private auth: AuthenticationService,
 	) {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: `Processing Call` } }));
 		this.route.params.subscribe((params) => {
 			this._store.dispatch(CallActions.SetCall({ call: null }));
@@ -35,7 +35,7 @@ export class OpenCallComponent implements OnInit, OnDestroy {
 
 	// ngOnChanges(): void {}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 }

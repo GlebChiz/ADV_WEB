@@ -1,38 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { first } from 'rxjs/operators';
 
 import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
 import { IAppState } from 'src/app/core/store/state/app.state';
 import { Store } from '@ngrx/store';
-import { AlertService, AuthenticationService } from '../../shared/services';
+// import { AuthenticationService } from 'src/app/shared/services/authentification.service';
+import { IUser } from 'src/app/core/models/user.model';
+// import { AlertService, AuthenticationService } from 'src/app/shared/services';
+import { AuthUserActions } from 'src/app/core/store/user/user.actions';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
-	loginForm!: FormGroup;
+	public loginForm!: FormGroup;
 
-	loading = false;
+	public loading = false;
 
-	submitted = false;
+	public submitted = false;
 
-	returnUrl!: string;
+	public returnUrl!: string;
 
-	constructor(
+	public constructor(
 		private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
 		private router: Router,
-		private authenticationService: AuthenticationService,
-		private alertService: AlertService,
+		// private authenticationService: AuthenticationService,
+		// private alertService: AlertService,
 		private _store: Store<IAppState>,
 	) {
 		// redirect to home if already logged in
-		if (this.authenticationService.getCurrentUser()) {
-			this.router.navigate(['/']);
-		}
+		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
+			console.log('tyt');
+
+			if (user) {
+				this.router.navigate(['/']);
+			}
+		});
+		// if (this.authenticationService.getCurrentUser()) {
+		// 	this.router.navigate(['/']);
+		// }
 	}
 
-	ngOnInit() {
+	public ngOnInit(): void {
 		this.loginForm = this.formBuilder.group({
 			username: ['', Validators.required],
 			password: ['', Validators.required],
@@ -45,30 +55,36 @@ export class LoginComponent implements OnInit {
 	}
 
 	// convenience getter for easy access to form fields
-	get f() {
+	public get f(): {
+		[key: string]: AbstractControl;
+	} {
 		return this.loginForm.controls;
 	}
 
-	onSubmit() {
+	public onSubmit(): undefined | void {
 		this.submitted = true;
-
-		// stop here if form is invalid
 		if (this.loginForm.invalid) {
 			return;
 		}
+		this._store.dispatch(
+			AuthUserActions.SignIn({ password: this.f.password?.value, login: this.f.username?.value }),
+		);
 
-		this.loading = true;
-		this.authenticationService
-			.login(this.f.username!.value, this.f.password!.value)
-			.pipe(first())
-			.subscribe(
-				() => {
-					window.location.href = this.returnUrl;
-				},
-				(error) => {
-					this.alertService.error(error);
-					this.loading = false;
-				},
-			);
+		// this.loading = true;
+		// this.authenticationService
+		// 	.login(this.f.username!.value, this.f.password!.value)
+		// 	.pipe()
+		// 	.subscribe(
+		// 		() => {
+		// 			// console.log('123');
+		// 			// this._store.dispatch()
+		// 			window.location.href = this.returnUrl;
+		// 		},
+		// 		(error) => {
+		// 			console.log('321');
+		// 			this.alertService.error(error);
+		// 			this.loading = false;
+		// 		},
+		// 	);
 	}
 }
