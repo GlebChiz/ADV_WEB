@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
@@ -16,6 +15,7 @@ import {
 	ColumnFilterType,
 	IColumnSort,
 } from 'src/app/core/models/filters/column-filter.model';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentification.service';
 // import { AuthenticationService } from 'src/app/shared/services/authentification.service';
 import { DataService } from './data.service';
@@ -217,11 +217,11 @@ export abstract class GridDataService extends DataService {
 		action: string,
 		filterId: Guid,
 	): Observable<GridDataResult> {
-		return this.getWithController<GridDataResult>(controller, `${filterId}/${action}`).pipe(
-			map((response: GridDataResult) => {
-				const result: GridDataResult = {
-					data: this.generateUIDs(response.data),
-					total: parseInt(response.total.toString(), 10),
+		return this.getWithController<any>(controller, `${filterId}/${action}`).pipe(
+			map((response) => {
+				const result: any = {
+					data: this.generateUIDs(response),
+					total: parseInt(response.length.toString(), 10),
 				};
 				return result;
 			}),

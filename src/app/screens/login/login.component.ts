@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
 	) {
 		// redirect to home if already logged in
 		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
-			console.log('tyt');
-
 			if (user) {
 				this.router.navigate(['/']);
 			}

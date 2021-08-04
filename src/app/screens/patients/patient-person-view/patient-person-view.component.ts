@@ -11,13 +11,13 @@ import { PatientGridService } from 'src/app/core/services/patient.service';
 export class PatientPersonViewComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	constructor(
+	public constructor(
 		private route: ActivatedRoute,
 		private gridService: PatientGridService,
 		private router: Router,
 	) {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		combineLatest([this.route.params, this.route.fragment]).subscribe(([xParams, xFragment]) => {
 			const fragment = xFragment || '';
 			const personId = xParams.id;
@@ -32,7 +32,7 @@ export class PatientPersonViewComponent implements OnInit, OnDestroy {
 
 	// ngOnChanges(): void {}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 }

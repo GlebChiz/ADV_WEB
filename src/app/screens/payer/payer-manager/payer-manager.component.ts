@@ -17,27 +17,27 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 export class PayerManagerComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	gridId = 'payer-manager-grid';
+	public gridId = 'payer-manager-grid';
 
-	filterId = 'payer-manager-filter';
+	public filterId = 'payer-manager-filter';
 
-	payerModel: IPayer | null = null;
+	public payerModel: IPayer | null = null;
 
-	constructor(
+	public constructor(
 		private _store: Store<IAppState>,
 		private _service: PayerGridService,
 		public validationService: ValidationMessageService,
 	) {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: "Payers's Manager" } }));
 	}
 
-	group() {
+	public group() {
 		return [{ field: 'type' }];
 	}
 
-	columns() {
+	public columns() {
 		return [
 			{
 				name: 'name',
@@ -74,28 +74,28 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 		];
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	openNewItem() {
+	public openNewItem(): void {
 		this.payerModel = {} as IPayer;
 	}
 
-	openDetails(e: any) {
+	public openDetails(e: any): void {
 		this._service.getModel(e.id).subscribe((x: any) => {
 			this.payerModel = x;
 		});
 	}
 
-	openDuplicate(e: any) {
+	public openDuplicate(e: any): void {
 		this._service.getModel(e.id).subscribe((x: any) => {
 			x.id = null;
 			this.payerModel = x;
 		});
 	}
 
-	remove(e: any) {
+	public remove(e: any): void {
 		if (!window.confirm('Are you sure you want to delete payer?')) {
 			return;
 		}
@@ -105,11 +105,11 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	onSave() {
+	public onSave(): void {
 		this._store.dispatch(GridActions.ReloadGrid({ gridId: this.gridId }));
 	}
 
-	createButton() {
+	public createButton() {
 		return {
 			title: 'New Payer',
 		};

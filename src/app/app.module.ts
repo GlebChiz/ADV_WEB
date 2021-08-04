@@ -27,6 +27,7 @@ import { ClinicianModule } from './screens/clinician/clinician.module';
 import { IntakeModule } from './screens/intake/intake.module';
 import { AdveniumFormModule } from './screens/form/form.module';
 import { SharedCallModule } from './screens/shared-call/shared-call.module';
+import { ModalityModule } from './screens/modality/modality.module';
 
 @NgModule({
 	declarations: [
@@ -49,6 +50,7 @@ import { SharedCallModule } from './screens/shared-call/shared-call.module';
 		PatientsModule,
 		PersonModule,
 		PayersModule,
+		ModalityModule,
 		MenusModule,
 		BrowserAnimationsModule,
 		CallModule,

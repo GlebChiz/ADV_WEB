@@ -77,19 +77,13 @@ export class MenuComponent implements OnInit, OnDestroy {
 	}
 
 	public onSelect({ item }: MenuSelectEvent): void {
-		console.log(item);
-		console.log('tyrityrity');
-
 		if (
 			(!item.items || item.items.length === 0) &&
 			item.path &&
 			this.router.config.map((r: Route) => r.path).includes(item.path)
 		) {
-			console.log('1111');
-			console.log(item.path);
 			this.router.navigate([item.path]);
 		}
-		console.log('2222');
 	}
 
 	public ngOnDestroy(): void {

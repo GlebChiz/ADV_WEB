@@ -41,6 +41,22 @@ export interface IPerson {
 	wardPatientIds: Guid[];
 }
 
+// export interface IPersonBigModel extends IPerson {
+// 	lastname: any;
+// 	firstname: any;
+// 	middlename: any;
+// 	email: any;
+// 	mobilePhone: any;
+// 	homePhone: any;
+// 	workPhone: any;
+// 	otherPhone: any;
+// 	primaryPhoneType: any;
+// 	mobilePhonePolicyId: any;
+// 	homePhonePolicyId: any;
+// 	workPhonePolicyId: any;
+// 	otherPhonePolicyId: any;
+// }
+
 export interface IGeneralPersonData {
 	id: string;
 	lastname: string;

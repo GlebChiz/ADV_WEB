@@ -41,48 +41,48 @@ import { selectUser } from 'src/app/core/store/user/user.selectors';
 	styleUrls: ['./data-list.component.scss'],
 })
 export class DataListComponent implements OnInit, OnDestroy {
-	constructor(
+	public constructor(
 		public store: Store<IAppState>,
 		public intl: IntlService,
 		private router: Router,
 		private service: CommonGridService,
 	) {}
 
-	@Input() isReadOnly = false;
+	@Input() public isReadOnly = false;
 
-	@Input() gridId!: string;
+	@Input() public gridId!: string;
 
-	@Input() filterId!: string;
+	@Input() public filterId!: string;
 
-	@Input() gridSettingsId!: Guid | null;
+	@Input() public gridSettingsId!: Guid | null;
 
-	@Input() controller!: string;
+	@Input() public controller!: string;
 
-	@Input() showModify!: boolean;
+	@Input() public showModify!: boolean;
 
-	@Input() showDuplicate!: boolean;
+	@Input() public showDuplicate!: boolean;
 
-	@Input() showRemove!: boolean;
+	@Input() public showRemove!: boolean;
 
-	@Input() createButton!: any;
+	@Input() public createButton!: any;
 
-	@Input() columns!: IGridColumnInfo[];
+	@Input() public columns!: IGridColumnInfo[];
 
-	@Input() showCheck!: boolean;
+	@Input() public showCheck!: boolean;
 
-	@Input() showFilterButton!: boolean;
+	@Input() public showFilterButton!: boolean;
 
-	@Input() groupable!: boolean;
+	@Input() public groupable!: boolean;
 
-	@Input() group: any;
+	@Input() public group: any;
 
-	leftButtons: IGridButtonInfo[] | null = null;
+	public leftButtons: IGridButtonInfo[] | null = null;
 
-	rightButtons: IGridButtonInfo[] | null = null;
+	public rightButtons: IGridButtonInfo[] | null = null;
 
-	@Input() set buttons(list: IGridButtonInfo[]) {
-		const left = list.filter((x) => x.position === 'left');
-		const right = list.filter((x) => x.position === 'right');
+	@Input() public set buttons(list: IGridButtonInfo[]) {
+		const left: IGridButtonInfo[] = list.filter((x) => x.position === 'left');
+		const right: IGridButtonInfo[] = list.filter((x) => x.position === 'right');
 		if (left.length > 0) {
 			this.leftButtons = left;
 		}
@@ -91,62 +91,62 @@ export class DataListComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	@Input() displayItem!: (column: IGridColumnInfo, item: any) => string;
+	@Input() public displayItem!: (column: IGridColumnInfo, item: any) => string;
 
-	@Input() clickItem!: (column: IGridColumnInfo, item: any) => void;
+	@Input() public clickItem!: (column: IGridColumnInfo, item: any) => void;
 
-	@Input() linkArray!: (column: IGridColumnInfo, item: any) => any;
+	@Input() public linkArray!: (column: IGridColumnInfo, item: any) => any;
 
-	@Output() editItem = new EventEmitter<any>();
+	@Output() public editItem = new EventEmitter<any>();
 
-	@Output() duplicateItem = new EventEmitter<any>();
+	@Output() public duplicateItem = new EventEmitter<any>();
 
-	@Output() removeItem = new EventEmitter<any>();
+	@Output() public removeItem = new EventEmitter<any>();
 
-	@Output() createItem = new EventEmitter<any>();
+	@Output() public createItem = new EventEmitter<any>();
 
-	@Output() buttonClicked = new EventEmitter<any>();
+	@Output() public buttonClicked = new EventEmitter<any>();
 
 	private _destroy$ = new Subject();
 
-	list$: any;
+	public list$: any;
 
-	gridInfo$: any;
+	public gridInfo$: any;
 
-	gridInfo: IGridInfo | null = null;
+	public gridInfo: IGridInfo | null = null;
 
-	reload$: any;
+	public reload$: any;
 
-	filter$: any;
+	public filter$: any;
 
-	user!: IUser;
+	public user!: IUser;
 
-	showGrid = false;
+	public showGrid = false;
 
-	isEditMode = true;
+	public isEditMode = true;
 
-	filterModel!: any;
+	public filterModel!: any;
 
-	gridDirective!: GridDirective;
+	public gridDirective!: GridDirective;
 
-	state!: DataStateChangeEvent;
+	public state!: DataStateChangeEvent;
 
-	checkedLines: any;
+	public checkedLines: any;
 
-	selectedAll = false;
+	public selectedAll = false;
 
-	checkedLines$: any;
+	public checkedLines$: any;
 
-	selectedAll$: any;
+	public selectedAll$: any;
 
-	click(column: IGridColumnInfo, item: any) {
+	public click(column: IGridColumnInfo, item: any): boolean {
 		if (this.clickItem) {
 			this.clickItem(column, item);
 		}
 		return false;
 	}
 
-	visibleColumns(): IGridColumnInfo[] {
+	public visibleColumns(): IGridColumnInfo[] {
 		if (!this.gridInfo?.columns) {
 			return [];
 		}
@@ -154,17 +154,17 @@ export class DataListComponent implements OnInit, OnDestroy {
 		return vc;
 	}
 
-	clickButton(btn: any) {
+	public clickButton(btn: any): void {
 		console.log(btn);
 		this.buttonClicked.emit(btn);
 	}
 
-	user$: any;
+	public user$: any;
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.user$ = this.store.pipe(select(selectUser), takeUntil(this._destroy$));
 		if (this.columns) {
-			let gridInfo = this.service.getGridInfo(this.columns, this.gridId);
+			let gridInfo: IGridInfo = this.service.getGridInfo(this.columns, this.gridId);
 			if (this.gridSettingsId) {
 				this.service.getIGridSettings(this.gridSettingsId).subscribe((x) => {
 					if (x) {
@@ -233,26 +233,26 @@ export class DataListComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 		this.store.dispatch(GridActions.ResetList({ gridId: this.gridId }));
 	}
 
-	onAfterInit(gridDirective: GridDirective): void {
+	public onAfterInit(gridDirective: GridDirective): void {
 		this.gridDirective = gridDirective;
 		gridDirective.load();
 	}
 
-	isRowChecked(item: any) {
+	public isRowChecked(item: any): boolean {
 		return this.checkedLines[item['grid-uid']] === true;
 	}
 
-	selectAll() {
+	public selectAll(): void {
 		this.store.dispatch(GridActions.CheckAll({ gridId: this.gridId, checked: !this.selectedAll }));
 	}
 
-	rowCheck(item: any) {
-		const checked = this.isRowChecked(item);
+	public rowCheck(item: any): void {
+		const checked: boolean = this.isRowChecked(item);
 		this.store.dispatch(
 			GridActions.CheckRow({
 				gridId: this.gridId,
@@ -262,11 +262,10 @@ export class DataListComponent implements OnInit, OnDestroy {
 		);
 	}
 
-	onDataStateChange(state: DataStateChangeEvent): void {
+	public onDataStateChange(state: DataStateChangeEvent): void {
 		this.filterModel = this.filterModel ? { ...this.filterModel } : {};
 		this.addColumnFilters();
 		this.addColumnSorting();
-
 		this.store.dispatch(
 			GridActions.GetList({
 				gridId: this.gridId,
@@ -279,7 +278,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		this.state = state;
 	}
 
-	onCreate() {
+	public onCreate(): boolean {
 		if (this.createButton) {
 			if (this.createButton.navigate) {
 				this.router.navigate(this.createButton.navigate);
@@ -290,7 +289,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		return false;
 	}
 
-	reset(): void {
+	public reset(): void {
 		this.showGrid = false;
 		setTimeout(() => (this.showGrid = true));
 		if (this.gridDirective) {
@@ -298,7 +297,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	private addColumnSorting() {
+	private addColumnSorting(): void {
 		const list: (IColumnSort | undefined)[] = [];
 		if (this.gridInfo?.sorting && this.gridInfo?.columns) {
 			Object.keys(this.gridInfo.sorting).forEach((_value: string, key: number) => {
@@ -323,7 +322,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		this.filterModel.sorting = list.sort((a, b) => (a!.order || 0) - (b!.order || 0));
 	}
 
-	private addColumnFilters() {
+	private addColumnFilters(): void {
 		if (this.gridInfo?.filters && this.gridInfo?.columns) {
 			Object.keys(this.gridInfo.filters).forEach((_value: string, key: number) => {
 				if (this.gridInfo!.filters[key]) {
@@ -404,52 +403,46 @@ export class DataListComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	test() {
-		console.log('test');
-	}
-
-	isSortable(column: IGridColumnInfo) {
+	public isSortable(column: IGridColumnInfo): boolean {
 		return column.sortDirection! >= 0;
 	}
 
-	isFilterable(column: IGridColumnInfo) {
+	public isFilterable(column: IGridColumnInfo) {
 		return column.filter?.field;
 	}
 
-	setFilter(filterModel: any): void {
+	public setFilter(filterModel: any): void {
 		this.filterModel = _.clone(filterModel);
 		if (this.gridDirective) {
 			this.gridDirective.load();
 		}
 	}
 
-	canModify(): boolean {
+	public canModify(): boolean {
 		return this.isReadOnly !== true;
 	}
 
-	canRemove(): boolean {
+	public canRemove(): boolean {
 		return this.isReadOnly !== true;
 	}
 
-	canDuplicate(): boolean {
+	public canDuplicate(): boolean {
 		return this.isReadOnly !== true;
 	}
 
-	closeEditor() {}
-
-	edit(model: any) {
+	public edit(model: any): void {
 		this.editItem.emit(model);
 	}
 
-	duplicate(model: any) {
+	public duplicate(model: any): void {
 		this.duplicateItem.emit(model);
 	}
 
-	remove(model: any) {
+	public remove(model: any): void {
 		this.removeItem.emit(model);
 	}
 
-	display(column: IGridColumnInfo, item: any) {
+	public display(column: IGridColumnInfo, item: any): string {
 		if (column.dataType === 'datetime') {
 			const date = item[column.name];
 			return date == null ? '' : formatDate(item[column.name], 'MM/dd/yyyy hh:mm a', 'en-US');
@@ -464,7 +457,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		return item[column.name];
 	}
 
-	openFilter() {
+	public openFilter(): void {
 		if (this.filterId) {
 			this.store.dispatch(FilterActions.OpenFilter({ id: this.filterId }));
 		}

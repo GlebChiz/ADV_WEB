@@ -16,8 +16,6 @@ export class JwtInterceptor implements HttpInterceptor {
 	public constructor(private authenticationService: AuthenticationService) {}
 
 	public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		console.log(this.authenticationService.getToken());
-
 		const headers: HttpHeaders = new HttpHeaders({
 			Authorization: `Bearer ${this.authenticationService.getToken()}`,
 			// enctype: 'multipart/form-data',

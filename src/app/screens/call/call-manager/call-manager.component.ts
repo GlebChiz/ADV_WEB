@@ -555,7 +555,6 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 				id: x.checkList?.id,
 			};
 		});
-		// console.log(reviewList);
 		return reviewList;
 	}
 

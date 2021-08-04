@@ -10,16 +10,16 @@ export class GridEffects {
 	public getList$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(GridActions.GetList),
-			switchMap((payload) =>
-				this.service
+			switchMap((payload) => {
+				return this.service
 					.getGridList(payload.gridId, payload.controller, payload.state, payload.filter)
 					.pipe(
 						map((response) => {
 							return GridActions.GetListSuccess({ gridId: payload.gridId, data: response });
 						}),
 						catchError(() => EMPTY),
-					),
-			),
+					);
+			}),
 		),
 	);
 
