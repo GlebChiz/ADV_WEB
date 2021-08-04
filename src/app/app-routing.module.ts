@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
 import { OpenCallComponent } from './screens/call/call-open/call-open.component';
 import { CallActiveComponent } from './screens/call/call-active/call-active.component';
 import { MyCallsListComponent } from './screens/call/mycalls-list/mycalls-list.component';
@@ -44,4 +45,4 @@ const routes: Routes = [
 	{ path: '*', redirectTo: '' },
 ];
 
-export const AppRoutingModule = RouterModule.forRoot(routes);
+export const AppRoutingModule: ModuleWithProviders<RouterModule> = RouterModule.forRoot(routes);

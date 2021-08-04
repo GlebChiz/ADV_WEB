@@ -10,6 +10,7 @@ import { GridEffects } from '../../store/grid/grid.effects';
 import { PatientEffects } from '../../store/patient/patient.effects';
 import { PersonEffects } from '../../store/person/person.effects';
 import { appReducers } from '../../store/reducers/app.reducers';
+import { UserEffects } from '../../store/user/user.effects';
 
 @NgModule({
 	declarations: [],
@@ -23,6 +24,7 @@ import { appReducers } from '../../store/reducers/app.reducers';
 		EffectsModule.forRoot([
 			PatientEffects,
 			GridEffects,
+			UserEffects,
 			CallEffects,
 			PersonEffects,
 			ClinicianEffects,

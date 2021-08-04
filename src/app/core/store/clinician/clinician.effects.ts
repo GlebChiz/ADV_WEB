@@ -12,7 +12,7 @@ export class ClinicianEffects {
 			ofType(ClinicianActions.GetClinicianModel),
 			mergeMap(({ id }) =>
 				this.gridService.getModel(id).pipe(
-					map((payload) => ClinicianActions.GetClinicianModelSuccess({ clinician: payload })),
+					map((payload: any) => ClinicianActions.GetClinicianModelSuccess({ clinician: payload })),
 					catchError(() => of(ClinicianActions.GetClinicianModelFail())),
 				),
 			),
@@ -24,7 +24,7 @@ export class ClinicianEffects {
 			ofType(ClinicianActions.NewClinicianModel),
 			mergeMap(() =>
 				this.gridService.newClinicianModel().pipe(
-					map((payload) => ClinicianActions.GetClinicianModelSuccess({ clinician: payload })),
+					map((payload: any) => ClinicianActions.GetClinicianModelSuccess({ clinician: payload })),
 					catchError(() => of(ClinicianActions.GetClinicianModelFail())),
 				),
 			),
@@ -50,9 +50,9 @@ export class ClinicianEffects {
 	createClinician$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(ClinicianActions.CreateClinician),
-			switchMap((payload) =>
+			switchMap((payload: any) =>
 				this.gridService.createModel(payload.clinician).pipe(
-					map((result) => {
+					map((result: any) => {
 						if (result && result.isSuccess === true) {
 							return ClinicianActions.CreateClinicianComplete({ id: result.id });
 						}

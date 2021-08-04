@@ -6,7 +6,7 @@ import { CallActions } from './call.actions';
 
 @Injectable()
 export class CallEffects {
-	getActiveCall$ = createEffect(() =>
+	public getActiveCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.GetActiveCall),
 			mergeMap(() =>
@@ -17,7 +17,7 @@ export class CallEffects {
 		),
 	);
 
-	endCall$ = createEffect(() =>
+	public endCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.EndCall),
 			switchMap((payload) =>
@@ -33,23 +33,23 @@ export class CallEffects {
 		),
 	);
 
-	getCall$ = createEffect(() =>
+	public getCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.GetCall),
 			mergeMap(({ callId }) =>
 				this.service
-					.getModel(callId)
-					.pipe(map((payload) => CallActions.SetCall({ call: payload }))),
+					.getModel<any>(callId)
+					.pipe(map((payload: any) => CallActions.SetCall({ call: payload }))),
 			),
 		),
 	);
 
-	updateCall$ = createEffect(() =>
+	public updateCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.UpdateCall),
-			switchMap((payload) =>
-				this.service.updateModel(payload.call).pipe(
-					map((result) => {
+			switchMap((payload: any) =>
+				this.service.updateModel<any>(payload.call).pipe(
+					map((result: any) => {
 						if (result && result.isSuccess === true) {
 							CallActions.GetActiveCall();
 							return CallActions.RefreshCall({ id: payload.call.id });
@@ -61,12 +61,12 @@ export class CallEffects {
 		),
 	);
 
-	createCall$ = createEffect(() =>
+	public createCall$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.CreateCall),
-			switchMap((payload) =>
+			switchMap((payload: any) =>
 				this.service.createModel(payload.call).pipe(
-					map((result) => {
+					map((result: any) => {
 						if (result && result.isSuccess === true) {
 							return CallActions.GetActiveCall();
 						}
@@ -77,7 +77,7 @@ export class CallEffects {
 		),
 	);
 
-	saveCallPatient$ = createEffect(() =>
+	public saveCallPatient$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(CallActions.SaveCallPatient),
 			switchMap((payload) =>
@@ -93,5 +93,5 @@ export class CallEffects {
 		),
 	);
 
-	constructor(private actions$: Actions, private service: CallService) {}
+	public constructor(private actions$: Actions, private service: CallService) {}
 }

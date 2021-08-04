@@ -1,15 +1,17 @@
+import { IUser } from 'src/app/core/models/user.model';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, catchError, mergeMap } from 'rxjs/operators';
+import { map, catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
-import { IAppState } from '../state/app.state';
-import { UserActions } from './user.actions';
+// import { AuthenticationService } from '../../../shared/services/authentification.service';
+import { AuthenticationService } from 'src/app/shared/services';
+import { AuthUserActions, UserActions } from './user.actions';
+// import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
-	getUserModel$ = createEffect(() =>
+	public getUserModel$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(UserActions.GetUserModel),
 			mergeMap(({ id }) =>
@@ -18,6 +20,44 @@ export class UserEffects {
 					catchError(() => of(UserActions.GetUserModelFail())),
 				),
 			),
+		),
+	);
+
+	public login$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(AuthUserActions.SignIn),
+			switchMap(
+				({ login, password }: { login: string | undefined; password: string | undefined }) => {
+					return this.authenticationService.login(login, password).pipe(
+						map((user: IUser) => {
+							this.authenticationService.saveToken(user.token);
+							return AuthUserActions.SignInComplete({ user });
+						}),
+						catchError((errors) => {
+							return of(AuthUserActions.SignInError({ errors }));
+						}),
+					);
+				},
+			),
+		),
+	);
+
+	public checkToken$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(AuthUserActions.CheckToken),
+			switchMap(() => {
+				console.log('checkToken');
+
+				return this.authenticationService.checkToken().pipe(
+					map((user: IUser) => {
+						return AuthUserActions.SignInComplete({ user });
+					}),
+					catchError((errors) => {
+						console.log(`errors: ${errors}`);
+						return of(AuthUserActions.CheckTokenError({ errors }));
+					}),
+				);
+			}),
 		),
 	);
 
@@ -54,9 +94,9 @@ export class UserEffects {
           ))
         ));
 */
-	constructor(
-		private store: Store<IAppState>,
+	public constructor(
 		private actions$: Actions,
 		private userService: UserService,
+		private authenticationService: AuthenticationService, // private router: Router,
 	) {}
 }

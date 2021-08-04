@@ -79,6 +79,8 @@ export abstract class ServiceSchedulerService
 	loadView(filter: ISchedulerFilter): Observable<ISchedulerViewModel> {
 		const filterId = Guid.create();
 		const url = `${filterId}/get-scheduler-view`;
-		return this.saveSchedulerFilter(filterId, filter).pipe(switchMap(() => this.get(url)));
+		return this.saveSchedulerFilter(filterId, filter).pipe(
+			switchMap(() => this.get<ISchedulerViewModel>(url)),
+		);
 	}
 }

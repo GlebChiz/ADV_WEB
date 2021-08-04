@@ -17,7 +17,7 @@ export class PersonAvailabilityService extends DataService {
 		const filterId = Guid.create();
 		const url = `${filterId}/get-scheduler`;
 		return this.saveFilterData('save-filter', filterId, filter).pipe(
-			switchMap(() => this.get(url)),
+			switchMap(() => this.get<SchedulerEvent[]>(url)),
 		);
 	}
 

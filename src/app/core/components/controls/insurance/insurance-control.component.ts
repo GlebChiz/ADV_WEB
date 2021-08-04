@@ -29,40 +29,40 @@ import { DropDownService } from 'src/app/shared/services/dropdown.service';
 	],
 })
 export class InsuranceControlComponent implements ControlValueAccessor, OnDestroy {
-	form: FormGroup;
+	public form: FormGroup;
 
-	subscriptions: Subscription[] = [];
+	public subscriptions: Subscription[] = [];
 
-	metaData: any = MetaData;
+	public metaData: any = MetaData;
 
-	payers: IPayer[] = [];
+	public payers: IPayer[] = [];
 
-	holderInsurances: IInsurance[] | null = null;
+	public holderInsurances: IInsurance[] | null = null;
 
-	showHolderInsurances = false;
+	public showHolderInsurances = false;
 
 	private _destroy$ = new Subject();
 
-	links!: IPrivatePersonLink[];
+	public links!: IPrivatePersonLink[];
 
-	readonly filterSettings: DropDownFilterSettings = {
+	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
 
-	get exists(): boolean {
+	public get exists(): boolean {
 		return this.form.value.exists === true;
 	}
 
-	get isVerified(): boolean {
+	public get isVerified(): boolean {
 		return this.form.value.verificationDate != null;
 	}
 
-	get value(): IInsurance {
+	public get value(): IInsurance {
 		return this.form.value;
 	}
 
-	set value(value: IInsurance) {
+	public set value(value: IInsurance) {
 		this.form.setValue(value);
 		this.onChange(value);
 		this.onTouched();
@@ -79,7 +79,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		}
 	}
 
-	title() {
+	public title(): string {
 		return this.getTitle(this.form.value.orderType);
 	}
 
@@ -98,7 +98,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		}
 	}
 
-	onHolderChanged() {
+	public onHolderChanged(): void {
 		this.holderInsurances = null;
 		this.showHolderInsurances = false;
 		this.personService.getInsurances(this.form.value.insuranceHolderId).subscribe((x) => {
@@ -107,23 +107,23 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		});
 	}
 
-	resetHolderInsurances() {
+	public resetHolderInsurances(): void {
 		this.showHolderInsurances = false;
 		setTimeout(() => (this.showHolderInsurances = true));
 	}
 
-	openPerson() {
+	public openPerson(): boolean {
 		if (this.form.value.insuranceHolderId !== this.value.personId) {
 			this.router.navigate(['/person', this.form.value.insuranceHolderId]);
 		}
 		return false;
 	}
 
-	insuranceDescription(insurance: IInsurance): string {
+	public insuranceDescription(insurance: IInsurance): string {
 		return `${this.getTitle(insurance.orderType)}: ${this.getPayerName(insurance.payerId)}`;
 	}
 
-	copyInsurance(insurance: IInsurance) {
+	public copyInsurance(insurance: IInsurance): boolean {
 		const value = {
 			...this.value,
 			exists: true,
@@ -142,7 +142,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		return false;
 	}
 
-	constructor(
+	public constructor(
 		private formBuilder: FormBuilder,
 		private dropDownService: DropDownService,
 		private _store: Store<IAppState>,
@@ -179,7 +179,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		this.dropDownService.getPayers().subscribe((x: IPayer[]) => (this.payers = x));
 	}
 
-	writeValue(obj: any): void {
+	public writeValue(obj: any): void {
 		if (obj) {
 			this.value = obj;
 		}
@@ -188,15 +188,15 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		}
 	}
 
-	registerOnChange(fn: any): void {
+	public registerOnChange(fn: any): void {
 		this.onChange = fn;
 	}
 
-	registerOnTouched(fn: any): void {
+	public registerOnTouched(fn: any): void {
 		this.onTouched = fn;
 	}
 
-	setDisabledState?(isDisabled: boolean): void {
+	public setDisabledState?(isDisabled: boolean): void {
 		if (isDisabled) {
 			this.form.disable();
 		} else {
@@ -204,20 +204,20 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		}
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.forEach((s) => s.unsubscribe());
 		this._destroy$.next(null);
 	}
 
-	onChange: any = () => {};
+	public onChange: any = () => {};
 
-	onTouched: any = () => {};
+	public onTouched: any = () => {};
 
-	onVerification(e: any): void {
+	public onVerification(e: any): void {
 		this.form.value.verificationDate = e.target.checked ? new Date() : null;
 	}
 
-	onExistsChanged(e: any): void {
+	public onExistsChanged(e: any): void {
 		const value = {
 			...this.value,
 			exists: e.target.checked,
@@ -228,7 +228,7 @@ export class InsuranceControlComponent implements ControlValueAccessor, OnDestro
 		this.form.setValue(value);
 	}
 
-	verificationDate(): string {
+	public verificationDate(): string {
 		return formatDate(this.form.value.verificationDate, 'MM/dd/yyyy', 'en-US');
 	}
 }

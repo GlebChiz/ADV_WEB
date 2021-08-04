@@ -84,7 +84,7 @@ export class FormService extends DataService {
 	getFormSection(filter: any): Observable<IFormSection> {
 		const filterId = Guid.create();
 		return this.saveFilterData('save-filter', filterId, filter).pipe(
-			switchMap(() => this.get(`${filterId}/form-section`)),
+			switchMap(() => this.get<IFormSection>(`${filterId}/form-section`)),
 		);
 	}
 }

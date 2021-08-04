@@ -18,28 +18,28 @@ import { IPerson } from 'src/app/core/models/person.model';
 export class CallPatientComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	readonly filterSettings: DropDownFilterSettings = {
+	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
 
-	@Input() callPatients!: ICallPatientIndex[];
+	@Input() public callPatients!: ICallPatientIndex[];
 
-	@Input() title!: string | null;
+	@Input() public title!: string | null;
 
-	@Input() saveEvent!: Observable<void>;
+	@Input() public saveEvent!: Observable<void>;
 
-	@Output() confirmSave: EventEmitter<any> = new EventEmitter();
+	@Output() public confirmSave: EventEmitter<any> = new EventEmitter();
 
-	@Output() deletePatient: EventEmitter<any> = new EventEmitter();
+	@Output() public deletePatient: EventEmitter<any> = new EventEmitter();
 
 	private saveSubscription!: Subscription;
 
-	suppressMessages = false;
+	public suppressMessages = false;
 
-	myForm!: FormGroup;
+	public myForm!: FormGroup;
 
-	metaData: any = {
+	public metaData: any = {
 		...MetaData,
 		lastname: 'Lastname',
 		firstname: 'Firstname',
@@ -47,11 +47,11 @@ export class CallPatientComponent implements OnInit, OnDestroy {
 		dob: 'DOB',
 	};
 
-	errors: string[] | null = null;
+	public errors: string[] | null = null;
 
-	messages: string[] | null = null;
+	public messages: string[] | null = null;
 
-	constructor(
+	public constructor(
 		public _store: Store<IAppState>,
 		// private actions$: Actions,
 		// private _dropDownService: DropDownService,
@@ -59,12 +59,12 @@ export class CallPatientComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 	) {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.initForm();
 		this.saveSubscription = this.saveEvent.subscribe(() => this.submit());
 	}
 
-	initForm(): void {
+	public initForm(): void {
 		this.myForm = new FormGroup({
 			patients: this.formBuilder.array(
 				this.callPatients.map(
@@ -81,37 +81,40 @@ export class CallPatientComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	onDeletePatient() {
+	public onDeletePatient(): void {
 		// i: number
 		this.deletePatient.emit();
 	}
 
-	getTitle(i: number) {
+	public getTitle(i: number): string {
 		if (this.title) {
 			return this.title;
 		}
 		return `Child ${i + 1}`;
 	}
 
-	getPatientControl(_i: number) {
+	public getPatientControl(_i: number): void {
 		// return this.myForm.get('patients')!.controls[i];
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.saveSubscription.unsubscribe();
 		this._destroy$.next(null);
 	}
 
-	isNew(i: number) {
+	public isNew(i: number): boolean {
 		return this.callPatients[i]!.id.toString() === Guid.EMPTY;
 	}
 
-	submit(): void {
+	public submit(): void {
 		this.errors = null;
-		const list = this.myForm.value.patients
-			.map((v: IPerson | null, index: number) => {
-				const cp = this.callPatients[index];
-				cp!.patient.person = v;
+		const list: any = this.myForm.value.patients
+			.map((v: IPerson, index: number) => {
+				const cp: ICallPatientIndex | undefined = this.callPatients[index];
+				if (cp) {
+					cp.patient.person = v;
+				}
+
 				return cp;
 			})
 			.filter(

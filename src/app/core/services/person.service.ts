@@ -11,54 +11,57 @@ import {
 	IPersonDemographicData,
 	IPrivatePersonLink,
 } from '../models/person.model';
+// import { AuthenticationService } from '../../shared/services/authentification.service';
 
 @Injectable({ providedIn: 'root' })
 export class PersonGridService extends GridDataService {
-	constructor(http: HttpClient, auth: AuthenticationService) {
+	public constructor(http: HttpClient, auth: AuthenticationService) {
 		super(http, auth, 'person');
 	}
 
-	getPrivatePersonLinks(personId: string): Observable<IPrivatePersonLink[]> {
+	public getPrivatePersonLinks(personId: string): Observable<IPrivatePersonLink[]> {
 		return this.get(`${personId}/get-private-person-links`);
 	}
 
-	getPersonModel(id: Guid | null): Observable<IPerson> {
+	public getPersonModel(id: Guid | null): Observable<IPerson> {
 		return this.get(`${id || Guid.EMPTY}/`);
 	}
 
-	getPersonGeneralDataModel(id: Guid | null): Observable<IGeneralPersonData> {
+	public getPersonGeneralDataModel(id: Guid | null): Observable<IGeneralPersonData> {
 		return this.get(`${id}/general`);
 	}
 
-	getPersonDemographicDataModel(id: Guid | null | string): Observable<IPersonDemographicData> {
+	public getPersonDemographicDataModel(
+		id: Guid | null | string,
+	): Observable<IPersonDemographicData> {
 		return this.get(`${id}/demographic`);
 	}
 
-	getPersonContactsDataModel(id: Guid | null): Observable<IPersonContactsData> {
+	public getPersonContactsDataModel(id: Guid | null): Observable<IPersonContactsData> {
 		return this.get(`${id}/contacts`);
 	}
 
-	updatePerson(person: IPerson): Observable<any> {
+	public updatePerson(person: IPerson): Observable<any> {
 		return this.post('update', person);
 	}
 
-	updatePersonGeneral(generalData: IGeneralPersonData): Observable<any> {
+	public updatePersonGeneral(generalData: IGeneralPersonData): Observable<any> {
 		return this.put(`${generalData.id}/general`, generalData);
 	}
 
-	updatePersonDemographic(demographicData: IPersonDemographicData): Observable<any> {
+	public updatePersonDemographic(demographicData: IPersonDemographicData): Observable<any> {
 		return this.put(`${demographicData.id}/demographic`, demographicData);
 	}
 
-	updatePersonContacts(contactsData: IPersonContactsData): Observable<any> {
+	public updatePersonContacts(contactsData: IPersonContactsData): Observable<any> {
 		return this.post(`${contactsData.id}/contacts`, contactsData);
 	}
 
-	getInsurances(personId: Guid | null): Observable<IInsurance[]> {
+	public getInsurances(personId: Guid | null): Observable<IInsurance[]> {
 		return this.get(`${personId}/insurances`);
 	}
 
-	saveInsurance(insurances: IInsuranceSaveModel): Observable<any> {
+	public saveInsurance(insurances: IInsuranceSaveModel): Observable<any> {
 		return this.post(`insurances`, insurances);
 	}
 }

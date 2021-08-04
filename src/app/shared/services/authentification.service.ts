@@ -1,54 +1,43 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from 'src/app/core/models/user.model';
 import { Store } from '@ngrx/store';
-import { IAppState } from 'src/app/core/store/state/app.state';
-import { AuthUserActions } from 'src/app/core/store/user/user.actions';
+import { Injectable, OnInit } from '@angular/core';
+import { IAppState } from '../../core/store/state/app.state';
+// import { AuthUserActions } from 'src/app/core/store/user/user.actions';
 
-@Injectable({ providedIn: 'root' })
-export class AuthenticationService {
-	public currentUser: BehaviorSubject<IUser | null>;
+@Injectable({
+	providedIn: 'root',
+})
+export class AuthenticationService implements OnInit {
+	public currentUser$: Observable<IUser | null> = this._store.select('userState', 'user');
 
-	constructor(private http: HttpClient, private _store: Store<IAppState>) {
-		this.currentUser = new BehaviorSubject<IUser | null>(this.getCurrentUser());
+	public currentUser?: IUser | null;
+
+	public constructor(private http: HttpClient, private _store: Store<IAppState>) {}
+
+	public saveToken(token: string): void {
+		localStorage.setItem('token', token);
 	}
 
-	public getCurrentUser(): IUser {
-		return JSON.parse(localStorage.getItem('currentUser')!);
+	public getToken(): string | null {
+		return localStorage.getItem('token');
 	}
 
-	private setCurrentUser(user: IUser): void {
-		// store user details and jwt token in local storage to keep user logged in between page refreshes
-		localStorage.setItem('currentUser', JSON.stringify(user));
-		this.currentUser.next(user);
-		this._store.dispatch(AuthUserActions.SetUser({ user }));
+	public logout(): void {
+		localStorage.removeItem('token');
 	}
 
-	private resetCurrentUser(): void {
-		localStorage.removeItem('currentUser');
-		this.currentUser.next(null);
-		this._store.dispatch(AuthUserActions.SetUser({ user: null }));
+	public login(username: string | undefined, password: string | undefined): Observable<IUser> {
+		return this.http.post<IUser>(`${environment.apiUrl}/users/authenticate`, {
+			Username: username,
+			Password: password,
+		});
 	}
 
-	login(username: string, password: string) {
-		// console.log(`${environment.apiUrl}/users/authenticate`);
-		return this.http
-			.post<any>(`${environment.apiUrl}/users/authenticate`, {
-				Username: username,
-				Password: password,
-			})
-			.pipe(
-				map((user) => {
-					this.setCurrentUser(user);
-					return user;
-				}),
-			);
-	}
-
-	sharedCalllogin(sharedCallId: string, code: any) {
+	public sharedCalllogin(sharedCallId: string, code: any): any {
 		return this.http
 			.post<any>(`${environment.apiUrl}/users/shared-call-authenticate`, {
 				id: sharedCallId,
@@ -56,26 +45,20 @@ export class AuthenticationService {
 			})
 			.pipe(
 				map((user) => {
-					this.setCurrentUser(user);
+					// this.setCurrentUser(user);
 					return user;
 				}),
 			);
 	}
 
-	logout() {
-		// remove user from local storage and set current user to null
-		this.resetCurrentUser();
+	public checkToken(): Observable<IUser> {
+		return this.http.get<IUser>(`${environment.apiUrl}/users/current`);
 	}
 
-	apiUser() {
-		return this.http.get<any>(`${environment.apiUrl}/users/current`).pipe(
-			map((user) => {
-				return user;
-			}),
-		);
-	}
-
-	getAPIUser(): Observable<any[]> {
-		return this.http.get<any>(`${environment.apiUrl}/users/current`);
+	// eslint-disable-next-line @angular-eslint/contextual-lifecycle
+	public ngOnInit(): void {
+		this.currentUser$.subscribe((user: IUser | null) => {
+			this.currentUser = user;
+		});
 	}
 }

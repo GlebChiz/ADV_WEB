@@ -3,7 +3,12 @@ import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { SortDescriptor } from '@progress/kendo-data-query';
-import { IGridColumnInfo, IGridInfo, IGridSettings } from 'src/app/core/store/grid/grid.state';
+import {
+	IGridColumnInfo,
+	IGridId,
+	IGridInfo,
+	IGridSettings,
+} from 'src/app/core/store/grid/grid.state';
 import { Guid } from 'guid-typescript';
 import {
 	IColumnFilter,
@@ -12,30 +17,31 @@ import {
 	IColumnSort,
 } from 'src/app/core/models/filters/column-filter.model';
 import { AuthenticationService } from './authentification.service';
+// import { AuthenticationService } from 'src/app/shared/services/authentification.service';
 import { DataService } from './data.service';
 
 export abstract class GridDataService extends DataService {
-	constructor(http: HttpClient, public auth: AuthenticationService, controller: string) {
+	public constructor(http: HttpClient, public auth: AuthenticationService, controller: string) {
 		super(http, controller);
 	}
 
-	readonly uidField = 'grid-uid';
+	public readonly uidField = 'grid-uid';
 
 	private getDefaultFilter(column: IGridColumnInfo): IColumnFilter {
-		const filter = {
+		return {
 			column: column.name,
 			dataType: IColumnFilterDataType.String,
 			data: '',
 			type: column.filter?.type || ColumnFilterType.Contains,
-		} as IColumnFilter;
+		};
 
-		if (column.dataType === 'datetime' || column.dataType === 'date') {
-			filter.dataType = IColumnFilterDataType.Date;
-		}
-		return filter;
+		// if (column.dataType === 'datetime' || column.dataType === 'date') {
+		// 	filter.dataType = IColumnFilterDataType.Date;
+		// }
+		// return filter;
 	}
 
-	getGridInfo(columns: IGridColumnInfo[], gridId: string): IGridInfo {
+	public getGridInfo(columns: IGridColumnInfo[], gridId: string): IGridInfo {
 		return {
 			gridId,
 			columns: this.createColumns(columns),
@@ -44,15 +50,17 @@ export abstract class GridDataService extends DataService {
 		} as IGridInfo;
 	}
 
-	mergeGridInfo(info: IGridInfo, settings: IGridSettings): IGridInfo {
+	public mergeGridInfo(info: IGridInfo, settings: IGridSettings): IGridInfo {
+		const newInfo: IGridInfo = info;
 		if (settings) {
-			info.title = settings.title;
-			info.id = settings.id;
+			newInfo.title = settings.title;
+			newInfo.id = settings.id;
 			if (settings.columns) {
 				const cols = JSON.parse(settings.columns);
-				Object.keys(info.columns).forEach((_value: string, key: number) => {
-					if (info.columns[key] && cols[key]) {
-						info.columns[key]!.visible = cols[key].visible !== false;
+
+				newInfo.columns.forEach((column: IGridColumnInfo, index: number) => {
+					if (column && cols[index]) {
+						column.visible = cols[index].visible;
 					}
 				});
 				// for (const key in info.columns) {
@@ -63,9 +71,9 @@ export abstract class GridDataService extends DataService {
 			}
 			if (settings.filters) {
 				const filters = JSON.parse(settings.filters);
-				Object.keys(info.filters).forEach((_value: string, key: number) => {
-					if (info.columns[key] && filters[key]) {
-						info.filters[key] = filters[key];
+				Object.keys(newInfo.filters).forEach((_value: string, key: number) => {
+					if (newInfo.columns[key] && filters[key]) {
+						newInfo.filters[key] = filters[key];
 					}
 				});
 				// for (const key in info.filters) {
@@ -77,8 +85,8 @@ export abstract class GridDataService extends DataService {
 			if (settings.sorting) {
 				const sort = JSON.parse(settings.sorting);
 				Object.keys(info.sorting).forEach((_value: string, key: number) => {
-					if (info.columns[key] && sort[key] && info.columns[key]!.sortDirection! >= 0) {
-						info.sorting[key] = sort[key];
+					if (newInfo.columns[key] && sort[key] && newInfo.columns[key]!.sortDirection! >= 0) {
+						newInfo.sorting[key] = sort[key];
 					}
 				});
 				// for (const key in info.sorting) {
@@ -88,10 +96,10 @@ export abstract class GridDataService extends DataService {
 				// }
 			}
 		}
-		return info;
+		return newInfo;
 	}
 
-	private createFilters(columns: IGridColumnInfo[]) {
+	private createFilters(columns: IGridColumnInfo[]): any {
 		const list: any = {};
 		const filters = columns.filter((c) => c.filter?.field);
 		filters.forEach((c) => {
@@ -121,7 +129,7 @@ export abstract class GridDataService extends DataService {
 		return list;
 	}
 
-	getGridItemsWithoutPaging(
+	public getGridItemsWithoutPaging(
 		action: string,
 		sortDescriptor: SortDescriptor[],
 		filterModel?: any,
@@ -209,27 +217,24 @@ export abstract class GridDataService extends DataService {
 		action: string,
 		filterId: Guid,
 	): Observable<GridDataResult> {
-		return this.getWithController(controller, `${filterId}/${action}`).pipe(
-			map((response) => {
-				const result = {
+		return this.getWithController<GridDataResult>(controller, `${filterId}/${action}`).pipe(
+			map((response: GridDataResult) => {
+				const result: GridDataResult = {
 					data: this.generateUIDs(response.data),
-					total: parseInt(response.total, 10),
-				} as GridDataResult;
+					total: parseInt(response.total.toString(), 10),
+				};
 				return result;
 			}),
 		);
 	}
 
-	protected getGridVisibleColumns(
-		action: string,
-		gridId: string | null = null,
-	): Observable<string[]> {
-		const data = {
+	protected getGridVisibleColumns(action: string, gridId: string | null): Observable<string[]> {
+		const data: IGridId = {
 			gridId,
 		};
 		return this.post(action, data).pipe(
-			map((response) => {
-				return response as string[];
+			map((response: string[]) => {
+				return response;
 			}),
 		);
 	}

@@ -116,7 +116,7 @@ export class CallManagerComponent extends UnsubscriableBaseDirective implements 
 		const { id } = this.model!;
 		this.model = null;
 
-		this._callService.getModel(id).subscribe((x) => {
+		this._callService.getModel(id).subscribe((x: any) => {
 			this.model = x;
 			this._store.dispatch(CRMSearchActions.SetCall({ call: this.model! }));
 			this.setStep(this.interStep!);

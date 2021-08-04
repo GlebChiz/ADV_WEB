@@ -3,16 +3,17 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+// import { AuthenticationService } from 'src/app/shared/services/authentification.service';
 import { AlertService, AuthenticationService } from '../services';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-	constructor(
+	public constructor(
 		private authenticationService: AuthenticationService,
 		private alertService: AlertService,
 	) {}
 
-	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+	public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		return next.handle(request).pipe(
 			catchError((err) => {
 				if (err.status === 401) {
@@ -24,7 +25,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 					this.alertService.error(err.error.error);
 				}
 
-				const error = err.error?.message || err.statusText;
+				const error: string = err.error?.message || err.statusText;
 				return throwError(error);
 			}),
 		);

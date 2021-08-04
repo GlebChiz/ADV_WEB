@@ -19,7 +19,7 @@ export class IntakeSchedulerService extends ServiceSchedulerService {
 		};
 		const url = `${filterId}/get-services`;
 		return this.saveFilterData('save-scheduler-filter', filterId, filter).pipe(
-			switchMap(() => this.get(url)),
+			switchMap(() => this.get<IService[]>(url)),
 		);
 	}
 }

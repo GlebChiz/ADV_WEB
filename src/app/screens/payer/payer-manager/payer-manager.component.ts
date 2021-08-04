@@ -83,13 +83,13 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 	}
 
 	openDetails(e: any) {
-		this._service.getModel(e.id).subscribe((x) => {
+		this._service.getModel(e.id).subscribe((x: any) => {
 			this.payerModel = x;
 		});
 	}
 
 	openDuplicate(e: any) {
-		this._service.getModel(e.id).subscribe((x) => {
+		this._service.getModel(e.id).subscribe((x: any) => {
 			x.id = null;
 			this.payerModel = x;
 		});
@@ -99,7 +99,7 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 		if (!window.confirm('Are you sure you want to delete payer?')) {
 			return;
 		}
-		this._service.deleteModel(e.id).subscribe((response) => {
+		this._service.deleteModel(e.id).subscribe((response: any) => {
 			this.validationService.displayResponse(response);
 			this._store.dispatch(GridActions.ReloadGrid({ gridId: this.gridId }));
 		});

@@ -4,34 +4,28 @@ import { Observable } from 'rxjs';
 import { PermissionType } from 'src/app/core/enums/permission.type';
 import { CacheSection, IUser } from 'src/app/core/models/user.model';
 import { DataService } from 'src/app/shared/services';
-import { AuthenticationService } from './authentification.service';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService extends DataService {
-	_destroy$(_destroy$: any): any {
+	public _destroy$(_destroy$: any): any {
 		throw new Error('Method not implemented.');
 	}
 
-	constructor(
-		http: HttpClient,
-		// private _store: Store<IAppState>,
-		private _auth: AuthenticationService,
-	) {
+	public constructor(http: HttpClient) {
 		super(http, 'menu');
 	}
 
-	resetCache(section: CacheSection): Observable<any> {
+	public resetCache(section: CacheSection): Observable<any> {
 		return this.put(`${section}/reset-cache`);
 	}
 
-	getMainMenu() {
-		const menu = this.createMainMenu();
-		const user = this._auth.getCurrentUser();
-		menu.forEach((x) => this.validateMenu(x, user));
+	public getMainMenu(user: IUser): IMainMenu[] {
+		const menu: IMainMenu[] = this.createMainMenu();
+		menu.forEach((x: IMainMenu) => this.validateMenu(x, user));
 		return menu;
 	}
 
-	private validateMenu(menuItem: any, user: IUser) {
+	private validateMenu(menuItem: any, user: IUser): void {
 		if (menuItem.items) {
 			menuItem.items.forEach((x: any) => this.validateMenu(x, user));
 		}
@@ -40,21 +34,23 @@ export class MenuService extends DataService {
 			: this.isMenuVisible(menuItem, user.permissions);
 	}
 
-	private isMenuVisible(menuItem: any, permissions: PermissionType[]) {
-		const isPermitted = !menuItem.permissionType || permissions.includes(menuItem.permissionType);
+	private isMenuVisible(menuItem: any, permissions: PermissionType[]): boolean {
+		const isPermitted: boolean =
+			!menuItem.permissionType || permissions?.includes(menuItem.permissionType);
 		if (menuItem.items && menuItem.items.length > 0) {
-			const isChildVisible = menuItem.items.filter((x: any) => x.isVisible === true).length > 0;
+			const isChildVisible: boolean =
+				menuItem.items.filter((x: any) => x.isVisible === true).length > 0;
 			return isChildVisible && isPermitted;
 		}
 		return isPermitted;
 	}
 
-	private createMainMenu() {
-		return [
+	private createMainMenu(): IMainMenu[] {
+		const mainMenu: IMainMenu[] = [
 			{
 				text: 'Administration',
 				items: [
-					{ text: 'Reset Cache', path: 'reset', cssClass: '' },
+					{ text: 'Reset Cache', path: 'reset', cssClass: '', permissionType: null },
 					{
 						text: 'Patients',
 						path: 'patients',
@@ -73,23 +69,48 @@ export class MenuService extends DataService {
 						permissionType: PermissionType.CanViewPayerList,
 						cssClass: '',
 					},
-					{ text: 'Users', path: 'users', cssClass: '' },
+					{ text: 'Users', path: 'users', cssClass: '', permissionType: null },
 				],
 				cssClass: '',
 			},
 			{
 				text: 'Calls',
 				items: [
-					{ text: 'New Call', path: 'new-call', permissionType: PermissionType.CanViewNewCall },
+					{
+						text: 'New Call',
+						path: 'new-call',
+						permissionType: PermissionType.CanViewNewCall,
+						cssClass: '',
+					},
 					{
 						text: 'Active Call',
 						path: 'active-call',
 						permissionType: PermissionType.CanViewActiveCall,
+						cssClass: '',
 					},
-					{ text: 'My Calls', path: 'my-calls', permissionType: PermissionType.CanViewMyCalls },
+					{
+						text: 'My Calls',
+						path: 'my-calls',
+						permissionType: PermissionType.CanViewMyCalls,
+						cssClass: '',
+					},
 				],
 				cssClass: '',
 			},
 		];
+		return mainMenu;
 	}
+}
+
+export interface IMainMenu {
+	text: string;
+	items: IMainMenuItem[];
+	cssClass: string;
+}
+
+export interface IMainMenuItem {
+	text: string;
+	path: string;
+	permissionType: number | null;
+	cssClass: string;
 }

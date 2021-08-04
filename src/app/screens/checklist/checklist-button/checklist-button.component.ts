@@ -6,7 +6,12 @@ import {
 	CheckListItemType,
 	CheckListType,
 } from 'src/app/core/enums/checklist.types';
-import { ICheckList, checkListClassName } from 'src/app/core/models/checklist.model';
+import {
+	checkListClassName,
+	ICheckList,
+	ICheckListItem,
+} from 'src/app/core/models/checklist.model';
+// import { ICheckList, checkListClassName, ICheckListItem } from 'src/app/core/models/checklist.model';
 
 @Component({
 	providers: [],
@@ -16,9 +21,9 @@ import { ICheckList, checkListClassName } from 'src/app/core/models/checklist.mo
 export class ChecklistButtonComponent implements OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() checklist!: ICheckList;
+	@Input() public checklist!: ICheckList;
 
-	constructor(
+	public constructor(
 		// private _store: Store<IAppState>,
 		private router: Router,
 	) {}
@@ -27,20 +32,20 @@ export class ChecklistButtonComponent implements OnDestroy {
 
 	// ngOnChanges(): void {}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	checkListClass(status: CheckListItemStatus): string {
+	public checkListClass(status: CheckListItemStatus): string {
 		return checkListClassName(status);
 	}
 
-	onItemClick(e: any): void {
+	public onItemClick(e: ICheckListItem): void {
 		switch (this.checklist.checkListType) {
 			case CheckListType.PendingIntakeCoordination:
 				switch (e.type) {
 					case CheckListItemType.Demographic:
-						this.router.navigate(['/patient', this.checklist.context!.patientId]);
+						this.router.navigate(['/patient', this.checklist.context?.patientId]);
 						break;
 					case CheckListItemType.GuardianInfo:
 						break;
@@ -49,23 +54,23 @@ export class ChecklistButtonComponent implements OnDestroy {
 					case CheckListItemType.PatientAvailability:
 						break;
 					case CheckListItemType.InsuranceInfo:
-						this.router.navigate(['/patient', this.checklist.context!.patientId]);
+						this.router.navigate(['/patient', this.checklist.context?.patientId]);
 						break;
 					case CheckListItemType.InsuranceVerified:
-						this.router.navigate(['/patient', this.checklist.context!.patientId]);
+						this.router.navigate(['/patient', this.checklist.context?.patientId]);
 						break;
 					case CheckListItemType.IntakeCompleted:
-						this.router.navigate([`/patient`, this.checklist.context!.patientId], {
+						this.router.navigate([`/patient`, this.checklist.context?.patientId], {
 							fragment: 'intake',
 						});
 						break;
 					case CheckListItemType.IntakeScheduled:
-						this.router.navigate([`/patient`, this.checklist.context!.patientId], {
+						this.router.navigate([`/patient`, this.checklist.context?.patientId], {
 							fragment: 'intake',
 						});
 						break;
 					case CheckListItemType.ModalitySelections:
-						this.router.navigate(['/patient', this.checklist.context!.patientId]);
+						this.router.navigate(['/patient', this.checklist.context?.patientId]);
 						break;
 					case CheckListItemType.PaymentInfo:
 						break;
