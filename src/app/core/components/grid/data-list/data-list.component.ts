@@ -304,7 +304,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 	private addColumnSorting(): void {
 		const list: (IColumnSort | undefined)[] = [];
 		if (this.gridInfo?.sorting && this.gridInfo?.columns) {
-			Object.keys(this.gridInfo.sorting).forEach((_value: string, key: number) => {
+			Object.keys(this.gridInfo.sorting).forEach((key: string) => {
 				if (this.gridInfo!.sorting[key]) {
 					const column = this.gridInfo!.columns[key];
 					const sorting = this.gridInfo!.sorting[key];
@@ -328,7 +328,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 
 	private addColumnFilters(): void {
 		if (this.gridInfo?.filters && this.gridInfo?.columns) {
-			Object.keys(this.gridInfo.filters).forEach((_value: string, key: number) => {
+			Object.keys(this.gridInfo.filters).forEach((key: string) => {
 				if (this.gridInfo!.filters[key]) {
 					const column = this.gridInfo!.columns[key];
 					const filter = this.gridInfo!.filters[key];

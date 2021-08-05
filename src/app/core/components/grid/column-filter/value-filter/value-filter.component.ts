@@ -21,7 +21,7 @@ export class GridValueFilterComponent
 
 	@Input() public set filter(value: IColumnFilter) {
 		this._filter = value;
-		// this.initForm(value);
+		this.initForm(value);
 	}
 
 	public get filter(): IColumnFilter {

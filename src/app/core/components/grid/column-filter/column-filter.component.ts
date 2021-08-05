@@ -38,7 +38,7 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 	public constructor(public _store: Store<IAppState>) {}
 
 	public ngOnDestroy(): void {
-		this._destroy$.next();
+		this._destroy$.next(null);
 	}
 
 	public ngOnInit(): void {

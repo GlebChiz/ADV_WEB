@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import { IAppState } from '../state/app.state';
-import { IGridState } from './grid.state';
+import { IGridInfo, IGridState } from './grid.state';
 
 const gridState = (state: IAppState) => state.gridState;
 
@@ -21,7 +21,7 @@ export const selectGridInfo = createSelector(gridState, (state: IGridState, data
 		columns: state.gridColumns[data.gridId] || null,
 		filters: state.gridFilters[data.gridId] || null,
 		sorting: state.gridSorting[data.gridId] || null,
-	};
+	} as IGridInfo;
 });
 
 export const selectGridFilter = createSelector(gridState, (state: IGridState, data: any) => {

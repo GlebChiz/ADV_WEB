@@ -112,7 +112,7 @@ export class FormUploadComponent implements OnInit, OnDestroy {
 	public save(upload: UploadComponent): void {
 		this.submitted = true;
 		const fileNames: Object[] = [];
-		Object.keys(this.files).forEach((_value: string, uid: number) => {
+		Object.keys(this.files).forEach((uid: string) => {
 			if (uid) {
 				fileNames.push({
 					uid,

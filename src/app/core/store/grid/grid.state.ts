@@ -5,6 +5,10 @@ import {
 	SortDirection,
 } from '../../models/filters/column-filter.model';
 
+export interface IGridFilterState {
+	[key: string]: IGridFilters
+}
+
 export interface IGridState {
 	gridData: any;
 	gridCheckAll: any;
