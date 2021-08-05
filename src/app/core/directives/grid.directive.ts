@@ -22,28 +22,29 @@ import {
 	selector: '[adveniumGrid]',
 })
 export class GridDirective implements OnInit, OnDestroy {
-	@Input('adveniumGrid') $data: Observable<GridDataResult> = {} as Observable<GridDataResult>;
+	@Input('adveniumGrid') public $data: Observable<GridDataResult> =
+		{} as Observable<GridDataResult>;
 
-	@Input() gridPageSize!: number;
+	@Input() public gridPageSize!: number;
 
-	@Input() gridSortable: SortSettings | boolean | null = null;
+	@Input() public gridSortable: SortSettings | boolean | null = null;
 
-	@Input() sort: SortDescriptor[] | null = null;
+	@Input() public sort: SortDescriptor[] | null = null;
 
-	@Input() gridPageable: PagerSettings | boolean | null = null;
+	@Input() public gridPageable: PagerSettings | boolean | null = null;
 
-	@Output() afterInit: EventEmitter<GridDirective> = new EventEmitter<GridDirective>();
+	@Output() public afterInit: EventEmitter<GridDirective> = new EventEmitter<GridDirective>();
 
 	protected _destroy$ = new Subject();
 
-	constructor(private _cd: ChangeDetectorRef, public gridComponent: GridComponent) {}
+	public constructor(private _cd: ChangeDetectorRef, public gridComponent: GridComponent) {}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 		this._destroy$.complete();
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		if (this.gridPageable != null) {
 			this.gridComponent.pageable = this.gridPageable;
 		} else {
@@ -89,7 +90,7 @@ export class GridDirective implements OnInit, OnDestroy {
 		this.afterInit.emit(this);
 	}
 
-	load(): void {
+	public load(): void {
 		this.gridComponent.dataStateChange.emit({
 			skip: this.gridComponent.skip,
 			take: this.gridComponent.pageSize,

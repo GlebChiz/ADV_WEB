@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import {
 	HttpRequest,
@@ -7,7 +8,8 @@ import {
 	HttpHeaders,
 	HttpResponse,
 } from '@angular/common/http';
-import { Observable, map, filter } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentification.service';
 // import { AuthenticationService } from 'src/app/shared/services/authentification.service';
 
@@ -16,6 +18,7 @@ export class JwtInterceptor implements HttpInterceptor {
 	public constructor(private authenticationService: AuthenticationService) {}
 
 	public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		// let url: string = req.url;
 		const headers: HttpHeaders = new HttpHeaders({
 			Authorization: `Bearer ${this.authenticationService.getToken()}`,
 			// enctype: 'multipart/form-data',

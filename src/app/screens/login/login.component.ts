@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { first } from 'rxjs/operators';
 
@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
 		// redirect to home if already logged in
 		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
 			if (user) {
+				// console.log('redirect to home if already logged in');
+
 				this.router.navigate(['/']);
 			}
 		});

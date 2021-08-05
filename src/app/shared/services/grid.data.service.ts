@@ -217,8 +217,8 @@ export abstract class GridDataService extends DataService {
 		action: string,
 		filterId: Guid,
 	): Observable<GridDataResult> {
-		return this.getWithController<any>(controller, `${filterId}/${action}`).pipe(
-			map((response) => {
+		return this.getWithController<GridDataResult>(controller, `${filterId}/${action}`).pipe(
+			map((response: any) => {
 				const result: any = {
 					data: this.generateUIDs(response),
 					total: parseInt(response.length.toString(), 10),

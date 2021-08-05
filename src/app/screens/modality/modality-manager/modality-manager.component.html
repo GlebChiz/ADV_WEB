@@ -1,4 +1,4 @@
-<advenium-data-list
+<!-- <advenium-data-list
 	[gridId]="gridId"
 	[controller]="'modality'"
 	[columns]="columns()"
@@ -13,4 +13,5 @@
 >
 </advenium-data-list>
 <advenium-payer-details *ngIf="modalityModel" [model]="modalityModel" (savePayer)="onSave()">
-</advenium-payer-details>
+</advenium-payer-details> -->
+<advenium-modality-table storePath='modalityTable' controller='modality'></advenium-modality-table>

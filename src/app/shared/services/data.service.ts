@@ -22,6 +22,7 @@ export abstract class DataService {
 		};
 
 		const url = this.getUrl(controller);
+
 		return this.http.get<T>(`${url}/${action || ''}`, options).pipe(catchError(this.formatErrors));
 	}
 

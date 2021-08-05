@@ -1,4 +1,3 @@
-import { AuthUserActions } from 'src/app/core/store/user/user.actions';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/core/store/state/app.state';
@@ -23,7 +22,6 @@ export class HomeComponent implements OnInit {
 		this.user$.subscribe((user: IUser | null) => {
 			this.apiUser = user?.userName ?? '';
 		});
-		this._store.dispatch(AuthUserActions.CheckToken());
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: 'Home' } }));
 		this.test();
 	}

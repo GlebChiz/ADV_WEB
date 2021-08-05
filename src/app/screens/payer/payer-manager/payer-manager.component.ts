@@ -37,7 +37,7 @@ export class PayerManagerComponent implements OnInit, OnDestroy {
 		return [{ field: 'type' }];
 	}
 
-	public columns() {
+	public columns(): IGridColumnInfo[] {
 		return [
 			{
 				name: 'name',

@@ -5,7 +5,6 @@ import { PermissionType } from './core/enums/permission.type';
 import { IUser } from './core/models/user.model';
 import { CallActions } from './core/store/call/call.actions';
 import { IAppState } from './core/store/state/app.state';
-import { AuthUserActions } from './core/store/user/user.actions';
 
 @Component({
 	selector: 'advenium-root',
@@ -29,9 +28,6 @@ export class AppComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
-			if (!user) {
-				this._store.dispatch(AuthUserActions.CheckToken());
-			}
 			if (user?.permissions?.includes(PermissionType.CanViewActiveCall)) {
 				this._store.dispatch(CallActions.GetActiveCall());
 			}

@@ -17,36 +17,36 @@ export class GridValueFilterComponent
 	extends UnsubscriableBaseDirective
 	implements OnInit, OnDestroy
 {
-	_filter: IColumnFilter | null = null;
+	public _filter: IColumnFilter | null = null;
 
-	@Input() set filter(value: IColumnFilter) {
+	@Input() public set filter(value: IColumnFilter) {
 		this._filter = value;
-		this.initForm(value);
+		// this.initForm(value);
 	}
 
-	get filter(): IColumnFilter {
+	public get filter(): IColumnFilter {
 		return this._filter!;
 	}
 
-	@Input() gridId!: string;
+	@Input() public gridId!: string;
 
-	@Input() filterId!: string;
+	@Input() public filterId!: string;
 
-	form!: FormGroup;
+	public form!: FormGroup;
 
 	// private _destroy$ = new Subject();
 
-	model$: Observable<any> | null = null;
+	public model$: Observable<any> | null = null;
 
-	constructor(public _store: Store<IAppState>) {
+	public constructor(public _store: Store<IAppState>) {
 		super();
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.initForm(this.filter);
 	}
 
-	initForm(filter: IColumnFilter): void {
+	public initForm(filter: IColumnFilter): void {
 		if (filter != null) {
 			if (this.form) {
 				this.form.setValue({ value: filter.data || '' });
@@ -62,7 +62,7 @@ export class GridValueFilterComponent
 		}
 	}
 
-	submitForm() {
+	public submitForm() {
 		this._store.dispatch(
 			GridActions.SetColumnFilterValue({
 				gridId: this.gridId,
@@ -72,7 +72,7 @@ export class GridValueFilterComponent
 		);
 	}
 
-	onKeyDown(pressedKey: any) {
+	public onKeyDown(pressedKey: any) {
 		if (pressedKey.key === 'Enter') {
 			this._store.dispatch(FilterActions.TriggerFilter({ id: this.filterId }));
 		}
