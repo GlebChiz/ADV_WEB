@@ -147,10 +147,14 @@ export class DataListComponent implements OnInit, OnDestroy {
 	}
 
 	public visibleColumns(): IGridColumnInfo[] {
+		const visCols : IGridColumnInfo[] = [];
 		if (!this.gridInfo?.columns) {
-			return [];
+			return visCols;
 		}
-		const vc = Object.values(this.gridInfo.columns).filter((x) => x.visible !== false);
+
+		const vc = Object.values(this.gridInfo.columns)
+			.filter((x: IGridColumnInfo) => x.visible !== false)
+			.map(x => x as IGridColumnInfo);
 		return vc;
 	}
 

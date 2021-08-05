@@ -30,14 +30,27 @@ export const initialGridState: IGridState = {
 	gridUpdate: {},
 	gridSorting: {},
 };
+
+export interface IGridColumns {
+    [key: string]: IGridColumnInfo;
+}
+
+export interface IGridFilters {
+    [key: string]: IColumnFilter;
+}
+
+export interface IGridSortings {
+    [key: string]: IColumnSort;
+}
+
 export interface IGridInfo {
 	id: Guid | string;
 	title: string;
 	gridId: string;
 	isDefault: boolean;
-	columns: IGridColumnInfo[];
-	filters: IColumnFilter[];
-	sorting: IColumnSort[] | any;
+	columns: IGridColumns;
+	filters: IGridFilters;
+	sorting: IGridSortings;
 }
 export interface IGridInfoJsonFormat {
 	id: Guid | string;

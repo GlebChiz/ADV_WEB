@@ -34,7 +34,7 @@
 			</span>
 		</ng-container>
 	</div>
-	<div class="adv-toolbar-row">
+	<div class="adv-toolbar-row clearfix">
 		<kendo-grid
 			class="w-100"
 			[adveniumGrid]="this.list$"
@@ -45,16 +45,6 @@
 		>
 			<ng-template kendoGridToolbarTemplate>
 				<div class="clearfix adv-toolbar-row">
-					<span
-						class="column right adv-toolbar-left-margin"
-						*ngIf="filterId && this.showFilterButton"
-					>
-						<button
-							class="k-button-secondary adv-button fa fa-filter"
-							title="Filter"
-							(click)="openFilter()"
-						></button>
-					</span>
 					<span
 						class="column right adv-toolbar-left-margin"
 						*ngIf="filterId && this.showFilterButton"
