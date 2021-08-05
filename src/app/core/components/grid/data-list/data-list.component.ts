@@ -156,9 +156,8 @@ clickLookup(column: IGridColumnInfo, item: any, subType: any) {
 	}
 
 	public visibleColumns(): IGridColumnInfo[] {
-		const visCols : IGridColumnInfo[] = [];
 		if (!this.gridInfo?.columns) {
-			return visCols;
+			return [];
 		}
 
 		const vc = Object.values(this.gridInfo.columns)
