@@ -2,10 +2,10 @@
 // import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Guid } from 'guid-typescript';
+import { Store } from '@ngrx/store';
 import { map, switchMap } from 'rxjs/operators';
 import { CommonGridService } from 'src/app/core/services/grid.service';
-import { environment } from 'src/environments/environment';
+import { IAppState } from 'src/app/core/store/state/app.state';
 // import { DataService } from '../services/data.service';
 import { GET_TABLE_DATA_PENDING, UPDATE_TABLE_STATE } from './table.tokens';
 
@@ -18,6 +18,7 @@ export class TableEffects {
 		// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 		@Inject(UPDATE_TABLE_STATE) private updateTableState: any,
 		private _modalityService: CommonGridService, // private http: HttpClient,
+		public _store: Store<IAppState>,
 	) {}
 
 	public getTableData$ = createEffect(() => {
@@ -33,10 +34,8 @@ export class TableEffects {
 					})
 					.pipe(
 						map((result: any) => {
-							console.log(`${environment.apiUrl}/${controller}/${Guid.create()}/grid-data`);
 							console.log(result);
-							console.log(controller);
-							return this.updateTableState();
+							return this.updateTableState({ data: result });
 						}),
 					),
 			),

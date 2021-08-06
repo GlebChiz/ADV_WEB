@@ -55,9 +55,9 @@ export class GridValueFilterComponent
 					value: new FormControl(filter.data || ''),
 				});
 
-				this.form.valueChanges.subscribe(() => {
-					this.submitForm();
-				});
+				// this.form.valueChanges.subscribe(() => {
+				this.submitForm();
+				// });
 			}
 		}
 	}

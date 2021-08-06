@@ -10,8 +10,17 @@ export function tableReducersFactory(updateTableState: any): any {
 		// on(getTableDataPending, (state: any, { data }: { data: [] }) => {
 		// return [...state, ...data];
 		// }),
-		on(updateTableState, (_state: number[]) => {
-			console.log(_state);
+		on(updateTableState, (_state: number[], payload: any) => {
+			console.log(2);
+			// on(CallActions.SetCall, (state, payload) => {
+			// return { ...state, call: payload.call };
+			// }),
+			// console.log(_state);
+			// console.log(updateTableState);
+			// console.log(payload);
+			console.log(payload.data);
+			console.log(1);
+
 			return [1, 2, 3];
 		}),
 		// on(clearTable, (state: any, { field }) => {
