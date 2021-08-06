@@ -38,38 +38,38 @@ export class ClinicianDetailsComponent
 {
 	private _destroy$ = new Subject();
 
-	readonly filterSettings: DropDownFilterSettings = {
+	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
 
-	@Input() isEditMode = true;
+	@Input() public isEditMode = true;
 
-	@Input() model!: IClinician | null;
+	@Input() public model!: IClinician | null;
 
-	@Input() showCancel = false;
+	@Input() public showCancel = false;
 
-	@Input() fragment = '';
+	@Input() public fragment = '';
 
-	@Output() reloadData: EventEmitter<any> = new EventEmitter();
+	@Output() public reloadData: EventEmitter<any> = new EventEmitter();
 
-	@Output() cancelEditing: EventEmitter<any> = new EventEmitter();
+	@Output() public cancelEditing: EventEmitter<any> = new EventEmitter();
 
-	myForm!: FormGroup;
+	public myForm!: FormGroup;
 
-	metaData: any = MetaData;
+	public metaData: any = MetaData;
 
-	errors: string[] | null = null;
+	public errors: string[] | null = null;
 
-	messages: string[] | null = null;
+	public messages: string[] | null = null;
 
-	phoneMask = '(999) 000-0000';
+	public phoneMask = '(999) 000-0000';
 
-	areas = Array<IDropDownData>();
+	public areas = Array<IDropDownData>();
 
-	serviceTypes = Array<IDropDownData>();
+	public serviceTypes = Array<IDropDownData>();
 
-	constructor(
+	public constructor(
 		public _store: Store<IAppState>,
 		private actions$: Actions,
 		private _dropDownService: DropDownService,
@@ -79,27 +79,27 @@ export class ClinicianDetailsComponent
 		this.saveActions();
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._dropDownService.getLookup(LookupTypeCodes.area).subscribe((x: any) => {
 			this.areas = x.map((i: any) => ({ ...i, title: `${i.abbreviation} - ${i.name}` }));
 		});
 		this._dropDownService.getServiceTypes().subscribe((x: any) => (this.serviceTypes = x));
 	}
 
-	ngOnChanges(): void {
+	public ngOnChanges(): void {
 		this.initForm();
 	}
 
-	selectedTab(fragment: string): boolean {
+	public selectedTab(fragment: string): boolean {
 		return this.fragment.length > 0 ? this.fragment === fragment : fragment === 'general';
 	}
 
-	isNew() {
-		return !this.model!.id || this.model!.id.toString() === Guid.EMPTY;
+	public isNew(): boolean {
+		return !this.model?.id || this.model?.id.toString() === Guid.EMPTY;
 	}
 
-	title(): string {
-		if (!this.model!) {
+	public title(): string {
+		if (!this.model) {
 			return '';
 		}
 
@@ -107,30 +107,30 @@ export class ClinicianDetailsComponent
 			return 'View Clinician';
 		}
 
-		if (!this.model!.id || this.model!.id.toString() === Guid.EMPTY) {
+		if (!this.model?.id || this.model?.id.toString() === Guid.EMPTY) {
 			return 'Create New Clinician';
 		}
 
 		return 'Edit Clinician';
 	}
 
-	initForm(): void {
+	public initForm(): void {
 		this.myForm = new FormGroup({
-			lastname: new FormControl(this.model!.person.lastname || ''),
-			firstname: new FormControl(this.model!.person.firstname || ''),
-			middlename: new FormControl(this.model!.person.middlename || ''),
-			email: new FormControl(this.model!.person.email || ''),
-			mobilePhone: new FormControl(this.model!.person.mobilePhone || ''),
-			homePhone: new FormControl(this.model!.person.homePhone),
-			workPhone: new FormControl(this.model!.person.workPhone),
-			otherPhone: new FormControl(this.model!.person.otherPhone),
-			primaryPhoneType: new FormControl(this.model!.person.primaryPhoneType),
-			mobilePhonePolicyId: new FormControl(this.model!.person.mobilePhonePolicyId),
-			homePhonePolicyId: new FormControl(this.model!.person.homePhonePolicyId),
-			workPhonePolicyId: new FormControl(this.model!.person.workPhonePolicyId),
-			otherPhonePolicyId: new FormControl(this.model!.person.otherPhonePolicyId),
-			areaIds: new FormControl(this.model!.areaIds),
-			serviceTypeIds: new FormControl(this.model!.serviceTypeIds),
+			lastname: new FormControl(this.model?.person.lastname || ''),
+			firstname: new FormControl(this.model?.person.firstname || ''),
+			middlename: new FormControl(this.model?.person.middlename || ''),
+			email: new FormControl(this.model?.person.email || ''),
+			mobilePhone: new FormControl(this.model?.person.mobilePhone || ''),
+			homePhone: new FormControl(this.model?.person.homePhone),
+			workPhone: new FormControl(this.model?.person.workPhone),
+			otherPhone: new FormControl(this.model?.person.otherPhone),
+			primaryPhoneType: new FormControl(this.model?.person.primaryPhoneType),
+			mobilePhonePolicyId: new FormControl(this.model?.person.mobilePhonePolicyId),
+			homePhonePolicyId: new FormControl(this.model?.person.homePhonePolicyId),
+			workPhonePolicyId: new FormControl(this.model?.person.workPhonePolicyId),
+			otherPhonePolicyId: new FormControl(this.model?.person.otherPhonePolicyId),
+			areaIds: new FormControl(this.model?.areaIds),
+			serviceTypeIds: new FormControl(this.model?.serviceTypeIds),
 		});
 
 		if (!this.isEditMode) {
@@ -138,29 +138,29 @@ export class ClinicianDetailsComponent
 		}
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	submit(): void {
-		const model = this.getModel();
+	public submit(): void {
+		const model: any = this.getModel();
 		this._store.dispatch(ClinicianActions.UpdateClinician(model));
 	}
 
-	create(): void {
-		const model = this.getModel();
+	public create(): void {
+		const model: any = this.getModel();
 		this._store.dispatch(ClinicianActions.CreateClinician({ clinician: model }));
 	}
 
-	getModel(): any {
+	public getModel(): any {
 		const { value } = this.myForm;
-		const result = {
-			...this.model!,
+		const result: any = {
+			...this.model,
 			...{
 				areaIds: value.areaIds,
 				serviceTypeIds: value.serviceTypeIds,
 				person: {
-					...this.model!.person,
+					...this.model?.person,
 					lastname: value.lastname,
 					firstname: value.firstname,
 					middlename: value.middlename,
@@ -177,26 +177,27 @@ export class ClinicianDetailsComponent
 				},
 			},
 		};
-
 		return result;
 	}
 
-	cancel(): void {
+	public cancel(): void {
 		this.cancelEditing.emit();
 	}
 
-	saved(): void {
+	public saved(): void {
 		this.reloadData.emit();
 		this.messages = ['Saved successfully'];
 		this.errors = null;
-		setTimeout(() => (this.messages = null), 5000);
+		setTimeout(() => {
+			this.messages = null;
+		}, 5000);
 	}
 
-	created(id: string): void {
+	public created(id: string): void {
 		this._router.navigate(['/clinician', id]);
 	}
 
-	saveActions(): void {
+	public saveActions(): void {
 		this.actions$
 			.pipe(takeUntil(this.unsubscribe), ofType(ClinicianActions.UpdateClinicianComplete))
 			.subscribe(() => this.saved());
@@ -212,16 +213,16 @@ export class ClinicianDetailsComponent
 			});
 	}
 
-	getIntakeAvailabilityFilter() {
+	public getIntakeAvailabilityFilter(): IPersonAvailabilityFilter {
 		return {
-			personId: this.model!.person.id,
+			personId: this.model?.person.id,
 			type: PersonAvailabilityType.ClinicianIntake,
 		} as IPersonAvailabilityFilter;
 	}
 
-	getServicesAvailabilityFilter() {
+	public getServicesAvailabilityFilter(): IPersonAvailabilityFilter {
 		return {
-			personId: this.model!.person.id,
+			personId: this.model?.person.id,
 			type: PersonAvailabilityType.ClinicianService,
 		} as IPersonAvailabilityFilter;
 	}

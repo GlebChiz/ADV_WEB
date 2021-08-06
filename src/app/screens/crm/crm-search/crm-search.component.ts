@@ -37,14 +37,10 @@ export class CRMSearchComponent implements OnDestroy, OnInit {
 	) {
 		this.persons = [];
 		this.search$.subscribe((search) => {
-			// console.log(search);
 			this.crmService.search(search!, null!).subscribe((searchResult) => {
 				this.persons = [];
 				if (searchResult) {
 					this.persons = this.crmService.combineResultPersons(searchResult);
-
-					// console.log(this.persons);
-					// console.log(searchResult);
 				}
 			});
 		});

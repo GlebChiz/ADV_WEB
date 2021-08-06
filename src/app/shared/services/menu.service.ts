@@ -51,6 +51,7 @@ export class MenuService extends DataService {
 				text: 'Administration',
 				items: [
 					{ text: 'Reset Cache', path: 'reset', cssClass: '', permissionType: null },
+					{ text: 'Modalities', path: 'modalities', cssClass: '', permissionType: null },
 					{
 						text: 'Patients',
 						path: 'patients',

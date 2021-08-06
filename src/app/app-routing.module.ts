@@ -20,6 +20,7 @@ import { SharedCallHomeComponent } from './screens/shared-call/shared-call-home/
 import { SharedCallLoginComponent } from './screens/shared-call/shared-call-login/shared-call-login.component';
 import { SharedCallAuthGuard } from './shared/helpers/shared-call-auth.guard';
 import { PatientPersonViewComponent } from './screens/patients/patient-person-view/patient-person-view.component';
+import { ModalityManagerComponent } from './screens/modality/modality-manager/modality-manager.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -37,6 +38,7 @@ const routes: Routes = [
 	{ path: 'person/:id', component: PersonViewComponent, canActivate: [AuthGuard] },
 	{ path: 'form/:id', component: FormViewComponent, canActivate: [AuthGuard] },
 	{ path: 'reset', component: ResetCacheComponent, canActivate: [AuthGuard] },
+	{ path: 'modalities', component: ModalityManagerComponent, canActivate: [AuthGuard] },
 	{ path: 'reset/:section', component: ResetCacheComponent, canActivate: [AuthGuard] },
 
 	{ path: 'sharedcalllogin/:id', component: SharedCallLoginComponent },

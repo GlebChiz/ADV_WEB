@@ -19,25 +19,25 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	],
 })
 export class PersonShortComponent implements ControlValueAccessor, OnDestroy {
-	form: FormGroup;
+	public form: FormGroup;
 
-	subscriptions: Subscription[] = [];
+	public subscriptions: Subscription[] = [];
 
-	metaData: any = MetaData;
+	public metaData: any = MetaData;
 
-	controlId: string = Guid.create().toString();
+	public controlId: string = Guid.create().toString();
 
-	get value(): IPersonShortModel {
+	public get value(): IPersonShortModel {
 		return this.form.value;
 	}
 
-	set value(value: IPersonShortModel) {
+	public set value(value: IPersonShortModel) {
 		this.form.setValue(value);
 		this.onChange(value);
 		this.onTouched();
 	}
 
-	constructor(private formBuilder: FormBuilder, private _store: Store<IAppState>) {
+	public constructor(private formBuilder: FormBuilder, private _store: Store<IAppState>) {
 		this.form = this.formBuilder.group({
 			id: [],
 			lastname: [],
@@ -58,7 +58,7 @@ export class PersonShortComponent implements ControlValueAccessor, OnDestroy {
 		);
 	}
 
-	writeValue(obj: any): void {
+	public writeValue(obj: any): void {
 		if (obj) {
 			this.value = obj;
 		}
@@ -67,15 +67,15 @@ export class PersonShortComponent implements ControlValueAccessor, OnDestroy {
 		}
 	}
 
-	registerOnChange(fn: any): void {
+	public registerOnChange(fn: any): void {
 		this.onChange = fn;
 	}
 
-	registerOnTouched(fn: any): void {
+	public registerOnTouched(fn: any): void {
 		this.onTouched = fn;
 	}
 
-	setDisabledState?(isDisabled: boolean): void {
+	public setDisabledState?(isDisabled: boolean): void {
 		if (isDisabled) {
 			this.form.disable();
 		} else {
@@ -83,15 +83,15 @@ export class PersonShortComponent implements ControlValueAccessor, OnDestroy {
 		}
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.subscriptions.forEach((s) => s.unsubscribe());
 	}
 
-	onChange: any = () => {};
+	public onChange: any = () => {};
 
-	onTouched: any = () => {};
+	public onTouched: any = () => {};
 
-	isNew(): boolean {
+	public isNew(): boolean {
 		return this.value.id == null || this.value.id.toString() === Guid.EMPTY;
 	}
 }

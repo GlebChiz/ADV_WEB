@@ -33,50 +33,50 @@ export class PersonDetailsComponent
 {
 	private _destroy$ = new Subject();
 
-	readonly filterSettings: DropDownFilterSettings = {
+	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
 
-	@Input() isEditMode = true;
+	@Input() public isEditMode = true;
 
-	@Input() model!: IPerson;
+	@Input() public model!: IPerson;
 
-	@Input() showCancel = false;
+	@Input() public showCancel = false;
 
-	@Input() fragment = '';
+	@Input() public fragment = '';
 
-	sexLookup = Array<IDropDownData>();
+	public sexLookup = Array<IDropDownData>();
 
-	genderLookup = Array<IDropDownData>();
+	public genderLookup = Array<IDropDownData>();
 
-	raceLookup = Array<IDropDownData>();
+	public raceLookup = Array<IDropDownData>();
 
-	languageLookup = Array<IDropDownData>();
+	public languageLookup = Array<IDropDownData>();
 
-	maritalLookup = Array<IDropDownData>();
+	public maritalLookup = Array<IDropDownData>();
 
-	employementLookup = Array<IDropDownData>();
+	public employementLookup = Array<IDropDownData>();
 
-	phonePolicyLookup = Array<IDropDownData>();
+	public phonePolicyLookup = Array<IDropDownData>();
 
-	phoneTypeLookup = Array<IDropDownData>();
+	public phoneTypeLookup = Array<IDropDownData>();
 
-	@Output() reloadData: EventEmitter<any> = new EventEmitter();
+	@Output() public reloadData: EventEmitter<any> = new EventEmitter();
 
-	@Output() cancelEditing: EventEmitter<any> = new EventEmitter();
+	@Output() public cancelEditing: EventEmitter<any> = new EventEmitter();
 
-	myForm!: FormGroup;
+	public myForm!: FormGroup;
 
-	metaData: any = MetaData;
+	public metaData: any = MetaData;
 
-	errors: string[] | null = null;
+	public errors: string[] | null = null;
 
-	messages: string[] | null = null;
+	public messages: string[] | null = null;
 
-	phoneMask = '(999) 000-0000';
+	public phoneMask = '(999) 000-0000';
 
-	constructor(
+	public constructor(
 		public _store: Store<IAppState>,
 		private actions$: Actions,
 		private _dropDownService: DropDownService,
@@ -85,7 +85,7 @@ export class PersonDetailsComponent
 		this.saveActions();
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		console.log(this.model.wardPatientIds);
 		this._dropDownService
 			.getLookup(LookupTypeCodes.sex)
@@ -115,11 +115,11 @@ export class PersonDetailsComponent
 		this.initForm();
 	}
 
-	ngOnChanges(): void {
+	public ngOnChanges(): void {
 		this.initForm();
 	}
 
-	title(): string {
+	public title(): string {
 		if (!this.model) {
 			return '';
 		}
@@ -135,7 +135,7 @@ export class PersonDetailsComponent
 		return 'Edit Person';
 	}
 
-	initForm(): void {
+	public initForm(): void {
 		this.myForm = new FormGroup({
 			lastname: new FormControl(this.model.lastname || ''),
 			firstname: new FormControl(this.model.firstname || ''),
@@ -170,16 +170,16 @@ export class PersonDetailsComponent
 		}
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	submit(): void {
+	public submit(): void {
 		const model = this.getModel();
 		this._store.dispatch(PersonActions.UpdatePerson(model));
 	}
 
-	getModel(): any {
+	public getModel(): any {
 		const { value } = this.myForm;
 		const result = {
 			...this.model,
@@ -189,22 +189,22 @@ export class PersonDetailsComponent
 		return result;
 	}
 
-	cancel(): void {
+	public cancel(): void {
 		this.cancelEditing.emit();
 	}
 
-	saved(): void {
+	public saved(): void {
 		this.reloadData.emit();
 		this.messages = ['Saved successfully'];
 		this.errors = null;
 		setTimeout(() => (this.messages = null), 5000);
 	}
 
-	selectedTab(fragment: string): boolean {
+	public selectedTab(fragment: string): boolean {
 		return this.fragment.length > 0 ? this.fragment === fragment : fragment === 'general';
 	}
 
-	saveActions(): void {
+	public saveActions(): void {
 		this.actions$
 			.pipe(takeUntil(this.unsubscribe), ofType(PersonActions.UpdatePersonComplete))
 			.subscribe(() => this.saved());

@@ -16,6 +16,13 @@ export class AuthenticationService implements OnInit {
 
 	public currentUser?: IUser | null;
 
+	public getCurrentUser(): IUser | null | undefined {
+		this.currentUser$.subscribe((user: IUser | null) => {
+			this.currentUser = user;
+		});
+		return this.currentUser;
+	}
+
 	public constructor(private http: HttpClient, private _store: Store<IAppState>) {}
 
 	public saveToken(token: string): void {

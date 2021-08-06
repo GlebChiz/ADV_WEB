@@ -24,27 +24,27 @@ import { CRMSearchActions } from 'src/app/core/store/crmsearch/crmsearch.actions
 export class CallEditorComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	@Input() model!: ICall;
+	@Input() public model!: ICall;
 
-	@Input() saveEvent!: Observable<void>;
+	@Input() public saveEvent!: Observable<void>;
 
-	@Output() confirmSave: EventEmitter<any> = new EventEmitter();
+	@Output() public confirmSave: EventEmitter<any> = new EventEmitter();
 
 	private saveSubscription!: Subscription;
 
-	advertisementSources = Array<IDropDownData>();
+	public advertisementSources = Array<IDropDownData>();
 
-	callerTypes = Array<IDropDownData>();
+	public callerTypes = Array<IDropDownData>();
 
-	areas = Array<IDropDownData>();
+	public areas = Array<IDropDownData>();
 
-	patientStatuses = Array<IDropDownData>();
+	public patientStatuses = Array<IDropDownData>();
 
-	suppressMessages = false;
+	public suppressMessages = false;
 
-	myForm!: FormGroup;
+	public myForm!: FormGroup;
 
-	metaData: any = {
+	public metaData: any = {
 		...MetaData,
 		lastname: 'Lastname',
 		firstname: 'Firstname',
@@ -52,13 +52,13 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		dob: 'DOB',
 	};
 
-	errors: string[] | null = null;
+	public errors: string[] | null = null;
 
-	messages: string[] | null = null;
+	public messages: string[] | null = null;
 
-	phoneMask = '(999) 000-0000';
+	public phoneMask = '(999) 000-0000';
 
-	constructor(
+	public constructor(
 		public _store: Store<IAppState>,
 		// private actions$: Actions,
 		private _dropDownService: DropDownService,
@@ -66,7 +66,7 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		private _router: Router,
 	) {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		combineLatest([
 			this._dropDownService.getCallerTypes(),
 			this._dropDownService.getLookup(LookupTypeCodes.area),
@@ -80,7 +80,7 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		this.saveSubscription = this.saveEvent.subscribe(() => this.submit());
 	}
 
-	sharedCallUrl() {
+	public sharedCallUrl() {
 		const currentAbsoluteUrl = window.location.href;
 		const currentRelativeUrl = this._router.url;
 		const index = currentAbsoluteUrl.indexOf(currentRelativeUrl);
@@ -89,7 +89,7 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		return `${baseUrl}/sharedcalllogin/${this.model.id}`;
 	}
 
-	copyUrl() {
+	public copyUrl() {
 		const selBox = document.createElement('textarea');
 		selBox.style.position = 'fixed';
 		selBox.style.left = '0';
@@ -103,15 +103,15 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		document.body.removeChild(selBox);
 	}
 
-	existingPatients() {
+	public existingPatients() {
 		return this.model.patients.filter((x) => x.patient !== null);
 	}
 
-	totalPatients(): number {
+	public totalPatients(): number {
 		return this.model.patients.length + (this.model.requestedPatients || 0);
 	}
 
-	requestedPatients() {
+	public requestedPatients() {
 		const list = [];
 		if (this.model.requestedPatients) {
 			for (let i = 0; i < this.model.requestedPatients; i++) {
@@ -126,7 +126,7 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		return list;
 	}
 
-	initForm(): void {
+	public initForm(): void {
 		this.myForm = new FormGroup({
 			callerId: new FormControl(this.model.callerId || ''),
 			fromPhone: new FormControl(this.model.fromPhone || ''),
@@ -157,21 +157,21 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	patientTitle(patient: any): string {
+	public patientTitle(patient: any): string {
 		if (!patient) {
 			return 'Not Completed';
 		}
 		return personTitle(patient.person);
 	}
 
-	patientStatusTitle(patient: any): string {
+	public patientStatusTitle(patient: any): string {
 		if (!patient) {
 			return 'Not Completed';
 		}
 		return this._dropDownService.getName(patient.statusId, this.patientStatuses);
 	}
 
-	availablePatientStatuses() {
+	public availablePatientStatuses() {
 		// patient: any
 		/* var item = this._dropDownService.getItem(patient.statusId, this.patientStatuses);
         if (item.orderNumber == PatientStatus.Prospective)
@@ -181,25 +181,25 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		return this.patientStatuses.map((x) => x.id);
 	}
 
-	checkListClass(status: CheckListItemStatus): string {
+	public checkListClass(status: CheckListItemStatus): string {
 		return checkListClassName(status);
 	}
 
-	savePatient(i: number) {
+	public savePatient(i: number) {
 		const model = this.getPatientModel(i);
 		this.suppressMessages = true;
 		this._store.dispatch(CallActions.SaveCallPatient({ model }));
 	}
 
-	allowToAddPatients(): boolean {
+	public allowToAddPatients(): boolean {
 		return this.model.callerType === CallerType.Parent;
 	}
 
-	getPatientControl(_i: number) {
+	public getPatientControl(_i: number) {
 		// return this.myForm.get('requestedPatients').controls[i];
 	}
 
-	getPatientModel(_i: number) {
+	public getPatientModel(_i: number) {
 		// const control = this.getPatientControl(i);
 		const result = {
 			callId: this.model.id,
@@ -210,36 +210,35 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		return result;
 	}
 
-	deletePatient() {
+	public deletePatient() {
 		this.suppressMessages = true;
 		const model = this.getModel();
 		model.requestedPatients = model.requestedPatients > 0 ? model.requestedPatients - 1 : null;
 		this._store.dispatch(CallActions.UpdateCall({ call: model }));
 	}
 
-	endCall() {
+	public endCall() {
 		this.suppressMessages = true;
 		this._store.dispatch(CallActions.EndCall({ callId: this.model.id }));
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this.saveSubscription.unsubscribe();
 		this._destroy$.next(null);
 	}
 
-	isNew() {
+	public isNew() {
 		return !this.model || this.model.callerType === CallerType.Unknown;
 	}
 
-	getCallerTypeName() {
+	public getCallerTypeName() {
 		return this.callerTypes.filter((x) => x.id === this.model.callerType.toString())[0]!.name;
 	}
 
-	submit(): void {
+	public submit(): void {
 		this.errors = null;
 		const model = this.getModel();
 		this._callService.updateModel(model).subscribe((result) => {
-			// console.log(result);
 			if (result.isSuccess === false) {
 				this.errors = [result.error];
 			} else {
@@ -250,11 +249,11 @@ export class CallEditorComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	formatCallTime(date: Date | null) {
+	public formatCallTime(date: Date | null) {
 		return formatDate(date!, 'MM/dd/yyyy hh:mm a', 'en-US');
 	}
 
-	getModel(): any {
+	public getModel(): any {
 		const { value } = this.myForm;
 		/*      const result = {
             id: this.model.id,

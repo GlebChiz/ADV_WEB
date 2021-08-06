@@ -15,42 +15,42 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 export class ClinicianManagerComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	gridId = 'clinician-manager-grid';
+	public gridId = 'clinician-manager-grid';
 
-	filterId = 'clinician-manager-filter';
+	public filterId = 'clinician-manager-filter';
 
-	clinicianModel: IClinician | null = null;
+	public clinicianModel: IClinician | null = null;
 
-	constructor(
+	public constructor(
 		private _store: Store<IAppState>, // private _service: CommonGridService
 	) {}
 
-	linkArray(
+	public linkArray(
 		// column: IGridColumnInfo,
 		item: any,
 	) {
 		return ['/clinician', item.id];
 	}
 
-	columns(): IGridColumnInfo[] {
+	public columns(): IGridColumnInfo[] {
 		return [{ name: 'name', title: 'Name', link: true } as IGridColumnInfo];
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._store.dispatch(
 			PageSettingsActions.SetTitle({ settings: { title: "Clinicians's Manager" } }),
 		);
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	reloadGrid() {
+	public reloadGrid(): void {
 		this._store.dispatch(GridActions.ReloadGrid({ gridId: this.gridId }));
 	}
 
-	createButton() {
+	public createButton() {
 		return {
 			navigate: ['/clinician', Guid.EMPTY],
 		};

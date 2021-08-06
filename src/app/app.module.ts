@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MenusModule } from '@progress/kendo-angular-menu';
@@ -27,6 +28,14 @@ import { ClinicianModule } from './screens/clinician/clinician.module';
 import { IntakeModule } from './screens/intake/intake.module';
 import { AdveniumFormModule } from './screens/form/form.module';
 import { SharedCallModule } from './screens/shared-call/shared-call.module';
+import { ModalityModule } from './screens/modality/modality.module';
+import { IAppState } from './core/store/state/app.state';
+import { AuthUserActions } from './core/store/user/user.actions';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function initApp(store: Store<IAppState>): any {
+	return (): void => store.dispatch(AuthUserActions.CheckToken());
+}
 
 @NgModule({
 	declarations: [
@@ -49,6 +58,7 @@ import { SharedCallModule } from './screens/shared-call/shared-call.module';
 		PatientsModule,
 		PersonModule,
 		PayersModule,
+		ModalityModule,
 		MenusModule,
 		BrowserAnimationsModule,
 		CallModule,
@@ -63,8 +73,16 @@ import { SharedCallModule } from './screens/shared-call/shared-call.module';
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+		{
+			provide: APP_INITIALIZER,
+			deps: [Store],
+			useFactory: initApp,
+			multi: true,
+		},
 	],
 	bootstrap: [AppComponent],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,13 +1,15 @@
-import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { SortDescriptor } from '@progress/kendo-data-query';
 import {
 	IGridColumnInfo,
+	IGridColumns,
+	IGridFilters,
 	IGridId,
 	IGridInfo,
 	IGridSettings,
+	IGridSortings,
 } from 'src/app/core/store/grid/grid.state';
 import { Guid } from 'guid-typescript';
 import {
@@ -16,6 +18,7 @@ import {
 	ColumnFilterType,
 	IColumnSort,
 } from 'src/app/core/models/filters/column-filter.model';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentification.service';
 // import { AuthenticationService } from 'src/app/shared/services/authentification.service';
 import { DataService } from './data.service';
@@ -58,11 +61,12 @@ export abstract class GridDataService extends DataService {
 			if (settings.columns) {
 				const cols = JSON.parse(settings.columns);
 
-				newInfo.columns.forEach((column: IGridColumnInfo, index: number) => {
-					if (column && cols[index]) {
-						column.visible = cols[index].visible;
-					}
+				Object.keys(newInfo.columns).forEach((key: string) => {
+				 	if (newInfo.columns[key] && cols[key]) {
+				 		newInfo.columns[key]!.visible = cols[key].visible !== false;
+				 	}
 				});
+
 				// for (const key in info.columns) {
 				// 	if (info.columns[key] && cols[key]) {
 				// 		info.columns[key]!.visible = cols[key].visible !== false;
@@ -71,7 +75,7 @@ export abstract class GridDataService extends DataService {
 			}
 			if (settings.filters) {
 				const filters = JSON.parse(settings.filters);
-				Object.keys(newInfo.filters).forEach((_value: string, key: number) => {
+				Object.keys(newInfo.filters).forEach((key: string) => {
 					if (newInfo.columns[key] && filters[key]) {
 						newInfo.filters[key] = filters[key];
 					}
@@ -84,7 +88,7 @@ export abstract class GridDataService extends DataService {
 			}
 			if (settings.sorting) {
 				const sort = JSON.parse(settings.sorting);
-				Object.keys(info.sorting).forEach((_value: string, key: number) => {
+				Object.keys(info.sorting).forEach((key: string) => {
 					if (newInfo.columns[key] && sort[key] && newInfo.columns[key]!.sortDirection! >= 0) {
 						newInfo.sorting[key] = sort[key];
 					}
@@ -99,8 +103,8 @@ export abstract class GridDataService extends DataService {
 		return newInfo;
 	}
 
-	private createFilters(columns: IGridColumnInfo[]): any {
-		const list: any = {};
+	private createFilters(columns: IGridColumnInfo[]): IGridFilters {
+		const list: IGridFilters = {};
 		const filters = columns.filter((c) => c.filter?.field);
 		filters.forEach((c) => {
 			list[c.name] = this.getDefaultFilter(c);
@@ -108,16 +112,16 @@ export abstract class GridDataService extends DataService {
 		return list;
 	}
 
-	private createColumns(columns: IGridColumnInfo[]) {
-		const list: any = {};
+	private createColumns(columns: IGridColumnInfo[]): IGridColumns {
+		const list: IGridColumns = {};
 		columns.forEach((c) => {
 			list[c.name] = c;
 		});
 		return list;
 	}
 
-	private createSorting(columns: IGridColumnInfo[]) {
-		const list: any = {};
+	private createSorting(columns: IGridColumnInfo[]): IGridSortings {
+		const list: IGridSortings = {};
 		const sorting = columns.filter((c) => c.sortDirection! >= 0);
 		sorting.forEach((c) => {
 			list[c.name] = {
@@ -218,10 +222,10 @@ export abstract class GridDataService extends DataService {
 		filterId: Guid,
 	): Observable<GridDataResult> {
 		return this.getWithController<GridDataResult>(controller, `${filterId}/${action}`).pipe(
-			map((response: GridDataResult) => {
-				const result: GridDataResult = {
-					data: this.generateUIDs(response.data),
-					total: parseInt(response.total.toString(), 10),
+			map((response: any) => {
+				const result: any = {
+					data: this.generateUIDs(response),
+					total: parseInt(response.length.toString(), 10),
 				};
 				return result;
 			}),

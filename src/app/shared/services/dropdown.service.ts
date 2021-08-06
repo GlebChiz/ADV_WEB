@@ -8,51 +8,51 @@ import { DataService } from './data.service';
 	providedIn: 'root',
 })
 export class DropDownService extends DataService {
-	constructor(http: HttpClient) {
+	public constructor(http: HttpClient) {
 		super(http, 'dropdowns');
 	}
 
-	getPatientModalityStatuses(): Observable<any[]> {
+	public getPatientModalityStatuses(): Observable<any[]> {
 		return this.get('patient-modality-statuses');
 	}
 
-	getModalities(): Observable<any[]> {
+	public getModalities(): Observable<any[]> {
 		return this.get('modalities');
 	}
 
-	getPatientStatuses(): Observable<any[]> {
+	public getPatientStatuses(): Observable<any[]> {
 		return this.get('patientStatuses');
 	}
 
-	getFormTypeLookup(formTypeCode: string): Observable<any[]> {
+	public getFormTypeLookup(formTypeCode: string): Observable<any[]> {
 		return this.get(`${formTypeCode}/form-types`);
 	}
 
-	getLookup(lookupTypeCode: string): Observable<any[]> {
+	public getLookup(lookupTypeCode: string): Observable<any[]> {
 		return this.get(`${lookupTypeCode}`);
 	}
 
-	getPayers(): Observable<any[]> {
+	public getPayers(): Observable<any[]> {
 		return this.get(`get-payers`);
 	}
 
-	getServiceTypes(): Observable<any[]> {
+	public getServiceTypes(): Observable<any[]> {
 		return this.get(`service-types`);
 	}
 
-	getServiceDeliveryTypes(): Observable<any[]> {
+	public getServiceDeliveryTypes(): Observable<any[]> {
 		return this.get(`service-delivery-types`);
 	}
 
-	getServiceStatuses(): Observable<any[]> {
+	public getServiceStatuses(): Observable<any[]> {
 		return this.get(`service-statuses`);
 	}
 
-	getCallerTypes(): Observable<any[]> {
+	public getCallerTypes(): Observable<any[]> {
 		return this.get(`get-caller-types`);
 	}
 
-	getName(valueId: Guid, values: any[]) {
+	public getName(valueId: Guid, values: any[]) {
 		if (!values) {
 			return '';
 		}
@@ -60,7 +60,7 @@ export class DropDownService extends DataService {
 		return found.length > 0 ? found[0].name : '';
 	}
 
-	getItem(valueId: Guid | null | string, values: any[]) {
+	public getItem(valueId: Guid | null | string, values: any[]) {
 		if (!values) {
 			return '';
 		}
@@ -68,7 +68,7 @@ export class DropDownService extends DataService {
 		return found.length > 0 ? found[0] : null;
 	}
 
-	filterByOrderNumbers(numbers: number[], values: any[]) {
+	public filterByOrderNumbers(numbers: number[], values: any[]) {
 		if (!values) {
 			return [];
 		}

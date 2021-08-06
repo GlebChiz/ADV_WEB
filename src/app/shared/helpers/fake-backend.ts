@@ -16,7 +16,7 @@ const users = [
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
-	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+	public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		const { url, method, body } = request;
 		// helper functions
 

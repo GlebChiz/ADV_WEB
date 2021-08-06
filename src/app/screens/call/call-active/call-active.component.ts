@@ -17,15 +17,15 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 export class CallActiveComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	call$!: Observable<ICall | null>;
+	public call$!: Observable<ICall | null>;
 
-	constructor(
+	public constructor(
 		// private route: ActivatedRoute,
 		private _store: Store<IAppState>,
 		private router: Router,
 	) {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.call$ = this._store.select(selectActiveCall).pipe(takeUntil(this._destroy$));
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: `Active Call` } }));
 		this._store.dispatch(CallActions.SetActiveCall({ call: null }));
@@ -42,7 +42,7 @@ export class CallActiveComponent implements OnInit, OnDestroy {
 
 	// ngOnChanges(): void {}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 }

@@ -543,6 +543,12 @@
 	display: inline-flex;
 }
 
+.clearfix::after {
+	display: block;
+	clear: both;
+	content: '';
+}
+
 .validation {
 	color: red;
 	padding-bottom: 5px;
@@ -638,3 +644,5 @@
 .adv-toolbar-row {
 	margin-bottom: 10px;
 }
+
+

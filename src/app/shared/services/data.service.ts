@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export abstract class DataService {
 	public constructor(private http: HttpClient, protected controller: string) {}
 
-	protected getUrl(controller: string) {
+	protected getUrl(controller: string): string {
 		return `${environment.apiUrl}/${controller}`;
 	}
 
@@ -18,11 +18,30 @@ export abstract class DataService {
 		params: HttpParams = new HttpParams(),
 	): Observable<T> {
 		const options = {
-			params,
+			params: params,
 		};
+
 		const url = this.getUrl(controller);
+
 		return this.http.get<T>(`${url}/${action || ''}`, options).pipe(catchError(this.formatErrors));
 	}
+
+	// getWithController(
+	// 	controller: string,
+	// 	action?: string,
+	// 	params: HttpParams = new HttpParams()
+	//   ): Observable<any> {
+	// 	const options = {
+	// 	  params: params,
+	// 	};
+
+	// 	const url = this.getUrl(controller);
+	// 	console.log(`${url}/${action ? action : ""}`);
+
+	// 	return this.http
+	// 	  .get(`${url}/${action ? action : ""}`, options)
+	// 	  .pipe(catchError(this.formatErrors));
+	//   }
 
 	public get<T>(action?: string, params: HttpParams = new HttpParams()): Observable<T> {
 		return this.getWithController<T>(this.controller, action, params);

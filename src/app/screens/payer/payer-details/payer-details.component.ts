@@ -32,26 +32,26 @@ export class PayerDetailsComponent
 {
 	private _destroy$ = new Subject();
 
-	readonly filterSettings: DropDownFilterSettings = {
+	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
 
-	@Input() readonly = false;
+	@Input() public readonly = false;
 
-	@Input() model!: IPayer | null;
+	@Input() public model!: IPayer | null;
 
-	payerTypes: any = Array<IDropDownData>();
+	public payerTypes: any = Array<IDropDownData>();
 
-	@Output() savePayer: EventEmitter<any> = new EventEmitter();
+	@Output() public savePayer: EventEmitter<any> = new EventEmitter();
 
-	myForm!: FormGroup;
+	public myForm!: FormGroup;
 
-	metaData: any = MetaData;
+	public metaData: any = MetaData;
 
-	phoneMask = '(999) 000-0000';
+	public phoneMask = '(999) 000-0000';
 
-	constructor(
+	public constructor(
 		public _store: Store<IAppState>,
 		private _dropDownService: DropDownService,
 		public validationService: ValidationMessageService,
@@ -60,7 +60,7 @@ export class PayerDetailsComponent
 		super();
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._dropDownService.getLookup(LookupTypeCodes.payerType).subscribe((x: any) => {
 			x.forEach((k: any) => (k.parentName = this._dropDownService.getName(k.parentId, x)));
 			this.payerTypes = groupBy(
@@ -71,11 +71,11 @@ export class PayerDetailsComponent
 		this.initForm();
 	}
 
-	ngOnChanges(): void {
+	public ngOnChanges(): void {
 		this.initForm();
 	}
 
-	title(): string {
+	public title(): string {
 		if (!this.model) {
 			return '';
 		}
@@ -91,14 +91,14 @@ export class PayerDetailsComponent
 		return 'Edit Payer';
 	}
 
-	initForm(): void {
+	public initForm(): void {
 		this.myForm = new FormGroup({
-			name: new FormControl(this.model!.name || ''),
-			carrierCode: new FormControl(this.model!.carrierCode || ''),
-			type: new FormControl(this.model!.type),
-			notes: new FormControl(this.model!.notes),
-			payerId: new FormControl(this.model!.payerId),
-			address: new FormControl(this.model!.address),
+			name: new FormControl(this.model?.name || ''),
+			carrierCode: new FormControl(this.model?.carrierCode || ''),
+			type: new FormControl(this.model?.type),
+			notes: new FormControl(this.model?.notes),
+			payerId: new FormControl(this.model?.payerId),
+			address: new FormControl(this.model?.address),
 		});
 
 		if (this.readonly === true) {
@@ -107,11 +107,11 @@ export class PayerDetailsComponent
 		this.validationService.clear();
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	submit(): void {
+	public submit(): void {
 		const model = this.getModel();
 		if (!model.type) {
 			this.validationService.display(['Payer type is empty'], false);
@@ -128,7 +128,7 @@ export class PayerDetailsComponent
 		}
 	}
 
-	getModel(): any {
+	public getModel(): any {
 		const { value } = this.myForm;
 		const result = {
 			...this.model,
@@ -138,16 +138,16 @@ export class PayerDetailsComponent
 		return result;
 	}
 
-	cancel(): void {
+	public cancel(): void {
 		this.model = null;
 	}
 
-	saved(): void {
+	public saved(): void {
 		this.savePayer.emit();
 		this.model = null;
 	}
 
-	saveActions(result: any): void {
+	public saveActions(result: any): void {
 		if (result.isSuccess === true) {
 			this.saved();
 		} else {

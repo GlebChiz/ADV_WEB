@@ -12,29 +12,29 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 export class PatientManagerComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	gridId = 'patient-manager-grid';
+	public gridId = 'patient-manager-grid';
 
-	filterId = 'patient-manager-filter';
+	public filterId = 'patient-manager-filter';
 
-	constructor(
+	public constructor(
 		private _store: Store<IAppState>, // private _service: CommonGridService
 	) {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._store.dispatch(
 			PageSettingsActions.SetTitle({ settings: { title: "Patients's Manager" } }),
 		);
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	columns(): IGridColumnInfo[] {
+	public columns(): IGridColumnInfo[] {
 		return [{ name: 'name', title: 'Name', link: true } as IGridColumnInfo];
 	}
 
-	linkArray(item: any) {
+	public linkArray(item: any) {
 		return ['/patient', item.id];
 	}
 }

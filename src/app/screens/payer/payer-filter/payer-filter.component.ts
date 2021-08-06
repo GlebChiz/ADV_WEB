@@ -13,21 +13,21 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	templateUrl: './payer-filter.component.html',
 })
 export class PayerFilterComponent implements OnInit {
-	filterForm!: FormGroup;
+	public filterForm!: FormGroup;
 
-	show = false;
+	public show = false;
 
-	status$: any;
+	public status$: any;
 
 	private _destroy$ = new Subject();
 
-	@Input() filterId!: string;
+	@Input() public filterId!: string;
 
-	constructor(private _fb: FormBuilder, private _store: Store<IAppState>) {}
+	public constructor(private _fb: FormBuilder, private _store: Store<IAppState>) {}
 
-	open() {}
+	public open() {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.status$ = this._store.pipe(
 			select(selectFilterStatus, this.filterId),
 			takeUntil(this._destroy$),
@@ -47,7 +47,7 @@ export class PayerFilterComponent implements OnInit {
 		});
 	}
 
-	initForm(value: any) {
+	public initForm(value: any) {
 		if (!this.filterForm) {
 			this.filterForm = this._fb.group({
 				search: this._fb.control(null),
@@ -56,23 +56,23 @@ export class PayerFilterComponent implements OnInit {
 		this.filterForm.setValue(value);
 	}
 
-	onKeyDown(pressedKey: KeyboardEvent) {
+	public onKeyDown(pressedKey: KeyboardEvent) {
 		if (pressedKey.key === 'Enter') {
 			this.filter();
 		}
 	}
 
-	filter(): void {
+	public filter(): void {
 		this._store.dispatch(
 			FilterActions.SetFilter({ id: this.filterId, filter: this.filterForm.value }),
 		);
 	}
 
-	close(): void {
+	public close(): void {
 		this._store.dispatch(FilterActions.CloseFilter({ id: this.filterId }));
 	}
 
-	reset(): void {
+	public reset(): void {
 		/* if (!confirm('Are you sure you want to reset Filters?')) {
         return;
       } */

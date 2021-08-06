@@ -24,10 +24,10 @@ export class CRMSearchService extends DataService {
 		super(http, 'crm');
 	}
 
-	private getKeys(arr: string[]): number[] {
-		const keys: number[] = [];
+	private getKeys(arr: any): string[] {
+		const keys: string[] = [];
 		if (arr) {
-			Object.keys(arr).forEach((_value: string, key: number) => {
+			Object.keys(arr).forEach((key: string) => {
 				if (arr[key]) {
 					keys.push(key);
 				}
@@ -44,21 +44,21 @@ export class CRMSearchService extends DataService {
 	public clearResult(result: ICRMResult, search: ICRMSearch): void {
 		const filter: ICRMSearchFilter = this.getFilter(search, null);
 
-		const phoneKeys: number[] = this.getKeys(result?.byPhone);
-		phoneKeys.forEach((key: number) => {
+		const phoneKeys: string[] = this.getKeys(result?.byPhone);
+		phoneKeys.forEach((key: string) => {
 			if (!filter.phones.includes(key.toString())) {
 				delete result.byPhone[key];
 			}
 		});
 
-		const lastnameKeys: number[] = this.getKeys(result?.byLastname);
-		lastnameKeys.forEach((key: number) => {
+		const lastnameKeys: string[] = this.getKeys(result?.byLastname);
+		lastnameKeys.forEach((key: string) => {
 			if (!filter.lastnames.includes(key.toString())) {
 				delete result.byLastname[key];
 			}
 		});
-		const callerIdKeys: number[] = this.getKeys(result?.byCallerId);
-		callerIdKeys.forEach((key: number) => {
+		const callerIdKeys: string[] = this.getKeys(result?.byCallerId);
+		callerIdKeys.forEach((key: string) => {
 			if (filter.callerId !== key.toString()) {
 				delete result.byCallerId[key];
 			}
@@ -143,7 +143,7 @@ export class CRMSearchService extends DataService {
 		});
 
 		const output: ICRMPersonFound[] = [];
-		Object.keys(keys).forEach((_value: string, key: number) => {
+		Object.keys(keys).forEach((key: string) => {
 			if (keys[key]) {
 				output.push(keys[key]);
 			}
@@ -159,9 +159,9 @@ export class CRMSearchService extends DataService {
 	public getResultPersons(result: ICRMResult): ICRMPersonFound[] {
 		const persons: any[] = [];
 		if (result?.byPhone) {
-			Object.keys(result.byPhone).forEach((_value: string, p: number) => {
-				if (result.byPhone[p]) {
-					persons.push(result.byPhone[p]);
+			Object.keys(result.byPhone).forEach((key: string) => {
+				if (result.byPhone[key]) {
+					persons.push(result.byPhone[key]);
 				}
 			});
 			// for (const p in result.byPhone) {
@@ -171,9 +171,9 @@ export class CRMSearchService extends DataService {
 			// }
 		}
 		if (result?.byLastname) {
-			Object.keys(result.byLastname).forEach((_value: string, p: number) => {
-				if (result.byLastname[p]) {
-					persons.push(result.byLastname[p]);
+			Object.keys(result.byLastname).forEach((key: string) => {
+				if (result.byLastname[key]) {
+					persons.push(result.byLastname[key]);
 				}
 			});
 			// for (const p in result.byLastname) {
@@ -183,9 +183,9 @@ export class CRMSearchService extends DataService {
 			// }
 		}
 		if (result?.byCallerId) {
-			Object.keys(result.byCallerId).forEach((_value: string, p: number) => {
-				if (result.byCallerId[p]) {
-					persons.push(result.byCallerId[p]);
+			Object.keys(result.byCallerId).forEach((key: string) => {
+				if (result.byCallerId[key]) {
+					persons.push(result.byCallerId[key]);
 				}
 			});
 			// for (const p in result.byCallerId) {
@@ -201,7 +201,7 @@ export class CRMSearchService extends DataService {
 	public getSearchPhones(search: ICRMSearch, byPhone: any = null): string[] {
 		const phones: string[] = this.getCallPhones(search?.call);
 		if (search?.phones) {
-			Object.keys(search.phones).forEach((_value: string, key: number) => {
+			Object.keys(search.phones).forEach((key: string) => {
 				if (search.phones[key]) {
 					phones.push(search.phones[key]);
 				}
@@ -213,7 +213,7 @@ export class CRMSearchService extends DataService {
 	public getSearchLastnames(search: ICRMSearch, byLastname: any = null): string[] {
 		const names: string[] = this.getCallLastnames(search?.call);
 		if (search?.lastnames) {
-			Object.keys(search.lastnames).forEach((_value: string, key: number) => {
+			Object.keys(search.lastnames).forEach((key: string) => {
 				if (search.lastnames[key]) {
 					names.push(search.lastnames[key]);
 				}

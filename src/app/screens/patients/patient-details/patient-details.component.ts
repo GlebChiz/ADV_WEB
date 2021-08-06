@@ -26,44 +26,44 @@ export class PatientDetailsComponent
 {
 	private _destroy$ = new Subject();
 
-	readonly filterSettings: DropDownFilterSettings = {
+	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
 
-	@Input() isEditMode = true;
+	@Input() public isEditMode = true;
 
-	@Input() personId!: Guid;
+	@Input() public personId!: Guid;
 
-	@Input() patientId!: Guid | string | null;
+	@Input() public patientId!: Guid | string | null;
 
-	@Input() showCancel = false;
+	@Input() public showCancel = false;
 
-	@Input() fragment = '';
+	@Input() public fragment = '';
 
-	show = false;
+	public show = false;
 
-	canSaveNow = true;
+	public canSaveNow = true;
 
-	@Output() reloadData: EventEmitter<any> = new EventEmitter();
+	@Output() public reloadData: EventEmitter<any> = new EventEmitter();
 
-	@Output() cancelEditing: EventEmitter<any> = new EventEmitter();
+	@Output() public cancelEditing: EventEmitter<any> = new EventEmitter();
 
-	metaData: any = MetaData;
+	public metaData: any = MetaData;
 
-	errors: string[] | null = null;
+	public errors: string[] | null = null;
 
-	messages: string[] | null = null;
+	public messages: string[] | null = null;
 
-	phoneMask = '(999) 000-0000';
+	public phoneMask = '(999) 000-0000';
 
-	areas = Array<IDropDownData>();
+	public areas = Array<IDropDownData>();
 
-	beforeNext: Subject<void> = new Subject<void>();
+	public beforeNext: Subject<void> = new Subject<void>();
 
-	myForm!: FormGroup;
+	public myForm!: FormGroup;
 
-	constructor(
+	public constructor(
 		public _store: Store<IAppState>,
 		private actions$: Actions, // private _dropDownService: DropDownService, // private formService: FormService, // private router: Router,
 	) {
@@ -71,7 +71,7 @@ export class PatientDetailsComponent
 		this.saveActions();
 	}
 
-	formPersonRoles() {
+	public formPersonRoles() {
 		return [
 			{
 				personId: this.personId,
@@ -82,12 +82,12 @@ export class PatientDetailsComponent
 
 	// ngOnInit(): void {}
 
-	ngOnChanges(): void {
+	public ngOnChanges(): void {
 		// console.log('on changes');
 		this.initForm();
 	}
 
-	title(): string {
+	public title(): string {
 		/*
         if (!this.model) { return ''; }
 
@@ -102,15 +102,15 @@ export class PatientDetailsComponent
 		return 'Edit Patient';
 	}
 
-	changeTab(e: SelectEvent) {
+	public changeTab(e: SelectEvent) {
 		this.canSaveNow = e.title !== 'Forms';
 	}
 
-	selectedTab(fragment: string): boolean {
+	public selectedTab(fragment: string): boolean {
 		return this.fragment.length > 0 ? this.fragment === fragment : fragment === 'general';
 	}
 
-	initForm(): void {
+	public initForm(): void {
 		this.show = false;
 
 		if (!this.isEditMode) {
@@ -120,7 +120,7 @@ export class PatientDetailsComponent
 		setTimeout(() => (this.show = true), 0);
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
@@ -131,7 +131,7 @@ export class PatientDetailsComponent
     }
     */
 
-	getModalitiesModel(status: PatientModalityStatus, values: Guid[]) {
+	public getModalitiesModel(status: PatientModalityStatus, values: Guid[]): IPatientModality[] {
 		const items = values.map((x) => {
 			return {
 				modalityId: x,
@@ -185,15 +185,15 @@ export class PatientDetailsComponent
     }
     */
 
-	cancel(): void {
+	public cancel(): void {
 		this.cancelEditing.emit();
 	}
 
-	save(): void {
+	public save(): void {
 		this.beforeNext.next();
 	}
 
-	saved(): void {
+	public saved(): void {
 		this.reloadData.emit();
 		this.messages = ['Saved successfully'];
 		this.errors = null;
@@ -201,7 +201,7 @@ export class PatientDetailsComponent
 		// this.cancelEditing.emit();
 	}
 
-	saveActions(): void {
+	public saveActions(): void {
 		this.actions$
 			.pipe(takeUntil(this.unsubscribe), ofType(PatientActions.UpdatePatientComplete))
 			.subscribe(() => this.saved());

@@ -18,27 +18,27 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 	encapsulation: ViewEncapsulation.None,
 })
 export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
-	@Input() gridId!: string;
+	@Input() public gridId!: string;
 
-	@Input() filterId!: string;
+	@Input() public filterId!: string;
 
-	lookup: IGridInfo[] = [];
+	public lookup: IGridInfo[] = [];
 
-	currentId!: Guid;
+	public currentId!: Guid;
 
-	currentTitle!: string;
+	public currentTitle!: string;
 
-	show = false;
+	public show = false;
 
 	private _destroy$ = new Subject();
 
-	constructor(private _store: Store<IAppState>, private _service: CommonGridService) {}
+	public constructor(private _store: Store<IAppState>, private _service: CommonGridService) {}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 
-	getTitle() {
+	public getTitle() {
 		if (this.currentId === null) {
 			return 'No Saved Views';
 		}
@@ -49,11 +49,11 @@ export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
 		return item.title;
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this.setCurrent(null, 'default');
 	}
 
-	actions() {
+	public actions() {
 		const list = [];
 		if (this.lookup.length === 0) {
 			list.push({
@@ -98,13 +98,13 @@ export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
 		return list;
 	}
 
-	onSave(result: any, id: Guid | string | null) {
+	public onSave(result: any, id: Guid | string | null) {
 		if (result.isSuccess === true) {
 			this.setCurrent(id, 'last');
 		}
 	}
 
-	saveCurrentView(duplicate: boolean = false) {
+	public saveCurrentView(duplicate: boolean = false) {
 		this._store
 			.pipe(select(selectGridInfo, { gridId: this.gridId }))
 			.pipe(take(1))
@@ -124,7 +124,7 @@ export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	makeDefault() {
+	public makeDefault() {
 		if (this.currentId) {
 			this._service.makeIGridSettingsDefault(this.currentId).subscribe((result) => {
 				this.onSave(result, this.currentId);
@@ -132,7 +132,7 @@ export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	onAction(e: any) {
+	public onAction(e: any) {
 		switch (e.cmd) {
 			case 'save':
 				this.saveCurrentView();
@@ -148,7 +148,7 @@ export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	setCurrent(id: Guid | string | null, type: string | null) {
+	public setCurrent(id: Guid | string | null, type: string | null) {
 		this._service.getGridViews(this.gridId).subscribe((x) => {
 			this.lookup = x;
 			if (x && x.length > 0) {
@@ -175,7 +175,7 @@ export class IGridSettingsChooserComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	onView(e: any) {
+	public onView(e: any) {
 		this.setCurrent(e.id, 'default');
 	}
 }

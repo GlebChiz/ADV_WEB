@@ -6,6 +6,7 @@ import { map, catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 // import { AuthenticationService } from '../../../shared/services/authentification.service';
 import { AuthenticationService } from 'src/app/shared/services';
+import { ActivatedRoute } from '@angular/router';
 import { AuthUserActions, UserActions } from './user.actions';
 // import { Router } from '@angular/router';
 
@@ -31,6 +32,8 @@ export class UserEffects {
 					return this.authenticationService.login(login, password).pipe(
 						map((user: IUser) => {
 							this.authenticationService.saveToken(user.token);
+							window.location.href = this.route.snapshot.queryParams.returnUrl;
+							// this.router.navigate([this.route.snapshot.queryParams.returnUrl]);
 							return AuthUserActions.SignInComplete({ user });
 						}),
 						catchError((errors) => {
@@ -46,8 +49,6 @@ export class UserEffects {
 		this.actions$.pipe(
 			ofType(AuthUserActions.CheckToken),
 			switchMap(() => {
-				console.log('checkToken');
-
 				return this.authenticationService.checkToken().pipe(
 					map((user: IUser) => {
 						return AuthUserActions.SignInComplete({ user });
@@ -96,7 +97,9 @@ export class UserEffects {
 */
 	public constructor(
 		private actions$: Actions,
+		private route: ActivatedRoute,
 		private userService: UserService,
+		// private router: Router,
 		private authenticationService: AuthenticationService, // private router: Router,
 	) {}
 }

@@ -12,16 +12,16 @@ import { IAppState } from 'src/app/core/store/state/app.state';
 export class MyCallsListComponent implements OnInit, OnDestroy {
 	private _destroy$ = new Subject();
 
-	gridId = 'mycalls-list';
+	public gridId = 'mycalls-list';
 
-	linkArray(
+	public linkArray(
 		// column: IGridColumnInfo,
 		item: any,
 	) {
 		return ['/call', item.id];
 	}
 
-	columns(): IGridColumnInfo[] {
+	public columns(): IGridColumnInfo[] {
 		return [
 			{
 				name: 'callTime',
@@ -36,13 +36,13 @@ export class MyCallsListComponent implements OnInit, OnDestroy {
 		];
 	}
 
-	constructor(private _store: Store<IAppState>) {}
+	public constructor(private _store: Store<IAppState>) {}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: 'My Calls' } }));
 	}
 
-	ngOnDestroy(): void {
+	public ngOnDestroy(): void {
 		this._destroy$.next(null);
 	}
 }

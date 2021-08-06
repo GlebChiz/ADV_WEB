@@ -1,0 +1,17 @@
+<!-- <advenium-data-list
+	[gridId]="gridId"
+	[controller]="'modality'"
+	[columns]="columns()"
+	[linkArray]="linkArray"
+    (editItem)="openDetails($event)"
+    (duplicateItem)="openDuplicate($event)"
+    (removeItem)="remove($event)"
+    (createItem)="openNewItem()"
+    [showModify]="true"
+	[showDuplicate]="true"
+	[showRemove]="true"
+>
+</advenium-data-list>
+<advenium-payer-details *ngIf="modalityModel" [model]="modalityModel" (savePayer)="onSave()">
+</advenium-payer-details> -->
+<advenium-modality-table storePath='modalityTable' controller='modality'></advenium-modality-table>

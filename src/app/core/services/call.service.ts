@@ -18,9 +18,9 @@ export class CallService extends GridDataService {
 	public getActiveCall(): Observable<ICall> {
 		// void
 		// let currentUserId: number | undefined;
-
+		// if (this.auth.currentUser) {
 		return this.get(`${this.auth.currentUser?.userId}/active`); // TODO
-
+		// }
 		// if (currentUserId) {
 		// return this.get(`${currentUserId}/active`);
 		// }

@@ -16,7 +16,7 @@ export class CommonGridService extends GridDataService {
 		state: DataStateChangeEvent,
 		filter?: any,
 	): Observable<GridDataResult> {
-		const filterId = Guid.create();
+		const filterId: Guid = Guid.create();
 		return this.saveFilterWithController(
 			controller,
 			'grid-filter',

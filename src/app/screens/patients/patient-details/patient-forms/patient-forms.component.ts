@@ -15,20 +15,20 @@ import { DropDownService } from 'src/app/shared/services/dropdown.service';
 	templateUrl: './patient-forms.component.html',
 })
 export class PatientFormsComponent extends UnsubscriableBaseDirective implements OnInit, OnDestroy {
-	readonly filterSettings: DropDownFilterSettings = {
+	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
 
-	@Input() model!: IPatient;
+	@Input() public model!: IPatient;
 
-	formTypeLookup = Array<IDropDownData>();
+	public formTypeLookup = Array<IDropDownData>();
 
-	metaData: any = MetaData;
+	public metaData: any = MetaData;
 
-	modalitySelectionForm!: IFormGroup;
+	public modalitySelectionForm!: IFormGroup;
 
-	constructor(
+	public constructor(
 		public _store: Store<IAppState>,
 		private _dropDownService: DropDownService,
 		private formService: FormService,
@@ -36,14 +36,14 @@ export class PatientFormsComponent extends UnsubscriableBaseDirective implements
 		super();
 	}
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._dropDownService.getFormTypeLookup(FormTypeLookupCodes.PatientForms).subscribe((x) => {
 			this.formTypeLookup = x;
 		});
-		this.initForm();
+		// this.initForm();
 	}
 
-	availableFormTypes() {
+	public availableFormTypes() {
 		const list: Object[] = [];
 		this.model.groups.forEach((g) => {
 			g.items.forEach((i) => {
@@ -60,7 +60,7 @@ export class PatientFormsComponent extends UnsubscriableBaseDirective implements
 		return list;
 	}
 
-	onFormCreate(data: any) {
+	public onFormCreate(data: any): void {
 		const createFormModel = {
 			revisionId: data.id,
 			formPersons: [
@@ -79,6 +79,4 @@ export class PatientFormsComponent extends UnsubscriableBaseDirective implements
             } */
 		});
 	}
-
-	initForm(): void {}
 }
