@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { CoreModule } from 'src/app/core/modules/core.module';
+import { KendoModule } from 'src/app/core/modules/kendo/kendo.module';
 
 import { TableEffects } from 'src/app/shared/table/table.effect';
 import { GET_TABLE_DATA_PENDING, UPDATE_TABLE_STATE } from 'src/app/shared/table/table.tokens';
@@ -18,10 +20,10 @@ import { modalityTableReducers } from './modality-table/modality-table.reducers'
 @NgModule({
 	imports: [
 		CommonModule,
-		// KendoModule,
+		KendoModule,
 		// FormsModule,
 		// ReactiveFormsModule,
-		// CoreModule,
+		CoreModule,
 		RouterModule,
 		StoreModule.forFeature('modalityTable', modalityTableReducers),
 		EffectsModule.forFeature([TableEffects]),

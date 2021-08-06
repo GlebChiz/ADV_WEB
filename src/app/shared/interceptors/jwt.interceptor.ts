@@ -8,7 +8,7 @@ import {
 	HttpHeaders,
 	HttpResponse,
 } from '@angular/common/http';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentification.service';
 // import { AuthenticationService } from 'src/app/shared/services/authentification.service';
@@ -27,12 +27,7 @@ export class JwtInterceptor implements HttpInterceptor {
 		const jsonReq: HttpRequest<any> = req.clone({
 			headers,
 		});
-		return next.handle(jsonReq).pipe(
-			filter(this._isHttpResponse),
-			map((res: HttpResponse<any>) => {
-				return res.clone({ body: res.body && res.body.data });
-			}),
-		);
+		return next.handle(jsonReq).pipe(filter(this._isHttpResponse));
 	}
 
 	private _isHttpResponse(event: HttpEvent<any>): event is HttpResponse<any> {

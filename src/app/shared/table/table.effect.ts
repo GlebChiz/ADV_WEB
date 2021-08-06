@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { map, switchMap } from 'rxjs/operators';
 import { CommonGridService } from 'src/app/core/services/grid.service';
 import { IAppState } from 'src/app/core/store/state/app.state';
+import { IFilter } from './table.model';
 // import { DataService } from '../services/data.service';
 import { GET_TABLE_DATA_PENDING, UPDATE_TABLE_STATE } from './table.tokens';
 
@@ -24,21 +25,38 @@ export class TableEffects {
 	public getTableData$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(this.getTableDataPending),
-
-			switchMap(({ controller }: { controller: string }) =>
-				this._modalityService
+			switchMap(({ controller, filter }: { controller: string; filter: IFilter }) => {
+				return this._modalityService
 					.getGridList(`${controller}-manager-grid`, controller, {
-						skip: 0,
-						take: 10,
+						skip: filter.countSkipItems,
+						take: filter.take,
 						sort: [],
 					})
 					.pipe(
 						map((result: any) => {
-							console.log(result);
 							return this.updateTableState({ data: result });
 						}),
-					),
-			),
+					);
+			}),
+		);
+	});
+
+	public deleteItemTableData$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(this.getTableDataPending),
+			switchMap(({ controller, filter }: { controller: string; filter: IFilter }) => {
+				return this._modalityService
+					.getGridList(`${controller}-manager-grid`, controller, {
+						skip: filter.countSkipItems,
+						take: filter.take,
+						sort: [],
+					})
+					.pipe(
+						map((result: any) => {
+							return this.updateTableState({ data: result });
+						}),
+					);
+			}),
 		);
 	});
 }

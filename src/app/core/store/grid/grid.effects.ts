@@ -14,7 +14,7 @@ export class GridEffects {
 				return this.service
 					.getGridList(payload.gridId, payload.controller, payload.state, payload.filter)
 					.pipe(
-						map((response) => {
+						map((response: any) => {
 							return GridActions.GetListSuccess({ gridId: payload.gridId, data: response });
 						}),
 						catchError(() => EMPTY),

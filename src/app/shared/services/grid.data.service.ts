@@ -62,9 +62,9 @@ export abstract class GridDataService extends DataService {
 				const cols = JSON.parse(settings.columns);
 
 				Object.keys(newInfo.columns).forEach((key: string) => {
-				 	if (newInfo.columns[key] && cols[key]) {
-				 		newInfo.columns[key]!.visible = cols[key].visible !== false;
-				 	}
+					if (newInfo.columns[key] && cols[key]) {
+						newInfo.columns[key]!.visible = cols[key].visible !== false;
+					}
 				});
 
 				// for (const key in info.columns) {
@@ -182,7 +182,7 @@ export abstract class GridDataService extends DataService {
 		const data = {
 			Filter: filterModel || {},
 			...gridParams,
-			...{ gridId, sorting: filterModel?.sorting || [] },
+			...{ gridId: gridId, sorting: filterModel?.sorting || [] },
 		};
 		data.Filter.FilterId = filterId.toString();
 		return this.postWithController(controller, action, data);
@@ -224,8 +224,8 @@ export abstract class GridDataService extends DataService {
 		return this.getWithController<GridDataResult>(controller, `${filterId}/${action}`).pipe(
 			map((response: any) => {
 				const result: any = {
-					data: this.generateUIDs(response),
-					total: parseInt(response.length.toString(), 10),
+					data: this.generateUIDs(response['data']),
+					total: response['total'],
 				};
 				return result;
 			}),

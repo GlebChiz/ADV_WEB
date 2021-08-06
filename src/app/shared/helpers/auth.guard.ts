@@ -13,11 +13,9 @@ export class AuthGuard implements CanActivate {
 	// private currentUser!: IUser | null;
 
 	// public ngOnInit(): void {
-	// 	console.log(1);
 	// 	this._store.select('userState', 'user').subscribe((user: IUser | null) => {
 	// 		this.currentUser = user;
 	// 	});
-	// 	console.log(2);
 	// }
 
 	public canActivate(

@@ -14,4 +14,34 @@
 </advenium-data-list>
 <advenium-payer-details *ngIf="modalityModel" [model]="modalityModel" (savePayer)="onSave()">
 </advenium-payer-details> -->
-<advenium-modality-table storePath='modalityTable' controller='modality'></advenium-modality-table>
+<advenium-modality-table storePath='patientTable' controller='patient' [filter]="filter">
+</advenium-modality-table>
+<kendo-grid
+    [filterable]="true"
+    [groupable]="true"
+	[data]="{total: totalData, data: gridData}"
+    [sortable]="true"
+    [resizable]="true"
+    [loading]="isLoading"
+    [skip]="filter.countSkipItems"
+    [pageSize]="filter.take"
+    (dataStateChange)="this.onDataStateChange($event)"
+    [pageable]="{ pageSizes: [5, 10, 20, 50, 100] }"
+    [height]="510">
+        <kendo-grid-column field="name" title="Name" [width]="100"></kendo-grid-column>
+        <kendo-grid-column field="address" title="Address" [width]="100"></kendo-grid-column>
+        <kendo-grid-column field="Remove" title=" " [width]="35" >
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <advenium-grid-remove-cell (action)="remove($event)">
+              </advenium-grid-remove-cell>
+            </ng-template>
+        </kendo-grid-column>
+</kendo-grid>   
+
+<!-- <advenium-data-list
+	[gridId]="gridId"
+	[filterId]="filterId"
+	[controller]="'patient'"
+	[columns]="columns()"
+	[linkArray]="linkArray"
+> -->

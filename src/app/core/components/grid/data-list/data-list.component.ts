@@ -148,7 +148,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		return false;
 	}
 
-clickLookup(column: IGridColumnInfo, item: any, subType: any) {
+	public clickLookup(column: IGridColumnInfo, item: any, subType: any): boolean {
 		if (this.clickLookupItem) {
 			this.clickLookupItem(column, item, subType);
 		}
@@ -162,7 +162,7 @@ clickLookup(column: IGridColumnInfo, item: any, subType: any) {
 
 		const vc = Object.values(this.gridInfo.columns)
 			.filter((x: IGridColumnInfo) => x.visible !== false)
-			.map(x => x as IGridColumnInfo);
+			.map((x) => x as IGridColumnInfo);
 		return vc;
 	}
 
