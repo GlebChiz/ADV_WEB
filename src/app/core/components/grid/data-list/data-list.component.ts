@@ -278,6 +278,7 @@ export class DataListComponent implements OnInit, OnDestroy {
 		this.filterModel = this.filterModel ? { ...this.filterModel } : {};
 		this.addColumnFilters();
 		this.addColumnSorting();
+
 		this.store.dispatch(
 			GridActions.GetList({
 				gridId: this.gridId,

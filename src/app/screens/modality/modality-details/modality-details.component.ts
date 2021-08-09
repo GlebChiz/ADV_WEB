@@ -1,25 +1,28 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Guid } from 'guid-typescript';
 
 import { UnsubscriableBaseDirective } from 'src/app/core/components/unsubscriable.base.directive';
 import { IDropDownData } from 'src/app/core/models/kendo/dropdown-data.model';
-import { IPatientModality, MetaData } from 'src/app/core/models/patient.model';
-import { ModalityService } from 'src/app/core/services/modality.service';
+import { MetaData } from 'src/app/core/models/patient.model';
 import { ValidationMessageService } from 'src/app/core/services/validation.message.service';
+import { GridActions } from 'src/app/core/store/grid/grid.actions';
+import { IAppState } from 'src/app/core/store/state/app.state';
 
 @Component({
 	providers: [],
 	selector: 'advenium-modality-details',
 	templateUrl: './modality-details.component.html',
 })
-export class ModalityDetailsComponent extends UnsubscriableBaseDirective {
+export class ModalityDetailsComponent
+	extends UnsubscriableBaseDirective
+	implements OnChanges, OnInit
+{
 	public constructor(
-		// public _store: Store<IAppState>,
-		// private _dropDownService: DropDownService,
 		public validationService: ValidationMessageService,
-		private _service: ModalityService,
+		private _store: Store<IAppState>,
 	) {
 		super();
 	}
@@ -47,6 +50,25 @@ export class ModalityDetailsComponent extends UnsubscriableBaseDirective {
 		return result;
 	}
 
+	public ngOnChanges(): void {
+		this.initForm();
+	}
+
+	public ngOnInit(): void {
+		this.initForm();
+	}
+
+	public initForm(): void {
+		this.myForm = new FormGroup({
+			name: new FormControl(this.model?.name || ''),
+			id: new FormControl(this.model?.id || ''),
+		});
+		if (this.readonly === true) {
+			this.myForm.disable();
+		}
+		this.validationService.clear();
+	}
+
 	public saved(): void {
 		this.saveModality.emit();
 		this.model = null;
@@ -62,28 +84,24 @@ export class ModalityDetailsComponent extends UnsubscriableBaseDirective {
 
 	public submit(): void {
 		const model = this.getModel();
-		if (!model.type) {
-			this.validationService.display(['Payer type is empty'], false);
-			return;
-		}
-		if (!model.id || model.id.toString() === Guid.EMPTY) {
-			this._service.createModel(model).subscribe((result) => {
-				this.saveActions(result);
-			});
+
+		if (!this.model.id) {
+			this._store.dispatch(GridActions.SaveNewEntity({ entity: model }));
 		} else {
-			this._service.updateModel(model).subscribe((result) => {
-				this.saveActions(result);
-			});
+			this._store.dispatch(GridActions.SaveChangedEntity({ entity: model }));
 		}
+		this.model = null;
 	}
 
 	public myForm!: FormGroup;
 
 	public modalityTypes: IDropDownData[] = Array<IDropDownData>();
 
-	@Input() public model!: IPatientModality | null;
+	@Input() public model!: any;
 
 	@Input() public readonly = false;
+
+	@Output() public savePayer: EventEmitter<any> = new EventEmitter();
 
 	public title(): string {
 		if (!this.model) {

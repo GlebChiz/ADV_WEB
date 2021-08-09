@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
@@ -8,11 +9,23 @@ import { CoreModule } from 'src/app/core/modules/core.module';
 import { KendoModule } from 'src/app/core/modules/kendo/kendo.module';
 
 import { TableEffects } from 'src/app/shared/table/table.effect';
-import { GET_TABLE_DATA_PENDING, UPDATE_TABLE_STATE } from 'src/app/shared/table/table.tokens';
+import {
+	GET_TABLE_DATA_PENDING,
+	UPDATE_TABLE_STATE,
+	DELETE_ITEM_TABLE_PENDING,
+	CREATE_ITEM_TABLE_PENDING,
+	EDIT_ITEM_TABLE_PENDING,
+	DUBLICATE_ITEM_TABLE_PENDING,
+} from 'src/app/shared/table/table.tokens';
+import { ModalityDetailsComponent } from './modality-details/modality-details.component';
 import { ModalityManagerComponent } from './modality-manager/modality-manager.component';
 import {
 	getModalityTableDataPending,
 	updateModalityTableState,
+	deleteModalityIemTablePending,
+	createModalityIemTablePending,
+	editModalityIemTablePending,
+	dublicateModalityIemTablePending,
 } from './modality-table/modality-table.actions';
 import { ModalityTableComponent } from './modality-table/modality-table.component';
 import { modalityTableReducers } from './modality-table/modality-table.reducers';
@@ -22,7 +35,7 @@ import { modalityTableReducers } from './modality-table/modality-table.reducers'
 		CommonModule,
 		KendoModule,
 		// FormsModule,
-		// ReactiveFormsModule,
+		ReactiveFormsModule,
 		CoreModule,
 		RouterModule,
 		StoreModule.forFeature('modalityTable', modalityTableReducers),
@@ -31,6 +44,7 @@ import { modalityTableReducers } from './modality-table/modality-table.reducers'
 	declarations: [
 		ModalityManagerComponent,
 		// ModalityDetailsComponent,
+		ModalityDetailsComponent,
 		ModalityTableComponent,
 	],
 	entryComponents: [],
@@ -42,6 +56,22 @@ import { modalityTableReducers } from './modality-table/modality-table.reducers'
 		{
 			provide: UPDATE_TABLE_STATE,
 			useValue: updateModalityTableState,
+		},
+		{
+			provide: DELETE_ITEM_TABLE_PENDING,
+			useValue: deleteModalityIemTablePending,
+		},
+		{
+			provide: CREATE_ITEM_TABLE_PENDING,
+			useValue: createModalityIemTablePending,
+		},
+		{
+			provide: EDIT_ITEM_TABLE_PENDING,
+			useValue: editModalityIemTablePending,
+		},
+		{
+			provide: DUBLICATE_ITEM_TABLE_PENDING,
+			useValue: dublicateModalityIemTablePending,
 		},
 	],
 })

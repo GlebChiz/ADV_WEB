@@ -6,6 +6,25 @@ import { IGridState, initialGridState } from './grid.state';
 export function gridReducers(gridState: IGridState | undefined, action: Action): IGridState {
 	return createReducer(
 		initialGridState,
+		on(GridActions.SaveNewEntity, (state, payload) => {
+			const newState: any = { ...state };
+
+			newState.gridNewEntity = payload.entity;
+			return newState;
+		}),
+		on(GridActions.GetNewEntity, (state) => {
+			const newState: any = { ...state };
+			return newState.gridNewEntity;
+		}),
+		on(GridActions.SaveChangedEntity, (state, payload) => {
+			const newState: any = { ...state };
+			newState.gridChangedEntity = payload.entity;
+			return newState;
+		}),
+		on(GridActions.GetChangedEntity, (state) => {
+			const newState: any = { ...state };
+			return newState.gridChangedEntity;
+		}),
 		on(GridActions.ReloadGrid, (state, payload) => {
 			const newState = { ...state };
 			newState.gridUpdate[payload.gridId] = Guid.create();

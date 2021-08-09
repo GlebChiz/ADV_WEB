@@ -6,7 +6,7 @@ import {
 } from '../../models/filters/column-filter.model';
 
 export interface IGridFilterState {
-	[key: string]: IGridFilters
+	[key: string]: IGridFilters;
 }
 
 export interface IGridState {
@@ -19,7 +19,9 @@ export interface IGridState {
 	selectedItems: any;
 	gridColumnVisibility: any;
 	gridUpdate: any;
+	gridNewEntity: any;
 	gridSorting: any;
+	gridChangedEntity: any;
 }
 
 export const initialGridState: IGridState = {
@@ -33,18 +35,20 @@ export const initialGridState: IGridState = {
 	selectedItems: {},
 	gridUpdate: {},
 	gridSorting: {},
+	gridNewEntity: null,
+	gridChangedEntity: null,
 };
 
 export interface IGridColumns {
-    [key: string]: IGridColumnInfo;
+	[key: string]: IGridColumnInfo;
 }
 
 export interface IGridFilters {
-    [key: string]: IColumnFilter;
+	[key: string]: IColumnFilter;
 }
 
 export interface IGridSortings {
-    [key: string]: IColumnSort;
+	[key: string]: IColumnSort;
 }
 
 export interface IGridInfo {

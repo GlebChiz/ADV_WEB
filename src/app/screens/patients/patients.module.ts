@@ -4,7 +4,11 @@ import { KendoModule } from 'src/app/core/modules/kendo/kendo.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'src/app/core/modules/core.module';
 import { RouterModule } from '@angular/router';
-import { GET_TABLE_DATA_PENDING, UPDATE_TABLE_STATE } from 'src/app/shared/table/table.tokens';
+import {
+	GET_TABLE_DATA_PENDING,
+	UPDATE_TABLE_STATE,
+	DELETE_ITEM_TABLE_PENDING,
+} from 'src/app/shared/table/table.tokens';
 import { TableEffects } from 'src/app/shared/table/table.effect';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -24,6 +28,7 @@ import { PatientAreaButtonComponent } from './patient-area-button/patient-area-b
 import { PatientPersonViewComponent } from './patient-person-view/patient-person-view.component';
 import { PatientTableComponent } from './patient-table/patinet-table.component';
 import {
+	deletePatientItemTablePending,
 	getPatientTableDataPending,
 	updatePatientTableState,
 } from './patient-table/patient-table.actions';
@@ -67,6 +72,10 @@ import { patientTableReducers } from './patient-table/patient-table.reducers';
 		{
 			provide: UPDATE_TABLE_STATE,
 			useValue: updatePatientTableState,
+		},
+		{
+			provide: DELETE_ITEM_TABLE_PENDING,
+			useValue: deletePatientItemTablePending,
 		},
 	],
 	schemas: [],

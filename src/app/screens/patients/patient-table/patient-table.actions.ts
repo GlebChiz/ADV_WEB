@@ -8,4 +8,8 @@ export const updatePatientTableState = createAction(
 	'[Patient Table] Update',
 	props<{ data: any }>(),
 );
+export const deletePatientItemTablePending = createAction(
+	'[Patient Table] delete item table pending',
+	props<{ controller: string }>(),
+);
 export const clearPatientTable = createAction('[Patient Table] Clear');

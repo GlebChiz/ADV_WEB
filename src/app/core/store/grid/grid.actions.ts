@@ -8,6 +8,10 @@ import {
 import { IGridInfo } from './grid.state';
 
 export const GridActions = {
+	SaveNewEntity: createAction('[Grid] Save new entity', props<{ entity: any }>()),
+	GetNewEntity: createAction('[Grid] Get new entity'),
+	SaveChangedEntity: createAction('[Grid] Save changed entity', props<{ entity: any }>()),
+	GetChangedEntity: createAction('[Grid] Get changed entity'),
 	CheckAll: createAction('[Grid] Check All', props<{ gridId: string; checked: boolean }>()),
 	CheckRow: createAction(
 		'[Grid] Check Row',
