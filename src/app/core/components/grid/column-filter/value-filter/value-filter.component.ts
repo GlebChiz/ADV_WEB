@@ -49,7 +49,7 @@ export class GridValueFilterComponent
 	public initForm(filter: IColumnFilter): void {
 		if (filter != null) {
 			if (this.form) {
-				this.form.setValue({ value: filter.data || '' });
+				this.form.setValue({ value: filter.data || '' }, { emitEvent: false });
 			} else {
 				this.form = new FormGroup({
 					value: new FormControl(filter.data || ''),

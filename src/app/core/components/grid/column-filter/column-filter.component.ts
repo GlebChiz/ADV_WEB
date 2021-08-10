@@ -51,6 +51,7 @@ export class GridColumnFilterComponent implements OnInit, OnDestroy {
 			takeUntil(this._destroy$),
 		);
 		this.filter$.subscribe((f) => {
+			console.log('column filter subscribe', f);
 			if (f) {
 				this.filter = f;
 				this.show = true;

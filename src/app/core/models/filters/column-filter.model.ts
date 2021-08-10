@@ -10,6 +10,12 @@ export interface IColumnSort {
 	direction: SortDirection;
 }
 
+export interface IColumnGrid {
+	field: string;
+	hidden: boolean;
+	title: string;
+}
+
 export enum SortDirection {
 	None = 0,
 	Asc = 1,

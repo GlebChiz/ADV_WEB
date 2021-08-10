@@ -12,4 +12,8 @@ export const deletePatientItemTablePending = createAction(
 	'[Patient Table] delete item table pending',
 	props<{ controller: string }>(),
 );
+export const deletePatientItemTableError = createAction(
+	'[Patient Table] delete item table error',
+	props<{ controller: string }>(),
+);
 export const clearPatientTable = createAction('[Patient Table] Clear');

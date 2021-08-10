@@ -16,6 +16,8 @@ import {
 	CREATE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	DUBLICATE_ITEM_TABLE_PENDING,
+	DELETE_ITEM_TABLE_ERROR,
+	GET_CURRENT_ITEM_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { ModalityDetailsComponent } from './modality-details/modality-details.component';
 import { ModalityManagerComponent } from './modality-manager/modality-manager.component';
@@ -26,6 +28,8 @@ import {
 	createModalityIemTablePending,
 	editModalityIemTablePending,
 	dublicateModalityIemTablePending,
+	deleteModalityIemTableError,
+	getCurrentItemPending,
 } from './modality-table/modality-table.actions';
 import { ModalityTableComponent } from './modality-table/modality-table.component';
 import { modalityTableReducers } from './modality-table/modality-table.reducers';
@@ -58,8 +62,16 @@ import { modalityTableReducers } from './modality-table/modality-table.reducers'
 			useValue: updateModalityTableState,
 		},
 		{
+			provide: DELETE_ITEM_TABLE_ERROR,
+			useValue: deleteModalityIemTableError,
+		},
+		{
 			provide: DELETE_ITEM_TABLE_PENDING,
 			useValue: deleteModalityIemTablePending,
+		},
+		{
+			provide: GET_CURRENT_ITEM_PENDING,
+			useValue: getCurrentItemPending,
 		},
 		{
 			provide: CREATE_ITEM_TABLE_PENDING,

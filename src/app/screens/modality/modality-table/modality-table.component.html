@@ -1,15 +1,21 @@
+
+<div>
+  <div (click)="getOne('3a45c99c-1dee-44f7-9dcb-f386f5ebb212')">asdasdasdas</div>
 <kendo-grid
     [filterable]="true"
     [groupable]="true"
     [data]="gridData"
     [sortable]="true"
     [resizable]="true"
-    [loading]="false"
-    [skip]="0"
-    [pageSize]="10"
+    [skip]="gridSettings.state.skip"
+    [pageSize]="gridSettings.state.take"
+    [filter]="gridSettings.state.filter!"
     [pageable]="{ pageSizes: [5, 10, 20, 50, 100] }"
     [height]="510"
+    [loading]="isLoading"
+    [sort]="gridSettings.state.sort!"
     (dataStateChange)="dataStateChange($event)">
+    
     <ng-template kendoGridToolbarTemplate>
         <kendo-grid-column-chooser></kendo-grid-column-chooser>
      </ng-template>
@@ -39,4 +45,4 @@
               </advenium-grid-remove-cell>
             </ng-template>
         </kendo-grid-column> -->
-</kendo-grid>   
+</kendo-grid>   </div>

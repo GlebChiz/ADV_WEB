@@ -8,6 +8,7 @@ import {
 	GET_TABLE_DATA_PENDING,
 	UPDATE_TABLE_STATE,
 	DELETE_ITEM_TABLE_PENDING,
+	DELETE_ITEM_TABLE_ERROR,
 } from 'src/app/shared/table/table.tokens';
 import { TableEffects } from 'src/app/shared/table/table.effect';
 import { EffectsModule } from '@ngrx/effects';
@@ -28,6 +29,7 @@ import { PatientAreaButtonComponent } from './patient-area-button/patient-area-b
 import { PatientPersonViewComponent } from './patient-person-view/patient-person-view.component';
 import { PatientTableComponent } from './patient-table/patinet-table.component';
 import {
+	deletePatientItemTableError,
 	deletePatientItemTablePending,
 	getPatientTableDataPending,
 	updatePatientTableState,
@@ -76,6 +78,10 @@ import { patientTableReducers } from './patient-table/patient-table.reducers';
 		{
 			provide: DELETE_ITEM_TABLE_PENDING,
 			useValue: deletePatientItemTablePending,
+		},
+		{
+			provide: DELETE_ITEM_TABLE_ERROR,
+			useValue: deletePatientItemTableError,
 		},
 	],
 	schemas: [],

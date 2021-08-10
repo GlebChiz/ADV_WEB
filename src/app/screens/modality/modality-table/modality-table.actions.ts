@@ -6,14 +6,18 @@ export const getModalityTableDataPending = createAction(
 	props<{ controller: string; filter: IFilter }>(),
 );
 
+export const updateModalityTableState = createAction(
+	'[Modality Table] Update',
+	props<{ data: any }>(),
+);
+
 export const deleteModalityIemTablePending = createAction(
 	'[Modality Table] delete table item pending',
 	props<{ controller: string; filter: IFilter; id: string }>(),
 );
-
-export const updateModalityTableState = createAction(
-	'[Modality Table] Update',
-	props<{ data: any }>(),
+export const deleteModalityIemTableError = createAction(
+	'[Modality Table] delete table item error',
+	props<{ error: string }>(),
 );
 
 export const dublicateModalityIemTablePending = createAction(
@@ -23,12 +27,16 @@ export const dublicateModalityIemTablePending = createAction(
 
 export const createModalityIemTablePending = createAction(
 	'[Modality Table] create table item pending',
-	props<{ controller: string; filter: IFilter; model: any }>(),
+	props<{ controller: string; item: any }>(),
 );
 
 export const editModalityIemTablePending = createAction(
 	'[Modality Table] edit table item pending',
-	props<{ controller: string; filter: IFilter; id: string }>(),
+	props<{ controller: string; item: any }>(),
+);
+export const getCurrentItemPending = createAction(
+	'[Modality Table] get current item',
+	props<{ controller: string; id: string }>(),
 );
 
 export const clearModalityTable = createAction('[Modality Table] Clear');

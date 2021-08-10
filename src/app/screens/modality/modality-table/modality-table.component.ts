@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
+import { IColumnGrid } from 'src/app/core/models/filters/column-filter.model';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 
 @Component({
@@ -8,20 +8,11 @@ import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 	templateUrl: './modality-table.component.html',
 })
 export class ModalityTableComponent extends CustomTableDirective {
-	// public constructor() {
-	// 	super();
-	// }
-	public columns = [
-		{
-			field: 'id',
-			title: 'Id',
-			hidden: false,
-			// filterable: true,
-			// filter: 'text',
-		},
+	public columns: IColumnGrid[] = [
+		{ field: 'id', title: 'Id', hidden: false },
 		{
 			field: 'name',
-			title: 'Id',
+			title: 'Name',
 			hidden: false,
 			// filterable: true,
 			// filter: 'text',
@@ -29,20 +20,13 @@ export class ModalityTableComponent extends CustomTableDirective {
 		{
 			field: 'description',
 			title: 'Description',
-			hidden: true,
+			hidden: false,
 			// filterable: true,
 			// filter: 'text',
 		},
 		{
 			field: 'url',
 			title: 'URL',
-			hidden: false,
-			// filterable: true,
-			// filter: 'text',
-		},
-		{
-			field: 'grid-uid',
-			title: 'GUID',
 			hidden: false,
 			// filterable: true,
 			// filter: 'text',
