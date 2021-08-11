@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
-import { EMPTY, Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { IColumnGrid } from 'src/app/core/models/filters/column-filter.model';
 import { IGridFilter, IGridFilterModel } from '../interfaces/filter.interface';
 import { IGridSort } from '../interfaces/sort.interface';
 
@@ -14,10 +13,11 @@ export class TableService {
 	public handleError$(stream: Observable<any>): Observable<any> {
 		return stream.pipe(
 			switchMap((data: any) => {
-				if (data && data.isSuccess && data.isSuccess === false) {
+				if (data && data.isSuccess === false) {
 					return throwError(data.error);
 				}
-				return EMPTY;
+				console.log('data:', data);
+				return of(data);
 			}),
 		);
 	}
@@ -28,6 +28,7 @@ export class TableService {
 
 	public update(controller: string, body: any): Observable<any> {
 		return this.handleError$(this.http.post(`${controller}/update`, body));
+		// return this.http.post(`${controller}/update`, body);
 	}
 
 	public create(controller: string, body: any): Observable<any> {
@@ -36,13 +37,14 @@ export class TableService {
 
 	public getOne(controller: string, id: string): Observable<any> {
 		return this.handleError$(this.http.get(`${controller}/${id}`));
+		// return this.http.get(`${controller}/${id}`);
 	}
 
 	public saveFilter<T>(
 		controller: string,
 		state: DataStateChangeEvent,
 		filterId: string,
-		columns: IColumnGrid[],
+		columns: any[],
 	): Observable<T> {
 		const filter: IGridFilterModel | undefined = this.getFilterModel(state);
 		const gridFilterParams: IGridFilter = this.getGridFilterParams(state);
@@ -65,9 +67,9 @@ export class TableService {
 		}, {});
 	}
 
-	private getSorting(columns: IColumnGrid[], state: DataStateChangeEvent): IGridSort[] {
+	private getSorting(columns: any[], state: DataStateChangeEvent): IGridSort[] {
 		return columns
-			? columns.map((column: IColumnGrid) => {
+			? columns.map((column: any) => {
 					return {
 						column: column.field,
 						direction: state.sort && state.sort[0] && state.sort[0].dir === 'desc' ? 0 : 1,

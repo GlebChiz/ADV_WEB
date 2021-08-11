@@ -1,0 +1,54 @@
+  <button (click)="openDialog()">New Payer</button>
+  <kendo-grid
+      [filterable]="true"
+      [groupable]="true"
+      [data]="gridData"
+      [sortable]="true"
+      [resizable]="true"
+      [skip]="gridSettings.state.skip"
+      [pageSize]="gridSettings.state.take"
+      [filter]="gridSettings.state.filter!"
+      [pageable]="{ pageSizes: [5, 10, 20, 50, 100] }"
+      [height]="510"
+      [loading]="isLoading"
+      [sort]="gridSettings.state.sort!"
+      (dataStateChange)="dataStateChange($event)">
+      <ng-template kendoGridToolbarTemplate>
+          <kendo-grid-column-chooser></kendo-grid-column-chooser>
+      </ng-template>
+      <kendo-grid-column
+      *ngFor="let col of columns"
+      [title]="col.title"
+      [field]="col.field"
+      [hidden]="col.hidden!"
+      ></kendo-grid-column>
+          <kendo-grid-column filter="text" [filterable]="true" field="name" title="Name" [width]="100"></kendo-grid-column>
+          <kendo-grid-column field="address" title="Address" [width]="100"></kendo-grid-column>
+          <kendo-grid-column field="Modify" title=" " [width]="35">
+            
+              <ng-template kendoGridCellTemplate let-dataItem>
+                <div
+  (click)="openDialog(dataItem)"
+  class="k-icon k-i-edit k-link"
+></div>
+
+          
+              </ng-template>
+          </kendo-grid-column>
+          <!-- <kendo-grid-column field="Duplicate" title=" " [width]="35">
+              <ng-template kendoGridCellTemplate let-dataItem>
+               
+              </ng-template>
+          </kendo-grid-column> -->
+          <kendo-grid-column field="Remove" title=" " [width]="35" >
+              <ng-template kendoGridCellTemplate let-dataItem>
+                <div
+                (click)="deleteWithPopup(dataItem.id)"
+                class="k-icon k-i-trash k-link"
+                title="Modify"
+              ></div>
+            
+              </ng-template>
+          </kendo-grid-column>
+  </kendo-grid>   
+<div kendoDialogContainer></div>

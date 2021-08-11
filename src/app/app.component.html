@@ -1,18 +1,1 @@
-<!--<nav class="navbar navbar-expand navbar-brand bg-brand" *ngIf="currentUser">  
-  <ul class="navbar-nav">      
-      <li><a class="nav-item nav-link" routerLink="/users">User Manager</a></li>
-      <li><a class="nav-item nav-link" style="cursor:pointer" (click)="logout()">Logout</a></li>      
-  </ul>
-</nav>
--->
-<advenium-alert></advenium-alert>
-<div id="dashboard">
-	<advenium-layout-header> </advenium-layout-header>
-	<div id="central-panel">
-		<router-outlet></router-outlet>
-	</div>
-	<div id="left-panel">
-		<advenium-layout-menu></advenium-layout-menu>
-	</div>
-	<advenium-layout-page-title></advenium-layout-page-title>
-</div>
+<router-outlet></router-outlet>

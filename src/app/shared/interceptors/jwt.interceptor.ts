@@ -11,7 +11,7 @@ import {
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthenticationService } from '../services/authentification.service';
+import { AuthenticationService } from '../services/auth.service';
 // import { AuthenticationService } from 'src/app/shared/services/authentification.service';
 
 @Injectable()
