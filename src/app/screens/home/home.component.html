@@ -1,6 +1,6 @@
 
 <div class="custom-toolbar">
-    <button
+   <div> <button
       kendoButton
       icon="menu"
       look="flat"
@@ -8,6 +8,14 @@
     ></button>
     <span class="title-box">Admin Panel</span>
   </div>
+  <div>
+    <span class="logout" (click)="logout()">
+      <span class="button-logout">Logout</span>
+      <span class="k-icon k-i-logout"></span>
+    </span>
+    <span class="user-name">{{nameUser}}</span>
+  </div>
+</div>
   <kendo-drawer-container>
     <kendo-drawer
       #drawer

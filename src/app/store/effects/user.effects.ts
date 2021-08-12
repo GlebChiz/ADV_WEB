@@ -26,6 +26,17 @@ export class UserEffects {
 		),
 	);
 
+	public logOut$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(AuthUserActions.LogOut),
+			map(() => {
+				this.authenticationService.logout();
+				return AuthUserActions.LogOutComplete();
+			}),
+			catchError(() => of(AuthUserActions.LogOutError())),
+		),
+	);
+
 	public login$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(AuthUserActions.SignIn),

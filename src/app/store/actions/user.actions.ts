@@ -10,6 +10,9 @@ export const AuthUserActions = {
 	SignInError: createAction('[Auth] SignInError', props<{ errors: any }>()),
 	CheckToken: createAction('[Auth] CheckToken'),
 	CheckTokenError: createAction('[Auth] CheckTokenError', props<{ errors: any }>()),
+	LogOut: createAction('[Auth] Log out'),
+	LogOutComplete: createAction('[Auth] Log out complete'),
+	LogOutError: createAction('[Auth] Log out error'),
 };
 
 export const UserActions = {

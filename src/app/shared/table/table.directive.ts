@@ -76,7 +76,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 					});
 				}
 				this.myForm = new FormGroup(group);
-				console.log(this.myForm);
 			});
 	}
 

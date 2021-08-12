@@ -17,9 +17,31 @@ kendo-drawer-content {
 	border-bottom-width: 1px;
 	padding: 3px 8px;
 	color: #656565;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .title-box {
 	margin-left: 20px;
 	font-weight: bold;
 	font-size: 17px;
+}
+.button-logout {
+	margin-right: 5px;
+	color: blue;
+	font-weight: bold;
+	font-size: 17px;
+}
+
+.user-name {
+	margin: 0px 20px;
+}
+
+.k-i-logout {
+	color: blue;
+}
+
+.logout {
+	cursor: pointer;
+	// display: flex;
 }

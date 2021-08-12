@@ -16,7 +16,6 @@ export class TableService {
 				if (data && data.isSuccess === false) {
 					return throwError(data.error);
 				}
-				console.log('data:', data);
 				return of(data);
 			}),
 		);
