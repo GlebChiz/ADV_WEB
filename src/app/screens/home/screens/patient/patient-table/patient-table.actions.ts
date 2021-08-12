@@ -10,6 +10,10 @@ export const PatientTableActions = {
 		'[Patient Table] get table data success',
 		props<{ controller: string; filter: IFilter }>(),
 	),
+	ClearCurrentPatient: createAction(
+		'[Patient Table] get table data success',
+		props<{ controller: string; filter: IFilter }>(),
+	),
 	GetPatientTableDataError: createAction(
 		'[Patient Table] get table data error',
 		props<{ controller: string; filter: IFilter }>(),

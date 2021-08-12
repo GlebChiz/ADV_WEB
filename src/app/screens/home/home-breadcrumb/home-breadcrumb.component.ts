@@ -26,7 +26,6 @@ export class HomeBreadcrumbComponent implements OnInit {
 			.subscribe(() => {
 				const { root } = this.activatedRoute;
 				this.breadcrumbs = this.getBreadcrumbs(root);
-				console.log('12312312', this.breadcrumbs);
 			});
 	}
 
@@ -45,7 +44,6 @@ export class HomeBreadcrumbComponent implements OnInit {
 
 		// eslint-disable-next-line no-restricted-syntax
 		for (const child of children) {
-			console.log(child.snapshot.routeConfig);
 			if (child.outlet !== PRIMARY_OUTLET) {
 				// eslint-disable-next-line no-continue
 				continue;

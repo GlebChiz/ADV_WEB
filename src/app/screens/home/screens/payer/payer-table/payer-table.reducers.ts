@@ -9,6 +9,7 @@ const tableReducers: any = tableReducersFactory(
 	PayerTableActions.GetCurrentItemSuccess,
 	PayerTableActions.GetPayerTableDataError,
 	PayerTableActions.GetPayerTableDataSuccess,
+	PayerTableActions.ClearCurrentPayer,
 );
 
 export function PayerTableReducers(state: any | undefined, action: Action): any {

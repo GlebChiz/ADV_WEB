@@ -80,6 +80,7 @@ export const ModalityTableActions = {
 		'[Modality Table] get current item error',
 		props<{ controller: string; id: string }>(),
 	),
+	ClearCurrentModality: createAction('[Modality Table] Clear current modality'),
 
 	ClearModalityTable: createAction('[Modality Table] Clear'),
 };

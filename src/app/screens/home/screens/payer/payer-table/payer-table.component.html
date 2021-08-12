@@ -1,10 +1,10 @@
   <button (click)="openDialog()">New Payer</button>
   <kendo-grid
       [filterable]="true"
-      [groupable]="true"
       [data]="gridData"
       [sortable]="true"
       [resizable]="true"
+      [groupable]="true"
       [skip]="gridSettings.state.skip"
       [pageSize]="gridSettings.state.take"
       [filter]="gridSettings.state.filter!"
@@ -22,9 +22,9 @@
       [field]="col.field"
       [hidden]="col.hidden!"
       ></kendo-grid-column>
-          <kendo-grid-column filter="text" [filterable]="true" field="name" title="Name" [width]="100"></kendo-grid-column>
-          <kendo-grid-column field="address" title="Address" [width]="100"></kendo-grid-column>
-          <kendo-grid-column field="Modify" title=" " [width]="35">
+          <!-- <kendo-grid-column filter="text" [filterable]="true" field="name" title="Name" [width]="100"></kendo-grid-column>
+          <kendo-grid-column field="address" title="Address" [width]="100"></kendo-grid-column>-->
+          <kendo-grid-column field="Modify" title=" " [width]="35"> 
             
               <ng-template kendoGridCellTemplate let-dataItem>
                 <div

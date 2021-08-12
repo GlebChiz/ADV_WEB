@@ -147,8 +147,6 @@ export class TableEffects {
 								return this.getTableDataPending({ controller, filter: latest.filter });
 							}),
 							catchError((error: string) => {
-								console.log(error);
-
 								return of(this.editItemTableError(error));
 							}),
 						);
@@ -164,11 +162,10 @@ export class TableEffects {
 			switchMap(({ id, controller }: { controller: string; id: string }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}Table` as any)),
-					switchMap(([, latest]: [any, any]) => {
+					switchMap(([]: [any, any]) => {
 						return this._tableService.getOne(controller, id).pipe(
 							map((item: any) => {
-								this._store.dispatch(this.getCurrentItemSuccess({ item }));
-								return this.getTableDataPending({ controller, filter: latest.filter });
+								return this.getCurrentItemSuccess({ item });
 							}),
 							catchError((error: string) => {
 								return of(this.getCurrentItemError(error));

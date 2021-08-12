@@ -4,6 +4,7 @@ import { Directive, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
+import { process } from '@progress/kendo-data-query';
 import { filter, takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import {
@@ -23,6 +24,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	@Input() public storePath: string = '';
 
 	@Input() public columns!: any[];
+
+	@Input() public group!: string | null;
 
 	public model!: any;
 
@@ -49,7 +52,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	public constructor(
 		public _store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) private getTableDataPending: any,
-		@Inject(GET_CURRENT_ITEM_PENDING) private getCurrentItemPending: any,
+		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
 		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) public editDataPending: any,
@@ -65,7 +68,11 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			.select((state: any) => state[this.storePath])
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((tableData: any) => {
-				this.gridData = tableData;
+				if (this.group && tableData?.data) {
+					this.gridData = process(tableData?.data, { group: [{ field: this.group }] });
+				} else {
+					this.gridData = tableData;
+				}
 				this.isLoading = tableData.isLoading;
 				this.model = tableData.current;
 				const group: any = {};

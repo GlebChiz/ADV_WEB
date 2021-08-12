@@ -9,6 +9,7 @@ const tableReducers: any = tableReducersFactory(
 	ModalityTableActions.GetCurrentItemSuccess,
 	ModalityTableActions.GetModalityTableDataError,
 	ModalityTableActions.GetModalityTableDataSuccess,
+	ModalityTableActions.ClearCurrentModality,
 );
 
 export function modalityTableReducers(state: any | undefined, action: Action): any {

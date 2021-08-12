@@ -9,6 +9,7 @@ const tableReducers: any = tableReducersFactory(
 	ClinicianTableActions.GetCurrentItemSuccess,
 	ClinicianTableActions.GetClinicianTableDataError,
 	ClinicianTableActions.GetClinicianTableDataSuccess,
+	ClinicianTableActions.ClearCurrentClinician,
 );
 
 export function clinicianTableReducers(state: any | undefined, action: Action): any {

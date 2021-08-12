@@ -25,8 +25,6 @@ export class LoginComponent implements OnInit {
 		// redirect to home if already logged in
 		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
 			if (user) {
-				// console.log('redirect to home if already logged in');
-
 				this.router.navigate(['/']);
 			}
 		});
@@ -62,22 +60,5 @@ export class LoginComponent implements OnInit {
 		this._store.dispatch(
 			AuthUserActions.SignIn({ password: this.f.password?.value, login: this.f.username?.value }),
 		);
-
-		// this.loading = true;
-		// this.authenticationService
-		// 	.login(this.f.username!.value, this.f.password!.value)
-		// 	.pipe()
-		// 	.subscribe(
-		// 		() => {
-		// 			// console.log('123');
-		// 			// this._store.dispatch()
-		// 			window.location.href = this.returnUrl;
-		// 		},
-		// 		(error) => {
-		// 			console.log('321');
-		// 			this.alertService.error(error);
-		// 			this.loading = false;
-		// 		},
-		// 	);
 	}
 }

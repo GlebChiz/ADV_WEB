@@ -10,6 +10,7 @@ export function tableReducersFactory(
 	getCurrentItemSuccess: any,
 	getTableDataError: any,
 	getTableDataSuccess: any,
+	clearCurrentItem: any,
 ): any {
 	return createReducer(
 		initialState,
@@ -24,6 +25,9 @@ export function tableReducersFactory(
 		}),
 		on(getTableDataError, (state: any) => {
 			return { ...state, isLoading: false };
+		}),
+		on(clearCurrentItem, (state: any) => {
+			return { ...state, current: null };
 		}),
 		on(getTableDataSuccess, (state: any) => {
 			return { ...state, isLoading: false };

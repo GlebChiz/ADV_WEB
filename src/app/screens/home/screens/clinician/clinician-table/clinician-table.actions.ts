@@ -10,6 +10,11 @@ export const ClinicianTableActions = {
 		'[Clinician Table] get table data success',
 		props<{ controller: string; filter: IFilter }>(),
 	),
+	ClearCurrentClinician: createAction(
+		'[Clinician Table] get table data success',
+		props<{ controller: string; filter: IFilter }>(),
+	),
+
 	GetClinicianTableDataError: createAction(
 		'[Clinician Table] get table data error',
 		props<{ controller: string; filter: IFilter }>(),
