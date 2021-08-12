@@ -73,3 +73,5 @@ export const GET_CURRENT_ITEM_SUCCESS: InjectionToken<string> = new InjectionTok
 );
 
 export const UPDATE_TABLE_STATE: InjectionToken<string> = new InjectionToken('UPDATE_TABLE_STATE');
+
+export const CLEAR_CURRENT_ITEM: InjectionToken<string> = new InjectionToken('UPDATE_TABLE_STATE');

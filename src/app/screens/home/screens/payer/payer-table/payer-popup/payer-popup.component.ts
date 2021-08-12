@@ -5,10 +5,8 @@ import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { groupBy, GroupResult } from '@progress/kendo-data-query';
 import { filter, takeUntil } from 'rxjs/operators';
-// import { IPayerType } from 'src/app/shared/interfaces/payer.interface';
-// import { filter, takeUntil } from 'rxjs/operators';
+import { IStore } from 'src/app/store';
 import { PayerActions } from 'src/app/store/actions/payer.actions';
-// import { IPayerState } from 'src/app/store/states/payer.state';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 
 @Component({
@@ -16,7 +14,7 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 	templateUrl: './payer-popup.component.html',
 })
 export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChanges {
-	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
+	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
 		super();
 	}
 
@@ -46,32 +44,40 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 			type: new FormControl(this.payer?.type),
 			notes: new FormControl(this.payer?.notes),
 			payerId: new FormControl(this.payer?.payerId),
-			address1: new FormControl(this.payer?.address?.address1), // asd
-			address2: new FormControl(this.payer?.address?.address2), //
-			city: new FormControl(this.payer?.address?.city), //
-			state: new FormControl(this.payer?.address?.state), //
-			zip: new FormControl(this.payer?.address?.zip), //
+			address1: new FormControl(this.payer?.address?.address1),
+			address2: new FormControl(this.payer?.address?.address2),
+			city: new FormControl(this.payer?.address?.city),
+			state: new FormControl(this.payer?.address?.state),
+			zip: new FormControl(this.payer?.address?.zip),
 		});
 	}
-
-	public data: Array<any> = [
-		{ name: 'Pork', category: 'Food', subcategory: 'Meat' },
-		{ name: 'Pepper', category: 'Food', subcategory: 'Vegetables' },
-		{ name: 'Beef', category: 'Food', subcategory: 'Commercial Insurers' },
-	];
-	public groupedData: GroupResult[] = groupBy(this.data, [{ field: 'subcategory' }]);
 
 	public ngOnInit(): void {
 		this._store.dispatch(PayerActions.GetTypesPending());
 		this._store
+			.select('payerTable' as any)
+			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((payerTable: any) => {
+				this.payer = payerTable.current;
+				this.initForm();
+			});
+		this._store
 			.select('payerState')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((payerTypes: any) => {
-				// payerTypes.types.forEach((element) => {
-				// 	const found: any = payerTypes.types.find((x: any) => x.id === payerTypes.types.id);
-				// 	return found[0]?.name ?? '';
-				// });
+				payerTypes.types?.forEach((k: any) => {
+					const found: any = payerTypes.types.find((x: any) => x.id === k.parentId);
+					k.parentName = found?.name ?? '';
+				});
+				if (payerTypes.types) {
+					this.payerTypes = groupBy(
+						payerTypes.types?.filter((y: any) => y.parentId != null),
+						[{ field: 'parentName' }],
+					);
+				}
 			});
+
+		// this._store.select(selectTypePayer, { id: id });
 		this.initForm();
 	}
 

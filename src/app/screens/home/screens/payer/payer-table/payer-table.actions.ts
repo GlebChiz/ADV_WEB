@@ -86,5 +86,7 @@ export const PayerTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 
+	ClearCurrentPayer: createAction('[Payer Table] Clear current payer'),
+
 	ClearPayerTable: createAction('[Payer Table] Clear'),
 };

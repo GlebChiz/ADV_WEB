@@ -24,6 +24,7 @@ import {
 	EDIT_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
+	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
 import { ModalityTableActions } from './modality-table/modality-table.actions';
 import { ModalityTableComponent } from './modality-table/modality-table.component';
@@ -121,6 +122,10 @@ import { ModalityComponent } from './modality.component';
 		{
 			provide: DUBLICATE_ITEM_TABLE_ERROR,
 			useValue: ModalityTableActions.DublicateModalityIemTableError,
+		},
+		{
+			provide: CLEAR_CURRENT_ITEM,
+			useValue: ModalityTableActions.ClearCurrentModality,
 		},
 	],
 })

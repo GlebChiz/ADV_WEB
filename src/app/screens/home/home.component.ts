@@ -12,7 +12,7 @@ import { AuthUserActions, IUser } from 'src/app/store/actions/user.actions';
 export class HomeComponent implements OnInit {
 	public ngOnInit(): void {
 		this._store.select('userState', 'user').subscribe((user: IUser) => {
-			this.nameUser = user.name;
+			this.nameUser = user?.userName;
 		});
 	}
 

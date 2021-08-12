@@ -24,6 +24,7 @@ import {
 	EDIT_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
+	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
 import { SharedModel } from 'src/app/shared/shared.module';
 import { PayerTableActions } from './payer-table/payer-table.actions';
@@ -41,7 +42,7 @@ import { PayerComponent } from './payer.component';
 				component: PayerComponent,
 			},
 		]),
-		StoreModule.forFeature('payersTable', PayerTableReducers),
+		StoreModule.forFeature('payerTable', PayerTableReducers),
 		EffectsModule.forFeature([TableEffects]),
 	],
 	declarations: [PayerComponent, PayerTableComponent, PayerPopupComponent],
@@ -122,6 +123,10 @@ import { PayerComponent } from './payer.component';
 		{
 			provide: DUBLICATE_ITEM_TABLE_ERROR,
 			useValue: PayerTableActions.DublicatePayerIemTableError,
+		},
+		{
+			provide: CLEAR_CURRENT_ITEM,
+			useValue: PayerTableActions.ClearCurrentPayer,
 		},
 	],
 })
