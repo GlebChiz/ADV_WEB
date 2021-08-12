@@ -79,6 +79,9 @@ export class TableEffects {
 									}),
 								);
 							}),
+							catchError((error: any) => {
+								return of(this.getTableDataError(error));
+							}),
 						);
 				},
 			),
@@ -164,12 +167,10 @@ export class TableEffects {
 					switchMap(([, latest]: [any, any]) => {
 						return this._tableService.getOne(controller, id).pipe(
 							map((item: any) => {
-								console.log('123123');
 								this._store.dispatch(this.getCurrentItemSuccess({ item }));
 								return this.getTableDataPending({ controller, filter: latest.filter });
 							}),
 							catchError((error: string) => {
-								console.log('344343');
 								return of(this.getCurrentItemError(error));
 							}),
 						);

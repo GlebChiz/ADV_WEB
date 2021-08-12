@@ -6,6 +6,8 @@ import { DialogModule } from '@progress/kendo-angular-dialog';
 import { ComboBoxModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { CheckBoxModule } from '@progress/kendo-angular-inputs';
+import { BreadCrumbModule } from '@progress/kendo-angular-navigation';
+
 import { LayoutModule } from '@progress/kendo-angular-layout';
 
 @NgModule({
@@ -13,6 +15,7 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 		CommonModule,
 		ReactiveFormsModule,
 		GridModule,
+		BreadCrumbModule,
 		DialogModule,
 		ComboBoxModule,
 		CheckBoxModule,
@@ -21,4 +24,4 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 		LayoutModule,
 	],
 })
-export class SharedModel {}
+export class SharedModule {}

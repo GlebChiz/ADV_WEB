@@ -25,7 +25,7 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
-import { SharedModel } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { PayerTableActions } from './payer-table/payer-table.actions';
 import { PayerTableComponent } from './payer-table/payer-table.component';
 import { PayerTableReducers } from './payer-table/payer-table.reducers';
@@ -34,7 +34,7 @@ import { PayerComponent } from './payer.component';
 
 @NgModule({
 	imports: [
-		SharedModel,
+		SharedModule,
 		RouterModule.forChild([
 			{
 				path: '',

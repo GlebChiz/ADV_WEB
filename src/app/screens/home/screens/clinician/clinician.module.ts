@@ -25,11 +25,11 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 } from 'src/app/shared/table/table.tokens';
-import { ModalityTableActions } from './modality-table/modality-table.actions';
-import { ModalityTableComponent } from './modality-table/modality-table.component';
-import { SomeEffect } from './modality-table/modality-table.effects';
-import { modalityTableReducers } from './modality-table/modality-table.reducers';
-import { ModalityComponent } from './modality.component';
+import { ClinicianTableActions } from './clinician-table/clinician-table.actions';
+import { ClinicianTableComponent } from './clinician-table/clinician-table.component';
+import { SomeEffect } from './clinician-table/clinician-table.effects';
+import { clinicianTableReducers } from './clinician-table/clinician-table.reducers';
+import { ClinicianComponent } from './clinician.component';
 
 @NgModule({
 	imports: [
@@ -37,91 +37,91 @@ import { ModalityComponent } from './modality.component';
 		RouterModule.forChild([
 			{
 				path: '',
-				component: ModalityComponent,
+				component: ClinicianComponent,
 			},
 		]),
-		StoreModule.forFeature('modalityTable', modalityTableReducers),
+		StoreModule.forFeature('clinicianTable', clinicianTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
-	declarations: [ModalityComponent, ModalityTableComponent],
+	declarations: [ClinicianComponent, ClinicianTableComponent],
 	entryComponents: [],
 	providers: [
 		{
 			provide: GET_TABLE_DATA_PENDING,
-			useValue: ModalityTableActions.GetModalityTableDataPending,
+			useValue: ClinicianTableActions.GetClinicianTableDataPending,
 		},
 		{
 			provide: GET_TABLE_DATA_ERROR,
-			useValue: ModalityTableActions.GetModalityTableDataError,
+			useValue: ClinicianTableActions.GetClinicianTableDataError,
 		},
 		{
 			provide: GET_TABLE_DATA_SUCCESS,
-			useValue: ModalityTableActions.GetModalityTableDataSuccess,
+			useValue: ClinicianTableActions.GetClinicianTableDataSuccess,
 		},
 		{
 			provide: UPDATE_TABLE_STATE,
-			useValue: ModalityTableActions.UpdateModalityTableState,
+			useValue: ClinicianTableActions.UpdateClinicianTableState,
 		},
 		{
 			provide: DELETE_ITEM_TABLE_ERROR,
-			useValue: ModalityTableActions.DeleteModalityIemTableError,
+			useValue: ClinicianTableActions.DeleteClinicianIemTableError,
 		},
 		{
 			provide: DELETE_ITEM_TABLE_SUCCESS,
-			useValue: ModalityTableActions.DeleteModalityIemTableSuccess,
+			useValue: ClinicianTableActions.DeleteClinicianIemTableSuccess,
 		},
 		{
 			provide: DELETE_ITEM_TABLE_PENDING,
-			useValue: ModalityTableActions.DeleteModalityIemTablePending,
+			useValue: ClinicianTableActions.DeleteClinicianIemTablePending,
 		},
 		{
 			provide: GET_CURRENT_ITEM_PENDING,
-			useValue: ModalityTableActions.GetCurrentItemPending,
+			useValue: ClinicianTableActions.GetCurrentItemPending,
 		},
 		{
 			provide: GET_CURRENT_ITEM_ERROR,
-			useValue: ModalityTableActions.GetCurrentItemError,
+			useValue: ClinicianTableActions.GetCurrentItemError,
 		},
 		{
 			provide: GET_CURRENT_ITEM_SUCCESS,
-			useValue: ModalityTableActions.GetCurrentItemSuccess,
+			useValue: ClinicianTableActions.GetCurrentItemSuccess,
 		},
 		{
 			provide: CREATE_ITEM_TABLE_PENDING,
-			useValue: ModalityTableActions.CreateModalityIemTablePending,
+			useValue: ClinicianTableActions.CreateClinicianIemTablePending,
 		},
 		{
 			provide: CREATE_ITEM_TABLE_SUCCESS,
-			useValue: ModalityTableActions.CreateModalityIemTableSuccess,
+			useValue: ClinicianTableActions.CreateClinicianIemTableSuccess,
 		},
 		{
 			provide: CREATE_ITEM_TABLE_ERROR,
-			useValue: ModalityTableActions.CreateModalityIemTableError,
+			useValue: ClinicianTableActions.CreateClinicianIemTableError,
 		},
 		{
 			provide: EDIT_ITEM_TABLE_PENDING,
-			useValue: ModalityTableActions.EditModalityIemTablePending,
+			useValue: ClinicianTableActions.EditClinicianIemTablePending,
 		},
 		{
 			provide: EDIT_ITEM_TABLE_SUCCESS,
-			useValue: ModalityTableActions.EditModalityIemTableSuccess,
+			useValue: ClinicianTableActions.EditClinicianIemTableSuccess,
 		},
 		{
 			provide: EDIT_ITEM_TABLE_ERROR,
-			useValue: ModalityTableActions.EditModalityIemTableError,
+			useValue: ClinicianTableActions.EditClinicianIemTableError,
 		},
 		{
 			provide: DUBLICATE_ITEM_TABLE_PENDING,
-			useValue: ModalityTableActions.DublicateModalityIemTablePending,
+			useValue: ClinicianTableActions.DublicateClinicianIemTablePending,
 		},
 		{
 			provide: DUBLICATE_ITEM_TABLE_SUCCESS,
-			useValue: ModalityTableActions.DublicateModalityIemTableSuccess,
+			useValue: ClinicianTableActions.DublicateClinicianIemTableSuccess,
 		},
 		{
 			provide: DUBLICATE_ITEM_TABLE_ERROR,
-			useValue: ModalityTableActions.DublicateModalityIemTableError,
+			useValue: ClinicianTableActions.DublicateClinicianIemTableError,
 		},
 	],
 })
-export class ModalityModule {}
+export class ClinicianModule {}

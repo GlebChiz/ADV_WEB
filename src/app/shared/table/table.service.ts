@@ -16,7 +16,6 @@ export class TableService {
 				if (data && data.isSuccess === false) {
 					return throwError(data.error);
 				}
-				console.log('data:', data);
 				return of(data);
 			}),
 		);
@@ -48,6 +47,7 @@ export class TableService {
 	): Observable<T> {
 		const filter: IGridFilterModel | undefined = this.getFilterModel(state);
 		const gridFilterParams: IGridFilter = this.getGridFilterParams(state);
+
 		return this.http.post<T>(`${controller}/grid-filter`, {
 			Filter: { FilterId: filterId, ...filter },
 			...gridFilterParams,

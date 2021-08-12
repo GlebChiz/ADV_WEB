@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
+import { IColumn } from '../../../../../shared/interfaces/column.interface';
 
 @Component({
 	providers: [],
@@ -7,7 +8,7 @@ import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 	templateUrl: './modality-table.component.html',
 })
 export class ModalityTableComponent extends CustomTableDirective {
-	public columns: any[] = [
+	public columns: IColumn[] = [
 		{ field: 'id', title: 'Id', hidden: false },
 		{
 			field: 'name',

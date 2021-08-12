@@ -1,26 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
 
+export interface IItem {
+	text: string;
+	icon: string;
+	path: string;
+	selected?: boolean;
+}
 @Component({
 	selector: 'advenium-home',
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-	public selected = 'Inbox';
-
-	public items: any[] = [
-		{ separator: true },
+export class HomeComponent implements OnInit {
+	public items: IItem[] = [
 		{ text: 'Payers', icon: 'k-i-bell', path: 'payers' },
 		{ text: 'Modalities', icon: 'k-i-calendar', path: 'modalities' },
+		{ text: 'Clinicians', icon: 'k-i-accessibility', path: 'clinicians' },
+		{ text: 'Patients', icon: 'k-i-accessibility', path: 'patients' },
 	];
 
 	public constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
+	public ngOnInit(): void {
+		const currentItem: IItem | undefined = this.items.find((item: IItem) => {
+			return this.router.url.includes(item.path);
+		});
+
+		if (!currentItem) {
+			return;
+		}
+		currentItem.selected = true;
+	}
+
 	public onSelect(ev: DrawerSelectEvent): void {
-		this.selected = ev.item.text;
-		console.log(ev);
 		this.router.navigate([ev.item.path], { relativeTo: this.activatedRoute });
 	}
 }

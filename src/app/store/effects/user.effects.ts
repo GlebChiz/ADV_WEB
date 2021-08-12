@@ -54,7 +54,6 @@ export class UserEffects {
 						return AuthUserActions.SignInComplete({ user });
 					}),
 					catchError((errors) => {
-						console.log(`errors: ${errors}`);
 						return of(AuthUserActions.CheckTokenError({ errors }));
 					}),
 				);

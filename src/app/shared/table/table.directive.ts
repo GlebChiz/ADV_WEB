@@ -65,7 +65,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			.select((state: any) => state[this.storePath])
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((tableData: any) => {
-				console.log('im in table: ', this.storePath, tableData);
 				this.gridData = tableData;
 				this.isLoading = tableData.isLoading;
 				this.model = tableData.current;
@@ -76,7 +75,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 					});
 				}
 				this.myForm = new FormGroup(group);
-				console.log(this.myForm);
 			});
 	}
 
