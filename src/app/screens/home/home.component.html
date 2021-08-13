@@ -1,1 +1,34 @@
-<h1>Hi {{ (user$ | async)?.userName }}!</h1>
+
+<div class="custom-toolbar">
+   <div> <button
+      kendoButton
+      icon="menu"
+      look="flat"
+      (click)="drawer.toggle()"
+    ></button>
+    <span class="title-box">Admin Panel</span>
+  </div>
+  <div>
+    <span class="user-name">{{nameUser}}</span>
+    <span class="logout" (click)="logout()">
+      <span class="k-icon k-i-logout"></span>
+    </span>
+  </div>
+</div>
+  <kendo-drawer-container>
+    <kendo-drawer
+      #drawer
+      [items]="items"
+      mode="push"
+      [mini]="true"
+      [expanded]="true"
+      (select)="onSelect($event)"
+    >
+    </kendo-drawer>
+    <kendo-drawer-content>
+      <advenium-home-breadcrumb>
+        
+      </advenium-home-breadcrumb>
+        <router-outlet></router-outlet>
+    </kendo-drawer-content>
+  </kendo-drawer-container>

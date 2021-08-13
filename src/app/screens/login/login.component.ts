@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { first } from 'rxjs/operators';
-
-import { PageSettingsActions } from 'src/app/core/store/actions/page-settings/page-settings.actions';
-import { IAppState } from 'src/app/core/store/state/app.state';
 import { Store } from '@ngrx/store';
-// import { AuthenticationService } from 'src/app/shared/services/authentification.service';
-import { IUser } from 'src/app/core/models/user.model';
-// import { AlertService, AuthenticationService } from 'src/app/shared/services';
-import { AuthUserActions } from 'src/app/core/store/user/user.actions';
+import { AuthUserActions, IUser } from 'src/app/store/actions/user.actions';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -27,13 +20,11 @@ export class LoginComponent implements OnInit {
 		private router: Router,
 		// private authenticationService: AuthenticationService,
 		// private alertService: AlertService,
-		private _store: Store<IAppState>,
+		private _store: Store<any>,
 	) {
 		// redirect to home if already logged in
 		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
 			if (user) {
-				// console.log('redirect to home if already logged in');
-
 				this.router.navigate(['/']);
 			}
 		});
@@ -51,7 +42,7 @@ export class LoginComponent implements OnInit {
 		// get return url from route parameters or default to '/'
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 
-		this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: 'Login' } }));
+		// this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: 'Login' } }));
 	}
 
 	// convenience getter for easy access to form fields
@@ -69,22 +60,5 @@ export class LoginComponent implements OnInit {
 		this._store.dispatch(
 			AuthUserActions.SignIn({ password: this.f.password?.value, login: this.f.username?.value }),
 		);
-
-		// this.loading = true;
-		// this.authenticationService
-		// 	.login(this.f.username!.value, this.f.password!.value)
-		// 	.pipe()
-		// 	.subscribe(
-		// 		() => {
-		// 			// console.log('123');
-		// 			// this._store.dispatch()
-		// 			window.location.href = this.returnUrl;
-		// 		},
-		// 		(error) => {
-		// 			console.log('321');
-		// 			this.alertService.error(error);
-		// 			this.loading = false;
-		// 		},
-		// 	);
 	}
 }
