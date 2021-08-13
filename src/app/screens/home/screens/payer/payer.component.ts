@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
 	providers: [],
 	selector: 'advenium-payer',
 	templateUrl: './payer.component.html',
+	styleUrls: ['../../home.component.scss'],
 })
 export class PayerComponent {}

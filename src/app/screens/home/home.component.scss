@@ -6,6 +6,27 @@ kendo-drawer-content {
 	padding: 10px;
 }
 
+:host ::ng-deep .k-drawer-item.k-state-selected {
+	background: #631ed3;
+}
+:host ::ng-deep .k-button-primary,
+.k-button.k-primary {
+	background: #631ed3;
+}
+:host ::ng-deep .k-dialog-titlebar {
+	background: #631ed3;
+}
+
+:host ::ng-deep .k-breadcrumb-link {
+	color: #89949e;
+}
+:host ::ng-deep .k-pager-numbers .k-link {
+	color: #631ed3;
+}
+:host ::ng-deep .k-pager-numbers .k-link.k-state-selected {
+	color: #631ed3;
+	background: rgba(99, 30, 211, 0.2);
+}
 .k-icon {
 	font-size: 20px;
 }
@@ -35,9 +56,11 @@ kendo-drawer-content {
 }
 
 .user-name {
-	margin: 0px 20px;
+	margin: 0px 15px;
 }
-
+.avatar {
+	margin-left: 30px;
+}
 .logout {
 	cursor: pointer;
 	// display: flex;
