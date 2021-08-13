@@ -6,3 +6,9 @@ export interface IGridFilter {
 export interface IGridFilterModel {
 	[key: string]: { type: number; isNegative: boolean; value: string };
 }
+
+export interface IGridFilterType {
+	type: number;
+	isNegative: boolean;
+	value?: string;
+}
