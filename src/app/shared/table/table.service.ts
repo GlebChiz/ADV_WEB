@@ -3,7 +3,14 @@ import { Injectable } from '@angular/core';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { IGridFilter, IGridFilterModel } from '../interfaces/filter.interface';
+import {
+	ColumnFilterDataType,
+	DateOperationFilter,
+	IGridFilter,
+	IGridFilterModel,
+	IGridFilterType,
+	StringOperationFilter,
+} from '../interfaces/filter.interface';
 import { IGridSort } from '../interfaces/sort.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -58,12 +65,38 @@ export class TableService {
 
 	private getFilterModel(state: DataStateChangeEvent): IGridFilterModel | undefined {
 		return state.filter?.filters.reduce((prev: IGridFilterModel, curr: any) => {
-			prev[curr.field as string] = {
-				type: this.formatTypes(curr.operator),
-				isNegative: false,
-				value: curr.value,
-			};
-			return prev;
+			let formatTypes: IGridFilterType;
+			if (Date.parse(curr.value)) {
+				formatTypes = this.formatDateTypes(curr.operator);
+				prev[curr.field as string] = {
+					...formatTypes,
+					date: curr.value,
+				};
+				return prev;
+			}
+			switch (typeof curr.value) {
+				case ColumnFilterDataType.Number:
+					formatTypes = this.formatNumberTypes(curr.operator);
+					prev[curr.field as string] = {
+						...formatTypes,
+						value: curr.value,
+					};
+					return prev;
+				case ColumnFilterDataType.Boolean:
+					formatTypes = this.formatBooleanTypes(curr.operator);
+					prev[curr.field as string] = {
+						...formatTypes,
+						value: curr.value,
+					};
+					return prev;
+				default:
+					formatTypes = this.formatStringTypes(curr.operator);
+					prev[curr.field as string] = {
+						...formatTypes,
+						value: curr.value,
+					};
+					return prev;
+			}
 		}, {});
 	}
 
@@ -89,20 +122,103 @@ export class TableService {
 		};
 	}
 
-	private formatTypes(type: string): number {
-		const typesList: string[] = [
-			'none',
-			'eq',
-			'contains',
-			'startswith',
-			'endswith',
-			'more',
-			'less',
-			'moreequal',
-			'lessequal',
-			'between',
-			'empty',
-		];
-		return typesList.includes(type) ? typesList.indexOf(type) : 2;
+	private formatStringTypes(type: string): IGridFilterType {
+		let res: IGridFilterType;
+		switch (type) {
+			case StringOperationFilter.Equal:
+			case StringOperationFilter.NotEqual:
+				res = {
+					type: 1,
+					isNegative: type !== StringOperationFilter.Equal,
+				};
+				break;
+			case StringOperationFilter.Contains:
+			case StringOperationFilter.DoesNotContain:
+				res = {
+					type: 2,
+					isNegative: type !== StringOperationFilter.Contains,
+				};
+				break;
+			case StringOperationFilter.Startswith:
+				res = {
+					type: 3,
+					isNegative: false,
+				};
+				break;
+			case StringOperationFilter.Endswith:
+				res = {
+					type: 4,
+					isNegative: false,
+				};
+				break;
+			case StringOperationFilter.IsEmpty:
+			case StringOperationFilter.IsNotEmpty:
+				res = {
+					type: 10,
+					isNegative: type !== StringOperationFilter.IsEmpty,
+				};
+				break;
+			default:
+				res = {
+					type: 2,
+					isNegative: false,
+				};
+				break;
+		}
+		return res;
+	}
+
+	private formatDateTypes(type: string): IGridFilterType {
+		let res: IGridFilterType;
+		switch (type) {
+			case DateOperationFilter.Equal:
+			case DateOperationFilter.NotEqual:
+				res = {
+					type: 1,
+					isNegative: type !== DateOperationFilter.Equal,
+				};
+				break;
+			case DateOperationFilter.After:
+				res = {
+					type: 2,
+					isNegative: false,
+				};
+				break;
+			case DateOperationFilter.Before:
+				res = {
+					type: 3,
+					isNegative: false,
+				};
+				break;
+			case DateOperationFilter.AfterOrEqual:
+				res = {
+					type: 4,
+					isNegative: false,
+				};
+				break;
+			case DateOperationFilter.BeforeOrEqual:
+				res = {
+					type: 5,
+					isNegative: false,
+				};
+				break;
+			default:
+				res = {
+					type: 1,
+					isNegative: false,
+				};
+				break;
+		}
+		return res;
+	}
+
+	private formatNumberTypes(type: string): IGridFilterType {
+		console.log(type);
+		return {} as IGridFilterType;
+	}
+
+	private formatBooleanTypes(type: string): IGridFilterType {
+		console.log(type);
+		return {} as IGridFilterType;
 	}
 }

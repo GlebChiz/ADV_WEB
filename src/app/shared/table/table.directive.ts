@@ -27,15 +27,17 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	@Input() public group!: string | null;
 
-	public model!: any;
-
 	public myForm!: FormGroup;
 
 	public gridData: GridDataResult = { data: [], total: 0 };
 
+	public gridDataWithoutGroup: GridDataResult = { data: [], total: 0 };
+
 	public state: DataStateChangeEvent = { skip: 0, take: 10 };
 
 	public isLoading: boolean = false;
+
+	public selectedItems: any[] = [];
 
 	public gridSettings: { state: DataStateChangeEvent } = {
 		state: {
@@ -53,7 +55,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		public _store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) private getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
-		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) public editDataPending: any,
 	) {
@@ -70,11 +71,11 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			.subscribe((tableData: any) => {
 				if (this.group && tableData?.data) {
 					this.gridData = process(tableData?.data, { group: [{ field: this.group }] });
-				} else {
-					this.gridData = tableData;
+					this.gridData.total = tableData?.total;
 				}
+				this.gridDataWithoutGroup = tableData;
+
 				this.isLoading = tableData.isLoading;
-				this.model = tableData.current;
 				const group: any = {};
 				if (tableData?.current) {
 					Object.keys(tableData?.current).forEach((field: string) => {
@@ -94,40 +95,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		);
 	}
 
-	public getOne(id: string): void {
-		this._store.dispatch(
-			this.getCurrentItemPending({
-				id,
-				controller: this.controller,
-			}),
-		);
-	}
-
-	public openModel(): void {
-		this.model = {};
-	}
-
-	public create(): void {
-		this.model = this.getModel();
-		// this._store.dispatch(this.createDataPending(this.model));
-	}
-
-	public editOrCreate(): void {
-		this.model = this.getModel();
-		this._store.dispatch(this.editDataPending({ item: this.model, controller: this.controller }));
-		this.model = null;
-	}
-
-	public getModel(): any {
-		const { value } = this.myForm;
-		const result: any = {
-			...this.model,
-			...value,
-		};
-
-		return result;
-	}
-
 	public dataStateChange(state: DataStateChangeEvent): void {
 		this.gridSettings.state = state;
 		this._store.dispatch(
@@ -139,7 +106,14 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		);
 	}
 
-	public cancel(): void {
-		this.model = null;
+	public toggle(a: any): void {
+		const selectedItem: number = this.selectedItems.findIndex((item: any) => {
+			return item === a;
+		});
+		if (selectedItem !== -1) {
+			this.selectedItems.splice(selectedItem, 1);
+		} else {
+			this.selectedItems.push(a);
+		}
 	}
 }

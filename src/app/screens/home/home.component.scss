@@ -6,16 +6,38 @@ kendo-drawer-content {
 	padding: 10px;
 }
 
+:host ::ng-deep .k-drawer-item.k-state-selected {
+	background: #631ed3;
+}
+:host ::ng-deep .k-button-primary,
+.k-button.k-primary {
+	background: #631ed3;
+}
+:host ::ng-deep .k-dialog-titlebar {
+	background: #631ed3;
+}
+
+:host ::ng-deep .k-breadcrumb-link {
+	color: #89949e;
+}
+:host ::ng-deep .k-pager-numbers .k-link {
+	color: #631ed3;
+}
+:host ::ng-deep .k-pager-numbers .k-link.k-state-selected {
+	color: #631ed3;
+	background: rgba(99, 30, 211, 0.2);
+}
 .k-icon {
 	font-size: 20px;
 }
 .custom-toolbar {
+	padding: 22px;
 	width: 100%;
-	background-color: #f6f6f6;
+	background: #f7f9fb;
+	box-shadow: 0px 1px 0px #dfe2e6;
 	line-height: 10px;
 	border-bottom: inset;
 	border-bottom-width: 1px;
-	padding: 3px 8px;
 	color: #656565;
 	display: flex;
 	justify-content: space-between;
@@ -34,9 +56,11 @@ kendo-drawer-content {
 }
 
 .user-name {
-	margin: 0px 20px;
+	margin: 0px 15px;
 }
-
+.avatar {
+	margin-left: 30px;
+}
 .logout {
 	cursor: pointer;
 	// display: flex;

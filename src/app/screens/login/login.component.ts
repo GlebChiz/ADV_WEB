@@ -4,7 +4,7 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { Store } from '@ngrx/store';
 import { AuthUserActions, IUser } from 'src/app/store/actions/user.actions';
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({ templateUrl: 'login.component.html', styleUrls: ['login.component.scss'] })
 export class LoginComponent implements OnInit {
 	public loginForm!: FormGroup;
 
