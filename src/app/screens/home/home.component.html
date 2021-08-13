@@ -4,7 +4,6 @@
       kendoButton
      
       look="flat"
-      (click)="drawer.toggle()"
     >
   </div>
   <div>
@@ -21,7 +20,7 @@
       #drawer
       [items]="items"
       mode="push"
-      [mini]="true"
+      [autoCollapse]="false"
       [expanded]="true"
       (select)="onSelect($event)"
     >
