@@ -1,6 +1,6 @@
 <kendo-grid
     [filterable]="true"
-    [data]="gridData"
+    [data]="gridDataWithoutGroup"
     [sortable]="true"
     [skip]="gridSettings.state.skip"
     [pageSize]="gridSettings.state.take"
@@ -19,8 +19,8 @@
 		[title]="col.title"
 		[field]="col.field"
 		[hidden]="col.hidden!"
-		></kendo-grid-column>
-        <!-- <kendo-grid-column filter="text" [filterable]="true" field="name" title="Name" [width]="100"></kendo-grid-column>
+	></kendo-grid-column>
+	<!-- <kendo-grid-column filter="text" [filterable]="true" field="name" title="Name" [width]="100"></kendo-grid-column>
         <kendo-grid-column field="address" title="Address" [width]="100"></kendo-grid-column>
         <kendo-grid-column field="Modify" title=" " [width]="35">
             <ng-template kendoGridCellTemplate let-dataItem>
@@ -40,4 +40,4 @@
               </advenium-grid-remove-cell>
             </ng-template>
         </kendo-grid-column> -->
-</kendo-grid> 
+</kendo-grid>
