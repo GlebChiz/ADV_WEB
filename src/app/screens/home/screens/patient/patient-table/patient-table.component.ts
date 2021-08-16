@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, Inject } from '@angular/core';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
-import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { CellClickEvent } from '@progress/kendo-angular-grid';
 import {
 	DELETE_ITEM_TABLE_PENDING,
@@ -10,6 +9,7 @@ import {
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { Store } from '@ngrx/store';
+import { IColumn } from '../../../../../shared/interfaces/column.interface';
 
 @Component({
 	providers: [],
@@ -30,24 +30,10 @@ export class PatientTableComponent extends CustomTableDirective {
 	}
 
 	public columns: IColumn[] = [
-		{ field: 'id', title: 'Id', hidden: false },
+		// { field: 'id', title: 'Id', hidden: false },
 		{
 			field: 'name',
 			title: 'Name',
-			hidden: false,
-			// filterable: true,
-			// filter: 'text',
-		},
-		{
-			field: 'description',
-			title: 'Description',
-			hidden: false,
-			// filterable: true,
-			// filter: 'text',
-		},
-		{
-			field: 'url',
-			title: 'URL',
 			hidden: false,
 			// filterable: true,
 			// filter: 'text',

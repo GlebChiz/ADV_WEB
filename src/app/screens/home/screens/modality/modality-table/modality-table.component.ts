@@ -9,7 +9,6 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 })
 export class ModalityTableComponent extends CustomTableDirective {
 	public columns: IColumn[] = [
-		{ field: 'id', title: 'Id', hidden: false },
 		{
 			field: 'name',
 			title: 'Name',
@@ -20,13 +19,6 @@ export class ModalityTableComponent extends CustomTableDirective {
 		{
 			field: 'description',
 			title: 'Description',
-			hidden: false,
-			// filterable: true,
-			// filter: 'text',
-		},
-		{
-			field: 'url',
-			title: 'URL',
 			hidden: false,
 			// filterable: true,
 			// filter: 'text',

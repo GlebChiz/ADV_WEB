@@ -33,17 +33,15 @@ export class TableService {
 	}
 
 	public update(controller: string, body: any): Observable<any> {
-		return this.handleError$(this.http.post(`${controller}/update`, body));
-		// return this.http.post(`${controller}/update`, body);
+		return this.handleError$(this.http.put(`${controller}/update`, body));
 	}
 
 	public create(controller: string, body: any): Observable<any> {
-		return this.handleError$(this.http.put(`${controller}/create`, body));
+		return this.handleError$(this.http.post(`${controller}/create`, body));
 	}
 
 	public getOne(controller: string, id: string): Observable<any> {
 		return this.handleError$(this.http.get(`${controller}/${id}`));
-		// return this.http.get(`${controller}/${id}`);
 	}
 
 	public saveFilter<T>(

@@ -38,17 +38,15 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 	}
 
 	public initForm(): void {
+		console.log('this.payer', this.payer);
+
 		this.myForm = new FormGroup({
 			name: new FormControl(this.payer?.name || ''),
 			carrierCode: new FormControl(this.payer?.carrierCode || ''),
 			type: new FormControl(this.payer?.type),
 			notes: new FormControl(this.payer?.notes),
 			payerId: new FormControl(this.payer?.payerId),
-			address1: new FormControl(this.payer?.address?.address1),
-			address2: new FormControl(this.payer?.address?.address2),
-			city: new FormControl(this.payer?.address?.city),
-			state: new FormControl(this.payer?.address?.state),
-			zip: new FormControl(this.payer?.address?.zip),
+			address: new FormControl(this.payer?.address),
 		});
 	}
 
@@ -76,8 +74,6 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 					);
 				}
 			});
-
-		// this._store.select(selectTypePayer, { id: id });
 		this.initForm();
 	}
 
