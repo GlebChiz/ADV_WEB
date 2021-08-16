@@ -41,7 +41,7 @@ import { supervisorLicenseTableReducers } from './supervisor-license-table/super
 				component: SupervisorLicenseComponent,
 			},
 		]),
-		StoreModule.forFeature('modalityTable', supervisorLicenseTableReducers),
+		StoreModule.forFeature('supervisorLicenseTable', supervisorLicenseTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [SupervisorLicenseComponent, SupervisorLicenseTableComponent],

@@ -1,3 +1,4 @@
+<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Payers</div>
 <div class="new-player-button">
 	<button (click)="openDialog()"><img src="/assets/images/player.svg" /> New Payer</button>
 </div>
@@ -9,7 +10,7 @@
 	[pageSize]="gridSettings.state.take"
 	[filter]="gridSettings.state.filter!"
 	[pageable]="{ pageSizes: [5, 10, 20, 50, 100] }"
-	[height]="510"
+	[height]="710"
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"

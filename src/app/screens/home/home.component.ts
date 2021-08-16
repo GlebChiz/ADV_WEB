@@ -21,14 +21,14 @@ export class HomeComponent implements OnInit {
 		{ text: 'Modalities', icon: 'k-i-calendar', path: 'modalities' },
 		{ text: 'Clinicians', icon: 'k-i-plus-outline', path: 'clinicians' },
 		{ text: 'Patients', icon: 'k-i-accessibility', path: 'patients' },
-		// { text: 'Series Plans', icon: 'k-i-accessibility', path: 'seriesplans' },
-		{ text: 'Supervisor License', icon: 'k-i-accessibility', path: 'supercred' },
-		{ text: 'Public Snipit', icon: 'k-i-accessibility', path: 'snipits' },
-		{ text: 'Session Plan', icon: 'k-i-accessibility', path: 'sessionplans' },
-		{ text: 'Assessment Legend', icon: 'k-i-accessibility', path: 'assessmentlegend' },
-		{ text: 'Assessment Quation', icon: 'k-i-accessibility', path: 'assessment-questions' },
-		{ text: 'Assessment Template', icon: 'k-i-accessibility', path: 'assessmenttemplate' },
-		{ text: 'Assessment', icon: 'k-i-accessibility', path: 'assessments' },
+		// { text: 'Series Plans', icon: 'k-i-delicious-box', path: 'seriesplans' },
+		{ text: 'Supervisor License', icon: 'k-i-chart-radar-filled', path: 'supercred' },
+		{ text: 'Public Snipit', icon: 'k-i-chart-doughnut', path: 'snipits' },
+		{ text: 'Session Plan', icon: 'k-i-graph', path: 'sessionplans' },
+		{ text: 'Assessment Legend', icon: 'k-i-brightness-contrast', path: 'assessmentlegend' },
+		{ text: 'Assessment Quation', icon: 'k-i-grayscale', path: 'assessment-questions' },
+		{ text: 'Assessment Template', icon: 'k-i-cells-merge', path: 'assessmenttemplate' },
+		{ text: 'Assessment', icon: 'k-i-select-box', path: 'assessments' },
 	];
 
 	public constructor(
