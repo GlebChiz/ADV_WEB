@@ -49,6 +49,7 @@ export class TableService {
 		state: DataStateChangeEvent,
 		filterId: string,
 		columns: any[],
+		gridId: string,
 	): Observable<T> {
 		const filter: IGridFilterModel | undefined = this.getFilterModel(state);
 		const gridFilterParams: IGridFilter = this.getGridFilterParams(state);
@@ -56,7 +57,7 @@ export class TableService {
 		return this.http.post<T>(`${controller}/grid-filter`, {
 			Filter: { FilterId: filterId, ...filter },
 			...gridFilterParams,
-			gridId: `${controller}-manager-grid`, // TODO
+			gridId: `${gridId ?? controller}-manager-grid`, // TODO
 			sorting: this.getSorting(columns, state),
 		});
 	}

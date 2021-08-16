@@ -41,6 +41,16 @@ import { SomeEffect } from './session-plan-table/session-plan-table.effects';
 				path: '',
 				component: SessionPlanComponent,
 			},
+			{
+				path: ':id',
+				loadChildren: (): any =>
+					import('./session-plan-details/session-plan-details.module').then(
+						(m: any) => m.SessionPlanDetailsModule,
+					),
+				data: {
+					breadcrumb: 'Single',
+				},
+			},
 		]),
 		StoreModule.forFeature('sessionPlanTable', sessionPlanTableReducers),
 		EffectsModule.forFeature([SomeEffect]),

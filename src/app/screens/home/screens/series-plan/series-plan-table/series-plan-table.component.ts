@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
+
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 
 @Component({
@@ -13,22 +15,11 @@ export class SeriesplansTableComponent extends CustomTableDirective {
 			field: 'name',
 			title: 'Name',
 			hidden: false,
-			// filterable: true,
-			// filter: 'text',
 		},
 		{
 			field: 'modality',
 			title: 'Modality',
 			hidden: false,
-			// filterable: true,
-			// filter: 'text',
 		},
-		// {
-		// 	field: 'url',
-		// 	title: 'URL',
-		// 	hidden: false,
-		// 	// filterable: true,
-		// 	// filter: 'text',
-		// },
 	];
 }

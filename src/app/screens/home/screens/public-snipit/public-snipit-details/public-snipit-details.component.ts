@@ -2,21 +2,21 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
-import { PatientDetailsActions } from './store/actions/patient-details.actions';
+import { PublicSnipitDetailsActions } from './store/actions/public-snipit-details.actions';
 
 @Component({
 	providers: [],
-	selector: 'advenium-patient-details',
-	templateUrl: './patient-details.component.html',
+	selector: 'advenium-public-snipit-details',
+	templateUrl: './public-snipit-details.component.html',
 })
-export class PatientDetailsComponent implements OnInit {
+export class PublicSnipitDetailsComponent implements OnInit {
 	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {}
 
-	public patientDetails$: Observable<any> = this.store.select('patient');
+	public publicSnipitDetails$: Observable<any> = this.store.select('public-snipit');
 
 	public ngOnInit(): void {
 		this.store.dispatch(
-			PatientDetailsActions.GetPatientDetailsPending({
+			PublicSnipitDetailsActions.GetPublicSnipitDetailsPending({
 				id: this.activatedRoute.snapshot.params.id,
 			}),
 		);

@@ -21,17 +21,14 @@ export class HomeComponent implements OnInit {
 		{ text: 'Modalities', icon: 'k-i-calendar', path: 'modalities' },
 		{ text: 'Clinicians', icon: 'k-i-accessibility', path: 'clinicians' },
 		{ text: 'Patients', icon: 'k-i-accessibility', path: 'patients' },
-		{ text: 'Series Plans', icon: 'k-i-accessibility', path: 'seriesplans' },
+		// { text: 'Series Plans', icon: 'k-i-accessibility', path: 'seriesplans' },
 		{ text: 'Supervisor License', icon: 'k-i-accessibility', path: 'supercred' },
 		{ text: 'Public Snipit', icon: 'k-i-accessibility', path: 'snipits' },
 		{ text: 'Session Plan', icon: 'k-i-accessibility', path: 'sessionplans' },
 		{ text: 'Assessment Legend', icon: 'k-i-accessibility', path: 'assessmentlegend' },
-<<<<<<< HEAD
 		{ text: 'Assessment Quation', icon: 'k-i-accessibility', path: 'assessment-questions' },
 		{ text: 'Assessment Template', icon: 'k-i-accessibility', path: 'assessmenttemplate' },
-=======
 		{ text: 'Assessment', icon: 'k-i-accessibility', path: 'assessments' },
->>>>>>> 8aeee6b41dbd6c982aac6795c46109a478b1d2f8
 	];
 
 	public constructor(

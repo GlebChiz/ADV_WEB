@@ -39,6 +39,16 @@ import { publicSnipitTableReducers } from './public-snipit/public-snipit-table.r
 				path: '',
 				component: PublicSnipitComponent,
 			},
+			{
+				path: ':id',
+				loadChildren: (): any =>
+					import('./public-snipit-details/public-snipit-details.module').then(
+						(m: any) => m.PublicSnipitDetailsModule,
+					),
+				data: {
+					breadcrumb: 'Singleasdasd',
+				},
+			},
 		]),
 		StoreModule.forFeature('publicSnipitTable', publicSnipitTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
