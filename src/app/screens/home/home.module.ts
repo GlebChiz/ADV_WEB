@@ -13,16 +13,7 @@ import { HomeComponent } from './home.component';
 				component: HomeComponent,
 				children: [
 					{ path: '', redirectTo: 'payers' },
-					{
-						path: 'seriesplans',
-						loadChildren: (): any =>
-							import('./screens/series-plan/series-plan.module').then(
-								(m: any) => m.SeriesplansModule,
-							),
-						data: {
-							breadcrumb: 'Clinicians',
-						},
-					},
+
 					{
 						path: 'clinicians',
 						loadChildren: (): any =>
@@ -97,6 +88,7 @@ import { HomeComponent } from './home.component';
 						},
 					},
 					{
+<<<<<<< HEAD
 						path: 'assessment-questions',
 						loadChildren: (): any =>
 							import('./screens/assessment-question/assessment-question.module').then(
@@ -114,6 +106,23 @@ import { HomeComponent } from './home.component';
 							),
 						data: {
 							breadcrumb: 'Assessment Template',
+=======
+						path: 'seriesplans',
+						loadChildren: (): any =>
+							import('./screens/series-plan/series-plan.module').then(
+								(m: any) => m.SeriesplansModule,
+							),
+						data: {
+							breadcrumb: 'Series-plans',
+						},
+					},
+					{
+						path: 'assessments',
+						loadChildren: (): any =>
+							import('./screens/assessment/assessment.module').then((m: any) => m.AssessmentModule),
+						data: {
+							breadcrumb: 'Assessments',
+>>>>>>> 8aeee6b41dbd6c982aac6795c46109a478b1d2f8
 						},
 					},
 				],

@@ -9,7 +9,6 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 })
 export class ClinicianTableComponent extends CustomTableDirective {
 	public columns: IColumn[] = [
-		{ field: 'id', title: 'Id', hidden: false },
 		{
 			field: 'name',
 			title: 'Name',

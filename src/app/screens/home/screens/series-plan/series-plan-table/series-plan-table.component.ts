@@ -9,7 +9,6 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 })
 export class SeriesplansTableComponent extends CustomTableDirective {
 	public columns: IColumn[] = [
-		{ field: 'id', title: 'Id', hidden: false },
 		{
 			field: 'name',
 			title: 'Name',
