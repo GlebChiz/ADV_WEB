@@ -115,14 +115,6 @@ import { HomeComponent } from './home.component';
 							),
 						data: {
 							breadcrumb: 'Assessment Template',
-							path: 'seriesplans',
-							loadChildren: (): any =>
-								import('./screens/series-plan/series-plan.module').then(
-									(m: any) => m.SeriesplansModule,
-								),
-							data: {
-								breadcrumb: 'Series-plans',
-							},
 						},
 					},
 					{
