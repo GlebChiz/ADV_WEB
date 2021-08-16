@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
 		{ text: 'Public Snipit', icon: 'k-i-accessibility', path: 'snipits' },
 		{ text: 'Session Plan', icon: 'k-i-accessibility', path: 'sessionplans' },
 		{ text: 'Assessment Legend', icon: 'k-i-accessibility', path: 'assessmentlegend' },
+		{ text: 'Assessment Quation', icon: 'k-i-accessibility', path: 'assessment-questions' },
+		{ text: 'Assessment Template', icon: 'k-i-accessibility', path: 'assessmenttemplate' },
 	];
 
 	public constructor(

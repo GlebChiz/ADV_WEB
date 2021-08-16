@@ -96,6 +96,26 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Assessment Legend',
 						},
 					},
+					{
+						path: 'assessment-questions',
+						loadChildren: (): any =>
+							import('./screens/assessment-question/assessment-question.module').then(
+								(m: any) => m.AssessmentQuestionModuleModule,
+							),
+						data: {
+							breadcrumb: 'Assessment Quation',
+						},
+					},
+					{
+						path: 'assessmenttemplate',
+						loadChildren: (): any =>
+							import('./screens/assessment-template/assessment-template.module').then(
+								(m: any) => m.AssessmentTemplateModuleModule,
+							),
+						data: {
+							breadcrumb: 'Assessment Template',
+						},
+					},
 				],
 			},
 		]),

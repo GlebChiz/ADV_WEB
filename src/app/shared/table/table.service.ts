@@ -56,7 +56,7 @@ export class TableService {
 		return this.http.post<T>(`${controller}/grid-filter`, {
 			Filter: { FilterId: filterId, ...filter },
 			...gridFilterParams,
-			gridId: `${controller}-manager-grid`,
+			gridId: `${controller}-manager-grid`, // TODO
 			sorting: this.getSorting(columns, state),
 		});
 	}
