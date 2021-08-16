@@ -76,6 +76,26 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Public snipit',
 						},
 					},
+					{
+						path: 'sessionplans',
+						loadChildren: (): any =>
+							import('./screens/session-plan/session-plan.module').then(
+								(m: any) => m.SessionPlanModuleModule,
+							),
+						data: {
+							breadcrumb: 'Session Plan',
+						},
+					},
+					{
+						path: 'assessmentlegend',
+						loadChildren: (): any =>
+							import('./screens/assessment-legend/assessment-legend.module').then(
+								(m: any) => m.AssessmentLegendModuleModule,
+							),
+						data: {
+							breadcrumb: 'Assessment Legend',
+						},
+					},
 				],
 			},
 		]),
