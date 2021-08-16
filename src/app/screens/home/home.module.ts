@@ -16,7 +16,7 @@ import { HomeComponent } from './home.component';
 					{
 						path: 'seriesplans',
 						loadChildren: (): any =>
-							import('./screens/seriesplans/seriesplans.module').then(
+							import('./screens/series-plan/series-plan.module').then(
 								(m: any) => m.SeriesplansModule,
 							),
 						data: {

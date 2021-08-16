@@ -25,11 +25,11 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 } from 'src/app/shared/table/table.tokens';
-import { SeriesplansTableActions } from './seriesplans-table/seriesplans-table.actions';
-import { SeriesplansTableComponent } from './seriesplans-table/seriesplans-table.component';
-import { SomeEffect } from './seriesplans-table/seriesplans-table.effects';
-import { seriesplansTableReducers } from './seriesplans-table/seriesplans-table.reducers';
-import { SeriesplansComponent } from './seriesplans.component';
+import { SeriesplansTableActions } from './series-plan-table/series-plan-table.actions';
+import { SeriesplansTableComponent } from './series-plan-table/series-plan-table.component';
+import { SomeEffect } from './series-plan-table/series-plan-table.effects';
+import { seriesplansTableReducers } from './series-plan-table/series-plan-table.reducers';
+import { SeriesplansComponent } from './series-plan.component';
 
 @NgModule({
 	imports: [
