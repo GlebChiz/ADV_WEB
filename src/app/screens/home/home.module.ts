@@ -14,6 +14,16 @@ import { HomeComponent } from './home.component';
 				children: [
 					{ path: '', redirectTo: 'payers' },
 					{
+						path: 'seriesplans',
+						loadChildren: (): any =>
+							import('./screens/seriesplans/seriesplans.module').then(
+								(m: any) => m.SeriesplansModule,
+							),
+						data: {
+							breadcrumb: 'Clinicians',
+						},
+					},
+					{
 						path: 'clinicians',
 						loadChildren: (): any =>
 							import('./screens/clinician/clinician.module').then((m: any) => m.ClinicianModule),
