@@ -17,6 +17,7 @@ import { PayerPopupComponent } from './payer-popup/payer-popup.component';
 	providers: [],
 	selector: 'advenium-payer-table',
 	templateUrl: './payer-table.component.html',
+	styleUrls: ['../../../home.component.scss'],
 })
 export class PayerTableComponent extends CustomTableDirective {
 	public constructor(

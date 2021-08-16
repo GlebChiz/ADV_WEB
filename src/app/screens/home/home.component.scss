@@ -65,3 +65,20 @@ kendo-drawer-content {
 	cursor: pointer;
 	// display: flex;
 }
+.new-player-button {
+	display: flex;
+	justify-content: flex-end;
+
+	button {
+		margin-bottom: 10px;
+		width: 160px;
+		background-color: #631ed3;
+		color: white;
+		height: 38px;
+		border-radius: 4px;
+		border: 1px solid #631ed3;
+		img {
+			margin-right: 10px;
+		}
+	}
+}

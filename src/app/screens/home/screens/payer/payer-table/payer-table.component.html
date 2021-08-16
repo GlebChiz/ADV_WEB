@@ -1,4 +1,6 @@
-<button (click)="openDialog()">New Payer</button>
+<div class="new-player-button">
+	<button (click)="openDialog()"><img src="/assets/images/player.svg" /> New Payer</button>
+</div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridData"
@@ -13,6 +15,7 @@
 	(dataStateChange)="dataStateChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
+		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
 	<!-- <kendo-grid-column field="Discontinued" title="" [width]="120">
