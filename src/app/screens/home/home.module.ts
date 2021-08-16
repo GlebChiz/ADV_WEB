@@ -46,6 +46,26 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Payers',
 						},
 					},
+					{
+						path: 'supercred',
+						loadChildren: (): any =>
+							import('./screens/supervisor-license/supervisor-license.module').then(
+								(m: any) => m.SupervisorLicenseModuleModule,
+							),
+						data: {
+							breadcrumb: 'Supervisor license',
+						},
+					},
+					{
+						path: 'snipits',
+						loadChildren: (): any =>
+							import('./screens/public-snipit/public-snipit.module').then(
+								(m: any) => m.PublicSnipitModule,
+							),
+						data: {
+							breadcrumb: 'Public snipit',
+						},
+					},
 				],
 			},
 		]),
