@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
 		{ text: 'Clinicians', icon: 'k-i-accessibility', path: 'clinicians' },
 		{ text: 'Patients', icon: 'k-i-accessibility', path: 'patients' },
 		{ text: 'Series Plans', icon: 'k-i-accessibility', path: 'seriesplans' },
+		{ text: 'Supervisor License', icon: 'k-i-accessibility', path: 'supercred' },
+		{ text: 'Public Snipit', icon: 'k-i-accessibility', path: 'snipits' },
 	];
 
 	public constructor(
