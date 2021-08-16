@@ -4,8 +4,8 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 
 @Component({
 	providers: [],
-	selector: 'advenium-seriesplans-table',
-	templateUrl: './seriesplans-table.component.html',
+	selector: 'advenium-series-plan-table',
+	templateUrl: './series-plan-table.component.html',
 })
 export class SeriesplansTableComponent extends CustomTableDirective {
 	public columns: IColumn[] = [

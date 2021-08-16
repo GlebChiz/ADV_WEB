@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
 @Component({
 	providers: [],
 	selector: 'advenium-seriesplan',
-	templateUrl: './seriesplans.component.html',
+	templateUrl: './series-plan.component.html',
 })
 export class SeriesplansComponent {}
