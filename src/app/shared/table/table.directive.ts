@@ -23,6 +23,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	@Input() public storePath: string = '';
 
+	@Input() public gridId!: string;
+
 	@Input() public columns!: any[];
 
 	@Input() public group!: string | null;
@@ -63,7 +65,11 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public ngOnInit(): void {
 		this._store.dispatch(
-			this.getTableDataPending({ controller: this.controller, filter: this.gridSettings.state }),
+			this.getTableDataPending({
+				controller: this.controller,
+				filter: this.gridSettings.state,
+				gridId: this.gridId,
+			}),
 		);
 		this._store
 			.select((state: any) => state[this.storePath])
@@ -102,6 +108,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				columns: this.columns,
 				controller: this.controller,
 				filter: this.gridSettings.state,
+				gridId: this.gridId,
 			}),
 		);
 	}

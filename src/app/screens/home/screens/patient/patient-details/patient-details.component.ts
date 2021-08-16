@@ -10,14 +10,11 @@ import { PatientDetailsActions } from './store/actions/patient-details.actions';
 	templateUrl: './patient-details.component.html',
 })
 export class PatientDetailsComponent implements OnInit {
-	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {
-		console.log(11);
-	}
+	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {}
 
 	public patientDetails$: Observable<any> = this.store.select('patient');
 
 	public ngOnInit(): void {
-		console.log(222);
 		this.store.dispatch(
 			PatientDetailsActions.GetPatientDetailsPending({
 				id: this.activatedRoute.snapshot.params.id,

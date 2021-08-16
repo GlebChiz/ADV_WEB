@@ -17,6 +17,7 @@ import { PayerPopupComponent } from './payer-popup/payer-popup.component';
 	providers: [],
 	selector: 'advenium-payer-table',
 	templateUrl: './payer-table.component.html',
+	styleUrls: ['../../../home.component.scss'],
 })
 export class PayerTableComponent extends CustomTableDirective {
 	public constructor(
@@ -32,8 +33,6 @@ export class PayerTableComponent extends CustomTableDirective {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
 
-	// public b: any = process(this.gridData.data, { group: [{ field: 'type' }] });
-
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {
 			return;
@@ -41,7 +40,7 @@ export class PayerTableComponent extends CustomTableDirective {
 		this.delete(id);
 	}
 
-	public openDialog(dataItem?: any): void {
+	public openDialog(dataItem?: any, isDublicate?: boolean): void {
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
@@ -57,9 +56,11 @@ export class PayerTableComponent extends CustomTableDirective {
 		});
 		dialog.content.instance.payer = { ...dataItem };
 		dialog.result.subscribe((result: any) => {
-			if (result instanceof DialogCloseResult) {
-			} else {
-				if (dataItem) {
+			if (!(result instanceof DialogCloseResult)) {
+				if (isDublicate) {
+					result.id = null;
+				}
+				if (dataItem && !isDublicate) {
 					this._store.dispatch(this.editDataPending({ item: result, controller: this.controller }));
 					return;
 				}

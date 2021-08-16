@@ -33,17 +33,15 @@ export class TableService {
 	}
 
 	public update(controller: string, body: any): Observable<any> {
-		return this.handleError$(this.http.post(`${controller}/update`, body));
-		// return this.http.post(`${controller}/update`, body);
+		return this.handleError$(this.http.put(`${controller}/update`, body));
 	}
 
 	public create(controller: string, body: any): Observable<any> {
-		return this.handleError$(this.http.put(`${controller}/create`, body));
+		return this.handleError$(this.http.post(`${controller}/create`, body));
 	}
 
 	public getOne(controller: string, id: string): Observable<any> {
 		return this.handleError$(this.http.get(`${controller}/${id}`));
-		// return this.http.get(`${controller}/${id}`);
 	}
 
 	public saveFilter<T>(
@@ -51,6 +49,7 @@ export class TableService {
 		state: DataStateChangeEvent,
 		filterId: string,
 		columns: any[],
+		gridId: string,
 	): Observable<T> {
 		const filter: IGridFilterModel | undefined = this.getFilterModel(state);
 		const gridFilterParams: IGridFilter = this.getGridFilterParams(state);
@@ -58,7 +57,7 @@ export class TableService {
 		return this.http.post<T>(`${controller}/grid-filter`, {
 			Filter: { FilterId: filterId, ...filter },
 			...gridFilterParams,
-			gridId: `${controller}-manager-grid`,
+			gridId: `${gridId ?? controller}-manager-grid`, // TODO
 			sorting: this.getSorting(columns, state),
 		});
 	}

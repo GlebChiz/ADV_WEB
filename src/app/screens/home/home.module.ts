@@ -13,6 +13,7 @@ import { HomeComponent } from './home.component';
 				component: HomeComponent,
 				children: [
 					{ path: '', redirectTo: 'payers' },
+
 					{
 						path: 'clinicians',
 						loadChildren: (): any =>
@@ -44,6 +45,84 @@ import { HomeComponent } from './home.component';
 							import('./screens/payer/payer.module').then((m: any) => m.PayerModule),
 						data: {
 							breadcrumb: 'Payers',
+						},
+					},
+					{
+						path: 'supercred',
+						loadChildren: (): any =>
+							import('./screens/supervisor-license/supervisor-license.module').then(
+								(m: any) => m.SupervisorLicenseModuleModule,
+							),
+						data: {
+							breadcrumb: 'Supervisor license',
+						},
+					},
+					{
+						path: 'snipits',
+						loadChildren: (): any =>
+							import('./screens/public-snipit/public-snipit.module').then(
+								(m: any) => m.PublicSnipitModule,
+							),
+						data: {
+							breadcrumb: 'Public snipit',
+						},
+					},
+					{
+						path: 'sessionplans',
+						loadChildren: (): any =>
+							import('./screens/session-plan/session-plan.module').then(
+								(m: any) => m.SessionPlanModuleModule,
+							),
+						data: {
+							breadcrumb: 'Session Plan',
+						},
+					},
+					{
+						path: 'sessionplans',
+						loadChildren: (): any =>
+							import('./screens/session-plan/session-plan.module').then(
+								(m: any) => m.SessionPlanModuleModule,
+							),
+						data: {
+							breadcrumb: 'Session Plan',
+						},
+					},
+					{
+						path: 'assessmentlegend',
+						loadChildren: (): any =>
+							import('./screens/assessment-legend/assessment-legend.module').then(
+								(m: any) => m.AssessmentLegendModuleModule,
+							),
+						data: {
+							breadcrumb: 'Assessment Legend',
+						},
+					},
+					{
+						path: 'assessment-questions',
+						loadChildren: (): any =>
+							import('./screens/assessment-question/assessment-question.module').then(
+								(m: any) => m.AssessmentQuestionModuleModule,
+							),
+						data: {
+							breadcrumb: 'Assessment Quation',
+						},
+					},
+					{
+						path: 'assessmenttemplate',
+						loadChildren: (): any =>
+							import('./screens/assessment-template/assessment-template.module').then(
+								(m: any) => m.AssessmentTemplateModuleModule,
+							),
+						data: {
+							breadcrumb: 'Assessment Template',
+						},
+					},
+					{
+						path: 'assessments',
+						loadChildren: (): any =>
+							import('./screens/assessment/assessment.module').then((m: any) => m.AssessmentModule),
+						data: {
+							breadcrumb: 'Assessments',
 						},
 					},
 				],

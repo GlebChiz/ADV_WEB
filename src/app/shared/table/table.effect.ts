@@ -59,14 +59,16 @@ export class TableEffects {
 					controller,
 					filter,
 					columns,
+					gridId,
 				}: {
 					controller: string;
 					filter: DataStateChangeEvent;
 					columns: any[];
+					gridId: string;
 				}) => {
 					const filterId: Guid = Guid.create();
 					return this._tableService
-						.saveFilter(controller, filter, filterId.toString(), columns)
+						.saveFilter(controller, filter, filterId.toString(), columns, gridId)
 						.pipe(
 							switchMap(() => {
 								return this._tableService.getData(controller, filterId.toString()).pipe(

@@ -26,6 +26,7 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { AddressControlComponent } from 'src/app/controls/address-control/address-control.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PayerTableActions } from './payer-table/payer-table.actions';
 import { PayerTableComponent } from './payer-table/payer-table.component';
@@ -45,7 +46,7 @@ import { PayerComponent } from './payer.component';
 		StoreModule.forFeature('payerTable', PayerTableReducers),
 		EffectsModule.forFeature([TableEffects]),
 	],
-	declarations: [PayerComponent, PayerTableComponent, PayerPopupComponent],
+	declarations: [PayerComponent, PayerTableComponent, PayerPopupComponent, AddressControlComponent],
 	entryComponents: [],
 	providers: [
 		{

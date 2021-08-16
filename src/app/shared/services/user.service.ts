@@ -24,7 +24,7 @@ export class UserService {
 	}
 
 	public updateUser(user: IUser): Observable<any> {
-		return this.http.post('update', user);
+		return this.http.put('update', user);
 	}
 
 	public createUser(user: IUser): Observable<any> {
