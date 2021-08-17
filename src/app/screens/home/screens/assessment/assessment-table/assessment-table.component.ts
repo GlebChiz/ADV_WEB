@@ -13,16 +13,22 @@ export class AssessmentTableComponent extends CustomTableDirective {
 			field: 'typeName',
 			title: 'Type',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'modality',
 			title: 'Modality',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'patient',
 			title: 'Patient',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 	];
 }

@@ -68,6 +68,16 @@ import { HomeComponent } from './home.component';
 						},
 					},
 					{
+						path: 'seriesplans',
+						loadChildren: (): any =>
+							import('./screens/series-plan/series-plan.module').then(
+								(m: any) => m.SeriesplansModule,
+							),
+						data: {
+							breadcrumb: 'Series Plan',
+						},
+					},
+					{
 						path: 'sessionplans',
 						loadChildren: (): any =>
 							import('./screens/session-plan/session-plan.module').then(
@@ -104,7 +114,7 @@ import { HomeComponent } from './home.component';
 								(m: any) => m.AssessmentQuestionModuleModule,
 							),
 						data: {
-							breadcrumb: 'Assessment Quation',
+							breadcrumb: 'Assessment Questions',
 						},
 					},
 					{

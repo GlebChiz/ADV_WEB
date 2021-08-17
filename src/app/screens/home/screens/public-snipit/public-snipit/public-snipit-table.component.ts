@@ -34,16 +34,22 @@ export class PublicSnipitTableComponent extends CustomTableDirective {
 			field: 'typeName',
 			title: 'Type',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'category',
 			title: 'Category',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'text',
 			title: 'Text',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 	];
 

@@ -13,15 +13,15 @@ export class ModalityTableComponent extends CustomTableDirective {
 			field: 'name',
 			title: 'Name',
 			hidden: false,
-			// filterable: true,
-			// filter: 'text',
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'description',
 			title: 'Description',
 			hidden: false,
-			// filterable: true,
-			// filter: 'text',
+			filterable: true,
+			type: 'text',
 		},
 	];
 }
