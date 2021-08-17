@@ -13,21 +13,29 @@ export class AssessmentLegendTableComponent extends CustomTableDirective {
 			field: 'value',
 			title: 'Value',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'text',
 			title: 'Text',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'icon',
 			title: 'Icon',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'translated',
 			title: 'Translated',
 			hidden: false,
+			filterable: false,
+			type: 'text',
 		},
 	];
 }

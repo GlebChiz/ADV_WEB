@@ -15,11 +15,15 @@ export class SeriesplansTableComponent extends CustomTableDirective {
 			field: 'name',
 			title: 'Name',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'modality',
 			title: 'Modality',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 	];
 }

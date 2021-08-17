@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { map, catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/shared/services/auth.service';
@@ -11,7 +12,8 @@ export class UserEffects {
 	public constructor(
 		private actions$: Actions,
 		private userService: UserService,
-		private authenticationService: AuthenticationService, // private router: Router,
+		private authenticationService: AuthenticationService,
+		public _store: Store<any>,
 	) {}
 
 	public getUserModel$ = createEffect(() =>
@@ -44,6 +46,7 @@ export class UserEffects {
 				({ login, password }: { login: string | undefined; password: string | undefined }) => {
 					return this.authenticationService.login(login, password).pipe(
 						map((user: IUser) => {
+							this._store.dispatch(UserActions.GetUserAvatarPending({ id: user.userId }));
 							this.authenticationService.saveToken(user.token);
 							return AuthUserActions.SignInComplete({ user });
 						}),
@@ -53,6 +56,24 @@ export class UserEffects {
 					);
 				},
 			),
+		),
+	);
+
+	public getUserAvatar$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(UserActions.GetUserAvatarPending),
+			switchMap(({ id }: { id: number }) => {
+				return this.authenticationService.getUserAvatar(id).pipe(
+					map((url: any) => {
+						return UserActions.GetUserAvatarSuccess({ url });
+					}),
+					catchError((errors: any) => {
+						console.log(errors);
+
+						return of(UserActions.GetUserAvatarError({ errors }));
+					}),
+				);
+			}),
 		),
 	);
 

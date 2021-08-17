@@ -13,22 +13,8 @@ export class ClinicianTableComponent extends CustomTableDirective {
 			field: 'name',
 			title: 'Name',
 			hidden: false,
-			// filterable: true,
-			// filter: 'text',
+			filterable: true,
+			type: 'text',
 		},
-		// {
-		// 	field: 'description',
-		// 	title: 'Description',
-		// 	hidden: false,
-		// 	// filterable: true,
-		// 	// filter: 'text',
-		// },
-		// {
-		// 	field: 'url',
-		// 	title: 'URL',
-		// 	hidden: false,
-		// 	// filterable: true,
-		// 	// filter: 'text',
-		// },
 	];
 }

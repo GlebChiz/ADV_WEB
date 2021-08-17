@@ -21,7 +21,55 @@
 		[title]="col.title"
 		[field]="col.field"
 		[hidden]="col.hidden!"
+		[filterable]="col.filterable"
+	>
+		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+			<kendo-grid-string-filter-cell
+				*ngIf="col.type === 'text'"
+				[showOperators]="true"
+				[column]="column"
+				[filter]="filter"
+			>
+				<kendo-filter-eq-operator></kendo-filter-eq-operator>
+				<kendo-filter-neq-operator></kendo-filter-neq-operator>
+				<kendo-filter-contains-operator></kendo-filter-contains-operator>
+				<kendo-filter-not-contains-operator></kendo-filter-not-contains-operator>
+				<kendo-filter-startswith-operator></kendo-filter-startswith-operator>
+				<kendo-filter-endswith-operator></kendo-filter-endswith-operator>
+				<kendo-filter-isempty-operator></kendo-filter-isempty-operator>
+				<kendo-filter-isnotempty-operator></kendo-filter-isnotempty-operator
+			></kendo-grid-string-filter-cell>
+			<kendo-grid-date-filter-cell
+				*ngIf="col.type === 'date'"
+				[showOperators]="true"
+				[column]="column"
+				[filter]="filter"
+			>
+				<kendo-filter-eq-operator></kendo-filter-eq-operator>
+				<kendo-filter-neq-operator></kendo-filter-neq-operator>
+				<kendo-filter-after-operator></kendo-filter-after-operator>
+				<kendo-filter-before-operator></kendo-filter-before-operator>
+			</kendo-grid-date-filter-cell>
+			<kendo-grid-date-filter-cell
+				*ngIf="col.type === 'numeric'"
+				[showOperators]="true"
+				[column]="column"
+				[filter]="filter"
+			>
+				<kendo-filter-eq-operator></kendo-filter-eq-operator>
+				<kendo-filter-neq-operator></kendo-filter-neq-operator>
+				<kendo-filter-gt-operator></kendo-filter-gt-operator>
+				<kendo-filter-lt-operator></kendo-filter-lt-operator>
+			</kendo-grid-date-filter-cell>
+			<kendo-grid-date-filter-cell
+				*ngIf="col.type === 'boolean'"
+				[showOperators]="true"
+				[column]="column"
+				[filter]="filter"
+			>
+			</kendo-grid-date-filter-cell> </ng-template
 	></kendo-grid-column>
+
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
 			<div class="k-icon k-i-edit k-link"></div>

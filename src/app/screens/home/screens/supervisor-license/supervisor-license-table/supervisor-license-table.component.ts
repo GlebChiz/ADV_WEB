@@ -13,26 +13,36 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 			field: 'supervisor',
 			title: 'Supervisor',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'payer',
 			title: 'Payer',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'providerId',
 			title: 'Provider Id',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'start',
 			title: 'Start Date',
 			hidden: false,
+			filterable: true,
+			type: 'date',
 		},
 		{
 			field: 'end',
 			title: 'End Date',
 			hidden: false,
+			filterable: true,
+			type: 'date',
 		},
 	];
 }

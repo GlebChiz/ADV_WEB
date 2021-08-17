@@ -6,6 +6,25 @@ kendo-drawer-content {
 	padding: 10px;
 }
 
+::ng-deep .k-checkbox:checked,
+.k-checkbox.k-checked {
+	background: #631ed3;
+	border-color: #631ed3;
+}
+::ng-deep .k-button.k-primary:hover {
+	background: #631ed3;
+	border-color: #631ed3;
+}
+::ng-deep .k-button.k-primary {
+	background: #631ed3;
+	border-color: #631ed3;
+}
+::ng-deep .k-list .k-item.k-state-selected:hover {
+	background: #631ed3;
+}
+::ng-deep .k-list .k-item.k-state-selected {
+	background: #631ed3;
+}
 :host ::ng-deep .k-drawer-item.k-state-selected {
 	background: #631ed3;
 }

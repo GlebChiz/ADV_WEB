@@ -10,5 +10,11 @@ export function userReducers(userState: IUserState | undefined, action: Action):
 		on(UserActions.NewUserModel, (state) => ({ ...state, editing: null })),
 		on(UserActions.GetUserModel, (state) => ({ ...state, editing: null })),
 		on(UserActions.GetUserModelSuccess, (state, payload) => ({ ...state, editing: payload.user })),
+		on(UserActions.GetUserAvatarSuccess, (state, payload) => {
+			return {
+				...state,
+				urlAvatar: payload.url,
+			};
+		}),
 	)(userState, action);
 }
