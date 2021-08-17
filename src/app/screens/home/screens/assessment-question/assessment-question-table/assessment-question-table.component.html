@@ -25,7 +25,13 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
-		><ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+	>
+		<ng-template *ngIf="col.field === 'legends'" kendoGridCellTemplate let-dataItem>
+			<div *ngFor="let leg of dataItem.legends">
+				{{ leg.name }}
+			</div>
+		</ng-template>
+		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
 				[showOperators]="true"

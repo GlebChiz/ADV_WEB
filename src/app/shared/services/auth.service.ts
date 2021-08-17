@@ -43,8 +43,8 @@ export class AuthenticationService implements OnInit {
 		});
 	}
 
-	public getUserAvatar(id: number): Observable<string> {
-		return this.http.get<string>(`${environment.apiUrl}/users/${id}/picture`);
+	public getUserAvatar(id: number): Observable<any> {
+		return this.http.get<any>(`${environment.apiUrl}/users/${id}/picture`);
 	}
 
 	public sharedCalllogin(sharedCallId: string, code: any): any {

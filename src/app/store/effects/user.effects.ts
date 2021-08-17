@@ -12,7 +12,7 @@ export class UserEffects {
 	public constructor(
 		private actions$: Actions,
 		private userService: UserService,
-		private authenticationService: AuthenticationService, // private router: Router,
+		private authenticationService: AuthenticationService,
 		public _store: Store<any>,
 	) {}
 

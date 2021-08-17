@@ -57,7 +57,7 @@ export class TableService {
 		return this.http.post<T>(`${controller}/grid-filter`, {
 			Filter: { FilterId: filterId, ...filter },
 			...gridFilterParams,
-			gridId: `${gridId ?? controller}-manager-grid`, // TODO
+			gridId: `${gridId ?? controller}-manager-grid`,
 			sorting: this.getSorting(columns, state),
 		});
 	}
@@ -100,14 +100,25 @@ export class TableService {
 	}
 
 	private getSorting(columns: any[], state: DataStateChangeEvent): IGridSort[] {
-		return columns
-			? columns.map((column: any) => {
-					return {
-						column: column.field,
-						direction: state.sort && state.sort[0] && state.sort[0].dir === 'desc' ? 0 : 1,
-					};
-			  })
+		const res: any = columns
+			? columns.find(
+					(column: any) => state.sort && state.sort[0] && state.sort[0].field === column.field,
+			  )
 			: [];
+		return [
+			{
+				column: res.field,
+				direction: state.sort && state.sort[0] && state.sort[0].dir === 'desc' ? 0 : 1,
+			},
+		];
+		// return columns
+		// 	? columns.map((column: any) => {
+		// 			return {
+		// 				column: column.field,
+		// 				direction: state.sort && state.sort[0] && state.sort[0].dir === 'desc' ? 0 : 1,
+		// 			};
+		// 	  })
+		// 	: [];
 	}
 
 	public getData<T>(controller: string, filterId: string): Observable<T> {
