@@ -25,6 +25,9 @@ export const UserActions = {
 	UpdateUserFail: createAction('[User] Update User Fail', props<{ errors: any }>()),
 	CreateUser: createAction('[User] Create User', props<{ user: IUser }>()),
 	CreateUserComplete: createAction('[User] Create User Compete', props<{ id: number }>()),
+	GetUserAvatarPending: createAction('[Auth] Get user avatar pending', props<{ id: number }>()),
+	GetUserAvatarError: createAction('[Auth] Get user avatar error', props<{ errors: any }>()),
+	GetUserAvatarSuccess: createAction('[Auth] Get user avatar success', props<{ url: any }>()),
 };
 
 export interface IUser {

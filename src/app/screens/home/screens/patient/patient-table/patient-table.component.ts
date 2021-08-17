@@ -30,13 +30,12 @@ export class PatientTableComponent extends CustomTableDirective {
 	}
 
 	public columns: IColumn[] = [
-		// { field: 'id', title: 'Id', hidden: false },
 		{
 			field: 'name',
 			title: 'Name',
 			hidden: false,
-			// filterable: true,
-			// filter: 'text',
+			filterable: true,
+			type: 'text',
 		},
 	];
 

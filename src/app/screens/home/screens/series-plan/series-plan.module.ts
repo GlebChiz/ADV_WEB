@@ -40,7 +40,7 @@ import { SeriesplansComponent } from './series-plan.component';
 				component: SeriesplansComponent,
 			},
 		]),
-		StoreModule.forFeature('seriesplansTable', seriesplansTableReducers),
+		StoreModule.forFeature('seriesplanTable', seriesplansTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [SeriesplansComponent, SeriesplansTableComponent],

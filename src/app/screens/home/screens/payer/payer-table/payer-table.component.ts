@@ -2,6 +2,7 @@
 import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	CLEAR_CURRENT_ITEM,
@@ -70,22 +71,34 @@ export class PayerTableComponent extends CustomTableDirective {
 		});
 	}
 
-	public columns: any[] = [
+	public columns: IColumn[] = [
 		{
 			field: 'name',
 			title: 'Name',
+			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'type',
 			title: 'Type',
+			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'payerId',
 			title: 'Payer Id',
+			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'carrierCode',
 			title: 'Carrier Code',
+			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 	];
 }

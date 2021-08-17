@@ -13,11 +13,15 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective {
 			field: 'text',
 			title: 'Text',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 		{
 			field: 'criteria',
 			title: 'Criteria',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
 	];
 }

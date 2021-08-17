@@ -34,27 +34,26 @@ export class SessionPlanTableComponent extends CustomTableDirective {
 			field: 'title',
 			title: 'Title',
 			hidden: false,
+			filterable: true,
+			type: 'text',
 		},
-		// {
-		// 	field: 'seriesPlans',
-		// 	title: 'Series Plans',
-		// 	hidden: false,
-		// },
 		{
 			field: 'translated',
 			title: 'Translated',
 			hidden: false,
+			filterable: false,
+			type: 'text',
 		},
 		{
 			field: 'orderNumber',
 			title: 'Order',
 			hidden: false,
+			filterable: false,
+			type: 'text',
 		},
 	];
 
 	public onCellClick(e: CellClickEvent): void {
-		console.log('ya tyt');
-
 		this._router.navigate(['sessionplans', e.dataItem.id]);
 	}
 }
