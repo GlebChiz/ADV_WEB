@@ -2,7 +2,7 @@
 	<div><img src="/assets/images/logo-adv.svg" kendoButton look="flat" /></div>
 	<div>
 		<span><img src="/assets/images/bell.svg" /></span>
-		<span class="avatar"><img src="/assets/images/avatar.svg" /></span>
+		<span class="avatar"><img class="avatar" [src]="userId" /></span>
 		<span class="user-name">{{ nameUser }}</span>
 		<span class="logout" (click)="logout()">
 			<span class="k-icon k-i-logout"></span>
