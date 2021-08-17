@@ -25,9 +25,14 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
-		format="{0:dd/MM/yyyy}"
-		parseFormats="['MM/dd/yyyy']"
-		><ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+	>
+		<ng-template *ngIf="col.field === 'start'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.start | date: 'MM/dd/yyyy' }}
+		</ng-template>
+		<ng-template *ngIf="col.field === 'end'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.end | date: 'MM/dd/yyyy' }}
+		</ng-template>
+		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
 				[showOperators]="true"
@@ -54,7 +59,7 @@
 				<kendo-filter-after-operator></kendo-filter-after-operator>
 				<kendo-filter-before-operator></kendo-filter-before-operator>
 			</kendo-grid-date-filter-cell>
-			<kendo-grid-date-filter-cell
+			<kendo-grid-numeric-filter-cell
 				*ngIf="col.type === 'numeric'"
 				[showOperators]="true"
 				[column]="column"
@@ -64,14 +69,13 @@
 				<kendo-filter-neq-operator></kendo-filter-neq-operator>
 				<kendo-filter-gt-operator></kendo-filter-gt-operator>
 				<kendo-filter-lt-operator></kendo-filter-lt-operator>
-			</kendo-grid-date-filter-cell>
-			<kendo-grid-date-filter-cell
+			</kendo-grid-numeric-filter-cell>
+			<kendo-grid-boolean-filter-cell
 				*ngIf="col.type === 'boolean'"
-				[showOperators]="true"
 				[column]="column"
 				[filter]="filter"
 			>
-			</kendo-grid-date-filter-cell> </ng-template
+			</kendo-grid-boolean-filter-cell> </ng-template
 	></kendo-grid-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
