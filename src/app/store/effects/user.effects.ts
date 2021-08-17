@@ -68,6 +68,8 @@ export class UserEffects {
 						return UserActions.GetUserAvatarSuccess({ url });
 					}),
 					catchError((errors: any) => {
+						console.log(errors);
+
 						return of(UserActions.GetUserAvatarError({ errors }));
 					}),
 				);

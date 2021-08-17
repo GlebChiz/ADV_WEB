@@ -4,7 +4,6 @@ import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
-	ColumnFilterDataType,
 	DateOperationFilter,
 	IGridFilter,
 	IGridFilterModel,
@@ -65,7 +64,14 @@ export class TableService {
 	private getFilterModel(state: DataStateChangeEvent): IGridFilterModel | undefined {
 		return state.filter?.filters.reduce((prev: IGridFilterModel, curr: any) => {
 			let formatTypes: IGridFilterType;
-			if (Date.parse(curr.value)) {
+			let isDate!: boolean;
+			try {
+				isDate = this.checkDate(curr.value.toISOString());
+			} catch (e) {
+				isDate = false;
+			}
+
+			if (isDate) {
 				formatTypes = this.formatDateTypes(curr.operator);
 				prev[curr.field as string] = {
 					...formatTypes,
@@ -73,29 +79,35 @@ export class TableService {
 				};
 				return prev;
 			}
-			switch (typeof curr.value) {
-				case ColumnFilterDataType.Number:
-					formatTypes = this.formatNumberTypes(curr.operator);
-					prev[curr.field as string] = {
-						...formatTypes,
-						value: curr.value,
-					};
-					return prev;
-				case ColumnFilterDataType.Boolean:
-					formatTypes = this.formatBooleanTypes(curr.operator);
-					prev[curr.field as string] = {
-						...formatTypes,
-						value: curr.value,
-					};
-					return prev;
-				default:
-					formatTypes = this.formatStringTypes(curr.operator);
-					prev[curr.field as string] = {
-						...formatTypes,
-						value: curr.value,
-					};
-					return prev;
-			}
+			formatTypes = this.formatStringTypes(curr.operator);
+			prev[curr.field as string] = {
+				...formatTypes,
+				value: curr.value,
+			};
+			return prev;
+			// switch (typeof curr.value) {
+			// 	case ColumnFilterDataType.Number:
+			// 		formatTypes = this.formatNumberTypes(curr.operator);
+			// 		prev[curr.field as string] = {
+			// 			...formatTypes,
+			// 			value: curr.value,
+			// 		};
+			// 		return prev;
+			// 	case ColumnFilterDataType.Boolean:
+			// 		formatTypes = this.formatBooleanTypes(curr.operator);
+			// 		prev[curr.field as string] = {
+			// 			...formatTypes,
+			// 			value: curr.value,
+			// 		};
+			// 		return prev;
+			// 	default:
+			// 		formatTypes = this.formatStringTypes(curr.operator);
+			// 		prev[curr.field as string] = {
+			// 			...formatTypes,
+			// 			value: curr.value,
+			// 		};
+			// 		return prev;
+			// }
 		}, {});
 	}
 
@@ -104,13 +116,15 @@ export class TableService {
 			? columns.find(
 					(column: any) => state.sort && state.sort[0] && state.sort[0].field === column.field,
 			  )
+			: null;
+		return res
+			? [
+					{
+						column: res.field,
+						direction: state.sort && state.sort[0] && state.sort[0].dir === 'desc' ? 0 : 1,
+					},
+			  ]
 			: [];
-		return [
-			{
-				column: res.field,
-				direction: state.sort && state.sort[0] && state.sort[0].dir === 'desc' ? 0 : 1,
-			},
-		];
 		// return columns
 		// 	? columns.map((column: any) => {
 		// 			return {
@@ -222,13 +236,21 @@ export class TableService {
 		return res;
 	}
 
-	private formatNumberTypes(type: string): IGridFilterType {
-		console.log(type);
-		return {} as IGridFilterType;
+	private checkDate(value: string): boolean {
+		try {
+			return new Date(value).toISOString().includes(value);
+		} catch (e) {
+			return false;
+		}
 	}
 
-	private formatBooleanTypes(type: string): IGridFilterType {
-		console.log(type);
-		return {} as IGridFilterType;
-	}
+	// private formatNumberTypes(type: string): IGridFilterType {
+	// 	console.log(type);
+	// 	return {} as IGridFilterType;
+	// }
+
+	// private formatBooleanTypes(type: string): IGridFilterType {
+	// 	console.log(type);
+	// 	return {} as IGridFilterType;
+	// }
 }
