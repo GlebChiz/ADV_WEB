@@ -77,9 +77,15 @@ kendo-drawer-content {
 .user-name {
 	margin: 0px 15px;
 }
+
 .avatar {
 	margin-left: 30px;
+	img {
+		width: 40px;
+		height: 40px;
+	}
 }
+
 .logout {
 	cursor: pointer;
 	// display: flex;

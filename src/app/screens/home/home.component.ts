@@ -39,9 +39,12 @@ export class HomeComponent implements OnInit {
 
 	public nameUser!: string;
 
+	public userId!: string;
+
 	public ngOnInit(): void {
 		this._store.select('userState', 'user').subscribe((user: IUser) => {
 			this.nameUser = user?.userName;
+			this.userId = `http://107.181.174.52/demo/users/${user?.userId}/picture`;
 		});
 
 		const currentItem: IItem | undefined = this.items.find((item: IItem) => {
