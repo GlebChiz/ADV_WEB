@@ -1,4 +1,7 @@
 <div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Snipits</div>
+<div class="new-button">
+	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Snipit</button>
+</div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
@@ -72,20 +75,22 @@
 	></kendo-grid-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link"></div>
-			<!-- (click)="openDialog(dataItem)" -->
+			<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link"></div>
-			<!-- (click)="openDialog(dataItem, true)" -->
+			<div (click)="openDialog(dataItem, true)" class="k-icon k-i-copy k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify"></div>
-			<!-- (click)="deleteWithPopup(dataItem.id)" -->
+			<div
+				(click)="deleteWithPopup(dataItem.id)"
+				class="k-icon k-i-trash k-link"
+				title="Modify"
+			></div>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>
+<div kendoDialogContainer></div>
