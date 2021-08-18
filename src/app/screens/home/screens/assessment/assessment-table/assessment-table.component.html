@@ -1,4 +1,6 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Assessment</div>
+<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
+	Assessment Manager
+</div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
@@ -11,6 +13,7 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(cellClick)="onCellClick($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>

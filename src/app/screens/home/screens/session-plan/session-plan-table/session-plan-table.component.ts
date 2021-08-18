@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -19,6 +19,7 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 export class SessionPlanTableComponent extends CustomTableDirective {
 	public constructor(
 		private _router: Router,
+		private _activatedRoute: ActivatedRoute,
 		_store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
@@ -54,6 +55,6 @@ export class SessionPlanTableComponent extends CustomTableDirective {
 	];
 
 	public onCellClick(e: CellClickEvent): void {
-		this._router.navigate(['sessionplans', e.dataItem.id]);
+		this._router.navigate([e.dataItem.id], { relativeTo: this._activatedRoute });
 	}
 }
