@@ -6,6 +6,7 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 	providers: [],
 	selector: 'advenium-patient-distribution-table',
 	templateUrl: './patient-distribution-table.component.html',
+	styleUrls: ['../../../home.component.scss'],
 })
 export class PatientDistributionTableComponent extends CustomTableDirective {
 	public columns: IColumn[] = [

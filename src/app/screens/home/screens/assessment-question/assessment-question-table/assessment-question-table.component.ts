@@ -6,6 +6,7 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 	providers: [],
 	selector: 'advenium-assessment-question-table',
 	templateUrl: './assessment-question-table.component.html',
+	styleUrls: ['../../../home.component.scss'],
 })
 export class AssessmentQuestionTableComponent extends CustomTableDirective {
 	public columns: IColumn[] = [
@@ -27,14 +28,14 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective {
 			field: 'legends',
 			title: 'Legends',
 			hidden: false,
-			filterable: true,
+			filterable: false,
 			type: 'text',
 		},
 		{
 			field: 'translated',
 			title: 'Translated',
 			hidden: false,
-			filterable: true,
+			filterable: false,
 			type: 'text',
 		},
 	];
