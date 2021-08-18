@@ -41,6 +41,16 @@ import { SomeEffect } from './assessment-table/assessment-table.effects';
 				path: '',
 				component: AssessmentComponent,
 			},
+			{
+				path: ':id',
+				loadChildren: (): any =>
+					import('./assessment-question/assessment-question.module').then(
+						(m: any) => m.AssessmentQuestionModule,
+					),
+				data: {
+					breadcrumb: 'Single',
+				},
+			},
 		]),
 		StoreModule.forFeature('assessmentTable', assessmentTableReducers),
 		EffectsModule.forFeature([SomeEffect]),

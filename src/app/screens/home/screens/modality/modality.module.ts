@@ -26,6 +26,7 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { ModalityPopupComponent } from './modality-table/modality-popup/modality-popup.component';
 import { ModalityTableActions } from './modality-table/modality-table.actions';
 import { ModalityTableComponent } from './modality-table/modality-table.component';
 import { SomeEffect } from './modality-table/modality-table.effects';
@@ -44,7 +45,7 @@ import { ModalityComponent } from './modality.component';
 		StoreModule.forFeature('modalityTable', modalityTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
-	declarations: [ModalityComponent, ModalityTableComponent],
+	declarations: [ModalityComponent, ModalityTableComponent, ModalityPopupComponent],
 	entryComponents: [],
 	providers: [
 		{

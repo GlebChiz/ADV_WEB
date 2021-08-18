@@ -26,10 +26,11 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 } from 'src/app/shared/table/table.tokens';
 import { PublicSnipitComponent } from './public-snipit.component';
-import { PublicSnipitTableActions } from './public-snipit/public-snipit-table.actions';
-import { PublicSnipitTableComponent } from './public-snipit/public-snipit-table.component';
-import { SomeEffect } from './public-snipit/public-snipit-table.effects';
-import { publicSnipitTableReducers } from './public-snipit/public-snipit-table.reducers';
+import { PublicSnipitTableActions } from './public-snipit-table/public-snipit-table.actions';
+import { PublicSnipitTableComponent } from './public-snipit-table/public-snipit-table.component';
+import { SomeEffect } from './public-snipit-table/public-snipit-table.effects';
+import { publicSnipitTableReducers } from './public-snipit-table/public-snipit-table.reducers';
+import { PublicSnipitPopupComponent } from './public-snipit-table/public-snipit-popup/public-snipit-popup.component';
 
 @NgModule({
 	imports: [
@@ -53,7 +54,7 @@ import { publicSnipitTableReducers } from './public-snipit/public-snipit-table.r
 		StoreModule.forFeature('publicSnipitTable', publicSnipitTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
-	declarations: [PublicSnipitComponent, PublicSnipitTableComponent],
+	declarations: [PublicSnipitComponent, PublicSnipitTableComponent, PublicSnipitPopupComponent],
 	entryComponents: [],
 	providers: [
 		{

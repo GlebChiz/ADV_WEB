@@ -135,6 +135,36 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Assessments',
 						},
 					},
+					{
+						path: 'patientdistribution',
+						loadChildren: (): any =>
+							import('./screens/patient-distribution/patient-distribution.module').then(
+								(m: any) => m.PatientDistributionModule,
+							),
+						data: {
+							breadcrumb: 'Patient Distribution',
+						},
+					},
+					{
+						path: 'unsupervisedservices',
+						loadChildren: (): any =>
+							import('./screens/unsupervised-services/unsupervised-services.module').then(
+								(m: any) => m.UnsupervisedServicesModule,
+							),
+						data: {
+							breadcrumb: 'Unsupervised Services',
+						},
+					},
+					{
+						path: 'groups',
+						loadChildren: (): any =>
+							import('./screens/therapy-group/therapy-group.module').then(
+								(m: any) => m.TherapyGroupModule,
+							),
+						data: {
+							breadcrumb: 'Therapy Group',
+						},
+					},
 				],
 			},
 		]),

@@ -1,4 +1,6 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Snipits</div>
+<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
+	Therapy Group
+</div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
@@ -11,7 +13,6 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
-	(cellClick)="onCellClick($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
@@ -23,8 +24,8 @@
 		[field]="col.field"
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
-		[filter]="col.type"
-		><ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+	>
+		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
 				[showOperators]="true"
@@ -70,6 +71,7 @@
 			>
 			</kendo-grid-date-filter-cell> </ng-template
 	></kendo-grid-column>
+
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
 			<div class="k-icon k-i-edit k-link"></div>

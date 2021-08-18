@@ -6,6 +6,7 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 	providers: [],
 	selector: 'advenium-assessment-legend-table',
 	templateUrl: './assessment-legend-table.component.html',
+	styleUrls: ['../../../home.component.scss'],
 })
 export class AssessmentLegendTableComponent extends CustomTableDirective {
 	public columns: IColumn[] = [
@@ -13,7 +14,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective {
 			field: 'value',
 			title: 'Value',
 			hidden: false,
-			filterable: true,
+			filterable: false,
 			type: 'text',
 		},
 		{
@@ -27,7 +28,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective {
 			field: 'icon',
 			title: 'Icon',
 			hidden: false,
-			filterable: true,
+			filterable: false,
 			type: 'text',
 		},
 		{

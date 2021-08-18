@@ -1,3 +1,4 @@
+import { SupervisorLicensePopupComponent } from './supervisor-license-table/supervisor-license-popup/supervisor-license-popup.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
@@ -44,7 +45,11 @@ import { supervisorLicenseTableReducers } from './supervisor-license-table/super
 		StoreModule.forFeature('supervisorLicenseTable', supervisorLicenseTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
-	declarations: [SupervisorLicenseComponent, SupervisorLicenseTableComponent],
+	declarations: [
+		SupervisorLicenseComponent,
+		SupervisorLicenseTableComponent,
+		SupervisorLicensePopupComponent,
+	],
 	entryComponents: [],
 	providers: [
 		{

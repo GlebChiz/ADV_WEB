@@ -6,6 +6,7 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 	providers: [],
 	selector: 'advenium-assessment-template-table',
 	templateUrl: './assessment-template-table.component.html',
+	styleUrls: ['../../../home.component.scss'],
 })
 export class AssessmentTemplateTableComponent extends CustomTableDirective {
 	public columns: IColumn[] = [
@@ -20,7 +21,7 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective {
 			field: 'criteria',
 			title: 'Criteria',
 			hidden: false,
-			filterable: true,
+			filterable: false,
 			type: 'text',
 		},
 	];
