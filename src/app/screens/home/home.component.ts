@@ -67,6 +67,5 @@ export class HomeComponent implements OnInit {
 	public logout(): void {
 		this._store.dispatch(AuthUserActions.LogOut());
 		this.router.navigate(['/login']);
-		// this.router.navigate([ev.item.path], { relativeTo: this.activatedRoute });
 	}
 }

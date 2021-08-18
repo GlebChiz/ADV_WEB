@@ -30,7 +30,7 @@ import { AddressControlComponent } from 'src/app/controls/address-control/addres
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PayerTableActions } from './payer-table/payer-table.actions';
 import { PayerTableComponent } from './payer-table/payer-table.component';
-import { PayerTableReducers } from './payer-table/payer-table.reducers';
+import { payerTableReducers } from './payer-table/payer-table.reducers';
 import { PayerPopupComponent } from './payer-table/payer-popup/payer-popup.component';
 import { PayerComponent } from './payer.component';
 
@@ -43,7 +43,7 @@ import { PayerComponent } from './payer.component';
 				component: PayerComponent,
 			},
 		]),
-		StoreModule.forFeature('payerTable', PayerTableReducers),
+		StoreModule.forFeature('payerTable', payerTableReducers),
 		EffectsModule.forFeature([TableEffects]),
 	],
 	declarations: [PayerComponent, PayerTableComponent, PayerPopupComponent, AddressControlComponent],

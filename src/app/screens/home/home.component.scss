@@ -90,13 +90,13 @@ kendo-drawer-content {
 	cursor: pointer;
 	// display: flex;
 }
-.new-player-button {
+.new-button {
 	display: flex;
 	justify-content: flex-end;
 
 	button {
 		margin-bottom: 10px;
-		width: 160px;
+		padding: 0px 10px;
 		background-color: #631ed3;
 		color: white;
 		height: 38px;

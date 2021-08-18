@@ -15,6 +15,7 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 	providers: [],
 	selector: 'advenium-session-plan-table',
 	templateUrl: './session-plan-table.component.html',
+	styleUrls: ['../../../home.component.scss'],
 })
 export class SessionPlanTableComponent extends CustomTableDirective {
 	public constructor(

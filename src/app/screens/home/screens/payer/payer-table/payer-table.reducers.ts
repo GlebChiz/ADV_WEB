@@ -12,6 +12,6 @@ const tableReducers: any = tableReducersFactory(
 	PayerTableActions.ClearCurrentPayer,
 );
 
-export function PayerTableReducers(state: any | undefined, action: Action): any {
+export function payerTableReducers(state: any | undefined, action: Action): any {
 	return tableReducers(state, action);
 }
