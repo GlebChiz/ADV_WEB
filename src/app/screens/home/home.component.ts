@@ -29,6 +29,9 @@ export class HomeComponent implements OnInit {
 		{ text: 'Assessment Questions', icon: 'k-i-grayscale', path: 'assessment-questions' },
 		{ text: 'Assessment Template', icon: 'k-i-cells-merge', path: 'assessmenttemplate' },
 		{ text: 'Assessment', icon: 'k-i-select-box', path: 'assessments' },
+		{ text: 'Patient Distribution', icon: 'k-i-select-box', path: 'patientdistribution' },
+		{ text: 'Unsupervised Services', icon: 'k-i-select-box', path: 'unsupervisedservices' },
+		{ text: 'Groups', icon: 'k-i-select-box', path: 'groups' },
 	];
 
 	public constructor(
