@@ -1,22 +1,10 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
-	Session plans
-</div>
+<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Locations</div>
 <div class="new-button">
-	<kendo-combobox
-		valueField="id"
-		style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
-		textField="name"
-		[data]="seriesPlansDropdown$ | async"
-		[formControl]="seriesPlan"
-		(selectionChange)="selectionChange($event)"
-		[valuePrimitive]="true"
-	>
-	</kendo-combobox>
-	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Session Plan</button>
+	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Location</button>
 </div>
 <kendo-grid
 	[filterable]="true"
-	[data]="gridDataWithoutGroup"
+	[data]="gridData"
 	[sortable]="true"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"
@@ -25,44 +13,21 @@
 	[height]="710"
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
-	(dataStateChange)="dataStateChange($event)"
 	(cellClick)="onCellClick($event)"
+	(dataStateChange)="dataStateChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
-	<kendo-grid-command-column *ngIf="id" [width]="35">
-		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-sort-asc-sm k-link" title="Up" (click)="reorder(true, dataItem)"></div>
-		</ng-template>
-	</kendo-grid-command-column>
-	<kendo-grid-command-column *ngIf="id" [width]="35">
-		<ng-template kendoGridCellTemplate let-dataItem>
-			<div
-				class="k-icon k-i-sort-desc-sm k-link"
-				title="Down"
-				(click)="reorder(false, dataItem)"
-			></div>
-		</ng-template>
-	</kendo-grid-command-column>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"
-		[includeInChooser]="col.includeInChooser ?? true"
 		[field]="col.field"
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
 	>
-		<ng-template *ngIf="col.field === 'seriesPlans'" kendoGridCellTemplate let-dataItem>
-			<div *ngFor="let seriesPlan of dataItem.seriesPlans">
-				{{ seriesPlan.name }}
-			</div>
-		</ng-template>
-		<ng-template *ngIf="col.field === 'translated'" kendoGridCellTemplate let-dataItem>
-			<div>{{ dataItem.translated }}% translated</div>
-		</ng-template>
 		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
@@ -107,24 +72,25 @@
 				[column]="column"
 				[filter]="filter"
 			>
-			</kendo-grid-date-filter-cell> </ng-template
-	></kendo-grid-column>
+			</kendo-grid-date-filter-cell>
+		</ng-template>
+	</kendo-grid-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link" (click)="openDialog(dataItem)"></div>
+			<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link" (click)="openDialog(dataItem, true)"></div>
+			<div (click)="openDialog(dataItem, true)" class="k-icon k-i-copy k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
 			<div
+				(click)="deleteWithPopup(dataItem.id)"
 				class="k-icon k-i-trash k-link"
 				title="Modify"
-				(click)="deleteWithPopup(dataItem.id)"
 			></div>
 		</ng-template>
 	</kendo-grid-command-column>

@@ -7,14 +7,20 @@ import { CellClickEvent, DataStateChangeEvent } from '@progress/kendo-angular-gr
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
+	CLEAR_CURRENT_ITEM,
+	CREATE_ITEM_TABLE_PENDING,
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { IColumn } from '../../../../../shared/interfaces/column.interface';
-import { DropdownActions } from './../../../../../store/actions/dropdowns.actions';
 import { tap, filter } from 'rxjs/operators';
+import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { IStore } from 'src/app/store';
+import { IColumn } from '../../../../../shared/interfaces/column.interface';
+import { DropdownActions } from '../../../../../store/actions/dropdowns.actions';
+import { SessionPlanPopupComponent } from './session-plan-popup/session-plan-popup.component';
+import { SessionPlanTableActions } from './session-plan-table.actions';
 
 @Component({
 	providers: [],
@@ -26,15 +32,19 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 	public constructor(
 		private _router: Router,
 		private _activatedRoute: ActivatedRoute,
-		_store: Store<any>,
+		_store: Store<IStore>,
+		private dialogService: DialogService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
+		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
-		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
+		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public id = '';
 
 	public seriesPlan: FormControl = new FormControl();
 
@@ -43,21 +53,64 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 
 		this._activatedRoute.queryParams.subscribe((query: Params) => {
 			this.addQuery(query.id);
+			this.id = query.id || '';
 			super.ngOnInit();
 			this.selectState();
+
+			this.columns.forEach((item: IColumn) => {
+				if (!item.includeInChooser) {
+					item.hidden = !query.id;
+				}
+			});
+		});
+	}
+
+	public openDialog(dataItem?: any, isDublicate?: boolean): void {
+		if (dataItem) {
+			this._store.dispatch(
+				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
+			);
+		}
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Session Plan',
+			content: SessionPlanPopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+
+		dialog.content.instance.sessionPlan = { ...dataItem };
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				if (isDublicate) {
+					result.id = null;
+				}
+				if (dataItem && !isDublicate) {
+					this._store.dispatch(this.editDataPending({ item: result, controller: this.controller }));
+					return;
+				}
+				this._store.dispatch(this.createDataPending({ item: result, controller: this.controller }));
+			}
+			this._store.dispatch(this.clearCurrentItem());
 		});
 	}
 
 	public addQuery(id: string): void {
-		if (this.gridSettings.state.filter && id) {
-			this.gridSettings.state.filter.filters = [
-				...this.gridSettings.state.filter.filters,
-				{
-					field: 'seriesPlans',
-					operator: 'contains',
-					value: id,
-				},
-			];
+		if (this.gridSettings.state.filter) {
+			if (id) {
+				this.gridSettings.state.filter.filters = [
+					...this.gridSettings.state.filter.filters,
+					{
+						field: 'seriesPlanId',
+						operator: 'custom',
+						value: id,
+					},
+				];
+				return;
+			}
+			this.gridSettings.state.filter.filters = this.gridSettings.state.filter.filters.filter(
+				(item: any) => item.field !== 'seriesPlanId',
+			);
 		}
 	}
 
@@ -70,6 +123,17 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			return;
 		}
 		this.delete(id);
+	}
+
+	public reorder(isUp: boolean, dataitem: any): void {
+		this._store.dispatch(
+			SessionPlanTableActions.ReorderPlanPending({
+				controller: this.controller,
+				sessionPlanId: dataitem.id,
+				seriesPlanId: this.id,
+				index: isUp ? dataitem.orderNumber + 1 : dataitem.orderNumber - 1,
+			}),
+		);
 	}
 
 	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store
@@ -88,7 +152,13 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			}),
 		);
 
-	public selectionChange(item: IDropdownData): void {
+	public selectionChange(item: IDropdownData | undefined): void {
+		if (!item) {
+			this._router.navigate(['.'], {
+				relativeTo: this._activatedRoute,
+			});
+			return;
+		}
 		this._router.navigate(['.'], {
 			queryParams: { id: item.id },
 			relativeTo: this._activatedRoute,
@@ -102,24 +172,33 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			title: 'Title',
 			hidden: false,
 			filterable: true,
+			includeInChooser: true,
+			type: 'text',
+		},
+		{
+			field: 'seriesPlans',
+			title: 'Series plans',
+			includeInChooser: true,
+			hidden: false,
+			filterable: false,
 			type: 'text',
 		},
 		{
 			field: 'translated',
 			title: 'Translated',
-			hidden: false,
+			includeInChooser: false,
+			hidden: true,
 			filterable: false,
 			type: 'text',
 		},
-		//  appears only when session plan is selected
-		// up down arrows
-		// {
-		// 	field: 'orderNumber',
-		// 	title: 'Order',
-		// 	hidden: false,
-		// 	filterable: false,
-		// 	type: 'text',
-		// }, appears only when session plan is selected
+		{
+			field: 'orderNumber',
+			title: 'Order',
+			includeInChooser: false,
+			hidden: true,
+			filterable: false,
+			type: 'text',
+		},
 	];
 
 	public onCellClick(e: CellClickEvent): void {

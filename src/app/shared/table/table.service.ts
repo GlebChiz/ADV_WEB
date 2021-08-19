@@ -52,15 +52,6 @@ export class TableService {
 	): Observable<T> {
 		const filter: IGridFilterModel | undefined = this.getFilterModel(state);
 		const gridFilterParams: IGridFilter = this.getGridFilterParams(state);
-		console.log({
-			Filter: {
-				FilterId: filterId,
-				...filter,
-			},
-			...gridFilterParams,
-			gridId: `${gridId ?? controller}-manager-grid`,
-			sorting: this.getSorting(columns, state),
-		});
 		return this.http.post<T>(`${controller}/grid-filter`, {
 			Filter: {
 				FilterId: filterId,
@@ -90,6 +81,11 @@ export class TableService {
 				};
 				return prev;
 			}
+			if (curr.operator === 'custom') {
+				prev[curr.field] = curr.value;
+				return prev;
+			}
+
 			formatTypes = this.formatStringTypes(curr.operator);
 			prev[curr.field as string] = {
 				...formatTypes,

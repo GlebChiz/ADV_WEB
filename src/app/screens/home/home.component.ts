@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
 		{ text: 'Patient Distribution', icon: 'k-i-select-box', path: 'patientdistribution' },
 		{ text: 'Unsupervised Services', icon: 'k-i-select-box', path: 'unsupervisedservices' },
 		{ text: 'Groups', icon: 'k-i-select-box', path: 'groups' },
+		{ text: 'Location', icon: 'k-i-select-box', path: 'locations' },
 	];
 
 	public constructor(

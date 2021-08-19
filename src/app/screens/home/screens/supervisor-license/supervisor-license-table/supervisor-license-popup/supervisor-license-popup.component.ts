@@ -61,10 +61,3 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 		this.initForm();
 	}
 }
-
-export interface DropDownData {
-	id: string;
-	name: string;
-	isDisabled: boolean;
-	parentId: string;
-}

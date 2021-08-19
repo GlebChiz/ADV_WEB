@@ -49,20 +49,6 @@ import { PatientComponent } from './patient.component';
 					breadcrumb: 'Single',
 				},
 			},
-			// {
-			// 	path: '',
-			// 	component: PatientComponent,
-			// 	data: {
-			// 		breadcrumb: 'Patients',
-			// 	},
-			// },
-			// {
-			// path: ':id',
-			// loadChildren: (): any =>
-			// 	import('./patient-details/patient-details.module').then(
-			// 		(m: any) => m.PatientDetailsModule,
-			// 	),
-			// },
 		]),
 		StoreModule.forFeature('patientTable', patientTableReducers),
 		EffectsModule.forFeature([SomeEffect]),

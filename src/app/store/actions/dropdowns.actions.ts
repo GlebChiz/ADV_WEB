@@ -24,4 +24,22 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetSupervisorLicensePayersError: createAction('[Dropdown] Get supervisor-license-payers error'),
+	GetLocationInitiativeIdsPending: createAction('[Dropdown] Get location initiative ids pending'),
+	GetLocationInitiativeIdsSuccess: createAction(
+		'[Dropdown] Get location initiative ids success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetLocationInitiativeIdsError: createAction('[Dropdown] Get location initiative ids error'),
+	GetRoomSizePending: createAction('[Dropdown] Get room size pending'),
+	GetRoomSizeSuccess: createAction(
+		'[Dropdown] Get room size success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetRoomSizeError: createAction('[Dropdown] Get room size error'),
+	GetRoomSetupPending: createAction('[Dropdown] Get room setup pending'),
+	GetRoomSetupSuccess: createAction(
+		'[Dropdown] Get room setup success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetRoomSetupError: createAction('[Dropdown] Get room setup error'),
 };

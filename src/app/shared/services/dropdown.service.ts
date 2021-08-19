@@ -18,4 +18,16 @@ export class DropdownService {
 	public getSupervisorLicensePayers(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('/dropdowns/get-payers');
 	}
+
+	public getLocationInitiatives(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/LocationInitiative');
+	}
+
+	public getRoomSize(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/RoomSize');
+	}
+
+	public getRoomSetup(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/RoomSetup');
+	}
 }

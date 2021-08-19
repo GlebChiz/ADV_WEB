@@ -7,6 +7,8 @@ import { IUserState } from './states/user.state';
 import { IDropDownState } from '../shared/interfaces/dropdown.interface';
 import { supervisorLicenseDropdownReducers } from './reducers/supervisor-license.reducers';
 import { supervisorLicensePayersDropdownReducers } from './reducers/supervisor-license-payers.reducers';
+import { locationDropdownReducers } from './reducers/location-initiative-ids.reducers';
+import { roomDropdownReducers } from './reducers/room.reducers';
 
 export interface IStore {
 	userState: IUserState;
@@ -14,6 +16,8 @@ export interface IStore {
 	seriesPlanDropdown: IDropDownState;
 	supervisorDropdown: IDropDownState;
 	payerDropdown: IDropDownState;
+	locationDropdown: IDropDownState;
+	roomDropdown: IDropDownState;
 }
 
 export const appReducers: ActionReducerMap<IStore> = {
@@ -22,4 +26,6 @@ export const appReducers: ActionReducerMap<IStore> = {
 	seriesPlanDropdown: seriesPlanDropdownReducers,
 	supervisorDropdown: supervisorLicenseDropdownReducers,
 	payerDropdown: supervisorLicensePayersDropdownReducers,
+	locationDropdown: locationDropdownReducers,
+	roomDropdown: roomDropdownReducers,
 };
