@@ -32,6 +32,8 @@ import { SessionPlanTableComponent } from './session-plan-table/session-plan-tab
 import { SessionPlanTableActions } from './session-plan-table/session-plan-table.actions';
 import { sessionPlanTableReducers } from './session-plan-table/session-plan-table.reducers';
 import { SomeEffect } from './session-plan-table/session-plan-table.effects';
+import { SessionPlanPopupComponent } from './session-plan-table/session-plan-popup/session-plan-popup.component';
+import { SessionPlanTableSerivce } from './session-plan-table/session-plan-table.service';
 
 @NgModule({
 	imports: [
@@ -55,9 +57,10 @@ import { SomeEffect } from './session-plan-table/session-plan-table.effects';
 		StoreModule.forFeature('sessionPlanTable', sessionPlanTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
-	declarations: [SessionPlanComponent, SessionPlanTableComponent],
+	declarations: [SessionPlanComponent, SessionPlanTableComponent, SessionPlanPopupComponent],
 	entryComponents: [],
 	providers: [
+		SessionPlanTableSerivce,
 		{
 			provide: GET_TABLE_DATA_PENDING,
 			useValue: SessionPlanTableActions.GetSessionPlanTableDataPending,

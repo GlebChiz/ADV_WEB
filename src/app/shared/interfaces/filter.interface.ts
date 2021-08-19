@@ -4,7 +4,7 @@ export interface IGridFilter {
 }
 
 export interface IGridFilterModel {
-	[key: string]: { type: number; isNegative: boolean; value?: any; date?: string };
+	[key: string]: { type: number; isNegative: boolean; value?: any; date?: string } | string;
 }
 
 export interface IGridFilterType {
