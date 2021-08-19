@@ -30,8 +30,8 @@ import {
 @Injectable()
 export class TableEffects {
 	public constructor(
-		private actions$: Actions,
-		@Inject(GET_TABLE_DATA_PENDING) private getTableDataPending: any,
+		public actions$: Actions,
+		@Inject(GET_TABLE_DATA_PENDING) public getTableDataPending: any,
 		@Inject(GET_TABLE_DATA_SUCCESS) private getTableDataSuccess: any,
 		@Inject(GET_TABLE_DATA_ERROR) private getTableDataError: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteItemTablePending: any,
@@ -48,7 +48,7 @@ export class TableEffects {
 		@Inject(GET_CURRENT_ITEM_SUCCESS) private getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) private getCurrentItemError: any,
 		private _tableService: TableService,
-		private _store: Store<any>,
+		public _store: Store<any>,
 	) {}
 
 	public getTableData$ = createEffect(() => {
@@ -67,6 +67,7 @@ export class TableEffects {
 					gridId: string;
 				}) => {
 					const filterId: Guid = Guid.create();
+					console.log(this._tableService.saveFilter);
 					return this._tableService
 						.saveFilter(controller, filter, filterId.toString(), columns, gridId)
 						.pipe(
@@ -149,6 +150,7 @@ export class TableEffects {
 								return this.getTableDataPending({ controller, filter: latest.filter });
 							}),
 							catchError((error: string) => {
+								console.log(error);
 								return of(this.editItemTableError(error));
 							}),
 						);

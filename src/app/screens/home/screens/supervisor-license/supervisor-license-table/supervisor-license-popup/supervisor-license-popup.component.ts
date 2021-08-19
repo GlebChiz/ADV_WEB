@@ -35,16 +35,14 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 
 	public initForm(): void {
 		console.log('this.supervisorLicense', this.supervisorLicense);
-		// 	id: guid | null;
-		// clinicianId: guid;
-		// payerId: guid;
-		// start: datetime;
-		// end: datetime | null;
-		// providerId: string;
-		// clinicianName: string;
-
 		this.mySupervisorLicenseForm = new FormGroup({
 			id: new FormControl(this.supervisorLicense?.id || ''),
+			clinicianId: new FormControl(this.supervisorLicense?.clinicianId || ''),
+			payerId: new FormControl(this.supervisorLicense?.payerId || ''),
+			start: new FormControl(this.supervisorLicense?.start || ''),
+			end: new FormControl(this.supervisorLicense?.end || ''),
+			providerId: new FormControl(this.supervisorLicense?.providerId || ''),
+			clinicianName: new FormControl(this.supervisorLicense?.clinicianName || ''),
 		});
 	}
 
@@ -62,11 +60,4 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	public ngOnChanges(): void {
 		this.initForm();
 	}
-}
-
-export interface DropDownData {
-	id: string;
-	name: string;
-	isDisabled: boolean;
-	parentId: string;
 }

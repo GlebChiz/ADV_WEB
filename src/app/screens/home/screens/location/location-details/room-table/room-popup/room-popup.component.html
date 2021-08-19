@@ -1,0 +1,88 @@
+<form [formGroup]="myRoomForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Name</label>
+						<input
+							name="name"
+							formControlName="name"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Description</label>
+						<textarea
+							name="description"
+							formControlName="description"
+							type="text"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						>
+						</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Direction</label>
+						<textarea
+							name="direction"
+							formControlName="direction"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						>
+						</textarea>
+					</div>
+				</div>
+			</div>
+			<div>
+				<label>Room Setup</label>
+				<div>
+					<kendo-combobox
+						[data]="roomSetup"
+						valueField="id"
+						style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+						textField="name"
+						[valuePrimitive]="true"
+						[kendoDropDownFilter]="filterSettings"
+						formControlName="roomSetup"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+			<div>
+				<label>Room Size</label>
+				<div>
+					<kendo-combobox
+						[data]="roomSize"
+						valueField="id"
+						style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+						textField="name"
+						[valuePrimitive]="true"
+						[kendoDropDownFilter]="filterSettings"
+						formControlName="roomSize"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>

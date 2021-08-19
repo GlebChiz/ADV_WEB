@@ -1,4 +1,3 @@
-import { SupervisorLicensePopupComponent } from './supervisor-license-table/supervisor-license-popup/supervisor-license-popup.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
@@ -27,6 +26,7 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { SupervisorLicensePopupComponent } from './supervisor-license-table/supervisor-license-popup/supervisor-license-popup.component';
 import { SupervisorLicenseComponent } from './supervisor-license.component';
 import { SupervisorLicenseTableComponent } from './supervisor-license-table/supervisor-license-table.component';
 import { SomeEffect } from './supervisor-license-table/supervisor-license-table.effects';
@@ -134,4 +134,4 @@ import { supervisorLicenseTableReducers } from './supervisor-license-table/super
 		},
 	],
 })
-export class SupervisorLicenseModuleModule {}
+export class SupervisorLicenseModule {}

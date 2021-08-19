@@ -1,0 +1,187 @@
+<form [formGroup]="sessionPlanForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Title</label>
+						<input
+							name="title"
+							formControlName="title"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Method</label>
+						<input
+							name="method"
+							formControlName="method"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Outline</label>
+						<textarea
+							name="outline"
+							formControlName="outline"
+							kendoTextArea
+							class="k-textbox"
+							style="width: 100%; height: 150px"
+							maxlength="250"
+						></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Callout Minutes1</label>
+						<input
+							type="number"
+							name="calloutMinutes1"
+							formControlName="calloutMinutes1"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Callout1</label>
+						<textarea
+							name="callout1"
+							formControlName="callout1"
+							kendoTextArea
+							class="k-textbox"
+							style="width: 100%; height: 150px"
+							maxlength="250"
+						></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Callout Minutes2</label>
+						<input
+							type="number"
+							name="calloutMinutes2"
+							formControlName="calloutMinutes2"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Callout2</label>
+						<textarea
+							name="callout2"
+							formControlName="callout2"
+							kendoTextArea
+							class="k-textbox"
+							style="width: 100%; height: 150px"
+							maxlength="250"
+						></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Callout Minutes3</label>
+						<input
+							type="number"
+							name="calloutMinutes3"
+							formControlName="calloutMinutes3"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Callout3</label>
+						<textarea
+							name="callout3"
+							formControlName="callout3"
+							kendoTextArea
+							class="k-textbox"
+							style="width: 100%; height: 150px"
+							maxlength="250"
+						></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Wrapup Minutes</label>
+						<input
+							type="number"
+							name="wrapupMinutes"
+							formControlName="wrapupMinutes"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Wrapup</label>
+						<textarea
+							name="wrapup"
+							formControlName="wrapup"
+							kendoTextArea
+							class="k-textbox"
+							style="width: 100%; height: 150px"
+							maxlength="250"
+						></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<kendo-multiselect
+			formControlName="seriesPlanIds"
+			[textField]="'name'"
+			[data]="seriesPlansDropdown$ | async"
+			valueField="id"
+			[valuePrimitive]="true"
+		>
+		</kendo-multiselect>
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>

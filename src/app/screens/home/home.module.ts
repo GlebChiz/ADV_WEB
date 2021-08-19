@@ -51,7 +51,7 @@ import { HomeComponent } from './home.component';
 						path: 'supercred',
 						loadChildren: (): any =>
 							import('./screens/supervisor-license/supervisor-license.module').then(
-								(m: any) => m.SupervisorLicenseModuleModule,
+								(m: any) => m.SupervisorLicenseModule,
 							),
 						data: {
 							breadcrumb: 'Supervisor license',
@@ -163,6 +163,14 @@ import { HomeComponent } from './home.component';
 							),
 						data: {
 							breadcrumb: 'Therapy Group',
+						},
+					},
+					{
+						path: 'locations',
+						loadChildren: (): any =>
+							import('./screens/location/location.module').then((m: any) => m.LocationModule),
+						data: {
+							breadcrumb: 'Location',
 						},
 					},
 				],
