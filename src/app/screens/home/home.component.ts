@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
+import { filter } from 'rxjs/operators';
+import { IStore } from 'src/app/store';
 import { AuthUserActions, IUser } from 'src/app/store/actions/user.actions';
 
 export interface IItem {
@@ -37,7 +39,7 @@ export class HomeComponent implements OnInit {
 	public constructor(
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		public _store: Store<any>,
+		public _store: Store<IStore>,
 	) {}
 
 	public nameUser!: string;
@@ -45,15 +47,26 @@ export class HomeComponent implements OnInit {
 	public userId!: string;
 
 	public ngOnInit(): void {
-		this._store.select('userState', 'user').subscribe((user: IUser) => {
-			this.nameUser = user?.userName;
-			this.userId = `http://107.181.174.52/demo/users/${user?.userId}/picture`;
+		this._store.select('userState', 'user').subscribe((user: IUser | undefined) => {
+			if (user) {
+				this.nameUser = user?.userName;
+				this.userId = `http://107.181.174.52/demo/users/${user?.userId}/picture`;
+			}
 		});
+		this.setCurrent();
+		this.router.events
+			.pipe(filter((event: any) => event instanceof NavigationEnd))
+			.subscribe(() => this.setCurrent());
+	}
 
+	public setCurrent(): void {
+		const prev: IItem | undefined = this.items.find((item: IItem) => item.selected);
+		if (prev) {
+			prev.selected = false;
+		}
 		const currentItem: IItem | undefined = this.items.find((item: IItem) => {
 			return this.router.url.includes(item.path);
 		});
-
 		if (!currentItem) {
 			return;
 		}

@@ -2,6 +2,16 @@
 	Session plans
 </div>
 <div class="new-button">
+	<kendo-combobox
+		valueField="id"
+		style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+		textField="name"
+		[data]="seriesPlansDropdown$ | async"
+		[formControl]="seriesPlan"
+		(selectionChange)="selectionChange($event)"
+		[valuePrimitive]="true"
+	>
+	</kendo-combobox>
 	<button><img src="/assets/images/player.svg" />New Session Plan</button>
 </div>
 <kendo-grid
@@ -89,8 +99,11 @@
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify"></div>
-			<!-- (click)="deleteWithPopup(dataItem.id)" -->
+			<div
+				class="k-icon k-i-trash k-link"
+				title="Modify"
+				(click)="deleteWithPopup(dataItem.id)"
+			></div>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>
