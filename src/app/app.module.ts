@@ -4,14 +4,15 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PayerEffects } from './store/effects/payer.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthUserActions } from './store/actions/user.actions';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { appReducers } from './store';
 import { UserEffects } from './store/effects/user.effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { PayerEffects } from './store/effects/payer.effects';
+import { DropdownEffects } from './store/effects/dropdown.effects';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function initApp(store: Store<any>): any {
@@ -32,7 +33,7 @@ export function initApp(store: Store<any>): any {
 			},
 		}),
 		StoreDevtoolsModule.instrument(),
-		EffectsModule.forRoot([UserEffects, PayerEffects]),
+		EffectsModule.forRoot([UserEffects, PayerEffects, DropdownEffects]),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

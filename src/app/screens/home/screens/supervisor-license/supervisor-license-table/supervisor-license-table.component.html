@@ -4,6 +4,7 @@
 <div class="new-button">
 	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Credentials</button>
 </div>
+<div class="new-button"></div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
@@ -21,6 +22,7 @@
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
+
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"
@@ -36,6 +38,29 @@
 			{{ dataItem.end | date: 'MM/dd/yyyy' }}
 		</ng-template>
 		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+			<kendo-combobox
+				*ngIf="col.field === 'supervisor'"
+				valueField="id"
+				style="min-width: 130px; width: 250px; height: 38px; padding-right: 16px"
+				textField="name"
+				[data]="supervisorsDropdown$ | async"
+				[formControl]="supervisor"
+				[valuePrimitive]="true"
+				(selectionChange)="selectionChange($event)"
+			>
+			</kendo-combobox>
+
+			<kendo-combobox
+				*ngIf="col.field === 'payer'"
+				valueField="id"
+				style="min-width: 130px; width: 250px; height: 38px; padding-right: 16px"
+				textField="name"
+				[data]="payersDropdown$ | async"
+				[formControl]="supervisor"
+				[valuePrimitive]="true"
+				(selectionChange)="selectionChange($event)"
+			></kendo-combobox>
+
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
 				[showOperators]="true"
