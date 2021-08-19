@@ -165,6 +165,14 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Therapy Group',
 						},
 					},
+					{
+						path: 'locations',
+						loadChildren: (): any =>
+							import('./screens/location/location.module').then((m: any) => m.LocationModule),
+						data: {
+							breadcrumb: 'Location',
+						},
+					},
 				],
 			},
 		]),

@@ -41,6 +41,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public selectedItems: any[] = [];
 
+	public infoLocation: any;
+
 	public gridSettings: { state: DataStateChangeEvent } = {
 		state: {
 			skip: 0, // page number indexed by 0
@@ -64,6 +66,9 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
+		this._store.select('locationTable', 'current').subscribe((location: any) => {
+			this.infoLocation = location; // TODO BAD
+		});
 		this._store.dispatch(
 			this.getTableDataPending({
 				controller: this.controller,
