@@ -32,6 +32,7 @@ import { RoomTableComponent } from './room-table/room-table.component';
 import { SomeEffect } from './room-table/room-table.effects';
 
 import { roomTableReducers } from './room-table/room-table.reducers';
+import { RoomPopupComponent } from './room-table/room-popup/room-popup.component';
 
 @NgModule({
 	imports: [
@@ -45,7 +46,7 @@ import { roomTableReducers } from './room-table/room-table.reducers';
 			},
 		]),
 	],
-	declarations: [LocationDetailsComponent, RoomTableComponent],
+	declarations: [LocationDetailsComponent, RoomTableComponent, RoomPopupComponent],
 	providers: [
 		{
 			provide: GET_TABLE_DATA_PENDING,

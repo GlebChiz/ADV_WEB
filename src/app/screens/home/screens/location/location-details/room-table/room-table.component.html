@@ -1,10 +1,21 @@
 <div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Room</div>
 <div class="new-button">
-	<button><img src="/assets/images/player.svg" />New Room</button>
+	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Room</button>
 </div>
 <span>
 	Info location:
-	{{ infoLocation | json }}
+	<div>name: {{ infoLocation?.name }}</div>
+	<div>code: {{ infoLocation?.code }}</div>
+	<div>address1: {{ infoLocation?.address?.address1 }}</div>
+
+	<div>address2: {{ infoLocation?.address?.address2 }}</div>
+	<div>zip: {{ infoLocation?.address?.zip }}</div>
+	<div>city: {{ infoLocation?.address?.city }}</div>
+
+	<div>state: {{ infoLocation?.address?.state }}</div>
+	<div>billingCode: {{ infoLocation?.billingCode }}</div>
+	<div>initiativeIds: {{ infoLocation?.initiativeIds | json }}</div>
+	<div>roomCount: {{ infoLocation?.roomCount }}</div>
 </span>
 <span class="new-button">
 	<button><img src="/assets/images/player.svg" />Edit Current Location</button>
@@ -98,3 +109,4 @@
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>
+<div kendoDialogContainer></div>

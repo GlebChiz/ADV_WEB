@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
 import { process } from '@progress/kendo-data-query';
 import { filter, takeUntil } from 'rxjs/operators';
+import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import {
 	// CREATE_ITEM_TABLE_PENDING,
@@ -41,8 +42,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public selectedItems: any[] = [];
 
-	public infoLocation: any;
-
 	public gridSettings: { state: DataStateChangeEvent } = {
 		state: {
 			skip: 0, // page number indexed by 0
@@ -56,8 +55,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	};
 
 	public constructor(
-		public _store: Store<any>,
-		@Inject(GET_TABLE_DATA_PENDING) private getTableDataPending: any,
+		public _store: Store<IStore>,
+		@Inject(GET_TABLE_DATA_PENDING) public getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) public editDataPending: any,
@@ -66,9 +65,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this._store.select('locationTable', 'current').subscribe((location: any) => {
-			this.infoLocation = location; // TODO BAD
-		});
 		this._store.dispatch(
 			this.getTableDataPending({
 				controller: this.controller,
@@ -76,6 +72,10 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				gridId: this.gridId,
 			}),
 		);
+		this.selectState();
+	}
+
+	public selectState(): void {
 		this._store
 			.select((state: any) => state[this.storePath])
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))

@@ -57,10 +57,3 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 		this.initForm();
 	}
 }
-
-export interface DropDownData {
-	id: string;
-	name: string;
-	isDisabled: boolean;
-	parentId: string;
-}

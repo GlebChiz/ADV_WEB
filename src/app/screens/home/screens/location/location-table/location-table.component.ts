@@ -125,8 +125,8 @@ export class LocationTableComponent extends CustomTableDirective {
 			type: 'text',
 		},
 		{
-			field: 'Billing Code',
-			title: 'billingCode',
+			field: 'billingCode',
+			title: 'Billing Code',
 			hidden: false,
 			filterable: true,
 			type: 'text',

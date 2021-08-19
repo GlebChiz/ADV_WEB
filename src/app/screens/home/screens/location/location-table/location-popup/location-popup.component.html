@@ -16,7 +16,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- initiatives -->
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
@@ -49,7 +48,16 @@
 			</div>
 			<div class="clearfix">
 				<p>Initiatives:</p>
-				<kendo-multiselect [data]="listItems"></kendo-multiselect>
+				<kendo-multiselect
+					[data]="locationDropdownInitiatives"
+					valueField="id"
+					style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+					textField="name"
+					[valuePrimitive]="true"
+					[kendoDropDownFilter]="filterSettings"
+					formControlName="initiativeIds"
+				>
+				</kendo-multiselect>
 			</div>
 			<div class="clearfix">
 				<advenium-address formControlName="address" name="address"></advenium-address>

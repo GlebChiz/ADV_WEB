@@ -1,15 +1,15 @@
 import { IUser, PermissionType } from '../actions/user.actions';
 
 export interface IUserState {
-	user: IUser | null;
+	user: IUser | undefined;
 	permissions: PermissionType[];
-	editing: IUser | null;
+	editing: IUser | undefined;
 	urlAvatar: any;
 }
 
 export const initialUserState: IUserState = {
-	user: null,
+	user: undefined,
 	permissions: [],
-	editing: null,
+	editing: undefined,
 	urlAvatar: null,
 };

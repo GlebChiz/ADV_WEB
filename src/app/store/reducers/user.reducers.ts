@@ -6,9 +6,9 @@ export function userReducers(userState: IUserState | undefined, action: Action):
 	return createReducer(
 		initialUserState,
 		on(AuthUserActions.SignInComplete, (state, payload) => ({ ...state, user: payload.user })),
-		on(AuthUserActions.LogOutComplete, (state) => ({ ...state, user: null })),
-		on(UserActions.NewUserModel, (state) => ({ ...state, editing: null })),
-		on(UserActions.GetUserModel, (state) => ({ ...state, editing: null })),
+		on(AuthUserActions.LogOutComplete, (state) => ({ ...state, user: undefined })),
+		on(UserActions.NewUserModel, (state) => ({ ...state, editing: undefined })),
+		on(UserActions.GetUserModel, (state) => ({ ...state, editing: undefined })),
 		on(UserActions.GetUserModelSuccess, (state, payload) => ({ ...state, editing: payload.user })),
 		on(UserActions.GetUserAvatarSuccess, (state, payload) => {
 			return {

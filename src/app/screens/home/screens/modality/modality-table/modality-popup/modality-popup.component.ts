@@ -57,10 +57,3 @@ export class ModalityPopupComponent extends UnSubscriber implements OnInit, OnCh
 		this.initForm();
 	}
 }
-
-export interface DropDownData {
-	id: string;
-	name: string;
-	isDisabled: boolean;
-	parentId: string;
-}

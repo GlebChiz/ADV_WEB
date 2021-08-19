@@ -5,6 +5,7 @@ import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { groupBy, GroupResult } from '@progress/kendo-data-query';
 import { filter, takeUntil } from 'rxjs/operators';
+import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { PayerActions } from 'src/app/store/actions/payer.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -22,7 +23,7 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 
 	public myForm!: FormGroup;
 
-	public payerTypes: (DropDownData | GroupResult)[] = [];
+	public payerTypes: (IDropdownData | GroupResult)[] = [];
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -73,6 +74,7 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 						[{ field: 'parentName' }],
 					);
 				}
+				console.log();
 			});
 		this.initForm();
 	}
@@ -80,11 +82,4 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 	public ngOnChanges(): void {
 		this.initForm();
 	}
-}
-
-export interface DropDownData {
-	id: string;
-	name: string;
-	isDisabled: boolean;
-	parentId: string;
 }

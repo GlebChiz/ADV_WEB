@@ -11,19 +11,21 @@ import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 
 @Component({
-	selector: 'advenium-location-popup',
-	templateUrl: './location-popup.component.html',
+	selector: 'advenium-room-popup',
+	templateUrl: './room-popup.component.html',
 })
-export class LocationPopupComponent extends UnSubscriber implements OnInit {
+export class RoomPopupComponent extends UnSubscriber implements OnInit {
 	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
 		super();
 	}
 
-	public locationDropdownInitiatives: (IDropdownData | GroupResult)[] = [];
+	public room: any;
 
-	public location: any;
+	public roomSetup: (IDropdownData | GroupResult)[] = [];
 
-	public myLocationForm!: FormGroup;
+	public roomSize: (IDropdownData | GroupResult)[] = [];
+
+	public myRoomForm!: FormGroup;
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -35,34 +37,37 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.location, ...this.myLocationForm.value });
+		this._dialogService.close({ ...this.room, ...this.myRoomForm.value });
 	}
 
 	public initForm(): void {
-		console.log('this.payer', this.location?.initiativeIds);
-		this.myLocationForm = new FormGroup({
-			name: new FormControl(this.location?.name),
-			code: new FormControl(this.location?.code),
-			billingCode: new FormControl(this.location?.billingCode),
-			address: new FormControl(this.location?.address),
-			initiativeIds: new FormControl(this.location?.initiativeIds),
+		this.myRoomForm = new FormGroup({
+			name: new FormControl(this.room?.name),
+			description: new FormControl(this.room?.description),
+			direction: new FormControl(this.room?.direction),
+			roomSetup: new FormControl(this.room?.roomSetup),
+			roomSize: new FormControl(this.room?.roomSize),
 		});
 	}
 
 	public ngOnInit(): void {
-		this._store.dispatch(DropdownActions.GetLocationInitiativeIdsPending());
+		this._store.dispatch(DropdownActions.GetRoomSizePending());
+		this._store.dispatch(DropdownActions.GetRoomSetupPending());
 		this._store
-			.select('locationTable' as any)
+			.select('roomTable' as any)
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((payerTable: any) => {
-				this.location = payerTable.current;
+			.subscribe((roomTable: any) => {
+				this.room = roomTable.current;
 				this.initForm();
 			});
 		this._store
-			.select('locationDropdown')
+			.select('roomDropdown' as any)
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((locationDropdown: any) => {
-				this.locationDropdownInitiatives = locationDropdown?.data;
+			.subscribe((roomDropdown: any) => {
+				console.log(roomDropdown?.roomSetup);
+
+				this.roomSetup = roomDropdown?.roomSetup;
+				this.roomSize = roomDropdown?.roomSize;
 				this.initForm();
 			});
 	}
