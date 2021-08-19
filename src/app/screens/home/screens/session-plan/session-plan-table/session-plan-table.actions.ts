@@ -81,6 +81,11 @@ export const SessionPlanTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	ClearCurrentSessionPlan: createAction('[Session Plan Table] Clear current SessionPlan'),
-
 	ClearSessionPlanTable: createAction('[Session Plan Table] Clear'),
+	ReorderPlanPending: createAction(
+		'[Session Plan Reorder] Reorder current item pending',
+		props<{ controller: string; seriesPlanId: string; sessionPlanId: string; index: number }>(),
+	),
+	ReorderPlanSuccess: createAction('[Session Plan Reorder] Reorder current item success'),
+	ReorderPlanError: createAction('[Session Plan Reorder] Reorder current item error'),
 };
