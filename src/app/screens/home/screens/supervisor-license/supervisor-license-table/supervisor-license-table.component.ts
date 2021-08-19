@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
