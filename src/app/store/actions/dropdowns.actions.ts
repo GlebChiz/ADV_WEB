@@ -54,4 +54,10 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetModalitiesError: createAction('[Dropdown] Get modalities error'),
+	GetLegendsPending: createAction('[Dropdown] Get legends pending'),
+	GetLegendsSuccess: createAction(
+		'[Dropdown] Get legends success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetLegendsError: createAction('[Dropdown] Get legends error'),
 };

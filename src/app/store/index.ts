@@ -13,6 +13,7 @@ import { languagesReducers } from './reducers/languages.reducers';
 import { modalitiesDropdownReducers } from './reducers/modalities.reducers';
 import { ILocationState } from '../shared/interfaces/location.interface';
 import { locationReducers } from './reducers/location.reducers';
+import { legendsDropdownReducers } from './reducers/legends.reducers';
 
 export interface IStore {
 	userState: IUserState;
@@ -23,6 +24,7 @@ export interface IStore {
 	locationDropdown: IDropDownState;
 	roomDropdown: IDropDownState;
 	languages: IDropDownState;
+	legends: IDropDownState;
 	modalities: IDropDownState;
 	location: ILocationState;
 }
@@ -36,6 +38,7 @@ export const appReducers: ActionReducerMap<IStore> = {
 	locationDropdown: locationDropdownReducers,
 	roomDropdown: roomDropdownReducers,
 	languages: languagesReducers,
+	legends: legendsDropdownReducers,
 	modalities: modalitiesDropdownReducers,
 	location: locationReducers,
 };
