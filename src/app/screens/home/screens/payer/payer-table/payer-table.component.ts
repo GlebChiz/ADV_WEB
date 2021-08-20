@@ -42,6 +42,7 @@ export class PayerTableComponent extends CustomTableDirective {
 	}
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {
+		console.log('payer dataitem', dataItem);
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),

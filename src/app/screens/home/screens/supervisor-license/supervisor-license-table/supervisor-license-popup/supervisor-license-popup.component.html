@@ -1,34 +1,38 @@
-<form [formGroup]="mySupervisorLicenseForm" novalidate>
+<form [formGroup]="myForm" novalidate>
 	<div>
 		<div class="p10 form">
 			<div class="clearfix w-100">
 				<div class="clearfix w-100">
 					<div class="column w-100">
 						<div class="w-100">
-							<label>ClinicianId</label>
-							<input
-								name="clinicianId"
-								formControlName="clinicianId"
-								kendoTextBox
-								class="k-textbox"
-								style="width: 100%"
-								maxlength="250"
-							/>
+							<label>Supervisor</label>
+							<kendo-combobox
+								valueField="name"
+								style="min-width: 200px; width: 100%"
+								textField="name"
+								[data]="supervisorDropdown"
+								[kendoDropDownFilter]="filterSettings"
+								formControlName="supervisor"
+								[valuePrimitive]="true"
+							>
+							</kendo-combobox>
 						</div>
 					</div>
 				</div>
 				<div class="clearfix w-100">
 					<div class="column w-100">
 						<div class="w-100">
-							<label>PayerId</label>
-							<input
-								name="payerId"
-								formControlName="payerId"
-								kendoTextBox
-								class="k-textbox"
-								style="width: 100%"
-								maxlength="250"
-							/>
+							<label>Payer</label>
+							<kendo-combobox
+								valueField="name"
+								style="min-width: 200px; width: 100%"
+								textField="name"
+								[data]="supervisorPayerDropdown"
+								[kendoDropDownFilter]="filterSettings"
+								formControlName="payer"
+								[valuePrimitive]="true"
+							>
+							</kendo-combobox>
 						</div>
 					</div>
 				</div>
@@ -69,21 +73,6 @@
 							<input
 								name="providerId"
 								formControlName="providerId"
-								kendoTextBox
-								class="k-textbox"
-								style="width: 100%"
-								maxlength="250"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix w-100">
-					<div class="column w-100">
-						<div class="w-100">
-							<label>ClinicianName</label>
-							<input
-								name="clinicianName"
-								formControlName="clinicianName"
 								kendoTextBox
 								class="k-textbox"
 								style="width: 100%"

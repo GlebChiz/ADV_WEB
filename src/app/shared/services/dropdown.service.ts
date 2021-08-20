@@ -16,7 +16,7 @@ export class DropdownService {
 	}
 
 	public getSupervisorLicensePayers(): Observable<IDropdownData[]> {
-		return this.http.get<IDropdownData[]>('/dropdowns/get-payers');
+		return this.http.get<IDropdownData[]>('dropdowns/get-payers');
 	}
 
 	public getLocationInitiatives(): Observable<IDropdownData[]> {
