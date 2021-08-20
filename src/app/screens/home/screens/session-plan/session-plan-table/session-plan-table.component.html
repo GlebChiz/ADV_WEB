@@ -6,9 +6,19 @@
 		valueField="id"
 		style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
 		textField="name"
+		[data]="languagesDropdown$ | async"
+		[formControl]="language"
+		(selectionChange)="selectionChangeLanguage($event)"
+		[valuePrimitive]="true"
+	>
+	</kendo-combobox>
+	<kendo-combobox
+		valueField="id"
+		style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+		textField="name"
 		[data]="seriesPlansDropdown$ | async"
 		[formControl]="seriesPlan"
-		(selectionChange)="selectionChange($event)"
+		(selectionChange)="selectionChangeSeriesPlan($event)"
 		[valuePrimitive]="true"
 	>
 	</kendo-combobox>
@@ -17,12 +27,12 @@
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
-	[sortable]="true"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"
 	[filter]="gridSettings.state.filter!"
 	[pageable]="{ pageSizes: [5, 10, 20, 50, 100] }"
 	[height]="710"
+	[sortable]="true"
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
@@ -34,7 +44,11 @@
 	</ng-template>
 	<kendo-grid-command-column *ngIf="id" [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-sort-asc-sm k-link" title="Up" (click)="reorder(true, dataItem)"></div>
+			<div
+				class="k-icon k-i-sort-asc-sm k-link"
+				title="Up"
+				(click)="reorder(false, dataItem)"
+			></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column *ngIf="id" [width]="35">
@@ -42,7 +56,7 @@
 			<div
 				class="k-icon k-i-sort-desc-sm k-link"
 				title="Down"
-				(click)="reorder(false, dataItem)"
+				(click)="reorder(true, dataItem)"
 			></div>
 		</ng-template>
 	</kendo-grid-command-column>
@@ -52,6 +66,7 @@
 		[includeInChooser]="col.includeInChooser ?? true"
 		[field]="col.field"
 		[hidden]="col.hidden!"
+		[sortable]="col.sortable ?? true"
 		[filterable]="col.filterable"
 		[filter]="col.type"
 	>

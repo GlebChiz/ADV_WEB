@@ -1,32 +1,48 @@
+import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
-import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
+import { ITableState } from '../../../../../../shared/table/table.reducer';
+
+export interface ISessionPlanCurrent {
+	id: string;
+	seriesPlanIds: string[];
+	orderNumber: number;
+	title: string;
+	calloutMinutes1: number;
+	calloutMinutes2: number;
+	calloutMinutes3: number;
+	wrapupMinutes: number;
+	method: string;
+	outline: string;
+	callout1: string;
+	callout2: string;
+	callout3: string;
+	wrapup: string;
+}
 
 @Component({
 	selector: 'advenium-session-plan-popup',
 	templateUrl: './session-plan-popup.component.html',
 })
 export class SessionPlanPopupComponent extends UnSubscriber implements OnInit {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
 		super();
 	}
 
-	public sessionPlan: any;
+	public sessionPlan!: ISessionPlanCurrent | undefined;
 
-	public seriesPlansDropdown$: Observable<any> = this._store.select('seriesPlanDropdown', 'data');
+	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store.select(
+		'seriesPlanDropdown',
+		'data',
+	);
 
 	public sessionPlanForm!: FormGroup;
-
-	public readonly filterSettings: DropDownFilterSettings = {
-		caseSensitive: false,
-		operator: 'contains',
-	};
 
 	public onCancelAction(): void {
 		this._dialogService.close();
@@ -55,10 +71,12 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit {
 
 	public ngOnInit(): void {
 		this._store
-			.select('sessionPlanTable' as any)
+			.select('sessionPlanTable')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((sessionPlanTable: any) => {
-				this.sessionPlan = sessionPlanTable.current;
+			.subscribe((sessionPlanTable: unknown) => {
+				this.sessionPlan = (
+					sessionPlanTable as ITableState<ISessionPlan, ISessionPlanCurrent>
+				).current;
 				this.initForm();
 			});
 	}

@@ -70,6 +70,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				controller: this.controller,
 				filter: this.gridSettings.state,
 				gridId: this.gridId,
+				columns: this.columns,
 			}),
 		);
 		this.selectState();

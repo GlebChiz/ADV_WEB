@@ -66,6 +66,34 @@ export class DropdownEffects {
 		),
 	);
 
+	public getLanguages$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetLanguagesPending),
+			mergeMap(() =>
+				this.service.getSupervisorLanguages().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetLanguagesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetLanguagesError())),
+				),
+			),
+		),
+	);
+
+	public getModalities$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetModalitiesPending),
+			mergeMap(() =>
+				this.service.getModalities().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetModalitiesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetModalitiesError())),
+				),
+			),
+		),
+	);
+
 	public getRoomSize$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetRoomSizePending),
