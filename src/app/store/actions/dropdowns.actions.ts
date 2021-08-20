@@ -42,4 +42,16 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetRoomSetupError: createAction('[Dropdown] Get room setup error'),
+	GetLanguagesPending: createAction('[Dropdown] Get languages pending'),
+	GetLanguagesSuccess: createAction(
+		'[Dropdown] Get languages success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetLanguagesError: createAction('[Dropdown] Get languages error'),
+	GetModalitiesPending: createAction('[Dropdown] Get modalities pending'),
+	GetModalitiesSuccess: createAction(
+		'[Dropdown] Get modalities success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetModalitiesError: createAction('[Dropdown] Get modalities error'),
 };

@@ -74,7 +74,6 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 						[{ field: 'parentName' }],
 					);
 				}
-				console.log();
 			});
 		this.initForm();
 	}

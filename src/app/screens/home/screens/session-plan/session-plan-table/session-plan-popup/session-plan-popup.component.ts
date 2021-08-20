@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
-import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -44,11 +43,6 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit {
 	);
 
 	public sessionPlanForm!: FormGroup;
-
-	public readonly filterSettings: DropDownFilterSettings = {
-		caseSensitive: false,
-		operator: 'contains',
-	};
 
 	public onCancelAction(): void {
 		this._dialogService.close();

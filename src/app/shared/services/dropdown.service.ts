@@ -16,7 +16,15 @@ export class DropdownService {
 	}
 
 	public getSupervisorLicensePayers(): Observable<IDropdownData[]> {
-		return this.http.get<IDropdownData[]>('/dropdowns/get-payers');
+		return this.http.get<IDropdownData[]>('dropdowns/get-payers');
+	}
+
+	public getSupervisorLanguages(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/Language/lookup');
+	}
+
+	public getModalities(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/modalities');
 	}
 
 	public getLocationInitiatives(): Observable<IDropdownData[]> {

@@ -14,14 +14,14 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { tap, filter } from 'rxjs/operators';
+import { tap, filter, skip } from 'rxjs/operators';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { IStore } from 'src/app/store';
+import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { DropdownActions } from '../../../../../store/actions/dropdowns.actions';
 import { SessionPlanPopupComponent } from './session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableActions } from './session-plan-table.actions';
-import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
 
 @Component({
 	providers: [],
@@ -47,22 +47,50 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 
 	public id = '';
 
+	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store
+		.select('seriesPlanDropdown', 'data')
+		.pipe(
+			filter((data: IDropdownData[]) => data.length > 0),
+			tap((data: IDropdownData[]) => {
+				if (this._activatedRoute.snapshot.queryParams.seriesPlanId) {
+					const current: IDropdownData | undefined = data.find(
+						(item: IDropdownData) =>
+							item.id === this._activatedRoute.snapshot.queryParams.seriesPlanId,
+					);
+					if (current) {
+						this.seriesPlan.setValue(current.id);
+					}
+				}
+			}),
+		);
+
+	public languagesDropdown$: Observable<IDropdownData[]> = this._store.select('languages', 'data');
+
 	public seriesPlan: FormControl = new FormControl();
+
+	public language: FormControl = new FormControl();
 
 	public override ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSeriesPlansPending());
-
+		this._store.dispatch(DropdownActions.GetLanguagesPending());
+		this.language.valueChanges.pipe(skip(1)).subscribe((language: IDropdownData) => {
+			const translatedColumn: IColumn | undefined = this.columns.find(
+				(item: IColumn) => item.field === 'translated',
+			);
+			if (translatedColumn) {
+				translatedColumn.hidden = !language;
+			}
+		});
 		this._activatedRoute.queryParams.subscribe((query: Params) => {
-			this.addQuery(query.id);
-			this.id = query.id || '';
+			this.addFiltersSorting(query.seriesPlanId, this.language.value);
+			this.id = query.seriesPlanId || '';
 			super.ngOnInit();
-			this.selectState();
 
 			this.columns.forEach((item: IColumn) => {
-				item.sortable = !query.id;
-				if (!item.includeInChooser) {
-					item.filterable = !query.id;
-					item.hidden = !query.id;
+				item.sortable = !query.seriesPlanId;
+				if (!item.includeInChooser && item.field !== 'translated') {
+					item.filterable = !query.seriesPlanId;
+					item.hidden = !query.seriesPlanId;
 				}
 			});
 		});
@@ -98,8 +126,18 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		});
 	}
 
-	public addQuery(id: string): void {
+	public addFiltersSorting(id: string | undefined, languageId: string | undefined): void {
 		if (this.gridSettings.state.filter) {
+			if (languageId) {
+				this.gridSettings.state.filter.filters = [
+					...this.gridSettings.state.filter.filters,
+					{
+						field: 'languageId',
+						operator: 'custom',
+						value: languageId,
+					},
+				];
+			}
 			if (id) {
 				this.gridSettings.state.sort = [
 					{
@@ -107,20 +145,27 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 						dir: 'asc',
 					},
 				];
-				this.gridSettings.state.filter.filters = [
-					...this.gridSettings.state.filter.filters,
-					{
-						field: 'seriesPlanId',
-						operator: 'custom',
-						value: id,
-					},
-				];
+				if (
+					!this.gridSettings.state.filter.filters.find((item: any) => item.field !== 'seriesPlanId')
+				) {
+					this.gridSettings.state.filter.filters = [
+						...this.gridSettings.state.filter.filters,
+						{
+							field: 'seriesPlanId',
+							operator: 'custom',
+							value: id,
+						},
+					];
+				}
+
 				return;
 			}
-			this.gridSettings.state.sort = [];
-			this.gridSettings.state.filter.filters = this.gridSettings.state.filter.filters.filter(
-				(item: any) => item.field !== 'seriesPlanId',
-			);
+			if (!id && !languageId) {
+				this.gridSettings.state.sort = [];
+				this.gridSettings.state.filter.filters = this.gridSettings.state.filter.filters.filter(
+					(item: any) => item.operator !== 'custom',
+				);
+			}
 		}
 	}
 
@@ -142,23 +187,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		);
 	}
 
-	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store
-		.select('seriesPlanDropdown', 'data')
-		.pipe(
-			filter((data: IDropdownData[]) => data.length > 0),
-			tap((data: IDropdownData[]) => {
-				if (this._activatedRoute.snapshot.queryParams.id) {
-					const current: IDropdownData | undefined = data.find(
-						(item: IDropdownData) => item.id === this._activatedRoute.snapshot.queryParams.id,
-					);
-					if (current) {
-						this.seriesPlan.setValue(current.id);
-					}
-				}
-			}),
-		);
-
-	public selectionChange(item: IDropdownData | undefined): void {
+	public selectionChangeSeriesPlan(item: IDropdownData | undefined): void {
 		if (!item) {
 			this._router.navigate(['.'], {
 				relativeTo: this._activatedRoute,
@@ -166,10 +195,17 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			return;
 		}
 		this._router.navigate(['.'], {
-			queryParams: { id: item.id },
+			queryParams: { seriesPlanId: item.id },
 			relativeTo: this._activatedRoute,
 			queryParamsHandling: 'merge',
 		});
+	}
+
+	public selectionChangeLanguage(item: IDropdownData | undefined): void {
+		if (item) {
+			this.addFiltersSorting(this._activatedRoute.snapshot.queryParams.seriesPlanId, item.id);
+			super.ngOnInit();
+		}
 	}
 
 	public columns: IColumn[] = [

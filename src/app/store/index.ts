@@ -9,6 +9,8 @@ import { supervisorLicenseDropdownReducers } from './reducers/supervisor-license
 import { supervisorLicensePayersDropdownReducers } from './reducers/supervisor-license-payers.reducers';
 import { locationDropdownReducers } from './reducers/location-initiative-ids.reducers';
 import { roomDropdownReducers } from './reducers/room.reducers';
+import { languagesReducers } from './reducers/languages.reducers';
+import { modalitiesDropdownReducers } from './reducers/modalities.reducers';
 import { ILocationState } from '../shared/interfaces/location.interface';
 import { locationReducers } from './reducers/location.reducers';
 
@@ -20,6 +22,8 @@ export interface IStore {
 	payerDropdown: IDropDownState;
 	locationDropdown: IDropDownState;
 	roomDropdown: IDropDownState;
+	languages: IDropDownState;
+	modalities: IDropDownState;
 	location: ILocationState;
 }
 
@@ -31,5 +35,7 @@ export const appReducers: ActionReducerMap<IStore> = {
 	payerDropdown: supervisorLicensePayersDropdownReducers,
 	locationDropdown: locationDropdownReducers,
 	roomDropdown: roomDropdownReducers,
+	languages: languagesReducers,
+	modalities: modalitiesDropdownReducers,
 	location: locationReducers,
 };
