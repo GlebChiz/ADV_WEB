@@ -14,6 +14,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { LocationActions } from 'src/app/store/actions/location.actions';
 import { LocationPopupComponent } from './location-popup/location-popup.component';
 
 @Component({
@@ -71,6 +72,7 @@ export class LocationTableComponent extends CustomTableDirective {
 				this._store.dispatch(this.createDataPending({ item: result, controller: this.controller }));
 			}
 			this._store.dispatch(this.clearCurrentItem());
+			this._store.dispatch(LocationActions.ClearSelectedLocation());
 		});
 	}
 
@@ -149,8 +151,5 @@ export class LocationTableComponent extends CustomTableDirective {
 
 	public onCellClick(e: CellClickEvent): void {
 		this._router.navigate(['locations', e.dataItem.id]);
-		this._store.dispatch(
-			this.getCurrentItemPending({ id: e.dataItem.id, controller: this.controller }),
-		);
 	}
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
@@ -14,6 +14,8 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { LocationActions } from 'src/app/store/actions/location.actions';
+import { LocationPopupComponent } from '../../location-table/location-popup/location-popup.component';
 // import { LocationPopupComponent } from '../../location-table/location-popup/location-popup.component';
 import { RoomPopupComponent } from './room-popup/room-popup.component';
 
@@ -27,6 +29,7 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		private dialogService: DialogService,
 		private _activatedRoute: ActivatedRoute,
+		private router: Router,
 		_store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
@@ -48,58 +51,49 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this._store.dispatch(
-			this.getCurrentItemPending({
-				id: this._activatedRoute.snapshot.params.id,
-				controller: 'location',
-			}),
-		);
+		if (this.gridSettings.state.filter) {
+			this.gridSettings.state.filter.filters = [
+				...this.gridSettings.state.filter.filters,
+				{
+					field: 'locationId',
+					operator: 'custom',
+					value: this._activatedRoute.snapshot.params.id,
+				},
+			];
+		}
 		this._store.dispatch(
 			this.getTableDataPending({
 				controller: this.controller,
 				filter: this.gridSettings.state,
 				gridId: this.gridId,
+				column: this.columns,
 			}),
 		);
-		this._store.select('roomTable' as any, 'current').subscribe((location: any) => {
-			this.infoLocation = location; // TODO BAD
-
-			// if (this.gridSettings.state.filter) {
-			// 	this.gridSettings.state.filter.filters = [
-			// 		...this.gridSettings.state.filter.filters,
-			// 		{
-			// 			field: 'locationId',
-			// 			operator: 'contains',
-			// 			value: location.id,
-			// 		},
-			// 	];
-			// }
+		this._store.dispatch(
+			LocationActions.GetSelectedLocationPending({ id: this._activatedRoute.snapshot.params.id }),
+		);
+		this._store.select('location', 'selectedLocation').subscribe((location: any) => {
+			this.infoLocation = location;
 		});
 	}
 
-	// public openDialogLocation(isDublicate?: boolean): void {
-	// 	const dialog: DialogRef = this.dialogService.open({
-	// 		title: 'Location',
-	// 		content: LocationPopupComponent,
-	// 		width: 600,
-	// 		height: 550,
-	// 		minWidth: 250,
-	// 	});
-	// 	dialog.content.instance.location = { ...this.infoLocation };
-	// 	dialog.result.subscribe((result: any) => {
-	// 		if (!(result instanceof DialogCloseResult)) {
-	// 			if (isDublicate) {
-	// 				result.id = null;
-	// 			}
-	// 			if (this.infoLocation && !isDublicate) {
-	// 				this._store.dispatch(this.editDataPending({ item: result, controller: 'location' }));
-	// 				return;
-	// 			}
-	// 			this._store.dispatch(this.createDataPending({ item: result, controller: 'location' }));
-	// 		}
-	// 		this._store.dispatch(this.clearCurrentItem());
-	// 	});
-	// }
+	public openDialogLocation(): void {
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Location',
+			content: LocationPopupComponent,
+			width: 600,
+			height: 550,
+			minWidth: 250,
+		});
+
+		dialog.content.instance.location = { ...this.infoLocation };
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(this.editDataPending({ item: result, controller: 'location' }));
+			}
+			this._store.dispatch(this.clearCurrentItem());
+		});
+	}
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {
 		if (dataItem) {
@@ -125,7 +119,17 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 					this._store.dispatch(this.editDataPending({ item: result, controller: this.controller }));
 					return;
 				}
-				this._store.dispatch(this.createDataPending({ item: result, controller: this.controller }));
+
+				this._store.dispatch(
+					this.createDataPending({
+						item: {
+							...result,
+							locationId: this._activatedRoute.snapshot.params.id,
+							source: 'asdas',
+						},
+						controller: this.controller,
+					}),
+				);
 			}
 			this._store.dispatch(this.clearCurrentItem());
 		});
@@ -168,4 +172,8 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 			type: 'text',
 		},
 	];
+
+	public back(): void {
+		this.router.navigate(['/locations']);
+	}
 }

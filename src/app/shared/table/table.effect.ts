@@ -7,6 +7,7 @@ import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { Guid } from 'guid-typescript';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { LocationActions } from 'src/app/store/actions/location.actions';
 import { TableService } from './table.service';
 import {
 	CREATE_ITEM_TABLE_ERROR,
@@ -147,6 +148,15 @@ export class TableEffects {
 						return this._tableService.update(controller, item).pipe(
 							map(() => {
 								this._store.dispatch(this.editItemTableSuccess());
+								if (controller === 'location') {
+									// TODO BAD
+									this._store.dispatch(
+										LocationActions.GetSelectedLocationPending({
+											id: item.id,
+										}),
+									);
+								}
+
 								return this.getTableDataPending({ controller, filter: latest.filter });
 							}),
 							catchError((error: string) => {
