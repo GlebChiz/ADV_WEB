@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { GroupResult } from '@progress/kendo-data-query';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -31,10 +30,6 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	public supervisorLicense!: ISupervisorInterface | undefined;
 
 	public myForm!: FormGroup;
-
-	public supervisorDropdown!: (IDropdownData | GroupResult) | undefined;
-
-	public supervisorPayerDropdown: (IDropdownData | GroupResult)[] = [];
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -78,11 +73,7 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
 		this._store
 			.select('supervisorLicenseDropdown')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((supervisorLicense: any) => {
-				this.supervisorDropdown = supervisorLicense.supervisorLicense;
-				this.supervisorPayerDropdown = supervisorLicense.payers;
-			});
+			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$));
 		this.initForm();
 	}
 
