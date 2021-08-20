@@ -34,7 +34,6 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 	}
 
 	public initForm(): void {
-		console.log('this.publicSnipit', this.publicSnipit);
 		this.myPublicSnipitForm = new FormGroup({
 			id: new FormControl(this.publicSnipit?.id || ''),
 			text: new FormControl(this.publicSnipit?.text || ''),

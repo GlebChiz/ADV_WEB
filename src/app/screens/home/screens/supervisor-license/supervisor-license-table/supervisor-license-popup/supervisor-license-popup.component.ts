@@ -3,10 +3,20 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
+import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
+import { Observable } from 'rxjs/internal/Observable';
 
+export interface ISupervisorInterface {
+	id: string;
+	supervisor: string;
+	payer: string;
+	start: string;
+	end: string;
+	providerId: string;
+}
 @Component({
 	selector: 'advenium-supervisor-license-popup',
 	templateUrl: './supervisor-license-popup.component.html',
@@ -16,9 +26,9 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 		super();
 	}
 
-	public supervisorLicense: any;
+	public supervisorLicense!: ISupervisorInterface | undefined;
 
-	public mySupervisorLicenseForm!: FormGroup;
+	public myForm!: FormGroup;
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -30,30 +40,36 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.supervisorLicense, ...this.mySupervisorLicenseForm.value });
-	}
-
-	public initForm(): void {
-		console.log('this.supervisorLicense', this.supervisorLicense);
-		this.mySupervisorLicenseForm = new FormGroup({
-			id: new FormControl(this.supervisorLicense?.id || ''),
-			clinicianId: new FormControl(this.supervisorLicense?.clinicianId || ''),
-			payerId: new FormControl(this.supervisorLicense?.payerId || ''),
-			start: new FormControl(this.supervisorLicense?.start || ''),
-			end: new FormControl(this.supervisorLicense?.end || ''),
-			providerId: new FormControl(this.supervisorLicense?.providerId || ''),
-			clinicianName: new FormControl(this.supervisorLicense?.clinicianName || ''),
+		this._dialogService.close({
+			...this.supervisorLicense,
+			...this.myForm.value,
 		});
 	}
 
+	public initForm(): void {
+		this.myForm = new FormGroup({
+			id: new FormControl(this.supervisorLicense?.id || ''),
+			supervisor: new FormControl(this.supervisorLicense?.supervisor || ''),
+			payer: new FormControl(this.supervisorLicense?.payer || ''),
+			start: new FormControl(this.supervisorLicense?.start || ''),
+			end: new FormControl(this.supervisorLicense?.end || ''),
+			providerId: new FormControl(this.supervisorLicense?.providerId || ''),
+		});
+	}
+
+	public supervisor$: Observable<IDropdownData[]> = this._store.select(
+		'supervisorLicenseDropdown',
+		'data',
+	);
+
+	public payers$: Observable<IDropdownData[]> = this._store.select(
+		'supervisorLicensePayersDropdown',
+		'data',
+	);
+
 	public ngOnInit(): void {
-		this._store
-			.select('supervisorLicenseTable' as any)
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((supervisorLicenseTable: any) => {
-				this.supervisorLicense = supervisorLicenseTable.current;
-				this.initForm();
-			});
+		this._store.dispatch(DropdownActions.GetSupervisorLicensePending());
+		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
 		this.initForm();
 	}
 

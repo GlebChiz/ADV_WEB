@@ -64,8 +64,6 @@ export class RoomPopupComponent extends UnSubscriber implements OnInit {
 			.select('roomDropdown' as any)
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((roomDropdown: any) => {
-				console.log(roomDropdown?.roomSetup);
-
 				this.roomSetup = roomDropdown?.roomSetup;
 				this.roomSize = roomDropdown?.roomSize;
 				this.initForm();

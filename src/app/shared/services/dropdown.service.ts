@@ -25,6 +25,7 @@ export class DropdownService {
 
 	public getModalities(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/modalities');
+
 	}
 
 	public getLocationInitiatives(): Observable<IDropdownData[]> {

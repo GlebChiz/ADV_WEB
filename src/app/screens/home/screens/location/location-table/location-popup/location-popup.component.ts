@@ -39,7 +39,6 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public initForm(): void {
-		console.log('this.payer', this.location?.initiativeIds);
 		this.myLocationForm = new FormGroup({
 			name: new FormControl(this.location?.name),
 			code: new FormControl(this.location?.code),
@@ -57,7 +56,6 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 			.subscribe((locationTable: any) => {
 				this.location = locationTable.current;
 				this.initForm();
-				console.log(locationTable.current);
 			});
 		this._store
 			.select('locationDropdown')
