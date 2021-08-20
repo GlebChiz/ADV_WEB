@@ -132,14 +132,6 @@ export class TableService {
 					},
 			  ]
 			: [];
-		// return columns
-		// 	? columns.map((column: any) => {
-		// 			return {
-		// 				column: column.field,
-		// 				direction: state.sort && state.sort[0] && state.sort[0].dir === 'desc' ? 0 : 1,
-		// 			};
-		// 	  })
-		// 	: [];
 	}
 
 	public getData<T>(controller: string, filterId: string): Observable<T> {

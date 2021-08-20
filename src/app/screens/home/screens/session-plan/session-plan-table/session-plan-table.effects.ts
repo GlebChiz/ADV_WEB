@@ -1,3 +1,4 @@
+import { ITableState } from 'src/app/shared/table/table.reducer';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -25,6 +26,8 @@ import {
 } from 'src/app/shared/table/table.tokens';
 import { SessionPlanTableActions } from './session-plan-table.actions';
 import { SessionPlanTableSerivce } from './session-plan-table.service';
+import { ISessionPlanCurrent } from './session-plan-popup/session-plan-popup.component';
+import { ISessionPlan } from '../../../../../shared/interfaces/session-plan.interface';
 
 @Injectable()
 export class SomeEffect extends TableEffects {
@@ -89,13 +92,17 @@ export class SomeEffect extends TableEffects {
 					index: number;
 				}) => {
 					return of(1).pipe(
-						withLatestFrom(this._store.select(`${controller}Table` as any)),
-						switchMap(([, latest]: [any, any]) => {
+						withLatestFrom(this._store.select(`${controller}Table`)),
+						switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
 							return this._service.reorder(controller, { seriesPlanId, sessionPlanId, index }).pipe(
 								mergeMap(() => {
 									return [
 										SessionPlanTableActions.ReorderPlanSuccess(),
-										this.getTableDataPending({ controller, filter: latest.filter }),
+										this.getTableDataPending({
+											controller,
+											filter: latest.filter,
+											columns: latest.columns,
+										}),
 									];
 								}),
 								catchError(() => {
