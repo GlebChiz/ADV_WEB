@@ -16,11 +16,24 @@ export class DropdownService {
 	}
 
 	public getSupervisorLicensePayers(): Observable<IDropdownData[]> {
-		return this.http.get<IDropdownData[]>('/dropdowns/get-payers');
+		return this.http.get<IDropdownData[]>('dropdowns/get-payers');
+	}
+
+	public getSupervisorLanguages(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/Language/lookup');
+	}
+
+	public getModalities(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/modalities');
+
 	}
 
 	public getLocationInitiatives(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/LocationInitiative');
+	}
+
+	public getLegends(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/legends');
 	}
 
 	public getRoomSize(): Observable<IDropdownData[]> {
@@ -29,5 +42,13 @@ export class DropdownService {
 
 	public getRoomSetup(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/RoomSetup');
+	}
+
+	public getSnipitTypes(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/snipit-types');
+	}
+
+	public getSnipitCategory(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/SnipitCategory');
 	}
 }

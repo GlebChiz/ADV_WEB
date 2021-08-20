@@ -52,6 +52,20 @@ export class DropdownEffects {
 		),
 	);
 
+	public getLegends$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetLegendsPending),
+			mergeMap(() =>
+				this.service.getLegends().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetLegendsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetLegendsError())),
+				),
+			),
+		),
+	);
+
 	public getSupervisorPayers$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSupervisorLicensePayersPending),
@@ -61,6 +75,34 @@ export class DropdownEffects {
 						return DropdownActions.GetSupervisorLicensePayersSuccess({ data });
 					}),
 					catchError(() => of(DropdownActions.GetSupervisorLicensePayersError())),
+				),
+			),
+		),
+	);
+
+	public getLanguages$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetLanguagesPending),
+			mergeMap(() =>
+				this.service.getSupervisorLanguages().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetLanguagesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetLanguagesError())),
+				),
+			),
+		),
+	);
+
+	public getModalities$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetModalitiesPending),
+			mergeMap(() =>
+				this.service.getModalities().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetModalitiesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetModalitiesError())),
 				),
 			),
 		),
@@ -89,6 +131,34 @@ export class DropdownEffects {
 						return DropdownActions.GetRoomSetupSuccess({ data });
 					}),
 					catchError(() => of(DropdownActions.GetRoomSetupError())),
+				),
+			),
+		),
+	);
+
+	public getSnipitTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetSnipiTypePending),
+			mergeMap(() =>
+				this.service.getSnipitTypes().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetSnipiTypeSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetSnipiTypeError())),
+				),
+			),
+		),
+	);
+
+	public getSnipitCategory$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetSnipiCategoryPending),
+			mergeMap(() =>
+				this.service.getSnipitCategory().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetSnipiCategorySuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetSnipiCategoryError())),
 				),
 			),
 		),

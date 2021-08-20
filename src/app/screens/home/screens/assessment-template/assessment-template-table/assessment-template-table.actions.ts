@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
+import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const AssessmentTemplateTableActions = {
 	GetAssessmentTemplateTableDataPending: createAction(
 		'[Assessment Template Table] get table data pending',
-		props<{ controller: string; filter: IFilter }>(),
+		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 	GetAssessmentTemplateTableDataSuccess: createAction(
 		'[Assessment Template Table] get table data success',

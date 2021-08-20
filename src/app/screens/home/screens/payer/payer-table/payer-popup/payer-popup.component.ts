@@ -39,8 +39,6 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 	}
 
 	public initForm(): void {
-		console.log('this.payer', this.payer);
-
 		this.myForm = new FormGroup({
 			name: new FormControl(this.payer?.name || ''),
 			carrierCode: new FormControl(this.payer?.carrierCode || ''),
@@ -74,7 +72,6 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 						[{ field: 'parentName' }],
 					);
 				}
-				console.log();
 			});
 		this.initForm();
 	}

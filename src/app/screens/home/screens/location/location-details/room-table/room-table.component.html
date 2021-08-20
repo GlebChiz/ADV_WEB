@@ -1,25 +1,42 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Room</div>
-<div class="new-button">
-	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Room</button>
+<div class="header">
+	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Room</div>
+	<div class="new-button">
+		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Room</button>
+	</div>
 </div>
-<span>
-	Info location:
-	<div>name: {{ infoLocation?.name }}</div>
-	<div>code: {{ infoLocation?.code }}</div>
-	<div>address1: {{ infoLocation?.address?.address1 }}</div>
-
-	<div>address2: {{ infoLocation?.address?.address2 }}</div>
-	<div>zip: {{ infoLocation?.address?.zip }}</div>
-	<div>city: {{ infoLocation?.address?.city }}</div>
-
-	<div>state: {{ infoLocation?.address?.state }}</div>
-	<div>billingCode: {{ infoLocation?.billingCode }}</div>
-	<div>initiativeIds: {{ infoLocation?.initiativeIds | json }}</div>
-	<div>roomCount: {{ infoLocation?.roomCount }}</div>
-</span>
-<span class="new-button">
-	<button><img src="/assets/images/player.svg" />Edit Current Location</button>
-</span>
+<div class="back-button">
+	<button (click)="back()">Back</button>
+</div>
+<div class="container-location-info">
+	<div>
+		<div class="heading-info">Location info</div>
+		<div class="names-and-info">
+			<div class="names-info">
+				<div class="name-info">Name</div>
+				<div class="name-info">Full address</div>
+				<div class="name-info">Billing code</div>
+				<div class="name-info">Code</div>
+				<div class="name-info">Initiative ids</div>
+			</div>
+			<div class="infos">
+				<div class="info">{{ infoLocation?.name }}</div>
+				<div class="info">
+					{{ infoLocation?.city }} {{ infoLocation?.address?.state }}
+					{{ infoLocation?.address?.zip }}
+				</div>
+				<div class="info">{{ infoLocation?.billingCode }}</div>
+				<div class="info">{{ infoLocation?.code }}</div>
+				<div class="info">{{ infoLocation?.initiativeIds | json }}</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<button (click)="openDialogLocation()" class="button-edit">
+			<img src="/assets/images/edit.svg" />
+			<span>Edit</span>
+		</button>
+	</div>
+</div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
@@ -92,20 +109,21 @@
 	></kendo-grid-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link"></div>
-			<!-- (click)="openDialog(dataItem)" -->
+			<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link"></div>
-			<!-- (click)="openDialog(dataItem, true)" -->
+			<div (click)="openDialog(dataItem, true)" class="k-icon k-i-copy k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify"></div>
-			<!-- (click)="deleteWithPopup(dataItem.id)" -->
+			<div
+				(click)="deleteWithPopup(dataItem.id)"
+				class="k-icon k-i-trash k-link"
+				title="Modify"
+			></div>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>

@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
+import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const AssessmentQuestionTableActions = {
 	GetAssessmentQuestionTableDataPending: createAction(
 		'[Assessment Question Table] get table data pending',
-		props<{ controller: string; filter: IFilter }>(),
+		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 	GetAssessmentQuestionTableDataSuccess: createAction(
 		'[Assessment Question Table] get table data success',
@@ -21,7 +22,13 @@ export const AssessmentQuestionTableActions = {
 
 	DeleteAssessmentQuestionIemTablePending: createAction(
 		'[Assessment Question Table] delete table item pending',
-		props<{ controller: string; filter: IFilter; id: string }>(),
+		props<{
+			controller: string;
+			filter: IFilter;
+			id: string;
+			columns: IColumn[];
+			gridId: string;
+		}>(),
 	),
 	DeleteAssessmentQuestionIemTableError: createAction(
 		'[Assessment Question Table] delete table item error',
@@ -86,6 +93,13 @@ export const AssessmentQuestionTableActions = {
 	ClearCurrentAssessmentQuestion: createAction(
 		'[Assessment Question Table] Clear current AssessmentQuestion',
 	),
-
 	ClearAssessmentQuestionTable: createAction('[Assessment Question Table] Clear'),
+	ReorderAssessmentQuestionPending: createAction(
+		'[Assessment Question] Reorder current item pending',
+		props<{ controller: string; questionId: string; assessmentId: string; index: number }>(),
+	),
+	ReorderAssessmentQuestionSuccess: createAction(
+		'[Assessment Question] Reorder current item success',
+	),
+	ReorderAssessmentQuestionError: createAction('[Assessment Question] Reorder current item error'),
 };

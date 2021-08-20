@@ -3,13 +3,18 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
+import { GroupResult } from '@progress/kendo-data-query';
+import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
+import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 
 @Component({
 	selector: 'advenium-public-snipit-popup',
 	templateUrl: './public-snipit-popup.component.html',
+	styleUrls: ['public-snipit-popup.component.scss'],
 })
 export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, OnChanges {
 	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
@@ -19,6 +24,13 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 	public publicSnipit: any;
 
 	public myPublicSnipitForm!: FormGroup;
+
+	public snipitTypes: (IDropdownData | GroupResult)[] = [];
+
+	public snipitCategory$: Observable<IDropdownData[]> = this._store.select(
+		'dropdown' as any,
+		'snipiCategory',
+	);
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -34,20 +46,29 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 	}
 
 	public initForm(): void {
-		console.log('this.publicSnipit', this.publicSnipit);
 		this.myPublicSnipitForm = new FormGroup({
 			id: new FormControl(this.publicSnipit?.id || ''),
 			text: new FormControl(this.publicSnipit?.text || ''),
 			categoryId: new FormControl(this.publicSnipit?.categoryId),
+			type: new FormControl(this.publicSnipit?.type),
 		});
 	}
 
 	public ngOnInit(): void {
+		this._store.dispatch(DropdownActions.GetSnipiTypePending());
+		this._store.dispatch(DropdownActions.GetSnipiCategoryPending());
 		this._store
-			.select('publicSnipitTable' as any)
+			.select('publicsnipitTable' as any)
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((modalityTable: any) => {
 				this.publicSnipit = modalityTable.current;
+				this.initForm();
+			});
+		this._store
+			.select('dropdown' as any, 'snipitTypes')
+			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((publicSnipitDropdown: any) => {
+				this.snipitTypes = publicSnipitDropdown;
 				this.initForm();
 			});
 		this.initForm();
