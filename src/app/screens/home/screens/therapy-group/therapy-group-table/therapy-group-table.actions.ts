@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
+import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const TherapyGroupTableActions = {
 	GetTherapyGroupTableDataPending: createAction(
 		'[Therapy Group Table] get table data pending',
-		props<{ controller: string; filter: IFilter }>(),
+		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 	GetTherapyGroupTableDataSuccess: createAction(
 		'[Therapy Group Table] get table data success',

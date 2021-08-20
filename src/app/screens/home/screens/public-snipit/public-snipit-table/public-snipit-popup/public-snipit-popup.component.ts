@@ -31,10 +31,6 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 		'dropdown' as any,
 		'snipiCategory',
 	);
-	// public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store.select(
-	// 	'seriesPlanDropdown',
-	// 	'data',
-	// );
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -69,10 +65,10 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 				this.initForm();
 			});
 		this._store
-			.select('publicSnipitDropdown' as any)
+			.select('dropdown' as any, 'snipitTypes')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((publicSnipitDropdown: any) => {
-				this.snipitTypes = publicSnipitDropdown.snipitTypes;
+				this.snipitTypes = publicSnipitDropdown;
 				this.initForm();
 			});
 		this.initForm();

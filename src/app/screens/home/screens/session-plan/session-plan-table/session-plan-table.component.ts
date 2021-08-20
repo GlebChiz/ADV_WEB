@@ -14,7 +14,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { tap, filter, skip } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { IStore } from 'src/app/store';
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
@@ -48,9 +48,9 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 	public id = '';
 
 	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store
-		.select('seriesPlanDropdown', 'data')
+		.select('dropdown' as any, 'seriesPlans')
 		.pipe(
-			filter((data: IDropdownData[]) => data.length > 0),
+			filter((data: IDropdownData[]) => data?.length > 0),
 			tap((data: IDropdownData[]) => {
 				if (this._activatedRoute.snapshot.queryParams.seriesPlanId) {
 					const current: IDropdownData | undefined = data.find(
@@ -76,11 +76,14 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 	public override ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSeriesPlansPending());
 		this._store.dispatch(DropdownActions.GetLanguagesPending());
-		this.language.valueChanges.pipe(skip(1)).subscribe((language: IDropdownData) => {
+		this.language.valueChanges.subscribe((language: string) => {
 			const translatedColumn: IColumn | undefined = this.columns.find(
 				(item: IColumn) => item.field === 'translated',
 			);
 			if (translatedColumn) {
+				if (language === '4dc1ef9d-76e3-4b70-8b0d-7109661ec568') {
+					translatedColumn.hidden = true;
+				}
 				translatedColumn.hidden = !language;
 			}
 		});

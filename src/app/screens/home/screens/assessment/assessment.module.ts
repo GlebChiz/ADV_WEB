@@ -48,7 +48,7 @@ import { SomeEffect } from './assessment-table/assessment-table.effects';
 						(m: any) => m.AssessmentQuestionModule,
 					),
 				data: {
-					breadcrumb: 'Single',
+					breadcrumb: 'Assessment Qestion',
 				},
 			},
 		]),

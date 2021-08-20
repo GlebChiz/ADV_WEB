@@ -31,7 +31,7 @@ export class SeriesPlanPopupComponent extends UnSubscriber implements OnInit {
 	public seriesPlanForm!: FormGroup;
 
 	public modalities$: Observable<IDropdownData[]> = this._store
-		.select('modalities', 'data')
+		.select('dropdown', 'modalities')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public readonly filterSettings: DropDownFilterSettings = {

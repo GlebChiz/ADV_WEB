@@ -112,7 +112,7 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 	}
 
 	public supervisorsDropdown$: Observable<IDropdownData[]> = this._store
-		.select('supervisorDropdown', 'data')
+		.select('dropdown' as any, 'supervisorLicense')
 		.pipe(
 			filter((data: IDropdownData[]) => data.length > 0),
 			tap((data: IDropdownData[]) => {
@@ -122,22 +122,6 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 					);
 					if (current) {
 						this.supervisor.setValue(current.id);
-					}
-				}
-			}),
-		);
-
-	public payersDropdown$: Observable<IDropdownData[]> = this._store
-		.select('payerDropdown', 'data')
-		.pipe(
-			filter((data: IDropdownData[]) => data.length > 0),
-			tap((data: IDropdownData[]) => {
-				if (this._activatedRoute.snapshot.queryParams.id) {
-					const current: IDropdownData | undefined = data.find(
-						(item: IDropdownData) => item.id === this._activatedRoute.snapshot.queryParams.id,
-					);
-					if (current) {
-						this.payer.setValue(current.id);
 					}
 				}
 			}),

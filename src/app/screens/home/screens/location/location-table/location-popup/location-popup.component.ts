@@ -60,10 +60,10 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 				console.log(locationTable.current);
 			});
 		this._store
-			.select('locationDropdown')
+			.select('dropdown' as any, 'locationInitiativeIds')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((locationDropdown: any) => {
-				this.locationDropdownInitiatives = locationDropdown?.data;
+				this.locationDropdownInitiatives = locationDropdown;
 				this.initForm();
 			});
 		this._store

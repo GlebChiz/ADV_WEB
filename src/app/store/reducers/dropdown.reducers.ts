@@ -70,5 +70,11 @@ export function dropdownReducers(
 				return { ...state, snipiCategory: data, isLoading: false };
 			},
 		),
+		on(
+			DropdownActions.GetLegendsSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, legends: data, isLoading: false };
+			},
+		),
 	)(dropdownState, action);
 }

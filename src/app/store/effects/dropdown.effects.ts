@@ -52,6 +52,20 @@ export class DropdownEffects {
 		),
 	);
 
+	public getLegends$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetLegendsPending),
+			mergeMap(() =>
+				this.service.getLegends().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetLegendsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetLegendsError())),
+				),
+			),
+		),
+	);
+
 	public getSupervisorPayers$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSupervisorLicensePayersPending),

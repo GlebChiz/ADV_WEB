@@ -243,14 +243,4 @@ export class TableService {
 			return false;
 		}
 	}
-
-	// private formatNumberTypes(type: string): IGridFilterType {
-	// 	console.log(type);
-	// 	return {} as IGridFilterType;
-	// }
-
-	// private formatBooleanTypes(type: string): IGridFilterType {
-	// 	console.log(type);
-	// 	return {} as IGridFilterType;
-	// }
 }
