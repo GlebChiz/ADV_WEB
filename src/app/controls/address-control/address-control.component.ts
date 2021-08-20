@@ -26,7 +26,6 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy 
 	}
 
 	public set value(value: Address) {
-		console.log('value', value);
 		this.form.setValue(value);
 		// this.onChange(value);
 		// this.onTouched();
