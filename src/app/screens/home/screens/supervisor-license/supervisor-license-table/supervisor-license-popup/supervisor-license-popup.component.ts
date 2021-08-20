@@ -3,7 +3,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -71,9 +70,6 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePending());
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
-		this._store
-			.select('supervisorLicenseDropdown')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$));
 		this.initForm();
 	}
 
