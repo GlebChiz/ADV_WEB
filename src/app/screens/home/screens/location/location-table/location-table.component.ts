@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
@@ -22,7 +22,7 @@ import { LocationPopupComponent } from './location-popup/location-popup.componen
 	templateUrl: './location-table.component.html',
 	styleUrls: ['../../../home.component.scss', './location-table.component.scss'],
 })
-export class LocationTableComponent extends CustomTableDirective {
+export class LocationTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		private dialogService: DialogService,
 		_store: Store<any>,

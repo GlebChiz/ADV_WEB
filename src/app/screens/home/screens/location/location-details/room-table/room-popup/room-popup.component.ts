@@ -44,9 +44,8 @@ export class RoomPopupComponent extends UnSubscriber implements OnInit {
 		this.myRoomForm = new FormGroup({
 			name: new FormControl(this.room?.name),
 			description: new FormControl(this.room?.description),
-			direction: new FormControl(this.room?.direction),
 			setups: new FormControl(this.room?.setups),
-			roomSize: new FormControl(this.room?.roomSize),
+			sizeId: new FormControl(this.room?.sizeId),
 		});
 	}
 
@@ -64,8 +63,6 @@ export class RoomPopupComponent extends UnSubscriber implements OnInit {
 			.select('roomDropdown' as any)
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((roomDropdown: any) => {
-				console.log(roomDropdown?.roomSetup);
-
 				this.roomSetup = roomDropdown?.roomSetup;
 				this.roomSize = roomDropdown?.roomSize;
 				this.initForm();

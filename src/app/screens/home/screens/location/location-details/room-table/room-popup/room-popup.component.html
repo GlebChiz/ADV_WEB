@@ -33,22 +33,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Direction</label>
-						<textarea
-							name="direction"
-							formControlName="direction"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						>
-						</textarea>
-					</div>
-				</div>
-			</div>
 			<div>
 				<label>Room Setup</label>
 				<div>
@@ -74,7 +58,7 @@
 						textField="name"
 						[valuePrimitive]="true"
 						[kendoDropDownFilter]="filterSettings"
-						formControlName="roomSize"
+						formControlName="sizeId"
 					>
 					</kendo-combobox>
 				</div>

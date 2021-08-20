@@ -77,6 +77,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public selectState(): void {
+		console.log('this.storePath', this.storePath);
+
 		this._store
 			.select((state: any) => state[this.storePath])
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
@@ -85,6 +87,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 					this.gridData = process(tableData?.data, { group: [{ field: this.group }] });
 					this.gridData.total = tableData?.total;
 				}
+				console.log('tableData', tableData);
+
 				this.gridDataWithoutGroup = tableData;
 
 				this.isLoading = tableData.isLoading;
