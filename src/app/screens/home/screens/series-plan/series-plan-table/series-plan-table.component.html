@@ -1,6 +1,6 @@
 <div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Series plans</div>
 <div class="new-button">
-	<button><img src="/assets/images/player.svg" />New Series Plan</button>
+	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Series Plan</button>
 </div>
 <kendo-grid
 	[filterable]="true"
@@ -76,43 +76,22 @@
 
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link">
-				<!-- (click)="openDialog(dataItem)"  -->
-			</div>
+			<div class="k-icon k-i-edit k-link" (click)="openDialog(dataItem)"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link">
-				<!-- (click)="openDialog(dataItem, true)" -->
-			</div>
+			<div class="k-icon k-i-copy k-link" (click)="openDialog(dataItem, true)"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify">
-				<!-- (click)="deleteWithPopup(dataItem.id)" -->
-			</div>
+			<div
+				class="k-icon k-i-trash k-link"
+				title="Modify"
+				(click)="deleteWithPopup(dataItem.id)"
+			></div>
 		</ng-template>
 	</kendo-grid-command-column>
-	<!-- <kendo-grid-column filter="text" [filterable]="true" field="name" title="Name" [width]="100"></kendo-grid-column>
-        <kendo-grid-column field="address" title="Address" [width]="100"></kendo-grid-column>
-        <kendo-grid-column field="Modify" title=" " [width]="35">
-            <ng-template kendoGridCellTemplate let-dataItem>
-              <advenium-grid-modify-cell (action)="editItem(dataItem)" [allow]="true">
-              </advenium-grid-modify-cell>
-            </ng-template>
-        </kendo-grid-column>
-        <kendo-grid-column field="Duplicate" title=" " [width]="35">
-            <ng-template kendoGridCellTemplate let-dataItem>
-              <advenium-grid-duplicate-cell (action)="dublicateItem(dataItem)" [allow]="true">
-              </advenium-grid-duplicate-cell>
-            </ng-template>
-        </kendo-grid-column>
-        <kendo-grid-column field="Remove" title=" " [width]="35" >
-            <ng-template kendoGridCellTemplate let-dataItem>
-              <advenium-grid-remove-cell (action)="removeItem(dataItem)">
-              </advenium-grid-remove-cell>
-            </ng-template>
-        </kendo-grid-column> -->
 </kendo-grid>
+<div kendoDialogContainer></div>

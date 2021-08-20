@@ -145,13 +145,7 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 			filterable: true,
 			type: 'text',
 		},
-		{
-			field: 'setup',
-			title: 'Setup',
-			hidden: false,
-			filterable: true,
-			type: 'text',
-		},
+
 		{
 			field: 'description',
 			title: 'Description',

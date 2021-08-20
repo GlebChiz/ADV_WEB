@@ -87,4 +87,5 @@ export const SeriesplansTableActions = {
 	),
 
 	ClearSeriesplansTable: createAction('[Seriesplans Table] Clear'),
+	ClearCurrentSeriesPlan: createAction('[Seriesplans Table] Clear current SessionPlan'),
 };

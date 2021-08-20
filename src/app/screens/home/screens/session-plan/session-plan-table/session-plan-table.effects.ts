@@ -30,7 +30,7 @@ import { ISessionPlanCurrent } from './session-plan-popup/session-plan-popup.com
 import { ISessionPlan } from '../../../../../shared/interfaces/session-plan.interface';
 
 @Injectable()
-export class SomeEffect extends TableEffects {
+export class SessionPlansEffects extends TableEffects {
 	public constructor(
 		actions$: Actions,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,

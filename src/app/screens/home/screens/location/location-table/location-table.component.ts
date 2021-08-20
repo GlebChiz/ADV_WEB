@@ -45,6 +45,8 @@ export class LocationTableComponent extends CustomTableDirective implements OnIn
 	}
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {
+		this._store.dispatch(this.clearCurrentItem());
+		this._store.dispatch(LocationActions.ClearSelectedLocation());
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
@@ -70,8 +72,6 @@ export class LocationTableComponent extends CustomTableDirective implements OnIn
 				}
 				this._store.dispatch(this.createDataPending({ item: result, controller: this.controller }));
 			}
-			this._store.dispatch(this.clearCurrentItem());
-			this._store.dispatch(LocationActions.ClearSelectedLocation());
 		});
 	}
 

@@ -37,7 +37,7 @@ import { RoomPopupComponent } from './room-table/room-popup/room-popup.component
 @NgModule({
 	imports: [
 		SharedModule,
-		StoreModule.forFeature('roomsTable', roomTableReducers),
+		StoreModule.forFeature('roomTable', roomTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 		RouterModule.forChild([
 			{

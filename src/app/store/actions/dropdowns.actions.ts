@@ -42,4 +42,28 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetRoomSetupError: createAction('[Dropdown] Get room setup error'),
+	GetLanguagesPending: createAction('[Dropdown] Get languages pending'),
+	GetLanguagesSuccess: createAction(
+		'[Dropdown] Get languages success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetLanguagesError: createAction('[Dropdown] Get languages error'),
+	GetModalitiesPending: createAction('[Dropdown] Get modalities pending'),
+	GetModalitiesSuccess: createAction(
+		'[Dropdown] Get modalities success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetModalitiesError: createAction('[Dropdown] Get modalities error'),
+	GetSnipiTypePending: createAction('[Dropdown] Get snipi type pending'),
+	GetSnipiTypeSuccess: createAction(
+		'[Dropdown] Get snipi type success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetSnipiTypeError: createAction('[Dropdown] Get snipi type error'),
+	GetSnipiCategoryPending: createAction('[Dropdown] Get snipi category pending'),
+	GetSnipiCategorySuccess: createAction(
+		'[Dropdown] Get snipi category success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetSnipiCategoryError: createAction('[Dropdown] Get snipi category error'),
 };

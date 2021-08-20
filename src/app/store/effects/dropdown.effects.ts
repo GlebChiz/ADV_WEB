@@ -66,6 +66,34 @@ export class DropdownEffects {
 		),
 	);
 
+	public getLanguages$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetLanguagesPending),
+			mergeMap(() =>
+				this.service.getSupervisorLanguages().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetLanguagesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetLanguagesError())),
+				),
+			),
+		),
+	);
+
+	public getModalities$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetModalitiesPending),
+			mergeMap(() =>
+				this.service.getModalities().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetModalitiesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetModalitiesError())),
+				),
+			),
+		),
+	);
+
 	public getRoomSize$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetRoomSizePending),
@@ -89,6 +117,34 @@ export class DropdownEffects {
 						return DropdownActions.GetRoomSetupSuccess({ data });
 					}),
 					catchError(() => of(DropdownActions.GetRoomSetupError())),
+				),
+			),
+		),
+	);
+
+	public getSnipitTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetSnipiTypePending),
+			mergeMap(() =>
+				this.service.getSnipitTypes().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetSnipiTypeSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetSnipiTypeError())),
+				),
+			),
+		),
+	);
+
+	public getSnipitCategory$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetSnipiCategoryPending),
+			mergeMap(() =>
+				this.service.getSnipitCategory().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetSnipiCategorySuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetSnipiCategoryError())),
 				),
 			),
 		),

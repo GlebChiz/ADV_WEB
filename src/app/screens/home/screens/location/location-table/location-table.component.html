@@ -27,6 +27,9 @@
 		[filterable]="col.filterable"
 		[filter]="col.type"
 	>
+		<ng-template kendoGridGroupHeaderTemplate let-value="value">
+			{{ value }}
+		</ng-template>
 		<ng-template *ngIf="col.field === 'name'" kendoGridCellTemplate let-dataItem>
 			<div class="click-element" (click)="onCellClick(dataItem)">
 				{{ dataItem.name }}

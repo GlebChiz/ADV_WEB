@@ -4,7 +4,7 @@ import { Directive, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
-import { process } from '@progress/kendo-data-query';
+import { GroupDescriptor, process } from '@progress/kendo-data-query';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -28,7 +28,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	@Input() public columns!: any[];
 
-	@Input() public group!: string | null;
+	@Input() public group!: GroupDescriptor[];
 
 	public myForm!: FormGroup;
 
@@ -84,7 +84,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((tableData: any) => {
 				if (this.group && tableData?.data) {
-					this.gridData = process(tableData?.data, { group: [{ field: this.group }] });
+					this.gridData = process(tableData?.data, { group: this.group });
 					this.gridData.total = tableData?.total;
 				}
 				console.log('tableData', tableData);
