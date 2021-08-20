@@ -2,17 +2,30 @@
 	Assessment questions
 </div>
 <div class="new-button">
-	<button><img src="/assets/images/player.svg" />New Question</button>
+	<button (click)="toAssessments()">To Assessments</button>
+	<kendo-combobox
+		valueField="id"
+		style="min-width: 200px; width: 300px; height: 38px; padding: 0 16px"
+		textField="name"
+		[data]="languagesDropdown$ | async"
+		[formControl]="language"
+		(selectionChange)="selectionChangeLanguage($event)"
+		[valuePrimitive]="true"
+		placeholder="Language"
+	>
+	</kendo-combobox>
+	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Question</button>
 </div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
-	[sortable]="true"
+	[sortable]="false"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"
 	[filter]="gridSettings.state.filter!"
 	[pageable]="{ pageSizes: [5, 10, 20, 50, 100] }"
 	[height]="710"
+	(cellClick)="onCellClick($event)"
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
@@ -21,6 +34,24 @@
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
+	<kendo-grid-command-column *ngIf="id" [width]="35">
+		<ng-template kendoGridCellTemplate let-dataItem>
+			<div
+				class="k-icon k-i-sort-asc-sm k-link"
+				title="Up"
+				(click)="reorder(false, dataItem)"
+			></div>
+		</ng-template>
+	</kendo-grid-command-column>
+	<kendo-grid-command-column *ngIf="id" [width]="35">
+		<ng-template kendoGridCellTemplate let-dataItem>
+			<div
+				class="k-icon k-i-sort-desc-sm k-link"
+				title="Down"
+				(click)="reorder(true, dataItem)"
+			></div>
+		</ng-template>
+	</kendo-grid-command-column>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"
@@ -28,7 +59,11 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
+		[includeInChooser]="col.includeInChooser || true"
 	>
+		<ng-template *ngIf="col.field === 'translated'" kendoGridCellTemplate let-dataItem>
+			<div>{{ dataItem.translated ? 'YES' : 'NO' }}</div>
+		</ng-template>
 		<ng-template *ngIf="col.field === 'legends'" kendoGridCellTemplate let-dataItem>
 			<div *ngFor="let leg of dataItem.legends">
 				{{ leg.name }}
@@ -82,20 +117,22 @@
 	></kendo-grid-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link"></div>
-			<!-- (click)="openDialog(dataItem)" -->
+			<div class="k-icon k-i-edit k-link" (click)="openDialog(dataItem)"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link"></div>
-			<!-- (click)="openDialog(dataItem, true)" -->
+			<div class="k-icon k-i-copy k-link" (click)="openDialog(dataItem, true)"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify"></div>
-			<!-- (click)="deleteWithPopup(dataItem.id)" -->
+			<div
+				class="k-icon k-i-trash k-link"
+				title="Modify"
+				(click)="deleteWithPopup(dataItem.id)"
+			></div>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>
+<div kendoDialogContainer></div>

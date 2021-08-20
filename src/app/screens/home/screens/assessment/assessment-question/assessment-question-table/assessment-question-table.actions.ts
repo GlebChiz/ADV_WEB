@@ -86,6 +86,13 @@ export const AssessmentQuestionTableActions = {
 	ClearCurrentAssessmentQuestion: createAction(
 		'[Assessment Question Table] Clear current AssessmentQuestion',
 	),
-
 	ClearAssessmentQuestionTable: createAction('[Assessment Question Table] Clear'),
+	ReorderAssessmentQuestionPending: createAction(
+		'[Assessment Question] Reorder current item pending',
+		props<{ controller: string; questionId: string; assessmentId: string; index: number }>(),
+	),
+	ReorderAssessmentQuestionSuccess: createAction(
+		'[Assessment Question] Reorder current item success',
+	),
+	ReorderAssessmentQuestionError: createAction('[Assessment Question] Reorder current item error'),
 };

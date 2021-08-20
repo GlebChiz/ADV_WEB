@@ -13,6 +13,7 @@ import { locationDropdownReducers } from './reducers/location-initiative-ids.red
 import { roomDropdownReducers } from './reducers/room.reducers';
 import { supervisorLicenseDropdownReducers } from './reducers/supervisor-license.reducers';
 import { supervisorLicensePayersDropdownReducers } from './reducers/supervisor-payers.reducers';
+import { legendsDropdownReducers } from './reducers/legends.reducers';
 
 export interface IStore {
 	userState: IUserState;
@@ -22,6 +23,7 @@ export interface IStore {
 	supervisorLicenseDropdown: IDropDownState;
 	roomDropdown: IDropDownState;
 	languages: IDropDownState;
+	legends: IDropDownState;
 	modalities: IDropDownState;
 	location: ILocationState;
 	supervisorLicensePayersDropdown: IDropDownState;
@@ -35,6 +37,7 @@ export const appReducers: ActionReducerMap<IStore> = {
 	roomDropdown: roomDropdownReducers,
 	supervisorLicenseDropdown: supervisorLicenseDropdownReducers,
 	languages: languagesReducers,
+	legends: legendsDropdownReducers,
 	modalities: modalitiesDropdownReducers,
 	location: locationReducers,
 	supervisorLicensePayersDropdown: supervisorLicensePayersDropdownReducers,

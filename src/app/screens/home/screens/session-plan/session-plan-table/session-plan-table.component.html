@@ -10,6 +10,7 @@
 		[formControl]="language"
 		(selectionChange)="selectionChangeLanguage($event)"
 		[valuePrimitive]="true"
+		placeholder="Language"
 	>
 	</kendo-combobox>
 	<kendo-combobox
@@ -20,6 +21,7 @@
 		[formControl]="seriesPlan"
 		(selectionChange)="selectionChangeSeriesPlan($event)"
 		[valuePrimitive]="true"
+		placeholder="Series Plan"
 	>
 	</kendo-combobox>
 	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Session Plan</button>
