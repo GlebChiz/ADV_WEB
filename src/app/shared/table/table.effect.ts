@@ -1,3 +1,5 @@
+import { ITableState } from 'src/app/shared/table/table.reducer';
+import { IColumn } from 'src/app/shared/interfaces/column.interface';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Inject, Injectable } from '@angular/core';
@@ -64,11 +66,10 @@ export class TableEffects {
 				}: {
 					controller: string;
 					filter: DataStateChangeEvent;
-					columns: any[];
+					columns: IColumn[];
 					gridId: string;
 				}) => {
 					const filterId: Guid = Guid.create();
-					console.log(this._tableService.saveFilter);
 					return this._tableService
 						.saveFilter(controller, filter, filterId.toString(), columns, gridId)
 						.pipe(
@@ -97,13 +98,17 @@ export class TableEffects {
 			ofType(this.deleteItemTablePending),
 			switchMap(({ id, controller }: { controller: string; id: string }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}Table` as any)),
-					switchMap(([, latest]: [any, any]) => {
+					withLatestFrom(this._store.select(`${controller}Table`)),
+					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.delete(controller, id).pipe(
 							mergeMap(() => {
 								return [
 									this.deleteItemTableSuccess(),
-									this.getTableDataPending({ controller, filter: latest.filter }),
+									this.getTableDataPending({
+										controller,
+										filter: latest.filter,
+										columns: latest.columns,
+									}),
 								];
 							}),
 							catchError((error: string) => {
@@ -122,11 +127,15 @@ export class TableEffects {
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}Table` as any)),
-					switchMap(([, latest]: [any, any]) => {
+					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.create(controller, item).pipe(
 							map(() => {
 								this._store.dispatch(this.createItemTableSuccess());
-								return this.getTableDataPending({ controller, filter: latest.filter });
+								return this.getTableDataPending({
+									controller,
+									filter: latest.filter,
+									columns: latest.columns,
+								});
 							}),
 							catchError((error: string) => {
 								return of(this.createItemTableError(error));
@@ -144,7 +153,7 @@ export class TableEffects {
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}Table` as any)),
-					switchMap(([, latest]: [any, any]) => {
+					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.update(controller, item).pipe(
 							map(() => {
 								this._store.dispatch(this.editItemTableSuccess());
@@ -157,10 +166,13 @@ export class TableEffects {
 									);
 								}
 
-								return this.getTableDataPending({ controller, filter: latest.filter });
+								return this.getTableDataPending({
+									controller,
+									filter: latest.filter,
+									columns: latest.columns,
+								});
 							}),
 							catchError((error: string) => {
-								console.log(error);
 								return of(this.editItemTableError(error));
 							}),
 						);
@@ -174,17 +186,12 @@ export class TableEffects {
 		return this.actions$.pipe(
 			ofType(this.getCurrentItemPending),
 			switchMap(({ id, controller }: { controller: string; id: string }) => {
-				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}Table` as any)),
-					switchMap(([]: [any, any]) => {
-						return this._tableService.getOne(controller, id).pipe(
-							map((item: any) => {
-								return this.getCurrentItemSuccess({ item });
-							}),
-							catchError((error: string) => {
-								return of(this.getCurrentItemError(error));
-							}),
-						);
+				return this._tableService.getOne(controller, id).pipe(
+					map((item: any) => {
+						return this.getCurrentItemSuccess({ item });
+					}),
+					catchError((error: string) => {
+						return of(this.getCurrentItemError(error));
 					}),
 				);
 			}),

@@ -174,7 +174,7 @@
 		<kendo-multiselect
 			formControlName="seriesPlanIds"
 			[textField]="'name'"
-			[data]="seriesPlansDropdown$ | async"
+			[data]="(seriesPlansDropdown$ | async) || []"
 			valueField="id"
 			[valuePrimitive]="true"
 		>

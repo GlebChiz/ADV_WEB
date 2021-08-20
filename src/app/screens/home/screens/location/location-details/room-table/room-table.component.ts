@@ -125,7 +125,6 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 						item: {
 							...result,
 							locationId: this._activatedRoute.snapshot.params.id,
-							source: 'asdas',
 						},
 						controller: this.controller,
 					}),

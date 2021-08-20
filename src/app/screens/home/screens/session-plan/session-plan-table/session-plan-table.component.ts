@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CellClickEvent, DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
@@ -21,6 +21,7 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { DropdownActions } from '../../../../../store/actions/dropdowns.actions';
 import { SessionPlanPopupComponent } from './session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableActions } from './session-plan-table.actions';
+import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
 
 @Component({
 	providers: [],
@@ -58,14 +59,16 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			this.selectState();
 
 			this.columns.forEach((item: IColumn) => {
+				item.sortable = !query.id;
 				if (!item.includeInChooser) {
+					item.filterable = !query.id;
 					item.hidden = !query.id;
 				}
 			});
 		});
 	}
 
-	public openDialog(dataItem?: any, isDublicate?: boolean): void {
+	public openDialog(dataItem?: ISessionPlan, isDublicate?: boolean): void {
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
@@ -98,6 +101,12 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 	public addQuery(id: string): void {
 		if (this.gridSettings.state.filter) {
 			if (id) {
+				this.gridSettings.state.sort = [
+					{
+						field: 'orderNumber',
+						dir: 'asc',
+					},
+				];
 				this.gridSettings.state.filter.filters = [
 					...this.gridSettings.state.filter.filters,
 					{
@@ -108,14 +117,11 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 				];
 				return;
 			}
+			this.gridSettings.state.sort = [];
 			this.gridSettings.state.filter.filters = this.gridSettings.state.filter.filters.filter(
 				(item: any) => item.field !== 'seriesPlanId',
 			);
 		}
-	}
-
-	public override dataStateChange(state: DataStateChangeEvent): void {
-		super.dataStateChange(state);
 	}
 
 	public deleteWithPopup(id: string): void {
@@ -125,7 +131,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		this.delete(id);
 	}
 
-	public reorder(isUp: boolean, dataitem: any): void {
+	public reorder(isUp: boolean, dataitem: ISessionPlan): void {
 		this._store.dispatch(
 			SessionPlanTableActions.ReorderPlanPending({
 				controller: this.controller,
@@ -168,10 +174,20 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 
 	public columns: IColumn[] = [
 		{
+			field: 'orderNumber',
+			title: 'Order',
+			includeInChooser: false,
+			hidden: true,
+			filterable: false,
+			sortable: true,
+			type: 'text',
+		},
+		{
 			field: 'title',
 			title: 'Title',
 			hidden: false,
 			filterable: true,
+			sortable: true,
 			includeInChooser: true,
 			type: 'text',
 		},
@@ -181,6 +197,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			includeInChooser: true,
 			hidden: false,
 			filterable: false,
+			sortable: true,
 			type: 'text',
 		},
 		{
@@ -188,14 +205,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			title: 'Translated',
 			includeInChooser: false,
 			hidden: true,
-			filterable: false,
-			type: 'text',
-		},
-		{
-			field: 'orderNumber',
-			title: 'Order',
-			includeInChooser: false,
-			hidden: true,
+			sortable: true,
 			filterable: false,
 			type: 'text',
 		},
