@@ -1,4 +1,3 @@
-import { SupervisorActions } from './../../../../../../store/actions/supervisor.action';
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -10,6 +9,7 @@ import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
+import { SupervisorActions } from '../../../../../../store/actions/supervisor.action';
 
 @Component({
 	selector: 'advenium-supervisor-license-popup',
@@ -45,9 +45,6 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	}
 
 	public initForm(): void {
-		console.log('this.supervisorLicense', this.supervisorLicense);
-		console.log('this.supervisorLicense?.payer)', this.supervisorLicense?.payer);
-
 		this.myForm = new FormGroup({
 			id: new FormControl(this.supervisorLicense?.id || ''),
 			supervisor: new FormControl(this.supervisorLicense?.supervisor || ''),
