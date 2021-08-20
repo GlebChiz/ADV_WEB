@@ -13,7 +13,6 @@
 	[height]="710"
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
-	(cellClick)="onCellClick($event)"
 	(dataStateChange)="dataStateChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
@@ -28,6 +27,11 @@
 		[filterable]="col.filterable"
 		[filter]="col.type"
 	>
+		<ng-template *ngIf="col.field === 'name'" kendoGridCellTemplate let-dataItem>
+			<div class="click-element" (click)="onCellClick(dataItem)">
+				{{ dataItem.name }}
+			</div>
+		</ng-template>
 		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"

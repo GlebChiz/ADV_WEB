@@ -3,7 +3,6 @@ import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
-import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
@@ -21,7 +20,7 @@ import { LocationPopupComponent } from './location-popup/location-popup.componen
 	providers: [],
 	selector: 'advenium-location-table',
 	templateUrl: './location-table.component.html',
-	styleUrls: ['../../../home.component.scss'],
+	styleUrls: ['../../../home.component.scss', './location-table.component.scss'],
 })
 export class LocationTableComponent extends CustomTableDirective {
 	public constructor(
@@ -149,7 +148,7 @@ export class LocationTableComponent extends CustomTableDirective {
 		},
 	];
 
-	public onCellClick(e: CellClickEvent): void {
-		this._router.navigate(['locations', e.dataItem.id]);
+	public onCellClick(e: any): void {
+		this._router.navigate(['locations', e.id]);
 	}
 }
