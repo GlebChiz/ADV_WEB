@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject } from '@angular/core';
-// import { FormControl } from '@angular/forms';
-// import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
-// import { CellClickEvent, DataStateChangeEvent } from '@progress/kendo-angular-grid';
-
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	CLEAR_CURRENT_ITEM,
@@ -15,7 +11,6 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
-// import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { SupervisorLicensePopupComponent } from './supervisor-license-popup/supervisor-license-popup.component';
 
@@ -28,8 +23,6 @@ import { SupervisorLicensePopupComponent } from './supervisor-license-popup/supe
 export class SupervisorLicenseTableComponent extends CustomTableDirective {
 	public constructor(
 		private dialogService: DialogService,
-		// private _router: Router,
-		// private _activatedRoute: ActivatedRoute,
 		_store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
@@ -41,37 +34,6 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
 
-	// public supervisor: FormControl = new FormControl();
-
-	// public payer: FormControl = new FormControl();
-
-	// public override ngOnInit(): void {
-	// 	this._store.dispatch(DropdownActions.GetSupervisorLicensePending());
-
-	// 	this._activatedRoute.queryParams.subscribe((query: Params) => {
-	// 		this.addQuery(query.id);
-	// 		super.ngOnInit();
-	// 		this.selectState();
-	// 	});
-	// }
-
-	// public addQuery(id: string): void {
-	// 	if (this.gridSettings.state.filter && id) {
-	// 		this.gridSettings.state.filter.filters = [
-	// 			...this.gridSettings.state.filter.filters,
-	// 			{
-	// 				field: 'supervisors',
-	// 				operator: 'contains',
-	// 				value: id,
-	// 			},
-	// 		];
-	// 	}
-	// }
-
-	// public override dataStateChange(state: DataStateChangeEvent): void {
-	// 	super.dataStateChange(state);
-	// }
-
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {
 			return;
@@ -80,7 +42,6 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 	}
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {
-		console.log('data item', dataItem);
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
@@ -109,26 +70,6 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 			this._store.dispatch(this.clearCurrentItem());
 		});
 	}
-
-	// public selectionChange(item: IDropdownData): void {
-	// 	if (this.gridSettings.state.filter) {
-	// 		this.gridSettings.state.filter.filters = [
-	// 			...this.gridSettings.state.filter.filters,
-	// 			{
-	// 				field: 'supervisor',
-	// 				value: item.id,
-	// 				operator: 'contains',
-	// 			},
-	// 		];
-	// 	}
-	// 	this._store.dispatch(
-	// 		this.getTableDataPending({
-	// 			controller: this.controller,
-	// 			filter: this.gridSettings.state,
-	// 			gridId: this.gridId,
-	// 		}),
-	// 	);
-	// }
 
 	public columns: IColumn[] = [
 		{
@@ -167,8 +108,4 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 			type: 'date',
 		},
 	];
-
-	// public onCellClick(e: CellClickEvent): void {
-	// 	this._router.navigate([e.dataItem.id], { relativeTo: this._activatedRoute });
-	// }
 }

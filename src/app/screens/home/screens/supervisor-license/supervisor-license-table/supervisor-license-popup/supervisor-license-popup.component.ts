@@ -9,7 +9,6 @@ import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
-import { SupervisorActions } from '../../../../../../store/actions/supervisor.action';
 
 @Component({
 	selector: 'advenium-supervisor-license-popup',
@@ -58,7 +57,6 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePending());
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
-		this._store.dispatch(SupervisorActions.GetSupervisorPending());
 		this._store
 			.select('supervisorLicenseDropdown' as any)
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))

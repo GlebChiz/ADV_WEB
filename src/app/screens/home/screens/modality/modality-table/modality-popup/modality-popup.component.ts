@@ -34,7 +34,6 @@ export class ModalityPopupComponent extends UnSubscriber implements OnInit, OnCh
 	}
 
 	public initForm(): void {
-		console.log('this.modality', this.modality);
 		this.myModalityForm = new FormGroup({
 			name: new FormControl(this.modality?.name || ''),
 			description: new FormControl(this.modality?.description || ''),

@@ -24,10 +24,12 @@ import {
 	EDIT_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
+	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { SeriesPlanPopupComponent } from './series-plan-table/series-plan-popup/series-plan-popup.component';
 import { SeriesplansTableActions } from './series-plan-table/series-plan-table.actions';
 import { SeriesplansTableComponent } from './series-plan-table/series-plan-table.component';
-import { SomeEffect } from './series-plan-table/series-plan-table.effects';
+import { SeriesPlansEffects } from './series-plan-table/series-plan-table.effects';
 import { seriesplansTableReducers } from './series-plan-table/series-plan-table.reducers';
 import { SeriesplansComponent } from './series-plan.component';
 
@@ -41,9 +43,9 @@ import { SeriesplansComponent } from './series-plan.component';
 			},
 		]),
 		StoreModule.forFeature('seriesplanTable', seriesplansTableReducers),
-		EffectsModule.forFeature([SomeEffect]),
+		EffectsModule.forFeature([SeriesPlansEffects]),
 	],
-	declarations: [SeriesplansComponent, SeriesplansTableComponent],
+	declarations: [SeriesplansComponent, SeriesplansTableComponent, SeriesPlanPopupComponent],
 	entryComponents: [],
 	providers: [
 		{
@@ -121,6 +123,10 @@ import { SeriesplansComponent } from './series-plan.component';
 		{
 			provide: DUBLICATE_ITEM_TABLE_ERROR,
 			useValue: SeriesplansTableActions.DublicateSeriesplansIemTableError,
+		},
+		{
+			provide: CLEAR_CURRENT_ITEM,
+			useValue: SeriesplansTableActions.ClearCurrentSeriesPlan,
 		},
 	],
 })
