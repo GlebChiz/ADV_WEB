@@ -4,7 +4,7 @@ import { DropdownActions } from '../actions/dropdowns.actions';
 
 const initialDropdownState: IDropDownState = { data: [], isLoading: false };
 
-export function supervisorLicenseDropdownReducers(
+export function supervisorLicensePayersDropdownReducers(
 	supervisorState: IDropDownState | undefined,
 	action: Action,
 ): IDropDownState {
@@ -12,7 +12,7 @@ export function supervisorLicenseDropdownReducers(
 		initialDropdownState,
 		// eslint-disable-next-line @typescript-eslint/typedef
 		on(
-			DropdownActions.GetSupervisorLicenseSuccess,
+			DropdownActions.GetSupervisorLicensePayersSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, data };
 			},

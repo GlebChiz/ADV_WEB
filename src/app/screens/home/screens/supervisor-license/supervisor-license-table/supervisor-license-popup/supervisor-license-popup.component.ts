@@ -9,7 +9,16 @@ import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
+import { Observable } from 'rxjs/internal/Observable';
 
+export interface ISupervisorInterface {
+	id: string;
+	supervisor: string;
+	payer: string;
+	start: string;
+	end: string;
+	providerId: string;
+}
 @Component({
 	selector: 'advenium-supervisor-license-popup',
 	templateUrl: './supervisor-license-popup.component.html',
@@ -19,11 +28,11 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 		super();
 	}
 
-	public supervisorLicense: any;
+	public supervisorLicense!: ISupervisorInterface | undefined;
 
 	public myForm!: FormGroup;
 
-	public supervisorDropdown: (IDropdownData | GroupResult)[] = [];
+	public supervisorDropdown!: (IDropdownData | GroupResult) | undefined;
 
 	public supervisorPayerDropdown: (IDropdownData | GroupResult)[] = [];
 
@@ -54,11 +63,21 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 		});
 	}
 
+	public supervisor$: Observable<IDropdownData[]> = this._store.select(
+		'supervisorLicenseDropdown',
+		'data',
+	);
+
+	public payers$: Observable<IDropdownData[]> = this._store.select(
+		'supervisorLicensePayersDropdown',
+		'data',
+	);
+
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePending());
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
 		this._store
-			.select('supervisorLicenseDropdown' as any)
+			.select('supervisorLicenseDropdown')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((supervisorLicense: any) => {
 				this.supervisorDropdown = supervisorLicense.supervisorLicense;
