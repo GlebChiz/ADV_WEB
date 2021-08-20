@@ -173,6 +173,7 @@ export class TableEffects {
 								});
 							}),
 							catchError((error: string) => {
+								console.log(error);
 								return of(this.editItemTableError(error));
 							}),
 						);

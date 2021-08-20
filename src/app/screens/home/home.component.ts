@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
 		{ text: 'Series Plans', icon: 'k-i-delicious-box', path: 'seriesplans' },
 		{ text: 'Session Plan', icon: 'k-i-graph', path: 'sessionplans' },
 		{ text: 'Assessment Legend', icon: 'k-i-brightness-contrast', path: 'assessmentlegend' },
-		{ text: 'Assessment Questions', icon: 'k-i-grayscale', path: 'assessment-questions' },
 		{ text: 'Assessment Template', icon: 'k-i-cells-merge', path: 'assessmenttemplate' },
 		{ text: 'Assessment Manager', icon: 'k-i-select-box', path: 'assessments' },
 		{ text: 'Patient Distribution', icon: 'k-i-select-box', path: 'patientdistribution' },

@@ -56,6 +56,8 @@ export class AssessmentTableComponent extends CustomTableDirective {
 	];
 
 	public onCellClick(e: CellClickEvent): void {
-		this._router.navigate([e.dataItem.id], { relativeTo: this._activatedRoute });
+		this._router.navigate([e.dataItem.id], {
+			relativeTo: this._activatedRoute,
+		});
 	}
 }

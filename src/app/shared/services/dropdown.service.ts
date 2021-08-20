@@ -32,6 +32,10 @@ export class DropdownService {
 		return this.http.get<IDropdownData[]>('dropdowns/LocationInitiative');
 	}
 
+	public getLegends(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/legends');
+	}
+
 	public getRoomSize(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/RoomSize');
 	}
