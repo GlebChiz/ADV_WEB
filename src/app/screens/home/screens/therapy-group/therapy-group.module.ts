@@ -28,9 +28,10 @@ import {
 } from 'src/app/shared/table/table.tokens';
 import { TherapyGroupTableActions } from './therapy-group-table/therapy-group-table.actions';
 import { TherapyGroupTableComponent } from './therapy-group-table/therapy-group-table.component';
-import { SomeEffect } from './therapy-group-table/therapy-group-table.effects';
-import { therapyGroupTableReducers } from './therapy-group-table/therapy-group-table.reducers';
+import { therapyGroupReducers } from './therapy-group-table/therapy-group-table.reducers';
 import { TherapyGroupComponent } from './therapy-group.component';
+import { TherapyGroupPopupComponent } from './therapy-group-table/therapy-group-popup/therapy-group-popup.component';
+import { TherapyGroupEffects } from './therapy-group-table/therapy-group-table.effects';
 
 @NgModule({
 	imports: [
@@ -40,11 +41,21 @@ import { TherapyGroupComponent } from './therapy-group.component';
 				path: '',
 				component: TherapyGroupComponent,
 			},
+			{
+				path: ':id',
+				loadChildren: (): any =>
+					import('./therapy-group-details/therapy-group-details.module').then(
+						(m: any) => m.TherapyGroupDetailsModule,
+					),
+				data: {
+					breadcrumb: 'Single',
+				},
+			},
 		]),
-		StoreModule.forFeature('therapyGroupTable', therapyGroupTableReducers),
-		EffectsModule.forFeature([SomeEffect]),
+		StoreModule.forFeature('therapyGroupTable', therapyGroupReducers),
+		EffectsModule.forFeature([TherapyGroupEffects]),
 	],
-	declarations: [TherapyGroupComponent, TherapyGroupTableComponent],
+	declarations: [TherapyGroupComponent, TherapyGroupTableComponent, TherapyGroupPopupComponent],
 	entryComponents: [],
 	providers: [
 		{

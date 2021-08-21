@@ -25,11 +25,14 @@ export class DropdownService {
 
 	public getModalities(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/modalities');
-
 	}
 
 	public getLocationInitiatives(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/LocationInitiative');
+	}
+
+	public getLocations(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/locations');
 	}
 
 	public getLegends(): Observable<IDropdownData[]> {

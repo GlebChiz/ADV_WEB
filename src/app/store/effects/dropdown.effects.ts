@@ -52,6 +52,20 @@ export class DropdownEffects {
 		),
 	);
 
+	public getLocations$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetLocationsPending),
+			mergeMap(() =>
+				this.service.getLocations().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetLocationsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetLocationsError())),
+				),
+			),
+		),
+	);
+
 	public getLegends$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetLegendsPending),

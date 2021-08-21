@@ -117,6 +117,7 @@
                         "assertionStyle": "as"
                     }
                 ],
+                "no-alert": "off",
                 "@typescript-eslint/naming-convention": [
                     "error",
                     {

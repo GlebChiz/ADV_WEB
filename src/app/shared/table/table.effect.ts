@@ -50,7 +50,7 @@ export class TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) private getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) private getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) private getCurrentItemError: any,
-		private _tableService: TableService,
+		public _tableService: TableService,
 		public _store: Store<any>,
 	) {}
 

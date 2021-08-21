@@ -1,0 +1,96 @@
+<form [formGroup]="therapyGroupForm" novalidate>
+	<div>
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Language</label>
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 200px; width: 100%"
+						textField="name"
+						[data]="(languages$ | async) || []"
+						formControlName="languageId"
+						[valuePrimitive]="true"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Location</label>
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 200px; width: 100%"
+						textField="name"
+						[data]="(locations$ | async) || []"
+						formControlName="locationId"
+						[valuePrimitive]="true"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Series Plan</label>
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 200px; width: 100%"
+						textField="name"
+						[data]="(seriesPlans$ | async) || []"
+						formControlName="seriesPlanId"
+						[valuePrimitive]="true"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Modality</label>
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 200px; width: 100%"
+						textField="name"
+						[data]="(modalities$ | async) || []"
+						formControlName="modalityId"
+						[valuePrimitive]="true"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Room</label>
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 200px; width: 100%"
+						textField="name"
+						[data]="(rooms$ | async) || []"
+						formControlName="roomId"
+						[valuePrimitive]="true"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+
+
+	
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>
+
