@@ -17,6 +17,18 @@ export function dropdownReducers(
 			},
 		),
 		on(
+			DropdownActions.GetAreasSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, areas: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetServiceSubTypesSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, serviceSubTypes: data, isLoading: false };
+			},
+		),
+		on(
 			DropdownActions.GetRoomSetupSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, roomSetup: data, isLoading: false };

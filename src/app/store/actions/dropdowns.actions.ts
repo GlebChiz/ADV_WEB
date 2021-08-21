@@ -72,4 +72,13 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetLegendsError: createAction('[Dropdown] Get legends error'),
+	GetAreasPending: createAction('[Dropdown] Get areas pending'),
+	GetAreasSuccess: createAction('[Dropdown] Get areas success', props<{ data: IDropdownData[] }>()),
+	GetAreasError: createAction('[Dropdown] Get areas error'),
+	GetServiceSubTypesPending: createAction('[Dropdown] Get ServiceSubTypes pending'),
+	GetServiceSubTypesSuccess: createAction(
+		'[Dropdown] Get ServiceSubType success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetServiceSubTypesError: createAction('[Dropdown] Get ServiceSubTypes error'),
 };

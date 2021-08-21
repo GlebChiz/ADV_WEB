@@ -32,7 +32,6 @@ import { LocationPopupComponent } from './location-table/location-popup/location
 import { LocationTableComponent } from './location-table/location-table.component';
 import { LocationTableActions } from './location-table/location-table.actions';
 import { SomeEffect } from './location-table/location-table.effects';
-import { AddressControlComponent } from 'src/app/controls/address-control/address-control.component';
 
 @NgModule({
 	imports: [
@@ -56,12 +55,7 @@ import { AddressControlComponent } from 'src/app/controls/address-control/addres
 		StoreModule.forFeature('locationTable', locationTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
-	declarations: [
-		LocationComponent,
-		LocationTableComponent,
-		LocationPopupComponent,
-		AddressControlComponent,
-	],
+	declarations: [LocationComponent, LocationTableComponent, LocationPopupComponent],
 	entryComponents: [],
 	providers: [
 		{

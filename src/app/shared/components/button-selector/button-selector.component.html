@@ -1,0 +1,10 @@
+<button
+	[ngClass]="item[valueField] === value ? 'button-active' : ''"
+	kendoButton
+	class="button"
+	style="width:{{ 100 / items.length }}%"
+	*ngFor="let item of items"
+	(click)="onClick(item)"
+>
+	{{ item[textField] }}
+</button>

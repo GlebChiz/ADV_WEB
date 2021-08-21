@@ -1,0 +1,14 @@
+.button {
+	padding: 0px 10px;
+	height: 38px;
+	background-color: #eff2f5;
+	color: #5e6973;
+	border: 0px;
+	&-active {
+		background-color: #f30097;
+		color: white;
+	}
+	&:focus {
+		outline: none;
+	}
+}

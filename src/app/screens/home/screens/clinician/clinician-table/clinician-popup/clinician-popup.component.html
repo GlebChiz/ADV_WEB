@@ -1,0 +1,123 @@
+<form [formGroup]="clinicianForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Npi</label>
+						<input
+							name="npi"
+							formControlName="npi"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+				<div class="column w-100">
+					<div class="w-100">
+						<label>BillingCode</label>
+						<input
+							name="billingCode"
+							formControlName="billingCode"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+				<div class="column w-100">
+					<div class="w-100" style="margin-top: 10px">
+						<label>Is Supervisor</label>
+						<input
+							name="isSupervisor"
+							formControlName="isSupervisor"
+							type="checkbox"
+							kendoCheckBox
+						/>
+					</div>
+				</div>
+				<div class="w-100">
+					<label>Areas</label>
+					<kendo-multiselect
+						formControlName="areaIds"
+						textField="name"
+						[data]="(areas$ | async) || []"
+						placeholder="Areas"
+						valueField="id"
+						[valuePrimitive]="true"
+					>
+					</kendo-multiselect>
+				</div>
+				<!-- <div class="w-100">
+					<label>Service Types</label>
+					<kendo-multiselect
+						formControlName="serviceTypeIds"
+						placeholder="Service Types"
+						textField="name"
+						[data]="(serviceSubTypes$ | async) || []"
+						valueField="id"
+						[valuePrimitive]="true"
+					>
+					</kendo-multiselect>
+				</div> -->
+				<div [formGroup]="getPerson()">
+					<div class="column w-100">
+						<div class="w-100">
+							<label>First name</label>
+							<input
+								name="firstname"
+								formControlName="firstname"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+					<div class="column w-100">
+						<div class="w-100">
+							<label>Middle Name</label>
+							<input
+								name="middlename"
+								formControlName="middlename"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+					<div class="column w-100">
+						<div class="w-100">
+							<label>Last name</label>
+							<input
+								name="lastname"
+								formControlName="lastname"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+					<div class="column w-100" style="margin: 10px 0">
+						<div class="w-100">
+							<label>Date of birth</label>
+							<kendo-datepicker formControlName="dob"></kendo-datepicker>
+						</div>
+					</div>
+					<div class="clearfix">
+						<advenium-address formControlName="address" name="address"></advenium-address>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>
