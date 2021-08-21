@@ -32,8 +32,8 @@ import { assessmentQuestionTableReducers } from './assessment-question-table/ass
 import { AssessmentQuestionTableEffects } from './assessment-question-table/assessment-question-table.effects';
 import { AssessmentQuestionTableComponent } from './assessment-question-table/assessment-question-table.component';
 import { AssessmentQuestionTableActions } from './assessment-question-table/assessment-question-table.actions';
-import { AssessmentQuestionPopupComponent } from './assessment-question-table/assessment-question-popup/assessment-question-popup.component';
 import { AssessmentQuestionTableSerivce } from './assessment-question-table/assessment-question-table.service';
+import { AssessmentQuestionPopupComponent } from './assessment-question-table/assessment-question-popup/assessment-question-popup.component';
 
 @NgModule({
 	imports: [

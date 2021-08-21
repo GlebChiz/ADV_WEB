@@ -23,6 +23,14 @@ export class DropdownService {
 		return this.http.get<IDropdownData[]>('dropdowns/Language/lookup');
 	}
 
+	public getAreas(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/Area/lookup');
+	}
+
+	public getServiceSubTypes(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/ServiceSubType/lookup');
+	}
+
 	public getModalities(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/modalities');
 	}

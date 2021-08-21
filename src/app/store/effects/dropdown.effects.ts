@@ -108,6 +108,34 @@ export class DropdownEffects {
 		),
 	);
 
+	public getAreas$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetAreasPending),
+			mergeMap(() =>
+				this.service.getAreas().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetAreasSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetAreasError())),
+				),
+			),
+		),
+	);
+
+	public getServiceSubTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetServiceSubTypesPending),
+			mergeMap(() =>
+				this.service.getServiceSubTypes().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetServiceSubTypesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetServiceSubTypesError())),
+				),
+			),
+		),
+	);
+
 	public getModalities$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetModalitiesPending),

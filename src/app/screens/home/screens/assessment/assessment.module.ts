@@ -32,6 +32,7 @@ import { AssessmentTableComponent } from './assessment-table/assessment-table.co
 import { AssessmentTableActions } from './assessment-table/assessment-table.actions';
 import { assessmentTableReducers } from './assessment-table/assessment-table.reducers';
 import { SomeEffect } from './assessment-table/assessment-table.effects';
+import { AssessmentPopupComponent } from './assessment-table/assessment-popup/assessment-popup.component';
 
 @NgModule({
 	imports: [
@@ -55,7 +56,7 @@ import { SomeEffect } from './assessment-table/assessment-table.effects';
 		StoreModule.forFeature('assessmentTable', assessmentTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
-	declarations: [AssessmentComponent, AssessmentTableComponent],
+	declarations: [AssessmentComponent, AssessmentTableComponent, AssessmentPopupComponent],
 	entryComponents: [],
 	providers: [
 		{

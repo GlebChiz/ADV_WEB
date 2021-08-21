@@ -87,6 +87,21 @@ export const AssessmentLegendTableActions = {
 	ClearCurrentAssessmentLegend: createAction(
 		'[Assessment Legend Table] Clear current AssessmentLegend',
 	),
-
 	ClearAssessmentLegendTable: createAction('[Assessment Legend Table] Clear'),
+	GetTranslationPending: createAction(
+		'[Assessment Legend Translated] get current item pending',
+		props<{ legendId: string; languageId: string }>(),
+	),
+	GetTranslationSuccess: createAction(
+		'[Assessment Legend Translated] get current item success',
+		props<{ tranlsated: any }>(),
+	),
+	GetTranslationError: createAction('[Assessment Legend Translated] get current item error'),
+	SetTranslationPending: createAction(
+		'[Assessment Legend Translated] set current item pending',
+		props<{ item: any; controller: string }>(),
+	),
+	SetTranslationSuccess: createAction('[Assessment Legend Translated] set current item success'),
+	SetTranslationError: createAction('[Assessment Legend Translated] set current item error'),
+	СlearTranslation: createAction('[Assessment Legend Translated] set current item error'),
 };

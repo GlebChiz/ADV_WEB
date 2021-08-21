@@ -26,10 +26,12 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { AssessmentTranslatedPopupComponent } from './assessment-legend-table/assessmen-translated-popup/assessment-translated-popup.component';
 import { AssessmentLegendTableActions } from './assessment-legend-table/assessment-legend-table.actions';
 import { AssessmentLegendTableComponent } from './assessment-legend-table/assessment-legend-table.component';
-import { SomeEffect } from './assessment-legend-table/assessment-legend-table.effects';
-import { assessmentLegendTableReducers } from './assessment-legend-table/assessment-legend-table.reducers';
+import { AssessmentLegendEffect } from './assessment-legend-table/assessment-legend-table.effects';
+import { assessmentLegendReducers } from './assessment-legend-table/assessment-legend-table.reducers';
+import { AssessmentLegendService } from './assessment-legend-table/assessment-legend-table.service';
 import { AssessmentLegendComponent } from './assessment-legend.component';
 
 @NgModule({
@@ -41,12 +43,17 @@ import { AssessmentLegendComponent } from './assessment-legend.component';
 				component: AssessmentLegendComponent,
 			},
 		]),
-		StoreModule.forFeature('assessmentLegendTable', assessmentLegendTableReducers),
-		EffectsModule.forFeature([SomeEffect]),
+		StoreModule.forFeature('assessmentLegendTable', assessmentLegendReducers),
+		EffectsModule.forFeature([AssessmentLegendEffect]),
 	],
-	declarations: [AssessmentLegendComponent, AssessmentLegendTableComponent],
+	declarations: [
+		AssessmentLegendComponent,
+		AssessmentLegendTableComponent,
+		AssessmentTranslatedPopupComponent,
+	],
 	entryComponents: [],
 	providers: [
+		AssessmentLegendService,
 		{
 			provide: GET_TABLE_DATA_PENDING,
 			useValue: AssessmentLegendTableActions.GetAssessmentLegendTableDataPending,
