@@ -5,6 +5,7 @@ import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
 import { filter } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { AuthUserActions, IUser } from 'src/app/store/actions/user.actions';
+import { environment } from 'src/environments/environment';
 
 export interface IItem {
 	text: string;
@@ -50,7 +51,7 @@ export class HomeComponent implements OnInit {
 		this._store.select('userState', 'user').subscribe((user: IUser | undefined) => {
 			if (user) {
 				this.nameUser = user?.userName;
-				this.userId = `http://107.181.174.52/demo/users/${user?.userId}/picture`;
+				this.userId = `${environment.apiUrl}/users/${user?.userId}/picture`;
 			}
 		});
 		this.setCurrent();
