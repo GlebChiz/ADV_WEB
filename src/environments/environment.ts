@@ -5,7 +5,7 @@
 export const environment = {
 	production: false,
 	// apiUrl: 'https://advenium.local/api',
-	apiUrl: 'http://107.181.174.52/demo',
+	apiUrl: 'http://107.181.174.52:8030/api',
 };
 
 /*

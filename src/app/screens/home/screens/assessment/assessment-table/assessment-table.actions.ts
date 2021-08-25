@@ -4,7 +4,7 @@ import { IFilter } from 'src/app/shared/table/table.model';
 
 export const AssessmentTableActions = {
 	GetAssessmentTableDataPending: createAction(
-		'[Session Plan Table] get table data pending',
+		'[Assessment Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 	GetAssessmentTableDataSuccess: createAction(

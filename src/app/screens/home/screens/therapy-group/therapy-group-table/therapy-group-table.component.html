@@ -13,6 +13,7 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(cellClick)="onCellClick($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
@@ -74,20 +75,20 @@
 
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link"></div>
-			<!-- (click)="openDialog(dataItem)" -->
+			<div class="k-icon k-i-edit k-link" (click)="openDialog(dataItem)"></div>
+			
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link"></div>
-			<!-- (click)="openDialog(dataItem, true)" -->
+			<div class="k-icon k-i-copy k-link" (click)="openDialog(dataItem, true)"></div>
+			
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify"></div>
-			<!-- (click)="deleteWithPopup(dataItem.id)" -->
+			<div class="k-icon k-i-trash k-link" title="Modify" (click)="deleteWithPopup(dataItem.id)"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>
+<div kendoDialogContainer></div>

@@ -32,7 +32,7 @@ export class AssessmentPopupComponent extends UnSubscriber implements OnInit {
 	public assessment!: IAssessment | undefined;
 
 	public modalities$: Observable<IDropdownData[]> = this._store
-		.select('modalities', 'data')
+		.select('dropdown', 'modalities')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public assessmentForm!: FormGroup;

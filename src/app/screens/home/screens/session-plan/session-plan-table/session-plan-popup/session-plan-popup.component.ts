@@ -38,8 +38,8 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit {
 	public sessionPlan!: ISessionPlanCurrent | undefined;
 
 	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store.select(
-		'seriesPlanDropdown',
-		'data',
+		'dropdown',
+		'seriesPlans',
 	);
 
 	public sessionPlanForm!: FormGroup;

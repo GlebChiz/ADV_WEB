@@ -87,4 +87,15 @@ export const TherapyGroupTableActions = {
 	ClearCurrentTherapyGroup: createAction('[Therapy Group Table] Clear current TherapyGroup'),
 
 	ClearTherapyGroupTable: createAction('[Therapy Group Table] Clear'),
+
+	GetRoomsPending: createAction(
+		'[Therapy Group Table] get rooms pending',
+		props<{
+			controller: string;
+			filter: any;
+			gridId: string;
+		}>(),
+	),
+	GetRoomsSuccess: createAction('[Therapy Group Table] rooms success', props<{ rooms: any[] }>()),
+	GetRoomsError: createAction('[Therapy Group Table] get rooms error'),
 };
