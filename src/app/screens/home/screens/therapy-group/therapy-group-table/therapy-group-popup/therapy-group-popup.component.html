@@ -3,6 +3,23 @@
 		<div class="clearfix w-100">
 			<div class="column w-100">
 				<div class="w-100">
+					<label>Clinician</label>
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 200px; width: 100%"
+						textField="name"
+						[data]="(clinicians$ | async) || []"
+						formControlName="clinicianId"
+						[valuePrimitive]="true"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
 					<label>Language</label>
 					<kendo-combobox
 						valueField="id"

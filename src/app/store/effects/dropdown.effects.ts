@@ -66,6 +66,20 @@ export class DropdownEffects {
 		),
 	);
 
+	public getClinicians$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetCliniciansPending),
+			mergeMap(() =>
+				this.service.getClinicians().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetCliniciansSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetCliniciansError())),
+				),
+			),
+		),
+	);
+
 	public getLegends$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetLegendsPending),

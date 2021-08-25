@@ -87,8 +87,6 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 	}
 
 	public onCellClick(e: CellClickEvent): void {
-		console.log('HERE');
-
 		this._router.navigate([e.dataItem.id], { relativeTo: this._activatedRoute });
 	}
 

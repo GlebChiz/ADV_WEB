@@ -38,6 +38,11 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 		.select('dropdown', 'modalities')
 		.pipe(takeUntil(this.unsubscribe$$));
 
+	public clinicians$: Observable<IDropdownData[]> = this._store
+		.select('dropdown', 'clinicians')
+		.pipe(takeUntil(this.unsubscribe$$));
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public rooms$: Observable<any> = this._store
 		.select('therapyGroupTable', 'rooms', 'data')
 		.pipe(takeUntil(this.unsubscribe$$));
@@ -54,19 +59,19 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 
 	public initForm(): void {
 		this.therapyGroupForm = new FormGroup({
-			// clinicianId: new FormControl(this.therapyGroup?.clinicianId || ''),
+			clinicianId: new FormControl(this.therapyGroup?.clinicianId || ''),
 			// clinicianName: new FormControl(this.therapyGroup?.clinicianName || ''),
-			// createdBy: new FormControl(this.therapyGroup?.createdBy || ''),
-			// createdDate: new FormControl(this.therapyGroup?.createdDate || ''),
-			// id: new FormControl(this.therapyGroup?.id || ''),
+			createdBy: new FormControl(this.therapyGroup?.createdBy || ''),
+			createdDate: new FormControl(this.therapyGroup?.createdDate || ''),
+			id: new FormControl(this.therapyGroup?.id || ''),
 			languageId: new FormControl(this.therapyGroup?.languageId || ''),
 			locationId: new FormControl(this.therapyGroup?.locationId || ''),
 			modalityId: new FormControl(this.therapyGroup?.modalityId || ''),
 			roomId: new FormControl(this.therapyGroup?.roomId || ''),
 			seriesPlanId: new FormControl(this.therapyGroup?.seriesPlanId || ''),
-			// start: new FormControl(this.therapyGroup?.start || ''),
-			// updatedBy: new FormControl(this.therapyGroup?.updatedBy || ''),
-			// updatedDate: new FormControl(this.therapyGroup?.updatedDate || ''),
+			start: new FormControl(this.therapyGroup?.start || ''),
+			updatedBy: new FormControl(this.therapyGroup?.updatedBy || ''),
+			updatedDate: new FormControl(this.therapyGroup?.updatedDate || ''),
 		});
 		this.therapyGroupForm.get('locationId')?.valueChanges.subscribe((locationId: string) => {
 			if (locationId) {
@@ -112,6 +117,7 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 		this._store.dispatch(DropdownActions.GetSeriesPlansPending());
 		this._store.dispatch(DropdownActions.GetSeriesPlansPending());
 		this._store.dispatch(DropdownActions.GetLocationsPending());
+		this._store.dispatch(DropdownActions.GetCliniciansPending());
 		this._store
 			.select('therapyGroupTable', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))

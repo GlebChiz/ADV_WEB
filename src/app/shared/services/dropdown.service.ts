@@ -43,6 +43,10 @@ export class DropdownService {
 		return this.http.get<IDropdownData[]>('dropdowns/locations');
 	}
 
+	public getClinicians(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/clinicians');
+	}
+
 	public getLegends(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/legends');
 	}

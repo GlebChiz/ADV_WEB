@@ -29,6 +29,12 @@ export function dropdownReducers(
 			},
 		),
 		on(
+			DropdownActions.GetCliniciansSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, clinicians: data, isLoading: false };
+			},
+		),
+		on(
 			DropdownActions.GetRoomSetupSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, roomSetup: data, isLoading: false };

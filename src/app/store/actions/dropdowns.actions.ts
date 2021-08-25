@@ -54,7 +54,14 @@ export const DropdownActions = {
 		'[Dropdown] Get locations success',
 		props<{ data: IDropdownData[] }>(),
 	),
-	GetLocationsError: createAction('[Dropdown] Get locations error'),
+	GetLocationsError: createAction('[Dropdown] Get clinicians error'),
+
+	GetCliniciansPending: createAction('[Dropdown] Get clinicians pending'),
+	GetCliniciansSuccess: createAction(
+		'[Dropdown] Get locations success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetCliniciansError: createAction('[Dropdown] Get clinicians error'),
 
 	GetModalitiesPending: createAction('[Dropdown] Get modalities pending'),
 	GetModalitiesSuccess: createAction(
