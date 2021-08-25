@@ -19,16 +19,14 @@
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Modalitiy</label>
-						<kendo-combobox
-							valueField="id"
-							style="min-width: 200px; width: 100%"
+						<label>Modalities</label>
+						<kendo-multiselect
+							formControlName="modalityIds"
 							textField="name"
 							[data]="(modalities$ | async) || []"
-							formControlName="modalityId"
-							[valuePrimitive]="true"
-						>
-						</kendo-combobox>
+							valueField="id"
+							[valuePrimitive]="true">
+						</kendo-multiselect>
 					</div>
 				</div>
 			</div>
