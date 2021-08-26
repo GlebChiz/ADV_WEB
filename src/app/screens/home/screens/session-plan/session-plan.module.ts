@@ -35,11 +35,13 @@ import { SessionPlansEffects } from './session-plan-table/session-plan-table.eff
 import { SessionPlanPopupComponent } from './session-plan-table/session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableSerivce } from './session-plan-table/session-plan-table.service';
 import { EditorModule } from '@progress/kendo-angular-editor';
+import { TabStripModule } from '@progress/kendo-angular-layout';
 
 @NgModule({
 	imports: [
 		SharedModule,
 		EditorModule,
+		TabStripModule,
 		RouterModule.forChild([
 			{
 				path: '',

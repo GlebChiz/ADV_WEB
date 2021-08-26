@@ -1,554 +1,338 @@
 <form [formGroup]="sessionPlanForm" novalidate>
 	<div *ngIf="isVisible === true">
-		<div class="p10 form">
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Title</label>
-						<input
-							name="title"
-							formControlName="title"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
+		<kendo-tabstrip [keepTabContent]="true">
+			<kendo-tabstrip-tab [title]="'General Info'" [selected]="true">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100">
+						<div class="column w-100">
+							<div class="w-100">
+								<label>Title</label>
+								<input name="title" formControlName="title" kendoTextBox class="k-textbox"
+									style="width: 100%" maxlength="250" />
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Method</label>
-						<textarea
-						name="method"
-						formControlName="method"
-						kendoTextArea
-						class="k-textbox"
-						style="width: 100%; height: 150px"
-					></textarea>
+					<div class="clearfix w-100">
+						<div class="column w-100">
+							<div class="w-100">
+								<label>Method</label>
+								<textarea name="method" formControlName="method" kendoTextArea class="k-textbox"
+									style="width: 100%; height: 150px"></textarea>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Outline</label>
-
-						<kendo-editor
-							name="outline"
-							formControlName="outline"
-							style="height: 500px"
-						>
-						<kendo-toolbar>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorUnderlineButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorStrikethroughButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorSubscriptButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorSuperscriptButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorAlignLeftButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignCenterButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignRightButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignJustifyButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFormat
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontSize
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontFamily
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-colorpicker
-							  kendoEditorForeColor
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-colorpicker
-							  kendoEditorBackColor
-							  view="gradient"
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorInsertUnorderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorInsertOrderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorCreateLinkButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-button
-							  kendoEditorViewSourceButton
-							></kendo-toolbar-button>
-							<kendo-toolbar-button
-							  kendoEditorCleanFormattingButton
-							></kendo-toolbar-button>
-						  </kendo-toolbar>
-					</kendo-editor>
+					<kendo-multiselect formControlName="seriesPlanIds" textField="name"
+						[data]="(seriesPlansDropdown$ | async) || []" valueField="id" [valuePrimitive]="true">
+					</kendo-multiselect>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Outline'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100">
+						<div class="column w-100">
+							<div class="w-100">
+								<kendo-editor name="outline" formControlName="outline" style="height: 700px">
+									<kendo-toolbar>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnderlineButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorStrikethroughButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorSubscriptButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorSuperscriptButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorAlignLeftButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignCenterButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignRightButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignJustifyButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-dropdownlist kendoEditorFormat></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontSize></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontFamily></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-colorpicker kendoEditorForeColor></kendo-toolbar-colorpicker>
+										<kendo-toolbar-colorpicker kendoEditorBackColor view="gradient">
+										</kendo-toolbar-colorpicker>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorInsertUnorderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorInsertOrderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorCreateLinkButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-button kendoEditorViewSourceButton></kendo-toolbar-button>
+										<kendo-toolbar-button kendoEditorCleanFormattingButton></kendo-toolbar-button>
+									</kendo-toolbar>
+								</kendo-editor>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100 mT10">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Callout 1</label>
-						<kendo-editor
-							name="callout1"
-							formControlName="callout1"
-							style="height: 500px"
-						>
-						<kendo-toolbar>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorUnderlineButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorStrikethroughButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorSubscriptButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorSuperscriptButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorAlignLeftButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignCenterButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignRightButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignJustifyButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFormat
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontSize
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontFamily
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-colorpicker
-							  kendoEditorForeColor
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-colorpicker
-							  kendoEditorBackColor
-							  view="gradient"
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorInsertUnorderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorInsertOrderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorCreateLinkButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-button
-							  kendoEditorViewSourceButton
-							></kendo-toolbar-button>
-							<kendo-toolbar-button
-							  kendoEditorCleanFormattingButton
-							></kendo-toolbar-button>
-						  </kendo-toolbar>
-					</kendo-editor>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Callout 1'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100 mT10">
+						<div class="column w-100">
+							<div class="w-100">
+								<kendo-editor name="callout1" formControlName="callout1" style="height: 700px">
+									<kendo-toolbar>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnderlineButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorStrikethroughButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorSubscriptButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorSuperscriptButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorAlignLeftButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignCenterButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignRightButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignJustifyButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-dropdownlist kendoEditorFormat></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontSize></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontFamily></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-colorpicker kendoEditorForeColor></kendo-toolbar-colorpicker>
+										<kendo-toolbar-colorpicker kendoEditorBackColor view="gradient">
+										</kendo-toolbar-colorpicker>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorInsertUnorderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorInsertOrderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorCreateLinkButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-button kendoEditorViewSourceButton></kendo-toolbar-button>
+										<kendo-toolbar-button kendoEditorCleanFormattingButton></kendo-toolbar-button>
+									</kendo-toolbar>
+								</kendo-editor>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Callout 1 Minutes</label>
-						<input
-							type="number"
-							name="calloutMinutes1"
-							formControlName="calloutMinutes1"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 50px"
-							maxlength="2"
-						/>
+					<div class="clearfix w-100">
+						<div class="column w-100">
+							<div class="w-100">
+								<label class="mR10">Minutes:</label>
+								<input type="number" name="calloutMinutes1" formControlName="calloutMinutes1"
+									kendoTextBox class="k-textbox" style="width: 50px" maxlength="2" />
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100 mT10">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Callout 2</label>
-						<kendo-editor
-							name="callout2"
-							formControlName="callout2"
-							style="height: 500px"
-						>
-						<kendo-toolbar>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorUnderlineButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorStrikethroughButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorSubscriptButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorSuperscriptButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorAlignLeftButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignCenterButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignRightButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignJustifyButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFormat
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontSize
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontFamily
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-colorpicker
-							  kendoEditorForeColor
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-colorpicker
-							  kendoEditorBackColor
-							  view="gradient"
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorInsertUnorderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorInsertOrderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorCreateLinkButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-button
-							  kendoEditorViewSourceButton
-							></kendo-toolbar-button>
-							<kendo-toolbar-button
-							  kendoEditorCleanFormattingButton
-							></kendo-toolbar-button>
-						  </kendo-toolbar>
-					</kendo-editor>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Callout 2'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100 mT10">
+						<div class="column w-100">
+							<div class="w-100">
+								<kendo-editor name="callout2" formControlName="callout2" style="height: 700px">
+									<kendo-toolbar>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnderlineButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorStrikethroughButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorSubscriptButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorSuperscriptButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorAlignLeftButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignCenterButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignRightButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignJustifyButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-dropdownlist kendoEditorFormat></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontSize></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontFamily></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-colorpicker kendoEditorForeColor></kendo-toolbar-colorpicker>
+										<kendo-toolbar-colorpicker kendoEditorBackColor view="gradient">
+										</kendo-toolbar-colorpicker>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorInsertUnorderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorInsertOrderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorCreateLinkButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-button kendoEditorViewSourceButton></kendo-toolbar-button>
+										<kendo-toolbar-button kendoEditorCleanFormattingButton></kendo-toolbar-button>
+									</kendo-toolbar>
+								</kendo-editor>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Callout 2 Minutes</label>
-						<input
-							type="number"
-							name="calloutMinutes2"
-							formControlName="calloutMinutes2"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 50px"
-							maxlength="2"
-						/>
+					<div class="clearfix w-100">
+						<div class="column w-100">
+							<div class="w-100">
+								<label class="mR10">Minutes:</label>
+								<input type="number" name="calloutMinutes2" formControlName="calloutMinutes2"
+									kendoTextBox class="k-textbox" style="width: 50px" maxlength="2" />
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100 mT10">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Callout 3</label>
-						<kendo-editor
-							name="callout3"
-							formControlName="callout3"
-							style="height: 500px"
-						>
-						<kendo-toolbar>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorUnderlineButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorStrikethroughButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorSubscriptButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorSuperscriptButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorAlignLeftButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignCenterButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignRightButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignJustifyButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFormat
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontSize
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontFamily
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-colorpicker
-							  kendoEditorForeColor
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-colorpicker
-							  kendoEditorBackColor
-							  view="gradient"
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorInsertUnorderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorInsertOrderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorCreateLinkButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-button
-							  kendoEditorViewSourceButton
-							></kendo-toolbar-button>
-							<kendo-toolbar-button
-							  kendoEditorCleanFormattingButton
-							></kendo-toolbar-button>
-						  </kendo-toolbar>
-					</kendo-editor>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Callout 3'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100 mT10">
+						<div class="column w-100">
+							<div class="w-100">
+								<kendo-editor name="callout3" formControlName="callout3" style="height: 700px">
+									<kendo-toolbar>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnderlineButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorStrikethroughButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorSubscriptButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorSuperscriptButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorAlignLeftButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignCenterButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignRightButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignJustifyButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-dropdownlist kendoEditorFormat></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontSize></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontFamily></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-colorpicker kendoEditorForeColor></kendo-toolbar-colorpicker>
+										<kendo-toolbar-colorpicker kendoEditorBackColor view="gradient">
+										</kendo-toolbar-colorpicker>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorInsertUnorderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorInsertOrderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorCreateLinkButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-button kendoEditorViewSourceButton></kendo-toolbar-button>
+										<kendo-toolbar-button kendoEditorCleanFormattingButton></kendo-toolbar-button>
+									</kendo-toolbar>
+								</kendo-editor>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Callout 3 Minutes</label>
-						<input
-							type="number"
-							name="calloutMinutes3"
-							formControlName="calloutMinutes3"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 50px"
-							maxlength="2"
-						/>
+					<div class="clearfix w-100">
+						<div class="column w-100">
+							<div class="w-100">
+								<label class="mR10">Minutes:</label>
+								<input type="number" name="calloutMinutes3" formControlName="calloutMinutes3"
+									kendoTextBox class="k-textbox" style="width: 50px" maxlength="2" />
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100 mT10">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Wrapup</label>
-						<kendo-editor
-							name="wrapup"
-							formControlName="wrapup"
-							style="height: 500px"
-						>
-						<kendo-toolbar>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorUnderlineButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorStrikethroughButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorSubscriptButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorSuperscriptButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorAlignLeftButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignCenterButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignRightButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorAlignJustifyButton
-							  ></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFormat
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontSize
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-dropdownlist
-							  kendoEditorFontFamily
-							></kendo-toolbar-dropdownlist>
-							<kendo-toolbar-colorpicker
-							  kendoEditorForeColor
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-colorpicker
-							  kendoEditorBackColor
-							  view="gradient"
-							></kendo-toolbar-colorpicker>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorInsertUnorderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button
-								kendoEditorInsertOrderedListButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-buttongroup>
-							  <kendo-toolbar-button
-								kendoEditorCreateLinkButton
-							  ></kendo-toolbar-button>
-							  <kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
-							</kendo-toolbar-buttongroup>
-							<kendo-toolbar-button
-							  kendoEditorViewSourceButton
-							></kendo-toolbar-button>
-							<kendo-toolbar-button
-							  kendoEditorCleanFormattingButton
-							></kendo-toolbar-button>
-						  </kendo-toolbar>
-					</kendo-editor>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Wrapup'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100 mT10">
+						<div class="column w-100">
+							<div class="w-100">
+								<kendo-editor name="wrapup" formControlName="wrapup" style="height: 700px">
+									<kendo-toolbar>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorUndoButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorRedoButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorBoldButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorItalicButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnderlineButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorStrikethroughButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorSubscriptButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorSuperscriptButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorAlignLeftButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignCenterButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignRightButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorAlignJustifyButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-dropdownlist kendoEditorFormat></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontSize></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-dropdownlist kendoEditorFontFamily></kendo-toolbar-dropdownlist>
+										<kendo-toolbar-colorpicker kendoEditorForeColor></kendo-toolbar-colorpicker>
+										<kendo-toolbar-colorpicker kendoEditorBackColor view="gradient">
+										</kendo-toolbar-colorpicker>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorInsertUnorderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorInsertOrderedListButton>
+											</kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorIndentButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorOutdentButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-buttongroup>
+											<kendo-toolbar-button kendoEditorCreateLinkButton></kendo-toolbar-button>
+											<kendo-toolbar-button kendoEditorUnlinkButton></kendo-toolbar-button>
+										</kendo-toolbar-buttongroup>
+										<kendo-toolbar-button kendoEditorViewSourceButton></kendo-toolbar-button>
+										<kendo-toolbar-button kendoEditorCleanFormattingButton></kendo-toolbar-button>
+									</kendo-toolbar>
+								</kendo-editor>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Wrapup Minutes</label>
-						<input
-							type="number"
-							name="wrapupMinutes"
-							formControlName="wrapupMinutes"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 50px"
-							maxlength="2"
-						/>
+					<div class="clearfix w-100">
+						<div class="column w-100">
+							<div class="w-100">
+								<label class="mR10">Minutes:</label>
+								<input type="number" name="wrapupMinutes" formControlName="wrapupMinutes" kendoTextBox
+									class="k-textbox" style="width: 50px" maxlength="2" />
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		<kendo-multiselect
-			formControlName="seriesPlanIds"
-			textField="name"
-			[data]="(seriesPlansDropdown$ | async) || []"
-			valueField="id"
-			[valuePrimitive]="true"
-		>
-		</kendo-multiselect>
+				</ng-template>
+			</kendo-tabstrip-tab>
+		</kendo-tabstrip>
 	</div>
 </form>
 <kendo-dialog-actions>
