@@ -1,5 +1,5 @@
 <form [formGroup]="sessionPlanForm" novalidate>
-	<div>
+	<div *ngIf="isVisible === true">
 		<div class="p10 form">
 			<div class="clearfix w-100">
 				<div class="column w-100">
@@ -20,14 +20,13 @@
 				<div class="column w-100">
 					<div class="w-100">
 						<label>Method</label>
-						<input
-							name="method"
-							formControlName="method"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
+						<textarea
+						name="method"
+						formControlName="method"
+						kendoTextArea
+						class="k-textbox"
+						style="width: 100%; height: 150px"
+					></textarea>
 					</div>
 				</div>
 			</div>
@@ -35,107 +34,108 @@
 				<div class="column w-100">
 					<div class="w-100">
 						<label>Outline</label>
-						<textarea
+
+						<kendo-editor
 							name="outline"
 							formControlName="outline"
-							kendoTextArea
-							class="k-textbox"
-							style="width: 100%; height: 150px"
-							maxlength="250"
-						></textarea>
+							style="height: 500px"
+						></kendo-editor>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100 mT10">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Callout 1</label>
+						<kendo-editor
+							name="callout1"
+							formControlName="callout1"
+							style="height: 500px"
+						></kendo-editor>
 					</div>
 				</div>
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Callout Minutes1</label>
+						<label>Callout 1 Minutes</label>
 						<input
 							type="number"
 							name="calloutMinutes1"
 							formControlName="calloutMinutes1"
 							kendoTextBox
 							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
+							style="width: 50px"
+							maxlength="2"
 						/>
 					</div>
 				</div>
 			</div>
-			<div class="clearfix w-100">
+			<div class="clearfix w-100 mT10">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Callout1</label>
-						<textarea
-							name="callout1"
-							formControlName="callout1"
-							kendoTextArea
-							class="k-textbox"
-							style="width: 100%; height: 150px"
-							maxlength="250"
-						></textarea>
+						<label>Callout 2</label>
+						<kendo-editor
+							name="callout2"
+							formControlName="callout2"
+							style="height: 500px"
+						></kendo-editor>
 					</div>
 				</div>
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Callout Minutes2</label>
+						<label>Callout 2 Minutes</label>
 						<input
 							type="number"
 							name="calloutMinutes2"
 							formControlName="calloutMinutes2"
 							kendoTextBox
 							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
+							style="width: 50px"
+							maxlength="2"
 						/>
 					</div>
 				</div>
 			</div>
-			<div class="clearfix w-100">
+			<div class="clearfix w-100 mT10">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Callout2</label>
-						<textarea
-							name="callout2"
-							formControlName="callout2"
-							kendoTextArea
-							class="k-textbox"
-							style="width: 100%; height: 150px"
-							maxlength="250"
-						></textarea>
+						<label>Callout 3</label>
+						<kendo-editor
+							name="callout3"
+							formControlName="callout3"
+							style="height: 500px"
+						></kendo-editor>
 					</div>
 				</div>
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Callout Minutes3</label>
+						<label>Callout 3 Minutes</label>
 						<input
 							type="number"
 							name="calloutMinutes3"
 							formControlName="calloutMinutes3"
 							kendoTextBox
 							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
+							style="width: 50px"
+							maxlength="2"
 						/>
 					</div>
 				</div>
 			</div>
-			<div class="clearfix w-100">
+			<div class="clearfix w-100 mT10">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Callout3</label>
-						<textarea
-							name="callout3"
-							formControlName="callout3"
-							kendoTextArea
-							class="k-textbox"
-							style="width: 100%; height: 150px"
-							maxlength="250"
-						></textarea>
+						<label>Wrapup</label>
+						<kendo-editor
+							name="wrapup"
+							formControlName="wrapup"
+							style="height: 500px"
+						></kendo-editor>
 					</div>
 				</div>
 			</div>
@@ -149,24 +149,9 @@
 							formControlName="wrapupMinutes"
 							kendoTextBox
 							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
+							style="width: 50px"
+							maxlength="2"
 						/>
-					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Wrapup</label>
-						<textarea
-							name="wrapup"
-							formControlName="wrapup"
-							kendoTextArea
-							class="k-textbox"
-							style="width: 100%; height: 150px"
-							maxlength="250"
-						></textarea>
 					</div>
 				</div>
 			</div>

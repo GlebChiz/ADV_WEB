@@ -34,10 +34,12 @@ import { sessionPlanTableReducers } from './session-plan-table/session-plan-tabl
 import { SessionPlansEffects } from './session-plan-table/session-plan-table.effects';
 import { SessionPlanPopupComponent } from './session-plan-table/session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableSerivce } from './session-plan-table/session-plan-table.service';
+import { EditorModule } from '@progress/kendo-angular-editor';
 
 @NgModule({
 	imports: [
 		SharedModule,
+		EditorModule,
 		RouterModule.forChild([
 			{
 				path: '',
