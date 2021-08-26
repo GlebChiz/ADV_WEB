@@ -4,8 +4,8 @@
 
 export const environment = {
 	production: false,
-	// apiUrl: 'https://advenium.local/api',
-	apiUrl: 'http://107.181.174.52:8030/api',
+	//apiUrl: 'http://advenium.local/api',
+	apiUrl: 'http://demo.advenium.com/api',
 };
 
 /*
