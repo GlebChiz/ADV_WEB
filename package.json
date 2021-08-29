@@ -7,6 +7,7 @@
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "demo": "ng build --configuration demo --output-path=demo",
+    "prod": "ng build --configuration production --output-path=prod",
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
