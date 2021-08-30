@@ -14,6 +14,7 @@ import { UserEffects } from './store/effects/user.effects';
 import { PayerEffects } from './store/effects/payer.effects';
 import { DropdownEffects } from './store/effects/dropdown.effects';
 import { LocationEffects } from './store/effects/location.effects';
+import { TherapyGroupEffects } from './store/effects/therapy-group.effects';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function initApp(store: Store<any>): any {
@@ -34,7 +35,13 @@ export function initApp(store: Store<any>): any {
 			},
 		}),
 		StoreDevtoolsModule.instrument(),
-		EffectsModule.forRoot([UserEffects, PayerEffects, DropdownEffects, LocationEffects]),
+		EffectsModule.forRoot([
+			UserEffects,
+			PayerEffects,
+			DropdownEffects,
+			LocationEffects,
+			TherapyGroupEffects,
+		]),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

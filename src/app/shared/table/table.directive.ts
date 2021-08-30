@@ -87,7 +87,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 					this.gridData = process(tableData?.data, { group: this.group });
 					this.gridData.total = tableData?.total;
 				}
-				console.log('tableData', tableData);
 
 				this.gridDataWithoutGroup = tableData;
 

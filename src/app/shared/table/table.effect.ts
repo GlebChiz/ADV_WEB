@@ -159,7 +159,6 @@ export class TableEffects {
 							map(() => {
 								this._store.dispatch(this.editItemTableSuccess());
 								if (controller === 'location') {
-									// TODO BAD
 									this._store.dispatch(
 										LocationActions.GetSelectedLocationPending({
 											id: item.id,
