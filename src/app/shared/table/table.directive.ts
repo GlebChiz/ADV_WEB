@@ -77,8 +77,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public selectState(): void {
-		console.log('this.storePath', this.storePath);
-
 		this._store
 			.select((state: any) => state[this.storePath])
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
