@@ -9,9 +9,12 @@ kendo-drawer-content {
 ::ng-deep .k-checkbox:checked,
 .k-checkbox.k-checked {
 	background: #631ed3;
-	border-color: #631ed3;
+	border-color: #fff;
 }
-
+::ng-deep .k-grid tr.k-state-selected > td {
+	background: #631ed3;
+	color: #fff;
+}
 ::ng-deep .k-button.k-primary:hover {
 	background: #631ed3;
 	border-color: #631ed3;
