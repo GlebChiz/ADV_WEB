@@ -100,6 +100,7 @@ export class TableEffects {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}Table`)),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
+						console.log(latest);
 						return this._tableService.delete(controller, id).pipe(
 							mergeMap(() => {
 								return [

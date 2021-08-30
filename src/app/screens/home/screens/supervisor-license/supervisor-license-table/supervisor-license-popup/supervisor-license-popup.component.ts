@@ -58,13 +58,13 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	}
 
 	public supervisor$: Observable<IDropdownData[]> = this._store.select(
-		'supervisorLicenseDropdown',
-		'data',
+		'dropdown' as any,
+		'supervisorLicense',
 	);
 
 	public payers$: Observable<IDropdownData[]> = this._store.select(
-		'supervisorLicensePayersDropdown',
-		'data',
+		'dropdown' as any,
+		'supervisorLicensePayers',
 	);
 
 	public ngOnInit(): void {

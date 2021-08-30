@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
+import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const UnsupervisedServicesTableActions = {
 	GetUnsupervisedServicesTableDataPending: createAction(
 		'[Unsupervised Services Table] get table data pending',
-		props<{ controller: string; filter: IFilter }>(),
+		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 	GetUnsupervisedServicesTableDataSuccess: createAction(
 		'[Unsupervised Services Table] get table data success',

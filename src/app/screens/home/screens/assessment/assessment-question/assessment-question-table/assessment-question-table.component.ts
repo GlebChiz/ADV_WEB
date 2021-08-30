@@ -48,7 +48,10 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 
 	public language: FormControl = new FormControl();
 
-	public languagesDropdown$: Observable<IDropdownData[]> = this._store.select('languages', 'data');
+	public languagesDropdown$: Observable<IDropdownData[]> = this._store.select(
+		'dropdown' as any,
+		'languages',
+	);
 
 	public columns: IColumn[] = [
 		{

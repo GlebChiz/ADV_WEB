@@ -33,7 +33,7 @@ export class AssessmentQuestionPopupComponent extends UnSubscriber implements On
 	public assessmentForm!: FormGroup;
 
 	public legends$: Observable<IDropdownData[]> = this._store
-		.select('legends', 'data')
+		.select('dropdown', 'legends')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public onCancelAction(): void {

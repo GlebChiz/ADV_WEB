@@ -64,6 +64,7 @@ export class TableService {
 	}
 
 	private getFilterModel(state: DataStateChangeEvent): IGridFilterModel | undefined {
+		console.log(state);
 		return state.filter?.filters.reduce((prev: IGridFilterModel, curr: any) => {
 			let formatTypes: IGridFilterType;
 			let isDate!: boolean;

@@ -43,4 +43,12 @@ export class DropdownService {
 	public getRoomSetup(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/RoomSetup');
 	}
+
+	public getSnipitTypes(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/snipit-types');
+	}
+
+	public getSnipitCategory(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/SnipitCategory');
+	}
 }

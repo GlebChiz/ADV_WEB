@@ -4,8 +4,8 @@
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Id</label>
 						<input
+							hidden
 							name="id"
 							formControlName="id"
 							kendoTextBox
@@ -34,8 +34,8 @@
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Category Id</label>
 						<input
+							hidden
 							name="categoryId"
 							formControlName="categoryId"
 							kendoTextBox
@@ -43,6 +43,44 @@
 							style="width: 100%"
 							maxlength="250"
 						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Snipit type</label>
+						<div>
+							<kendo-combobox
+								[data]="snipitTypes"
+								valueField="id"
+								style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+								textField="name"
+								[valuePrimitive]="true"
+								[kendoDropDownFilter]="filterSettings"
+								formControlName="type"
+							>
+							</kendo-combobox>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Snipit category</label>
+						<div>
+							<kendo-combobox
+								[data]="(snipitCategory$ | async) || []"
+								valueField="id"
+								style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+								textField="name"
+								[valuePrimitive]="true"
+								[kendoDropDownFilter]="filterSettings"
+								formControlName="categoryId"
+							>
+							</kendo-combobox>
+						</div>
 					</div>
 				</div>
 			</div>

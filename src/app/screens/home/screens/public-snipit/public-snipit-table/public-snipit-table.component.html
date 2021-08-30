@@ -4,7 +4,7 @@
 </div>
 <kendo-grid
 	[filterable]="true"
-	[data]="gridDataWithoutGroup"
+	[data]="gridData"
 	[sortable]="true"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"
@@ -27,6 +27,8 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
+	>
+		<ng-template kendoGridGroupHeaderTemplate let-value="value"> {{ value }} </ng-template
 		><ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"

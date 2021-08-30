@@ -48,9 +48,9 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 	public id = '';
 
 	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store
-		.select('seriesPlanDropdown', 'data')
+		.select('dropdown' as any, 'seriesPlans')
 		.pipe(
-			filter((data: IDropdownData[]) => data.length > 0),
+			filter((data: IDropdownData[]) => data?.length > 0),
 			tap((data: IDropdownData[]) => {
 				if (this._activatedRoute.snapshot.queryParams.seriesPlanId) {
 					const current: IDropdownData | undefined = data.find(
@@ -64,7 +64,10 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			}),
 		);
 
-	public languagesDropdown$: Observable<IDropdownData[]> = this._store.select('languages', 'data');
+	public languagesDropdown$: Observable<IDropdownData[]> = this._store.select(
+		'dropdown' as any,
+		'languages',
+	);
 
 	public seriesPlan: FormControl = new FormControl();
 

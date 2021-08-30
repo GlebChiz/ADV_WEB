@@ -54,6 +54,18 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetModalitiesError: createAction('[Dropdown] Get modalities error'),
+	GetSnipiTypePending: createAction('[Dropdown] Get snipi type pending'),
+	GetSnipiTypeSuccess: createAction(
+		'[Dropdown] Get snipi type success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetSnipiTypeError: createAction('[Dropdown] Get snipi type error'),
+	GetSnipiCategoryPending: createAction('[Dropdown] Get snipi category pending'),
+	GetSnipiCategorySuccess: createAction(
+		'[Dropdown] Get snipi category success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetSnipiCategoryError: createAction('[Dropdown] Get snipi category error'),
 	GetLegendsPending: createAction('[Dropdown] Get legends pending'),
 	GetLegendsSuccess: createAction(
 		'[Dropdown] Get legends success',

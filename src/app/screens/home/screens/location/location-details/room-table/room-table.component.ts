@@ -51,6 +51,8 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	}
 
 	public ngOnInit(): void {
+		console.log('this.gridDataWithoutGroup', this.gridDataWithoutGroup);
+
 		if (this.gridSettings.state.filter) {
 			this.gridSettings.state.filter.filters = [
 				...this.gridSettings.state.filter.filters,
@@ -61,20 +63,14 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 				},
 			];
 		}
-		this._store.dispatch(
-			this.getTableDataPending({
-				controller: this.controller,
-				filter: this.gridSettings.state,
-				gridId: this.gridId,
-				column: this.columns,
-			}),
-		);
+
 		this._store.dispatch(
 			LocationActions.GetSelectedLocationPending({ id: this._activatedRoute.snapshot.params.id }),
 		);
 		this._store.select('location', 'selectedLocation').subscribe((location: any) => {
 			this.infoLocation = location;
 		});
+		super.ngOnInit();
 	}
 
 	public openDialogLocation(): void {
@@ -143,26 +139,13 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 			type: 'text',
 		},
 		{
-			field: 'size',
+			field: 'sizeName',
 			title: 'Size',
 			hidden: false,
 			filterable: true,
 			type: 'text',
 		},
-		{
-			field: 'setup',
-			title: 'Setup',
-			hidden: false,
-			filterable: true,
-			type: 'text',
-		},
-		{
-			field: 'direction',
-			title: 'Direction',
-			hidden: false,
-			filterable: true,
-			type: 'text',
-		},
+
 		{
 			field: 'description',
 			title: 'Description',

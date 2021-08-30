@@ -24,6 +24,7 @@ import {
 	EDIT_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
+	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
 import { PublicSnipitComponent } from './public-snipit.component';
 import { PublicSnipitTableActions } from './public-snipit-table/public-snipit-table.actions';
@@ -51,7 +52,7 @@ import { PublicSnipitPopupComponent } from './public-snipit-table/public-snipit-
 				},
 			},
 		]),
-		StoreModule.forFeature('publicSnipitTable', publicSnipitTableReducers),
+		StoreModule.forFeature('publicsnipitTable', publicSnipitTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [PublicSnipitComponent, PublicSnipitTableComponent, PublicSnipitPopupComponent],
@@ -132,6 +133,10 @@ import { PublicSnipitPopupComponent } from './public-snipit-table/public-snipit-
 		{
 			provide: DUBLICATE_ITEM_TABLE_ERROR,
 			useValue: PublicSnipitTableActions.DublicatePublicSnipitIemTableError,
+		},
+		{
+			provide: CLEAR_CURRENT_ITEM,
+			useValue: PublicSnipitTableActions.ClearCurrentPublicSnipit,
 		},
 	],
 })

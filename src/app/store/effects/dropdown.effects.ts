@@ -135,4 +135,32 @@ export class DropdownEffects {
 			),
 		),
 	);
+
+	public getSnipitTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetSnipiTypePending),
+			mergeMap(() =>
+				this.service.getSnipitTypes().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetSnipiTypeSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetSnipiTypeError())),
+				),
+			),
+		),
+	);
+
+	public getSnipitCategory$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetSnipiCategoryPending),
+			mergeMap(() =>
+				this.service.getSnipitCategory().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetSnipiCategorySuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetSnipiCategoryError())),
+				),
+			),
+		),
+	);
 }

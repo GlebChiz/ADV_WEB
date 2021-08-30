@@ -6,6 +6,7 @@ import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-ang
 import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
+	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
@@ -33,6 +34,7 @@ export class PublicSnipitTableComponent extends CustomTableDirective {
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any, // @Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
+		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
@@ -54,7 +56,7 @@ export class PublicSnipitTableComponent extends CustomTableDirective {
 			title: 'Public Snipit',
 			content: PublicSnipitPopupComponent,
 			width: 600,
-			height: 310,
+			height: 410,
 			minWidth: 250,
 		});
 
@@ -70,7 +72,7 @@ export class PublicSnipitTableComponent extends CustomTableDirective {
 				}
 				this._store.dispatch(this.createDataPending({ item: result, controller: this.controller }));
 			}
-			// this._store.dispatch(this.clearCurrentItem());
+			this._store.dispatch(this.clearCurrentItem());
 		});
 	}
 
