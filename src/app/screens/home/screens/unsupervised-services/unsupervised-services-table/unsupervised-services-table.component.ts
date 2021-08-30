@@ -1,5 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
+import {
+	DELETE_ITEM_TABLE_PENDING,
+	EDIT_ITEM_TABLE_PENDING,
+	GET_CURRENT_ITEM_PENDING,
+	GET_TABLE_DATA_PENDING,
+} from 'src/app/shared/table/table.tokens';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 
 @Component({
@@ -7,7 +15,19 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 	selector: 'advenium-unsupervised-services-table',
 	templateUrl: './unsupervised-services-table.component.html',
 })
-export class UnsupervisedServicesTableComponent extends CustomTableDirective {
+export class UnsupervisedServicesTableComponent extends CustomTableDirective implements OnInit {
+	public constructor(
+		private _router: Router,
+		_store: Store<any>,
+		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
+		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
+		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
+		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
+		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
+	) {
+		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+	}
+
 	public columns: IColumn[] = [
 		{
 			field: 'date',
@@ -59,4 +79,20 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective {
 			type: 'text',
 		},
 	];
+
+	public toPatient(): void {
+		this._router.navigate(['patients']);
+	}
+
+	public toClinician(): void {
+		this._router.navigate(['clinicians']);
+	}
+
+	public toSupervisors(): void {
+		this._router.navigate(['patients']);
+	}
+
+	public toLicenses(): void {
+		this._router.navigate(['supercred']);
+	}
 }
