@@ -27,7 +27,7 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
-		><<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+		><ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
 				[showOperators]="true"

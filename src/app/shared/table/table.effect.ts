@@ -166,7 +166,6 @@ export class TableEffects {
 								this._toasterService.success('Item has been successfully updated');
 								this._store.dispatch(this.editItemTableSuccess());
 								if (controller === 'location') {
-									// TODO BAD
 									this._store.dispatch(
 										LocationActions.GetSelectedLocationPending({
 											id: item.id,
