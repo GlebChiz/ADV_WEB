@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { switchMap, catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { TableEffects } from 'src/app/shared/table/table.effect';
 import { TableService } from 'src/app/shared/table/table.service';
-import { AssessmentLegendTableActions } from './assessment-legend-table.actions';
 import {
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
@@ -26,7 +25,9 @@ import {
 } from 'src/app/shared/table/table.tokens';
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
 import { ITableState } from 'src/app/shared/table/table.reducer';
+import { ToastrService } from 'ngx-toastr';
 import { ISessionPlanCurrent } from '../../session-plan/session-plan-table/session-plan-popup/session-plan-popup.component';
+import { AssessmentLegendTableActions } from './assessment-legend-table.actions';
 import { AssessmentLegendService } from './assessment-legend-table.service';
 
 @Injectable()
@@ -52,6 +53,7 @@ export class AssessmentLegendEffect extends TableEffects {
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: AssessmentLegendService,
+		_toasterService: ToastrService,
 	) {
 		super(
 			actions$,
@@ -73,6 +75,7 @@ export class AssessmentLegendEffect extends TableEffects {
 			getCurrentItemError,
 			_tableService,
 			_store,
+			_toasterService,
 		);
 	}
 

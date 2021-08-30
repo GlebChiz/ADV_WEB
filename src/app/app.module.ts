@@ -1,10 +1,11 @@
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserModule } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthUserActions } from './store/actions/user.actions';
@@ -32,6 +33,9 @@ export function initApp(store: Store<any>): any {
 				strictStateImmutability: false,
 				strictActionImmutability: false,
 			},
+		}),
+		ToastrModule.forRoot({
+			positionClass: 'custom-toast-top-center',
 		}),
 		StoreDevtoolsModule.instrument(),
 		EffectsModule.forRoot([UserEffects, PayerEffects, DropdownEffects, LocationEffects]),
