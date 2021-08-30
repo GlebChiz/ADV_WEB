@@ -28,6 +28,7 @@ import { SessionPlanTableActions } from './session-plan-table.actions';
 import { SessionPlanTableSerivce } from './session-plan-table.service';
 import { ISessionPlanCurrent } from './session-plan-popup/session-plan-popup.component';
 import { ISessionPlan } from '../../../../../shared/interfaces/session-plan.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class SessionPlansEffects extends TableEffects {
@@ -52,6 +53,7 @@ export class SessionPlansEffects extends TableEffects {
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: SessionPlanTableSerivce,
+		_toasterService: ToastrService,
 	) {
 		super(
 			actions$,
@@ -73,6 +75,7 @@ export class SessionPlansEffects extends TableEffects {
 			getCurrentItemError,
 			_tableService,
 			_store,
+			_toasterService,
 		);
 	}
 
