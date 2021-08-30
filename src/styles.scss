@@ -668,6 +668,6 @@ li.k-state-default:not(.k-state-active) {
 
 .custom-toast-top-center {
 	top: 6%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	right: 0;
+	transform: translate(-5%, -50%);
 }
