@@ -83,6 +83,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			if (translatedColumn) {
 				if (language === '4dc1ef9d-76e3-4b70-8b0d-7109661ec568') {
 					translatedColumn.hidden = true;
+					return;
 				}
 				translatedColumn.hidden = !language;
 			}
@@ -111,8 +112,8 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Session Plan',
 			content: SessionPlanPopupComponent,
-			width: 600,
-			height: 500,
+			width: 1200,
+			height: 800,
 			minWidth: 250,
 		});
 

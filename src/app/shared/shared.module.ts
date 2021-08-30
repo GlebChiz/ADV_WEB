@@ -7,10 +7,13 @@ import { ComboBoxModule, DropDownsModule } from '@progress/kendo-angular-dropdow
 import { GridModule } from '@progress/kendo-angular-grid';
 import { CheckBoxModule } from '@progress/kendo-angular-inputs';
 import { BreadCrumbModule } from '@progress/kendo-angular-navigation';
-
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { LayoutModule } from '@progress/kendo-angular-layout';
+import { ButtonSelectorComponent } from './components/button-selector/button-selector.component';
+import { AddressControlComponent } from '../controls/address-control/address-control.component';
 
 @NgModule({
+	imports: [CommonModule, ReactiveFormsModule],
 	exports: [
 		CommonModule,
 		ReactiveFormsModule,
@@ -18,10 +21,14 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 		BreadCrumbModule,
 		DialogModule,
 		ComboBoxModule,
+		DateInputsModule,
 		CheckBoxModule,
 		ButtonModule,
 		DropDownsModule,
 		LayoutModule,
+		ButtonSelectorComponent,
+		AddressControlComponent,
 	],
+	declarations: [ButtonSelectorComponent, AddressControlComponent],
 })
 export class SharedModule {}

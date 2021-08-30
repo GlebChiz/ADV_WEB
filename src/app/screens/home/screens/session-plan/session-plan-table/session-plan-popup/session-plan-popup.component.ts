@@ -1,5 +1,5 @@
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
@@ -30,16 +30,17 @@ export interface ISessionPlanCurrent {
 	selector: 'advenium-session-plan-popup',
 	templateUrl: './session-plan-popup.component.html',
 })
-export class SessionPlanPopupComponent extends UnSubscriber implements OnInit {
+export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, AfterViewInit {
 	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
 		super();
 	}
+	public isVisible = false;
 
 	public sessionPlan!: ISessionPlanCurrent | undefined;
 
 	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store.select(
-		'seriesPlanDropdown',
-		'data',
+		'dropdown',
+		'seriesPlans',
 	);
 
 	public sessionPlanForm!: FormGroup;
@@ -71,13 +72,17 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit {
 
 	public ngOnInit(): void {
 		this._store
-			.select('sessionPlanTable')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((sessionPlanTable: unknown) => {
-				this.sessionPlan = (
-					sessionPlanTable as ITableState<ISessionPlan, ISessionPlanCurrent>
-				).current;
-				this.initForm();
-			});
+		.select('sessionPlanTable')
+		.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+		.subscribe((sessionPlanTable: unknown) => {
+			this.sessionPlan = (
+				sessionPlanTable as ITableState<ISessionPlan, ISessionPlanCurrent>
+			).current;
+			this.initForm();
+		});
+	}
+
+	ngAfterViewInit(): void {
+		setTimeout(() => { this.isVisible = true; }, 0);
 	}
 }

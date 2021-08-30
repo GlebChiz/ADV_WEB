@@ -13,7 +13,7 @@ import { ITableState } from '../../../../../../shared/table/table.reducer';
 
 export interface ISeriesPlanCurrent {
 	id: string;
-	modalityId: string;
+	modalityIds: string[];
 	name: string;
 }
 
@@ -49,8 +49,8 @@ export class SeriesPlanPopupComponent extends UnSubscriber implements OnInit {
 
 	public initForm(): void {
 		this.seriesPlanForm = new FormGroup({
-			name: new FormControl(this.seriesPlan?.name || []),
-			modalityId: new FormControl(this.seriesPlan?.modalityId || ''),
+			name: new FormControl(this.seriesPlan?.name || ''),
+			modalityIds: new FormControl(this.seriesPlan?.modalityIds || []),
 		});
 	}
 

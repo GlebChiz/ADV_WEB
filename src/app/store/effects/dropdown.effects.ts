@@ -52,6 +52,34 @@ export class DropdownEffects {
 		),
 	);
 
+	public getLocations$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetLocationsPending),
+			mergeMap(() =>
+				this.service.getLocations().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetLocationsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetLocationsError())),
+				),
+			),
+		),
+	);
+
+	public getClinicians$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetCliniciansPending),
+			mergeMap(() =>
+				this.service.getClinicians().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetCliniciansSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetCliniciansError())),
+				),
+			),
+		),
+	);
+
 	public getLegends$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetLegendsPending),
@@ -89,6 +117,34 @@ export class DropdownEffects {
 						return DropdownActions.GetLanguagesSuccess({ data });
 					}),
 					catchError(() => of(DropdownActions.GetLanguagesError())),
+				),
+			),
+		),
+	);
+
+	public getAreas$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetAreasPending),
+			mergeMap(() =>
+				this.service.getAreas().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetAreasSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetAreasError())),
+				),
+			),
+		),
+	);
+
+	public getServiceSubTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetServiceSubTypesPending),
+			mergeMap(() =>
+				this.service.getServiceSubTypes().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetServiceSubTypesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetServiceSubTypesError())),
 				),
 			),
 		),

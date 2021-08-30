@@ -24,7 +24,9 @@ import {
 	EDIT_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
+	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { ClinicianPopupComponent } from './clinician-table/clinician-popup/clinician-popup.component';
 import { ClinicianTableActions } from './clinician-table/clinician-table.actions';
 import { ClinicianTableComponent } from './clinician-table/clinician-table.component';
 import { SomeEffect } from './clinician-table/clinician-table.effects';
@@ -39,11 +41,21 @@ import { ClinicianComponent } from './clinician.component';
 				path: '',
 				component: ClinicianComponent,
 			},
+			{
+				path: ':id',
+				loadChildren: (): any =>
+					import('./clinician-details/clinician-details.module').then(
+						(m: any) => m.ClinicianDetailsModule,
+					),
+				data: {
+					breadcrumb: 'Single',
+				},
+			},
 		]),
 		StoreModule.forFeature('clinicianTable', clinicianTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
-	declarations: [ClinicianComponent, ClinicianTableComponent],
+	declarations: [ClinicianComponent, ClinicianTableComponent, ClinicianPopupComponent],
 	entryComponents: [],
 	providers: [
 		{
@@ -121,6 +133,10 @@ import { ClinicianComponent } from './clinician.component';
 		{
 			provide: DUBLICATE_ITEM_TABLE_ERROR,
 			useValue: ClinicianTableActions.DublicateClinicianIemTableError,
+		},
+		{
+			provide: CLEAR_CURRENT_ITEM,
+			useValue: ClinicianTableActions.ClearClinicianTable,
 		},
 	],
 })

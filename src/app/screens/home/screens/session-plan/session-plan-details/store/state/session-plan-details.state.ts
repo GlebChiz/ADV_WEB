@@ -7,8 +7,3 @@ export const initialSessionPlanDetailsState: ISessionPlanDetailsState = {
 	isLoading: false,
 	current: {},
 };
-
-// export interface IPatient {
-// 	id: string;
-// 	person: IPatientPerson[];
-// }

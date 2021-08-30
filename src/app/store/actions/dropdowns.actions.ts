@@ -48,6 +48,21 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetLanguagesError: createAction('[Dropdown] Get languages error'),
+
+	GetLocationsPending: createAction('[Dropdown] Get locations pending'),
+	GetLocationsSuccess: createAction(
+		'[Dropdown] Get locations success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetLocationsError: createAction('[Dropdown] Get clinicians error'),
+
+	GetCliniciansPending: createAction('[Dropdown] Get clinicians pending'),
+	GetCliniciansSuccess: createAction(
+		'[Dropdown] Get locations success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetCliniciansError: createAction('[Dropdown] Get clinicians error'),
+
 	GetModalitiesPending: createAction('[Dropdown] Get modalities pending'),
 	GetModalitiesSuccess: createAction(
 		'[Dropdown] Get modalities success',
@@ -72,4 +87,13 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetLegendsError: createAction('[Dropdown] Get legends error'),
+	GetAreasPending: createAction('[Dropdown] Get areas pending'),
+	GetAreasSuccess: createAction('[Dropdown] Get areas success', props<{ data: IDropdownData[] }>()),
+	GetAreasError: createAction('[Dropdown] Get areas error'),
+	GetServiceSubTypesPending: createAction('[Dropdown] Get ServiceSubTypes pending'),
+	GetServiceSubTypesSuccess: createAction(
+		'[Dropdown] Get ServiceSubType success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetServiceSubTypesError: createAction('[Dropdown] Get ServiceSubTypes error'),
 };

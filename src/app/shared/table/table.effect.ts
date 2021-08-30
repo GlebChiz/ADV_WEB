@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { Guid } from 'guid-typescript';
 import { of } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { LocationActions } from 'src/app/store/actions/location.actions';
 import { TableService } from './table.service';
@@ -50,8 +51,9 @@ export class TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) private getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) private getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) private getCurrentItemError: any,
-		private _tableService: TableService,
+		public _tableService: TableService,
 		public _store: Store<any>,
+		private readonly _toasterService: ToastrService,
 	) {}
 
 	public getTableData$ = createEffect(() => {
@@ -103,6 +105,7 @@ export class TableEffects {
 						console.log(latest);
 						return this._tableService.delete(controller, id).pipe(
 							mergeMap(() => {
+								this._toasterService.success('Item has been successfully deleted');
 								return [
 									this.deleteItemTableSuccess(),
 									this.getTableDataPending({
@@ -113,6 +116,7 @@ export class TableEffects {
 								];
 							}),
 							catchError((error: string) => {
+								this._toasterService.error(`Delete item error: ${error}`);
 								return of(this.deleteItemTableError(error));
 							}),
 						);
@@ -131,6 +135,7 @@ export class TableEffects {
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.create(controller, item).pipe(
 							map(() => {
+								this._toasterService.success('Item has been successfully created');
 								this._store.dispatch(this.createItemTableSuccess());
 								return this.getTableDataPending({
 									controller,
@@ -139,6 +144,7 @@ export class TableEffects {
 								});
 							}),
 							catchError((error: string) => {
+								this._toasterService.error(`Create item error: ${error}`);
 								return of(this.createItemTableError(error));
 							}),
 						);
@@ -157,9 +163,9 @@ export class TableEffects {
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.update(controller, item).pipe(
 							map(() => {
+								this._toasterService.success('Item has been successfully updated');
 								this._store.dispatch(this.editItemTableSuccess());
 								if (controller === 'location') {
-									// TODO BAD
 									this._store.dispatch(
 										LocationActions.GetSelectedLocationPending({
 											id: item.id,
@@ -175,6 +181,7 @@ export class TableEffects {
 							}),
 							catchError((error: string) => {
 								console.log(error);
+								this._toasterService.success(`update item error: ${error}`);
 								return of(this.editItemTableError(error));
 							}),
 						);

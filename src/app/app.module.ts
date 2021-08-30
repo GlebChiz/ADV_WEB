@@ -1,10 +1,11 @@
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserModule } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthUserActions } from './store/actions/user.actions';
@@ -14,6 +15,7 @@ import { UserEffects } from './store/effects/user.effects';
 import { PayerEffects } from './store/effects/payer.effects';
 import { DropdownEffects } from './store/effects/dropdown.effects';
 import { LocationEffects } from './store/effects/location.effects';
+import { TherapyGroupEffects } from './store/effects/therapy-group.effects';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function initApp(store: Store<any>): any {
@@ -33,8 +35,17 @@ export function initApp(store: Store<any>): any {
 				strictActionImmutability: false,
 			},
 		}),
+		ToastrModule.forRoot({
+			positionClass: 'custom-toast-top-center',
+		}),
 		StoreDevtoolsModule.instrument(),
-		EffectsModule.forRoot([UserEffects, PayerEffects, DropdownEffects, LocationEffects]),
+		EffectsModule.forRoot([
+			UserEffects,
+			PayerEffects,
+			DropdownEffects,
+			LocationEffects,
+			TherapyGroupEffects,
+		]),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

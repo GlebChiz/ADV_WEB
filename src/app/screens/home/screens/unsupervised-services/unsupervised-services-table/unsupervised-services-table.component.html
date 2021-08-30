@@ -18,6 +18,16 @@
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
+	<kendo-grid-command-column [width]="35">
+		<ng-template kendoGridCellTemplate let-dataItem>
+			<div title="Supervisors" (click)="toSupervisors()"></div>
+		</ng-template>
+	</kendo-grid-command-column>
+	<kendo-grid-command-column [width]="35">
+		<ng-template kendoGridCellTemplate let-dataItem>
+			<div title="Licenses" (click)="toLicenses()"></div>
+		</ng-template>
+	</kendo-grid-command-column>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"

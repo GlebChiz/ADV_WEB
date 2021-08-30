@@ -1,6 +1,14 @@
 <div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
 	Therapy Group
 </div>
+<div class="new-button buttons">
+	<button (click)="openDialogClinician()">Clinician</button>
+	<button (click)="openDialogModality()">Modality</button>
+	<button (click)="openDialogLanguage()">Language</button>
+	<button (click)="openDialogSeriesPlan()">Series Plan</button>
+	<button (click)="openDialogLocation()">Location</button>
+	<button (click)="openDialogRoom()">Room</button>
+</div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
@@ -13,11 +21,14 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	[selectable]="{ enabled: true, checkboxOnly: true }"
+	(selectionChange)="selectionChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
+	<kendo-grid-checkbox-column [showSelectAll]="true"></kendo-grid-checkbox-column>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"
@@ -74,20 +85,22 @@
 
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link"></div>
-			<!-- (click)="openDialog(dataItem)" -->
+			<div class="k-icon k-i-edit k-link" (click)="openDialog(dataItem)"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link"></div>
-			<!-- (click)="openDialog(dataItem, true)" -->
+			<div class="k-icon k-i-copy k-link" (click)="openDialog(dataItem, true)"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify"></div>
-			<!-- (click)="deleteWithPopup(dataItem.id)" -->
+			<div
+				class="k-icon k-i-trash k-link"
+				title="Modify"
+				(click)="deleteWithPopup(dataItem.id)"
+			></div>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>
+<div kendoDialogContainer></div>
