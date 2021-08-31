@@ -2,7 +2,9 @@
 	Patient Distribution
 </div>
 <div class="new-button">
-	<button (click)="openDialogSupervisor()">Supervisor</button>
+	<button (click)="openDialogSupervisor()" [disabled]="!(selectedItems.length > 0)">
+		Supervisor
+	</button>
 	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Record</button>
 </div>
 <kendo-grid

@@ -4,29 +4,26 @@
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Start Date</label>
-						<input
-							name="startDate"
+						<label>Start Date</label><br />
+						<kendo-datepicker
 							formControlName="startDate"
+							format="MMMM"
 							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
+							formatPlaceholder="wide"
+						></kendo-datepicker>
 					</div>
 				</div>
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100" (click)="openDeialogClinician()">
 						<label>Clinician</label>
 						<input
 							name="clinicianName"
 							formControlName="clinicianName"
-							kendoTextBox
-							[disabled]="true"
 							class="k-textbox disabled-input"
 							style="width: 100%"
+							type="button"
 							placeholder="Select clinician"
 							maxlength="250"
 						/>
@@ -35,14 +32,14 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
-						<label *ngIf="!patientDistribution">Patient name</label>
+					<div class="w-100" (click)="openDeialogPatient()">
+						<label *ngIf="!patientDistribution">Patient</label>
 						<input
 							name="patientName"
 							formControlName="patientName"
-							[disabled]="true"
 							kendoTextBox
-							[type]="patientDistribution ? 'hidden' : 'text'"
+							attr.disabled="true"
+							[type]="patientDistribution ? 'hidden' : 'button'"
 							class="k-textbox disabled-input"
 							placeholder="Select patient"
 							style="width: 100%"

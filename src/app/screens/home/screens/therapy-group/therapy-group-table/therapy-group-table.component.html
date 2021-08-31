@@ -2,12 +2,16 @@
 	Therapy Group
 </div>
 <div class="new-button buttons">
-	<button (click)="openDialogClinician()">Clinician</button>
-	<button (click)="openDialogModality()">Modality</button>
-	<button (click)="openDialogLanguage()">Language</button>
-	<button (click)="openDialogSeriesPlan()">Series Plan</button>
-	<button (click)="openDialogLocation()">Location</button>
-	<button (click)="openDialogRoom()">Room</button>
+	<button (click)="openDialogClinician()" [disabled]="!(selectedItems.length > 0)">
+		Clinician
+	</button>
+	<button (click)="openDialogModality()" [disabled]="!(selectedItems.length > 0)">Modality</button>
+	<button (click)="openDialogLanguage()" [disabled]="!(selectedItems.length > 0)">Language</button>
+	<button (click)="openDialogSeriesPlan()" [disabled]="!(selectedItems.length > 0)">
+		Series Plan
+	</button>
+	<button (click)="openDialogLocation()" [disabled]="!(selectedItems.length > 0)">Location</button>
+	<button (click)="openDialogRoom()" [disabled]="!(selectedItems.length > 0)">Room</button>
 </div>
 <kendo-grid
 	[filterable]="true"

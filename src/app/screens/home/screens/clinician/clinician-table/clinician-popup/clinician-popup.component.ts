@@ -52,15 +52,12 @@ export class ClinicianPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public initForm(): void {
-		console.log('this.clinician', this.clinician);
-
 		this.clinicianForm = new FormGroup({
 			isSupervisor: new FormControl(this.clinician?.isSupervisor || false),
 			npi: new FormControl(this.clinician?.npi || ''),
 			billingCode: new FormControl(this.clinician?.billingCode || ''),
 			userId: new FormControl(this.clinician?.userId || ''),
 			areaIds: new FormControl(this.clinician?.areaIds || []),
-			// serviceTypeIds: new FormControl(this.clinician?.serviceTypeIds || []),
 			person: new FormGroup({
 				address: new FormControl(this.clinician?.address || ''),
 				firstname: new FormControl(this.clinician?.firstname || ''),
