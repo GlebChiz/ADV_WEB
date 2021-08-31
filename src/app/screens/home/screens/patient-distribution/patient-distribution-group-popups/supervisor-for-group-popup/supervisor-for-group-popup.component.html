@@ -1,0 +1,36 @@
+<form [formGroup]="mySupervisorForm" novalidate>
+	<div>
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Supervisor</label><br />
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+						textField="name"
+						[data]="supervisor$ | async"
+						formControlName="supervisor"
+						placeholder="Supervisor"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Start Date</label><br />
+					<kendo-datepicker
+						formControlName="startDate"
+						format="MMMM"
+						formatPlaceholder="wide"
+					></kendo-datepicker>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>

@@ -1,0 +1,20 @@
+<form [formGroup]="myPatientForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<label>Patient</label><br />
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+				textField="name"
+				[data]="patient$ | async"
+				formControlName="patient"
+				placeholder="Patient"
+			>
+			</kendo-combobox>
+		</div>
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>

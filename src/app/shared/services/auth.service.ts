@@ -37,19 +37,19 @@ export class AuthenticationService implements OnInit {
 	}
 
 	public login(username: string | undefined, password: string | undefined): Observable<IUser> {
-		return this.http.post<IUser>(`${environment.apiUrl}/users/authenticate`, {
+		return this.http.post<IUser>(`${environment.apiUrl}/user/authenticate`, {
 			Username: username,
 			Password: password,
 		});
 	}
 
 	public getUserAvatar(id: number): Observable<any> {
-		return this.http.get<any>(`${environment.apiUrl}/users/${id}/picture`);
+		return this.http.get<any>(`${environment.apiUrl}/user/${id}/picture`);
 	}
 
 	public sharedCalllogin(sharedCallId: string, code: any): any {
 		return this.http
-			.post<any>(`${environment.apiUrl}/users/shared-call-authenticate`, {
+			.post<any>(`${environment.apiUrl}/user/shared-call-authenticate`, {
 				id: sharedCallId,
 				code,
 			})
@@ -62,7 +62,7 @@ export class AuthenticationService implements OnInit {
 	}
 
 	public checkToken(): Observable<IUser> {
-		return this.http.get<IUser>(`${environment.apiUrl}/users/current`);
+		return this.http.get<IUser>(`${environment.apiUrl}/user/current`);
 	}
 
 	// eslint-disable-next-line @angular-eslint/contextual-lifecycle
