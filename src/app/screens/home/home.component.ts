@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
 		this._store.select('userState', 'user').subscribe((user: IUser | undefined) => {
 			if (user) {
 				this.nameUser = user?.userName;
-				this.userId = `${environment.apiUrl}/users/${user?.userId}/picture`;
+				this.userId = `${environment.apiUrl}/user/${user?.userId}/picture`;
 			}
 		});
 		this.setCurrent();
