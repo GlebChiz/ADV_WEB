@@ -50,7 +50,6 @@ export class TableService {
 		columns: any[],
 		gridId: string,
 	): Observable<T> {
-		console.log('seribce', state);
 		const filter: IGridFilterModel | undefined = this.getFilterModel(state);
 		const gridFilterParams: IGridFilter = this.getGridFilterParams(state);
 		return this.http.post<T>(`${controller}/grid-filter`, {

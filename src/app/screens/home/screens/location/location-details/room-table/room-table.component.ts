@@ -51,8 +51,6 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		console.log('this.gridDataWithoutGroup', this.gridDataWithoutGroup);
-
 		if (this.gridSettings.state.filter) {
 			this.gridSettings.state.filter.filters = [
 				...this.gridSettings.state.filter.filters,

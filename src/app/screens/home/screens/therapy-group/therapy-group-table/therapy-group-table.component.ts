@@ -13,21 +13,29 @@ import {
 	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { CellClickEvent } from '@progress/kendo-angular-grid';
+import { CellClickEvent, RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
 import { ActivatedRoute, Router } from '@angular/router';
 import { process } from '@progress/kendo-data-query';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
+import { TherapyGroupActions } from 'src/app/store/actions/therapy-group.actions';
 import { ITherapyGroup } from 'src/app/shared/interfaces/therapy-group.interface';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { TherapyGroupPopupComponent } from './therapy-group-popup/therapy-group-popup.component';
+import { ModalityForGroupPopupComponent } from '../therapy-group-popups/modality-for-group-popup/modality-for-group-popup.component';
+import { ClinicianForGroupPopupComponent } from '../therapy-group-popups/clinician-for-group-popup/clinician-for-group-popup.component';
+import { LanguageForGroupPopupComponent } from '../therapy-group-popups/language-for-group-popup/language-for-group-popup.component';
+import { LocationForGroupPopupComponent } from '../therapy-group-popups/location-for-group-popup/location-for-group-popup.component';
+import { SeriesPlanForGroupPopupComponent } from '../therapy-group-popups/series-plan-for-group-popup/series-plan-for-group-popup.component';
+import { RoomForGroupPopupComponent } from '../therapy-group-popups/room-for-group-popup/room-for-group-popup.component';
 
 @Component({
 	providers: [],
 	selector: 'advenium-therapy-group-table',
 	templateUrl: './therapy-group-table.component.html',
+	styleUrls: ['../../../home.component.scss', './therapy-group-table.component.scss'],
 })
 export class TherapyGroupTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
@@ -44,6 +52,8 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public selectedItems: string[] = [];
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {
@@ -152,7 +162,7 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 			title: 'Modality',
 			hidden: false,
 			filterable: true,
-			type: 'date',
+			type: 'text',
 		},
 		{
 			field: 'seriesPlanName',
@@ -169,4 +179,156 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 			type: 'text',
 		},
 	];
+
+	public selectionChange(event: SelectionEvent): void {
+		if (event.shiftKey) {
+			if (event.selectedRows?.length !== 0 && event.selectedRows) {
+				this.selectedItems = [
+					...this.selectedItems,
+					...event.selectedRows?.map((item: RowArgs) => item.dataItem.id),
+				];
+			} else {
+				this.selectedItems = [];
+			}
+		} else {
+			if (event.selectedRows && event.selectedRows[0]) {
+				this.selectedItems.push(event.selectedRows[0].dataItem.id);
+			}
+			if (event.deselectedRows && event.deselectedRows[0]) {
+				const idUnselectdItem: string = event.deselectedRows[0].dataItem.id;
+				this.selectedItems = this.selectedItems.filter((item: string) => item !== idUnselectdItem);
+			}
+		}
+	}
+
+	public openDialogClinician(): void {
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Clinician',
+			content: ClinicianForGroupPopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+						ids: this.selectedItems,
+						value: result.clinician.id,
+						entity: 'clinician',
+					}),
+				);
+			}
+		});
+	}
+
+	public openDialogModality(): void {
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Modality',
+			content: ModalityForGroupPopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+						ids: this.selectedItems,
+						value: result.modality.id,
+						entity: 'modality',
+					}),
+				);
+			}
+		});
+	}
+
+	public openDialogLanguage(): void {
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Language',
+			content: LanguageForGroupPopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+						ids: this.selectedItems,
+						value: result.language.id,
+						entity: 'language',
+					}),
+				);
+			}
+		});
+	}
+
+	public openDialogSeriesPlan(): void {
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Series Plan',
+			content: SeriesPlanForGroupPopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+						ids: this.selectedItems,
+						value: result.seriesPlan.id,
+						entity: 'seriesplan',
+					}),
+				);
+			}
+		});
+	}
+
+	public openDialogLocation(): void {
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Location',
+			content: LocationForGroupPopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+						ids: this.selectedItems,
+						value: result.location.id,
+						entity: 'location',
+					}),
+				);
+			}
+		});
+	}
+
+	public openDialogRoom(): void {
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Room',
+			content: RoomForGroupPopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+						ids: this.selectedItems,
+						value: result.room.id,
+						entity: 'room',
+					}),
+				);
+			}
+		});
+	}
 }

@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { Guid } from 'guid-typescript';
+import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { TableEffects } from 'src/app/shared/table/table.effect';
@@ -49,6 +50,7 @@ export class TherapyGroupEffects extends TableEffects {
 		@Inject(GET_CURRENT_ITEM_ERROR) getCurrentItemError: any,
 		_tableService: TableService,
 		_store: Store<any>,
+		_toasterService: ToastrService,
 	) {
 		super(
 			actions$,
@@ -70,6 +72,7 @@ export class TherapyGroupEffects extends TableEffects {
 			getCurrentItemError,
 			_tableService,
 			_store,
+			_toasterService,
 		);
 	}
 

@@ -32,6 +32,12 @@ import { therapyGroupReducers } from './therapy-group-table/therapy-group-table.
 import { TherapyGroupComponent } from './therapy-group.component';
 import { TherapyGroupPopupComponent } from './therapy-group-table/therapy-group-popup/therapy-group-popup.component';
 import { TherapyGroupEffects } from './therapy-group-table/therapy-group-table.effects';
+import { ModalityForGroupPopupComponent } from './therapy-group-popups/modality-for-group-popup/modality-for-group-popup.component';
+import { ClinicianForGroupPopupComponent } from './therapy-group-popups/clinician-for-group-popup/clinician-for-group-popup.component';
+import { LanguageForGroupPopupComponent } from './therapy-group-popups/language-for-group-popup/language-for-group-popup.component';
+import { LocationForGroupPopupComponent } from './therapy-group-popups/location-for-group-popup/location-for-group-popup.component';
+import { SeriesPlanForGroupPopupComponent } from './therapy-group-popups/series-plan-for-group-popup/series-plan-for-group-popup.component';
+import { RoomForGroupPopupComponent } from './therapy-group-popups/room-for-group-popup/room-for-group-popup.component';
 
 @NgModule({
 	imports: [
@@ -55,7 +61,17 @@ import { TherapyGroupEffects } from './therapy-group-table/therapy-group-table.e
 		StoreModule.forFeature('therapyGroupTable', therapyGroupReducers),
 		EffectsModule.forFeature([TherapyGroupEffects]),
 	],
-	declarations: [TherapyGroupComponent, TherapyGroupTableComponent, TherapyGroupPopupComponent],
+	declarations: [
+		TherapyGroupComponent,
+		TherapyGroupTableComponent,
+		TherapyGroupPopupComponent,
+		ModalityForGroupPopupComponent,
+		ClinicianForGroupPopupComponent,
+		LanguageForGroupPopupComponent,
+		LocationForGroupPopupComponent,
+		SeriesPlanForGroupPopupComponent,
+		RoomForGroupPopupComponent,
+	],
 	entryComponents: [],
 	providers: [
 		{

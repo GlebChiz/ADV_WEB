@@ -2,7 +2,8 @@
 	Patient Distribution
 </div>
 <div class="new-button">
-	<button><img src="/assets/images/player.svg" />New Record</button>
+	<button (click)="openDialogSupervisor()">Supervisor</button>
+	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Record</button>
 </div>
 <kendo-grid
 	[filterable]="true"
@@ -16,11 +17,14 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	[selectable]="{ enabled: true, checkboxOnly: true }"
+	(selectionChange)="selectionChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
+	<kendo-grid-checkbox-column [showSelectAll]="true"></kendo-grid-checkbox-column>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"
@@ -77,20 +81,22 @@
 
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link"></div>
-			<!-- (click)="openDialog(dataItem)" -->
+			<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link"></div>
-			<!-- (click)="openDialog(dataItem, true)" -->
+			<div (click)="openDialog(dataItem, true)" class="k-icon k-i-copy k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify"></div>
-			<!-- (click)="deleteWithPopup(dataItem.id)" -->
+			<div
+				(click)="deleteWithPopup(dataItem.id)"
+				class="k-icon k-i-trash k-link"
+				title="Modify"
+			></div>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>
+<div kendoDialogContainer></div>

@@ -27,6 +27,7 @@ import {
 } from 'src/app/shared/table/table.tokens';
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
 import { AssessmentQuestionTableSerivce } from './assessment-question-table.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AssessmentQuestionTableEffects extends TableEffects {
@@ -51,6 +52,7 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: AssessmentQuestionTableSerivce,
+		_toasterService: ToastrService,
 	) {
 		super(
 			actions$,
@@ -72,6 +74,7 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 			getCurrentItemError,
 			_tableService,
 			_store,
+			_toasterService,
 		);
 	}
 
