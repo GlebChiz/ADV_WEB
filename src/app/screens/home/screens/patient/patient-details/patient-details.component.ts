@@ -16,10 +16,6 @@ export class PatientDetailsComponent implements OnInit {
 
 	public canSaveNow = true;
 
-	public changeTab(e: { title: string }): void {
-		this.canSaveNow = e.title !== 'Forms';
-	}
-
 	public ngOnInit(): void {
 		this.store.dispatch(
 			PatientDetailsActions.GetPatientDetailsPending({
