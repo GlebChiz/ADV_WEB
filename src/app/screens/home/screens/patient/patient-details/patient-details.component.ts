@@ -14,6 +14,12 @@ export class PatientDetailsComponent implements OnInit {
 
 	public patientDetails$: Observable<any> = this.store.select('patient');
 
+	public canSaveNow = true;
+
+	public changeTab(e: { title: string }): void {
+		this.canSaveNow = e.title !== 'Forms';
+	}
+
 	public ngOnInit(): void {
 		this.store.dispatch(
 			PatientDetailsActions.GetPatientDetailsPending({

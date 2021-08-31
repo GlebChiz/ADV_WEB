@@ -1,6 +1,10 @@
 <div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
 	Unsupervised Services
 </div>
+<div>
+	<kendo-datepicker placeholder="Start"></kendo-datepicker>
+	<kendo-datepicker placeholder="End"></kendo-datepicker>
+</div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
