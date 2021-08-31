@@ -11,7 +11,6 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { ButtonSelectorComponent } from './components/button-selector/button-selector.component';
 import { AddressControlComponent } from '../controls/address-control/address-control.component';
-import { ClinicianDropdownPopupComponent } from './components/popup/clinician-dropdown-popup/clinician-dropdown-popup.component';
 
 @NgModule({
 	imports: [CommonModule, ReactiveFormsModule],
@@ -29,8 +28,7 @@ import { ClinicianDropdownPopupComponent } from './components/popup/clinician-dr
 		LayoutModule,
 		ButtonSelectorComponent,
 		AddressControlComponent,
-		ClinicianDropdownPopupComponent,
 	],
-	declarations: [ButtonSelectorComponent, AddressControlComponent, ClinicianDropdownPopupComponent],
+	declarations: [ButtonSelectorComponent, AddressControlComponent],
 })
 export class SharedModule {}

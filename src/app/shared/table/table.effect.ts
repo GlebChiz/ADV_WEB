@@ -132,8 +132,6 @@ export class TableEffects {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}Table` as any)),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
-						console.log('latest', latest);
-
 						return this._tableService.create(controller, item).pipe(
 							map(() => {
 								this._toasterService.success('Item has been successfully created');

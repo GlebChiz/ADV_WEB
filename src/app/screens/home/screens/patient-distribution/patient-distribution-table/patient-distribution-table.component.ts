@@ -78,8 +78,6 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 	}
 
 	public selectionChange(event: SelectionEvent): void {
-		console.log(event);
-
 		if (event.shiftKey) {
 			if (event.selectedRows?.length !== 0 && event.selectedRows) {
 				this.selectedItems = [
