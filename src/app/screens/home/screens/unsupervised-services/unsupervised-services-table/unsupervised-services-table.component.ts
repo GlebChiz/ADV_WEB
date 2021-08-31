@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -26,6 +28,29 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+	}
+
+	public from!: Date;
+
+	public to!: Date;
+
+	public valueChange(): void {
+		if (this.gridSettings.state.filter && this.from && this.to) {
+			this.gridSettings.state.filter.filters = [
+				...this.gridSettings.state.filter.filters,
+				{
+					field: 'from',
+					operator: 'custom',
+					value: this.from.toISOString(),
+				},
+				{
+					field: 'to',
+					operator: 'custom',
+					value: this.to.toISOString(),
+				},
+			];
+			super.ngOnInit();
+		}
 	}
 
 	public columns: IColumn[] = [
