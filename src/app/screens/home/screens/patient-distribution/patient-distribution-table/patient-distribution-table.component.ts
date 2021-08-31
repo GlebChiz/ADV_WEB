@@ -13,6 +13,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { PatientDistributionActions } from 'src/app/store/actions/patient-distribution.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { SupervisorForGroupPopupComponent } from '../patient-distribution-group-popups/supervisor-for-group-popup/supervisor-for-group-popup.component';
 import { PatientDistributionPopupComponent } from './patient-distribution-popup/patient-distribution-popup.component';
@@ -77,21 +78,23 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 	}
 
 	public selectionChange(event: SelectionEvent): void {
+		console.log(event);
+
 		if (event.shiftKey) {
 			if (event.selectedRows?.length !== 0 && event.selectedRows) {
 				this.selectedItems = [
 					...this.selectedItems,
-					...event.selectedRows?.map((item: RowArgs) => item.dataItem.id),
+					...event.selectedRows?.map((item: RowArgs) => item.dataItem.patientId),
 				];
 			} else {
 				this.selectedItems = [];
 			}
 		} else {
 			if (event.selectedRows && event.selectedRows[0]) {
-				this.selectedItems.push(event.selectedRows[0].dataItem.id);
+				this.selectedItems.push(event.selectedRows[0].dataItem.patientId);
 			}
 			if (event.deselectedRows && event.deselectedRows[0]) {
-				const idUnselectdItem: string = event.deselectedRows[0].dataItem.id;
+				const idUnselectdItem: string = event.deselectedRows[0].dataItem.patientId;
 				this.selectedItems = this.selectedItems.filter((item: string) => item !== idUnselectdItem);
 			}
 		}
@@ -107,13 +110,13 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 		});
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
-				// this._store.dispatch(
-				// 	TherapyGroupActions.UpdateFiledTherapyGroupPending({
-				// 		ids: this.selectedItems,
-				// 		value: result.clinician.id,
-				// 		entity: 'clinician',
-				// 	}),
-				// );
+				this._store.dispatch(
+					PatientDistributionActions.UpdateFiledPatientDistributionPending({
+						patientIds: this.selectedItems,
+						supervisorId: result.supervisor.id,
+						startDate: result.startDate,
+					}),
+				);
 			}
 		});
 	}

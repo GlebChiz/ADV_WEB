@@ -96,4 +96,10 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetServiceSubTypesError: createAction('[Dropdown] Get ServiceSubTypes error'),
+	GetPatientsPending: createAction('[Dropdown] Get Patients pending'),
+	GetPatientsSuccess: createAction(
+		'[Dropdown] Get ServiceSubType success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetPatientsError: createAction('[Dropdown] Get Patients error'),
 };

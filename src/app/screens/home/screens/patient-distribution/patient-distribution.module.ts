@@ -26,6 +26,8 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { ClinicianDropdownPopupComponent } from './patient-distribution-group-popups/clinician-dropdown-popup/clinician-dropdown-popup.component';
+import { PatientDropdownPopupComponent } from './patient-distribution-group-popups/patient-dropdown-popup/patient-dropdown-popup.component';
 import { SupervisorForGroupPopupComponent } from './patient-distribution-group-popups/supervisor-for-group-popup/supervisor-for-group-popup.component';
 import { PatientDistributionPopupComponent } from './patient-distribution-table/patient-distribution-popup/patient-distribution-popup.component';
 import { PatientDistributionTableActions } from './patient-distribution-table/patient-distribution-table.actions';
@@ -43,7 +45,7 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 				component: PatientDistributionComponent,
 			},
 		]),
-		StoreModule.forFeature('patientSupervisorTable', patientDistributionTableReducers),
+		StoreModule.forFeature('patientsupervisorTable', patientDistributionTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [
@@ -51,6 +53,8 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 		PatientDistributionTableComponent,
 		PatientDistributionPopupComponent,
 		SupervisorForGroupPopupComponent,
+		ClinicianDropdownPopupComponent,
+		PatientDropdownPopupComponent,
 	],
 	entryComponents: [],
 	providers: [

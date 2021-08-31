@@ -66,4 +66,8 @@ export class DropdownService {
 	public getSnipitCategory(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/SnipitCategory');
 	}
+
+	public getPatients(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/patients');
+	}
 }

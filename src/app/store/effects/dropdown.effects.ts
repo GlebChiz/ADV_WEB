@@ -219,4 +219,20 @@ export class DropdownEffects {
 			),
 		),
 	);
+
+	public getPatients$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetPatientsPending),
+			mergeMap(() =>
+				this.service.getPatients().pipe(
+					map((data: IDropdownData[]) => {
+						console.log(data);
+
+						return DropdownActions.GetPatientsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetPatientsError())),
+				),
+			),
+		),
+	);
 }

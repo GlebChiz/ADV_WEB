@@ -11,6 +11,5 @@ export class TherapyGroupService {
 			ids,
 			value,
 		});
-		// return this.http.post('create', user);
 	}
 }
