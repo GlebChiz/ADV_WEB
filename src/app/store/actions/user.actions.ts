@@ -31,6 +31,7 @@ export const UserActions = {
 };
 
 export interface IUser {
+	id: Guid;
 	userId: number;
 	userName: string;
 	// userNameId: string;

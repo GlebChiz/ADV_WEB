@@ -26,6 +26,7 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { SupervisorForGroupPopupComponent } from './patient-distribution-group-popups/supervisor-for-group-popup/supervisor-for-group-popup.component';
 import { PatientDistributionPopupComponent } from './patient-distribution-table/patient-distribution-popup/patient-distribution-popup.component';
 import { PatientDistributionTableActions } from './patient-distribution-table/patient-distribution-table.actions';
 import { PatientDistributionTableComponent } from './patient-distribution-table/patient-distribution-table.component';
@@ -49,6 +50,7 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 		PatientDistributionComponent,
 		PatientDistributionTableComponent,
 		PatientDistributionPopupComponent,
+		SupervisorForGroupPopupComponent,
 	],
 	entryComponents: [],
 	providers: [
