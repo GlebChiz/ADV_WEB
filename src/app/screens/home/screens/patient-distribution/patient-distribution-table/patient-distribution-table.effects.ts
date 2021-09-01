@@ -111,7 +111,6 @@ export class PatientDistributionEffects extends TableEffects {
 										mergeMap(() => {
 											return [
 												PatientDistributionTableActions.UpdateFiledPatientDistributionSuccess(),
-
 												this.getTableDataPending({
 													controller,
 													filter: latest.table.filter,
@@ -130,6 +129,7 @@ export class PatientDistributionEffects extends TableEffects {
 			),
 		);
 	});
+<<<<<<< HEAD
 
 	// public updateFieldTherapyGroup$ = createEffect(() => {
 	// 	return this.actions$.pipe(
@@ -170,4 +170,6 @@ export class PatientDistributionEffects extends TableEffects {
 	// 		),
 	// 	);
 	// });
+=======
+>>>>>>> 97eda806b936530069b50e82ba00012f9cbb0807
 }
