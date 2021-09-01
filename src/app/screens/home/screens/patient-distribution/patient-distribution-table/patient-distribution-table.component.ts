@@ -112,7 +112,7 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 					PatientDistributionTableActions.UpdateFiledPatientDistributionPending({
 						patientIds: this.selectedItems,
 						supervisorId: result.supervisor.id,
-						startDate: result.startDate,
+						start: result.startDate,
 						controller: this.controller,
 					}),
 				);

@@ -74,4 +74,28 @@ export class DropdownService {
 	public getRooms(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/rooms');
 	}
+
+	public getSex(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/Sex');
+	}
+
+	public getGender(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/Gender');
+	}
+
+	public getSexOrientation(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/SexOrientation');
+	}
+
+	public getRace(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/Race');
+	}
+
+	public getMaritalStatus(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/MaritalStatus');
+	}
+
+	public getEmployement(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/Employement');
+	}
 }

@@ -88,12 +88,12 @@ export class PatientDistributionEffects extends TableEffects {
 				({
 					patientIds,
 					supervisorId,
-					startDate,
+					start,
 					controller,
 				}: {
 					patientIds: string[];
 					supervisorId: string;
-					startDate: Date;
+					start: Date;
 					controller: string;
 				}) => {
 					return of(1).pipe(
@@ -103,8 +103,10 @@ export class PatientDistributionEffects extends TableEffects {
 								number,
 								ITableGroupState<IPatientDistribution, IPatientDistributionCurrent>,
 							]) => {
+								console.log(latest);
+
 								return this._service
-									.updateFieldPatientDistribution(patientIds, supervisorId, startDate)
+									.updateFieldPatientDistribution(patientIds, supervisorId, start)
 									.pipe(
 										mergeMap(() => {
 											return [
@@ -127,4 +129,47 @@ export class PatientDistributionEffects extends TableEffects {
 			),
 		);
 	});
+<<<<<<< HEAD
+
+	// public updateFieldTherapyGroup$ = createEffect(() => {
+	// 	return this.actions$.pipe(
+	// 		ofType(TherapyGroupTableActions.UpdateFiledTherapyGroupPending),
+	// 		switchMap(
+	// 			({
+	// 				ids,
+	// 				value,
+	// 				entity,
+	// 				controller,
+	// 			}: {
+	// 				ids: string[];
+	// 				value: any;
+	// 				entity: string;
+	// 				controller: string;
+	// 			}) => {
+	// 				return of(1).pipe(
+	// 					withLatestFrom(this._store.select(`${controller}Table`)),
+	// 					switchMap(
+	// 						([, latest]: [number, ITableGroupState<ITherapyGroup, ITherapyGroupCurrent>]) => {
+	// 							return this._service.updateFieldTherapyGroup(ids, value, entity).pipe(
+	// 								mergeMap(() => {
+	// 									return [
+	// 										TherapyGroupTableActions.UpdateFiledTherapyGroupSuccess(),
+	// 										this.getTableDataPending({
+	// 											controller,
+	// 											filter: latest.table.filter,
+	// 											columns: latest.table.columns,
+	// 										}),
+	// 									];
+	// 								}),
+	// 								catchError(() => of(TherapyGroupTableActions.UpdateFiledTherapyGroupError())),
+	// 							);
+	// 						},
+	// 					),
+	// 				);
+	// 			},
+	// 		),
+	// 	);
+	// });
+=======
+>>>>>>> 97eda806b936530069b50e82ba00012f9cbb0807
 }

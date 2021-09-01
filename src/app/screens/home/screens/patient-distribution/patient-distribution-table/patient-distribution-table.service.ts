@@ -9,12 +9,12 @@ export class PatientDistributionService {
 	public updateFieldPatientDistribution(
 		patientIds: string[],
 		supervisorId: string,
-		startDate: Date,
+		start: Date,
 	): Observable<any> {
 		return this.http.put(`patientsupervisor/move-to-supervisor`, {
 			supervisorId,
 			patientIds,
-			startDate,
+			start,
 		});
 	}
 }
