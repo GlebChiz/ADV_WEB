@@ -233,4 +233,18 @@ export class DropdownEffects {
 			),
 		),
 	);
+
+	public getRooms$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetRoomsPending),
+			mergeMap(() =>
+				this.service.getRooms().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetRoomsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetRoomsError())),
+				),
+			),
+		),
+	);
 }

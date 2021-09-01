@@ -107,5 +107,11 @@ export function dropdownReducers(
 				return { ...state, patients: data, isLoading: false };
 			},
 		),
+		on(
+			DropdownActions.GetRoomsSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, rooms: data, isLoading: false };
+			},
+		),
 	)(dropdownState, action);
 }
