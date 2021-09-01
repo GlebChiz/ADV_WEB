@@ -20,7 +20,6 @@ import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-ang
 import { FormControl, FormGroup } from '@angular/forms';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
-import { TherapyGroupActions } from 'src/app/store/actions/therapy-group.actions';
 import { ITherapyGroup } from 'src/app/shared/interfaces/therapy-group.interface';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { TherapyGroupPopupComponent } from './therapy-group-popup/therapy-group-popup.component';
@@ -30,6 +29,7 @@ import { LanguageForGroupPopupComponent } from '../therapy-group-popups/language
 import { LocationForGroupPopupComponent } from '../therapy-group-popups/location-for-group-popup/location-for-group-popup.component';
 import { SeriesPlanForGroupPopupComponent } from '../therapy-group-popups/series-plan-for-group-popup/series-plan-for-group-popup.component';
 import { RoomForGroupPopupComponent } from '../therapy-group-popups/room-for-group-popup/room-for-group-popup.component';
+import { TherapyGroupTableActions } from './therapy-group-table.actions';
 
 @Component({
 	providers: [],
@@ -212,10 +212,11 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+					TherapyGroupTableActions.UpdateFiledTherapyGroupPending({
 						ids: this.selectedItems,
 						value: result.clinician.id,
 						entity: 'clinician',
+						controller: this.controller,
 					}),
 				);
 			}
@@ -234,10 +235,11 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+					TherapyGroupTableActions.UpdateFiledTherapyGroupPending({
 						ids: this.selectedItems,
 						value: result.modality.id,
 						entity: 'modality',
+						controller: this.controller,
 					}),
 				);
 			}
@@ -256,10 +258,11 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+					TherapyGroupTableActions.UpdateFiledTherapyGroupPending({
 						ids: this.selectedItems,
 						value: result.language.id,
 						entity: 'language',
+						controller: this.controller,
 					}),
 				);
 			}
@@ -278,10 +281,11 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+					TherapyGroupTableActions.UpdateFiledTherapyGroupPending({
 						ids: this.selectedItems,
 						value: result.seriesPlan.id,
 						entity: 'seriesplan',
+						controller: this.controller,
 					}),
 				);
 			}
@@ -300,10 +304,11 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+					TherapyGroupTableActions.UpdateFiledTherapyGroupPending({
 						ids: this.selectedItems,
 						value: result.location.id,
 						entity: 'location',
+						controller: this.controller,
 					}),
 				);
 			}
@@ -322,10 +327,11 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					TherapyGroupActions.UpdateFiledTherapyGroupPending({
+					TherapyGroupTableActions.UpdateFiledTherapyGroupPending({
 						ids: this.selectedItems,
 						value: result.room.id,
 						entity: 'room',
+						controller: this.controller,
 					}),
 				);
 			}

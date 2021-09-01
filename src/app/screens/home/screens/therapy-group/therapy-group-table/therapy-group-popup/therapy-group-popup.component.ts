@@ -44,7 +44,7 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public rooms$: Observable<any> = this._store
-		.select('therapyGroupTable', 'rooms', 'data')
+		.select('therapygroupTable', 'rooms', 'data')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public therapyGroupForm!: FormGroup;
@@ -119,7 +119,7 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 		this._store.dispatch(DropdownActions.GetLocationsPending());
 		this._store.dispatch(DropdownActions.GetCliniciansPending());
 		this._store
-			.select('therapyGroupTable', 'table')
+			.select('therapygroupTable', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((therapyGroupTable: unknown) => {
 				this.therapyGroup = (

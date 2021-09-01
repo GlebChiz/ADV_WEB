@@ -233,4 +233,102 @@ export class DropdownEffects {
 			),
 		),
 	);
+
+	public getRooms$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetRoomsPending),
+			mergeMap(() =>
+				this.service.getRooms().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetRoomsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetRoomsError())),
+				),
+			),
+		),
+	);
+
+	public getSex$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetSexPending),
+			mergeMap(() =>
+				this.service.getSex().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetSexSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetSexError())),
+				),
+			),
+		),
+	);
+
+	public getGender$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetGenderPending),
+			mergeMap(() =>
+				this.service.getGender().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetGenderSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetGenderError())),
+				),
+			),
+		),
+	);
+
+	public getRace$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetRacePending),
+			mergeMap(() =>
+				this.service.getRace().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetRaceSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetRaceError())),
+				),
+			),
+		),
+	);
+
+	public getSexOrientation$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetSexOrientationPending),
+			mergeMap(() =>
+				this.service.getSexOrientation().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetSexOrientationSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetSexOrientationError())),
+				),
+			),
+		),
+	);
+
+	public getMaritalStatus$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetMaritalStatusPending),
+			mergeMap(() =>
+				this.service.getMaritalStatus().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetMaritalStatusSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetMaritalStatusError())),
+				),
+			),
+		),
+	);
+
+	public getEmployement$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetEmployementPending),
+			mergeMap(() =>
+				this.service.getEmployement().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetEmployementSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetEmployementError())),
+				),
+			),
+		),
+	);
 }

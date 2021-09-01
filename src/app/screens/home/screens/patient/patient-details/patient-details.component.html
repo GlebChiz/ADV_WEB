@@ -3,7 +3,11 @@
 		<ng-template kendoTabContent> <div>Hellow World1</div></ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Demographic">
-		<ng-template kendoTabContent> <div>Hellow World2</div></ng-template>
+		<ng-template kendoTabContent>
+			<form [formGroup]="myForm">
+				<advenium-demographic-info formControlName="demographic"></advenium-demographic-info>
+			</form>
+		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Contacts">
 		<ng-template kendoTabContent> <div>Hellow World3</div></ng-template>

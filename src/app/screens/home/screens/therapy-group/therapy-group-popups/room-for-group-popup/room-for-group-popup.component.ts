@@ -40,12 +40,12 @@ export class RoomForGroupPopupComponent extends UnSubscriber implements OnInit, 
 
 	public initForm(): void {
 		this.myRoomForm = new FormGroup({
-			modality: new FormControl([]),
+			room: new FormControl([]),
 		});
 	}
 
 	public ngOnInit(): void {
-		this._store.dispatch(DropdownActions.GetModalitiesPending());
+		this._store.dispatch(DropdownActions.GetRoomsPending());
 		this.initForm();
 	}
 

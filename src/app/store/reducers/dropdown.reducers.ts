@@ -107,5 +107,48 @@ export function dropdownReducers(
 				return { ...state, patients: data, isLoading: false };
 			},
 		),
+		on(
+			DropdownActions.GetRoomsSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, rooms: data, isLoading: false };
+			},
+		),
+		//
+		on(
+			DropdownActions.GetSexSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, sex: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetGenderSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, gender: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetMaritalStatusSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, maritalStatus: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetEmployementSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, employement: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetSexOrientationSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, sexOrientation: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetRaceSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, race: data, isLoading: false };
+			},
+		),
 	)(dropdownState, action);
 }
