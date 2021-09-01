@@ -117,7 +117,9 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			minWidth: 250,
 		});
 
-		dialog.content.instance.sessionPlan = { ...dataItem };
+		dialog.content.instance.sessionPlan = dataItem
+			? { ...dataItem }
+			: { calloutMinutes1: 15, calloutMinutes2: 25, calloutMinutes3: 35, wrapupMinutes: 43 };
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				if (isDublicate) {

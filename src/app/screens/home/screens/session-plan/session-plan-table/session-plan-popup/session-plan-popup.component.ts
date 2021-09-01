@@ -59,13 +59,13 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, A
 			title: new FormControl(this.sessionPlan?.title || ''),
 			method: new FormControl(this.sessionPlan?.method || ''),
 			outline: new FormControl(this.sessionPlan?.outline || ''),
-			calloutMinutes1: new FormControl(this.sessionPlan?.calloutMinutes1 || ''),
+			calloutMinutes1: new FormControl(this.sessionPlan?.calloutMinutes1 || '0'),
 			callout1: new FormControl(this.sessionPlan?.callout1 || ''),
-			calloutMinutes2: new FormControl(this.sessionPlan?.calloutMinutes2 || ''),
+			calloutMinutes2: new FormControl(this.sessionPlan?.calloutMinutes2 || '0'),
 			callout2: new FormControl(this.sessionPlan?.callout2 || ''),
-			calloutMinutes3: new FormControl(this.sessionPlan?.calloutMinutes3 || ''),
+			calloutMinutes3: new FormControl(this.sessionPlan?.calloutMinutes3 || '0'),
 			callout3: new FormControl(this.sessionPlan?.callout3 || ''),
-			wrapupMinutes: new FormControl(this.sessionPlan?.wrapupMinutes || ''),
+			wrapupMinutes: new FormControl(this.sessionPlan?.wrapupMinutes || '0'),
 			wrapup: new FormControl(this.sessionPlan?.wrapup || ''),
 		});
 	}
