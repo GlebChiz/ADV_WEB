@@ -55,6 +55,7 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 			end: new FormControl(this.supervisorLicense?.end || ''),
 			providerId: new FormControl(this.supervisorLicense?.providerId || ''),
 		});
+		console.log(this.supervisorLicense);
 	}
 
 	public supervisor$: Observable<IDropdownData[]> = this._store.select(
