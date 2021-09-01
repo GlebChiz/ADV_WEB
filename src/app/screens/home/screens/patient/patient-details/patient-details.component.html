@@ -1,22 +1,80 @@
 <kendo-tabstrip>
-	<kendo-tabstrip-tab title="General" [selected]="true">
-		<ng-template kendoTabContent> <div>Hellow World1</div></ng-template>
+	<kendo-tabstrip-tab title="Personal Info" [selected]="true">
+		<ng-template kendoTabContent>
+			<form [formGroup]="personGeneral" novalidate>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100 form-style">
+							<label>Firstname</label>
+							<input
+								name="firstname"
+								formControlName="firstname"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100 form-style">
+							<label>Middle name</label>
+							<input
+								name="middlename"
+								formControlName="middlename"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100 form-style">
+							<label>Last name</label>
+							<input
+								name="lastname"
+								formControlName="lastname"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="column w-100" style="margin: 10px 0">
+					<div class="w-100 form-style">
+						<label>Date of birth</label>
+						<kendo-datepicker formControlName="dob"></kendo-datepicker>
+					</div>
+				</div>
+				<div>
+					<advenium-address
+						class="form-style"
+						formControlName="address"
+						name="address"
+					></advenium-address>
+				</div>
+			</form>
+		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Demographic">
 		<ng-template kendoTabContent>
-			<form [formGroup]="myForm">
+			<form [formGroup]="personGeneral">
 				<advenium-demographic-info formControlName="demographic"></advenium-demographic-info>
 			</form>
 		</ng-template>
 	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Contacts">
+	<kendo-tabstrip-tab title="Contact Info">
 		<ng-template kendoTabContent> <div>Hellow World3</div></ng-template>
 	</kendo-tabstrip-tab>
 
 	<kendo-tabstrip-tab title="Insurance">
 		<ng-template kendoTabContent><div>Hellow World4</div> </ng-template>
-	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Modality Selection">
-		<ng-template kendoTabContent><div>Hellow World5</div> </ng-template>
 	</kendo-tabstrip-tab>
 </kendo-tabstrip>

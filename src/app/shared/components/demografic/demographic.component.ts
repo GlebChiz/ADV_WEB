@@ -1,7 +1,6 @@
 import { Component, forwardRef, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
-
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -67,10 +66,6 @@ export class DemographicComponent extends UnSubscriber implements OnInit {
 	};
 
 	public initForm(): void {
-		console.log(123123123123);
-
-		console.log(this.demographic);
-
 		this.myDemographicForm = new FormGroup({
 			sex: new FormControl(''),
 			gender: new FormControl(''),

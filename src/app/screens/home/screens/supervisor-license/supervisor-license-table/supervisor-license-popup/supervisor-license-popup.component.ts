@@ -41,7 +41,7 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 
 	public onConfirmAction(): void {
 		this._dialogService.close({
-			// ...this.supervisorLicense,
+			...this.supervisorLicense,
 			...this.myForm.value,
 		});
 	}

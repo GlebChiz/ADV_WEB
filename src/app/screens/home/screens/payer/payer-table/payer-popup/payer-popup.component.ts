@@ -47,6 +47,7 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 			payerId: new FormControl(this.payer?.payerId),
 			address: new FormControl(this.payer?.address),
 		});
+		console.log(this.payer);
 	}
 
 	public ngOnInit(): void {

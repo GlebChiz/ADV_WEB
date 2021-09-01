@@ -1,0 +1,14 @@
+.form-style {
+	display: flex;
+	padding-left: 10px;
+	padding-bottom: 24px;
+	label {
+		width: 100%;
+		max-width: 216px;
+		align-self: center;
+		margin-bottom: 0;
+	}
+	input {
+		max-width: 508px;
+	}
+}

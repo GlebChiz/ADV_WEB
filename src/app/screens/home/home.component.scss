@@ -11,6 +11,9 @@ kendo-drawer-content {
 	background: #631ed3;
 	border-color: #fff;
 }
+::ng-deep .k-tabstrip > .k-content {
+	border: none;
+}
 ::ng-deep .k-grid tr.k-state-selected > td {
 	background: #631ed3;
 	color: #fff;

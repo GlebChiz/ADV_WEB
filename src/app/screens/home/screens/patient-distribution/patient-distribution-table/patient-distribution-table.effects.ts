@@ -103,8 +103,6 @@ export class PatientDistributionEffects extends TableEffects {
 								number,
 								ITableGroupState<IPatientDistribution, IPatientDistributionCurrent>,
 							]) => {
-								console.log(latest);
-
 								return this._service
 									.updateFieldPatientDistribution(patientIds, supervisorId, start)
 									.pipe(

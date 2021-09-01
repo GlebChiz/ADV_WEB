@@ -43,6 +43,7 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy 
 		this.subscriptions.push(
 			// any time the inner form changes update the parent of any change
 			this.form.valueChanges.subscribe((value) => {
+				console.log(`hi hi hi hi hi hi: ${value}`);
 				this.onChange(value);
 				this.onTouched();
 			}),
