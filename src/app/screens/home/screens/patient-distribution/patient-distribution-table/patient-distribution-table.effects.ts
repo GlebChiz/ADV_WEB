@@ -88,12 +88,12 @@ export class PatientDistributionEffects extends TableEffects {
 				({
 					patientIds,
 					supervisorId,
-					startDate,
+					start,
 					controller,
 				}: {
 					patientIds: string[];
 					supervisorId: string;
-					startDate: Date;
+					start: Date;
 					controller: string;
 				}) => {
 					return of(1).pipe(
@@ -104,7 +104,7 @@ export class PatientDistributionEffects extends TableEffects {
 								ITableGroupState<IPatientDistribution, IPatientDistributionCurrent>,
 							]) => {
 								return this._service
-									.updateFieldPatientDistribution(patientIds, supervisorId, startDate)
+									.updateFieldPatientDistribution(patientIds, supervisorId, start)
 									.pipe(
 										mergeMap(() => {
 											return [

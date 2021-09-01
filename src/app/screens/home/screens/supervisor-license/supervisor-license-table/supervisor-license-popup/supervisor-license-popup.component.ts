@@ -41,7 +41,7 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 
 	public onConfirmAction(): void {
 		this._dialogService.close({
-			...this.supervisorLicense,
+			// ...this.supervisorLicense,
 			...this.myForm.value,
 		});
 	}
@@ -49,10 +49,10 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	public initForm(): void {
 		this.myForm = new FormGroup({
 			id: new FormControl(this.supervisorLicense?.id || ''),
-			supervisor: new FormControl(this.supervisorLicense?.supervisor || ''),
-			payer: new FormControl(this.supervisorLicense?.payer || ''),
-			start: new FormControl(this.supervisorLicense?.start || ''),
-			end: new FormControl(this.supervisorLicense?.end || ''),
+			clinicianId: new FormControl(this.supervisorLicense?.supervisor || ''),
+			payerId: new FormControl(this.supervisorLicense?.payer || ''),
+			startDate: new FormControl(this.supervisorLicense?.start || ''),
+			endDate: new FormControl(this.supervisorLicense?.end || ''),
 			providerId: new FormControl(this.supervisorLicense?.providerId || ''),
 		});
 	}

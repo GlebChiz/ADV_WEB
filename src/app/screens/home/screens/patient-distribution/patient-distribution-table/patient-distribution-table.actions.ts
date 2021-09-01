@@ -90,7 +90,7 @@ export const PatientDistributionTableActions = {
 	ClearPatientDistributionTable: createAction('[Patient Distribution Table] Clear'),
 	UpdateFiledPatientDistributionPending: createAction(
 		'[Patient Distribution] Update filed patient distribution pending',
-		props<{ patientIds: string[]; supervisorId: string; startDate: Date; controller: string }>(),
+		props<{ patientIds: string[]; supervisorId: string; start: Date; controller: string }>(),
 	),
 	UpdateFiledPatientDistributionError: createAction(
 		'[Patient Distribution] Update filed patient distribution error',

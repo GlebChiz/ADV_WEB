@@ -7,12 +7,12 @@
 						<div class="w-100">
 							<label>Supervisor</label>
 							<kendo-combobox
-								valueField="name"
+								valueField="id"
 								style="min-width: 200px; width: 100%"
 								textField="name"
 								[data]="(supervisor$ | async) || []"
 								[kendoDropDownFilter]="filterSettings"
-								formControlName="supervisor"
+								formControlName="clinicianId"
 								[valuePrimitive]="true"
 							>
 							</kendo-combobox>
@@ -24,12 +24,12 @@
 						<div class="w-100">
 							<label>Payer</label>
 							<kendo-combobox
-								valueField="name"
+								valueField="id"
 								style="min-width: 200px; width: 100%"
 								textField="name"
 								[data]="(payers$ | async) || []"
 								[kendoDropDownFilter]="filterSettings"
-								formControlName="payer"
+								formControlName="payerId"
 								[valuePrimitive]="true"
 							>
 							</kendo-combobox>
@@ -42,7 +42,7 @@
 							<label>Start</label>
 							<input
 								name="start"
-								formControlName="start"
+								formControlName="startDate"
 								kendoTextBox
 								class="k-textbox"
 								style="width: 100%"
@@ -57,7 +57,7 @@
 							<label>End</label>
 							<input
 								name="end"
-								formControlName="end"
+								formControlName="endDate"
 								kendoTextBox
 								class="k-textbox"
 								style="width: 100%"

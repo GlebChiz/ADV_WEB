@@ -41,7 +41,7 @@ import { UnsupervisedServicesComponent } from './unsupervised-services.component
 				component: UnsupervisedServicesComponent,
 			},
 		]),
-		StoreModule.forFeature('unsupervisedServicesTable', unsupervisedServicesTableReducers),
+		StoreModule.forFeature('vunsupervisedserviceTable', unsupervisedServicesTableReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [UnsupervisedServicesComponent, UnsupervisedServicesTableComponent],
