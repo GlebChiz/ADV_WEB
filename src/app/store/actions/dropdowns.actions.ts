@@ -98,8 +98,46 @@ export const DropdownActions = {
 	GetServiceSubTypesError: createAction('[Dropdown] Get ServiceSubTypes error'),
 	GetPatientsPending: createAction('[Dropdown] Get Patients pending'),
 	GetPatientsSuccess: createAction(
-		'[Dropdown] Get ServiceSubType success',
+		'[Dropdown] Get Patients success',
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetPatientsError: createAction('[Dropdown] Get Patients error'),
+	GetRoomsPending: createAction('[Dropdown] Get Rooms pending'),
+	GetRoomsSuccess: createAction('[Dropdown] Get Rooms success', props<{ data: IDropdownData[] }>()),
+	GetRoomsError: createAction('[Dropdown] Get Rooms error'),
+	GetSexPending: createAction('[Dropdown] Get Sex pending'),
+	GetSexSuccess: createAction('[Dropdown] Get Sex success', props<{ data: IDropdownData[] }>()),
+	GetSexError: createAction('[Dropdown] Get Sex error'),
+
+	GetGenderPending: createAction('[Dropdown] Get Gender pending'),
+	GetGenderSuccess: createAction(
+		'[Dropdown] Get Gender success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetGenderError: createAction('[Dropdown] Get Gender error'),
+
+	GetSexOrientationPending: createAction('[Dropdown] Get SexOrientation pending'),
+	GetSexOrientationSuccess: createAction(
+		'[Dropdown] Get SexOrientation success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetSexOrientationError: createAction('[Dropdown] Get SexOrientation error'),
+
+	GetRacePending: createAction('[Dropdown] Get Race pending'),
+	GetRaceSuccess: createAction('[Dropdown] Get Race success', props<{ data: IDropdownData[] }>()),
+	GetRaceError: createAction('[Dropdown] Get Race error'),
+
+	GetMaritalStatusPending: createAction('[Dropdown] Get MaritalStatus pending'),
+	GetMaritalStatusSuccess: createAction(
+		'[Dropdown] Get MaritalStatus success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetMaritalStatusError: createAction('[Dropdown] Get MaritalStatus error'),
+
+	GetEmployementPending: createAction('[Dropdown] Get Employement pending'),
+	GetEmployementSuccess: createAction(
+		'[Dropdown] Get Employement success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetEmployementError: createAction('[Dropdown] Get Employement error'),
 };

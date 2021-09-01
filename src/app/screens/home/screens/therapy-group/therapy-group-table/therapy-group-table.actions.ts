@@ -98,4 +98,12 @@ export const TherapyGroupTableActions = {
 	),
 	GetRoomsSuccess: createAction('[Therapy Group Table] rooms success', props<{ rooms: any[] }>()),
 	GetRoomsError: createAction('[Therapy Group Table] get rooms error'),
+	UpdateFiledTherapyGroupPending: createAction(
+		'[Therapy Group] Update filed therapy group pending',
+		props<{ ids: string[]; value: any; entity: string; controller: string }>(),
+	),
+	UpdateFiledTherapyGroupError: createAction('[Therapy Group] Update filed therapy group error'),
+	UpdateFiledTherapyGroupSuccess: createAction(
+		'[Therapy Group] Update filed therapy group success',
+	),
 };

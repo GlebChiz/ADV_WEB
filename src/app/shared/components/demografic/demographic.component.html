@@ -1,0 +1,81 @@
+<form [formGroup]="myDemographicForm">
+	<div class="clearfix">
+		<div>
+			<label>Administrative Sex</label>
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(administrativeSex$ | async) || []"
+				formControlName="sex"
+			>
+			</kendo-combobox>
+		</div>
+		<div>
+			<label>Gender Identity</label>
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(genderIdentity$ | async) || []"
+				formControlName="gender"
+			>
+			</kendo-combobox>
+		</div>
+		<div>
+			<label>Sexual Orientation</label>
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(sexualOrientation$ | async) || []"
+				formControlName="sexOrientation"
+			>
+			</kendo-combobox>
+		</div>
+		<div>
+			<label>Race</label>
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(race$ | async) || []"
+				formControlName="race"
+			>
+			</kendo-combobox>
+		</div>
+		<div>
+			<label>Languages</label>
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(languages$ | async) || []"
+				formControlName="languages"
+			>
+			</kendo-combobox>
+		</div>
+		<div>
+			<label>Marital Status</label>
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(maritalStatus$ | async) || []"
+				formControlName="maritalStatus"
+			>
+			</kendo-combobox>
+		</div>
+		<div>
+			<label>Employment</label>
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(employement$ | async) || []"
+				formControlName="employement"
+			>
+			</kendo-combobox>
+		</div>
+	</div>
+</form>

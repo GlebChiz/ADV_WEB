@@ -13,10 +13,10 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { PatientDistributionActions } from 'src/app/store/actions/patient-distribution.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { SupervisorForGroupPopupComponent } from '../patient-distribution-group-popups/supervisor-for-group-popup/supervisor-for-group-popup.component';
 import { PatientDistributionPopupComponent } from './patient-distribution-popup/patient-distribution-popup.component';
+import { PatientDistributionTableActions } from './patient-distribution-table.actions';
 
 @Component({
 	providers: [],
@@ -109,10 +109,11 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					PatientDistributionActions.UpdateFiledPatientDistributionPending({
+					PatientDistributionTableActions.UpdateFiledPatientDistributionPending({
 						patientIds: this.selectedItems,
 						supervisorId: result.supervisor.id,
-						startDate: result.startDate,
+						start: result.startDate,
+						controller: this.controller,
 					}),
 				);
 			}

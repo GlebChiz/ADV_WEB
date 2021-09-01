@@ -19,16 +19,12 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy 
 
 	public subscriptions: Subscription[] = [];
 
-	public metaData: any;
-
 	public get value(): Address {
 		return this.form.value;
 	}
 
 	public set value(value: Address) {
 		this.form.setValue(value);
-		// this.onChange(value);
-		// this.onTouched();
 	}
 
 	public constructor(private formBuilder: FormBuilder) {

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -5,8 +7,10 @@ import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { Guid } from 'guid-typescript';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { ITherapyGroup } from 'src/app/shared/interfaces/therapy-group.interface';
 import { TableEffects } from 'src/app/shared/table/table.effect';
+import { ITableGroupState } from 'src/app/shared/table/table.reducer';
 import { TableService } from 'src/app/shared/table/table.service';
 import {
 	GET_TABLE_DATA_PENDING,
@@ -26,7 +30,9 @@ import {
 	GET_CURRENT_ITEM_SUCCESS,
 	GET_CURRENT_ITEM_ERROR,
 } from 'src/app/shared/table/table.tokens';
+import { ITherapyGroupCurrent } from './therapy-group-popup/therapy-group-popup.component';
 import { TherapyGroupTableActions } from './therapy-group-table.actions';
+import { TherapyGroupService } from './therapy-group-table.service';
 
 @Injectable()
 export class TherapyGroupEffects extends TableEffects {
@@ -51,6 +57,7 @@ export class TherapyGroupEffects extends TableEffects {
 		_tableService: TableService,
 		_store: Store<any>,
 		_toasterService: ToastrService,
+		private _service: TherapyGroupService,
 	) {
 		super(
 			actions$,
@@ -109,6 +116,46 @@ export class TherapyGroupEffects extends TableEffects {
 								return of(TherapyGroupTableActions.GetRoomsError());
 							}),
 						);
+				},
+			),
+		);
+	});
+
+	public updateFieldTherapyGroup$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(TherapyGroupTableActions.UpdateFiledTherapyGroupPending),
+			switchMap(
+				({
+					ids,
+					value,
+					entity,
+					controller,
+				}: {
+					ids: string[];
+					value: any;
+					entity: string;
+					controller: string;
+				}) => {
+					return of(1).pipe(
+						withLatestFrom(this._store.select(`${controller}Table`)),
+						switchMap(
+							([, latest]: [number, ITableGroupState<ITherapyGroup, ITherapyGroupCurrent>]) => {
+								return this._service.updateFieldTherapyGroup(ids, value, entity).pipe(
+									mergeMap(() => {
+										return [
+											TherapyGroupTableActions.UpdateFiledTherapyGroupSuccess(),
+											this.getTableDataPending({
+												controller,
+												filter: latest.table.filter,
+												columns: latest.table.columns,
+											}),
+										];
+									}),
+									catchError(() => of(TherapyGroupTableActions.UpdateFiledTherapyGroupError())),
+								);
+							},
+						),
+					);
 				},
 			),
 		);

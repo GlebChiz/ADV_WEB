@@ -21,12 +21,16 @@
 			<div class="infos">
 				<div class="info">{{ infoLocation?.name }}</div>
 				<div class="info">
-					{{ infoLocation?.city }} {{ infoLocation?.address?.state }}
+					{{ infoLocation?.address?.state }}
 					{{ infoLocation?.address?.zip }}
 				</div>
 				<div class="info">{{ infoLocation?.billingCode }}</div>
 				<div class="info">{{ infoLocation?.code }}</div>
-				<div class="info">{{ infoLocation?.initiativeIds | json }}</div>
+
+				<div class="info" *ngFor="let initiativeId of initiativeIds; index as i">
+					<span>{{ initiativeId }}</span>
+					<span *ngIf="i + 1 !== initiativeIds?.length">, </span>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -9,18 +9,22 @@ import { PatientDetailsActions } from './store/actions/patient-details.actions';
 	providers: [],
 	selector: 'advenium-patient-details',
 	templateUrl: './patient-details.component.html',
+	styleUrls: ['./patient-details.component.scss'],
 })
 export class PatientDetailsComponent implements OnInit {
 	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {}
 
 	public current!: any;
 
-	public personGeneral!: FormGroup;
+	public myForm!: FormGroup;
 
-	public patientDetails$: Observable<any> = this.store.select('patient', 'persona');
+	public patientDetails$: Observable<any> = this.store.select('patient');
+
+	public personGeneral!: FormGroup;
 
 	public initForm(): void {
 		this.personGeneral = new FormGroup({
+			demographic: new FormControl(''),
 			id: new FormControl(this.current?.id || ''),
 			address: new FormGroup({
 				address1: new FormControl(this.current?.address1 || ''),
@@ -34,7 +38,6 @@ export class PatientDetailsComponent implements OnInit {
 			dob: new FormControl(this.current?.dob || ''),
 			middlename: new FormControl(this.current?.middlename || ''),
 		});
-		console.log(`asdasdasdasdasdasdasdas:  ${this.current}`);
 	}
 
 	public ngOnInit(): void {

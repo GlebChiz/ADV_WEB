@@ -4,22 +4,7 @@
 			<form [formGroup]="personGeneral" novalidate>
 				<div class="clearfix w-100">
 					<div class="column w-100">
-						<div class="w-100">
-							<input
-								type="hidden"
-								name="id"
-								formControlName="id"
-								kendoTextBox
-								class="k-textbox"
-								style="width: 100%"
-								maxlength="250"
-							/>
-						</div>
-					</div>
-				</div>
-				<div class="clearfix w-100">
-					<div class="column w-100">
-						<div class="w-100">
+						<div class="w-100 form-style">
 							<label>Firstname</label>
 							<input
 								name="firstname"
@@ -34,7 +19,7 @@
 				</div>
 				<div class="clearfix w-100">
 					<div class="column w-100">
-						<div class="w-100">
+						<div class="w-100 form-style">
 							<label>Middle name</label>
 							<input
 								name="middlename"
@@ -49,7 +34,7 @@
 				</div>
 				<div class="clearfix w-100">
 					<div class="column w-100">
-						<div class="w-100">
+						<div class="w-100 form-style">
 							<label>Last name</label>
 							<input
 								name="lastname"
@@ -63,19 +48,27 @@
 					</div>
 				</div>
 				<div class="column w-100" style="margin: 10px 0">
-					<div class="w-100">
+					<div class="w-100 form-style">
 						<label>Date of birth</label>
 						<kendo-datepicker formControlName="dob"></kendo-datepicker>
 					</div>
 				</div>
 				<div>
-					<advenium-address formControlName="address" name="address"></advenium-address>
+					<advenium-address
+						class="form-style"
+						formControlName="address"
+						name="address"
+					></advenium-address>
 				</div>
 			</form>
 		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Demographic">
-		<ng-template kendoTabContent> <div>Hellow World2</div></ng-template>
+		<ng-template kendoTabContent>
+			<form [formGroup]="personGeneral">
+				<advenium-demographic-info formControlName="demographic"></advenium-demographic-info>
+			</form>
+		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Contact Info">
 		<ng-template kendoTabContent> <div>Hellow World3</div></ng-template>
