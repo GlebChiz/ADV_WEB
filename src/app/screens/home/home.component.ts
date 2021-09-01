@@ -45,13 +45,13 @@ export class HomeComponent implements OnInit {
 
 	public nameUser!: string;
 
-	public userId!: string;
+	public urlAvatarUser!: string;
 
 	public ngOnInit(): void {
 		this._store.select('userState', 'user').subscribe((user: IUser | undefined) => {
 			if (user) {
 				this.nameUser = user?.userName;
-				this.userId = `${environment.apiUrl}/users/${user?.userId}/picture`;
+				this.urlAvatarUser = `${environment.apiUrl}/users/${user?.userId}/picture`;
 			}
 		});
 		this.setCurrent();

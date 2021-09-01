@@ -32,7 +32,7 @@ import { SupervisorForGroupPopupComponent } from './patient-distribution-group-p
 import { PatientDistributionPopupComponent } from './patient-distribution-table/patient-distribution-popup/patient-distribution-popup.component';
 import { PatientDistributionTableActions } from './patient-distribution-table/patient-distribution-table.actions';
 import { PatientDistributionTableComponent } from './patient-distribution-table/patient-distribution-table.component';
-import { SomeEffect } from './patient-distribution-table/patient-distribution-table.effects';
+import { PatientDistributionEffects } from './patient-distribution-table/patient-distribution-table.effects';
 import { patientDistributionTableReducers } from './patient-distribution-table/patient-distribution-table.reducers';
 import { PatientDistributionComponent } from './patient-distribution.component';
 
@@ -46,7 +46,7 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 			},
 		]),
 		StoreModule.forFeature('patientsupervisorTable', patientDistributionTableReducers),
-		EffectsModule.forFeature([SomeEffect]),
+		EffectsModule.forFeature([PatientDistributionEffects]),
 	],
 	declarations: [
 		PatientDistributionComponent,

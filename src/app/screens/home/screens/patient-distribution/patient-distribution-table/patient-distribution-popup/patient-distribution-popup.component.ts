@@ -106,3 +106,12 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 		});
 	}
 }
+
+export interface IPatientDistributionCurrent {
+	id: string;
+	clinicianId: string;
+	patientId: string;
+	startDate: string;
+	clinicianName: string;
+	patientName: string;
+}

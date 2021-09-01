@@ -87,6 +87,15 @@ export const PatientDistributionTableActions = {
 	ClearCurrentPatientDistribution: createAction(
 		'[Patient Distribution Table] Clear current PatientDistribution',
 	),
-
 	ClearPatientDistributionTable: createAction('[Patient Distribution Table] Clear'),
+	UpdateFiledPatientDistributionPending: createAction(
+		'[Patient Distribution] Update filed patient distribution pending',
+		props<{ patientIds: string[]; supervisorId: string; startDate: Date; controller: string }>(),
+	),
+	UpdateFiledPatientDistributionError: createAction(
+		'[Patient Distribution] Update filed patient distribution error',
+	),
+	UpdateFiledPatientDistributionSuccess: createAction(
+		'[Patient Distribution] Update filed patient distribution success',
+	),
 };

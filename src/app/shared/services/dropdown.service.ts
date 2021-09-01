@@ -70,4 +70,8 @@ export class DropdownService {
 	public getPatients(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/patients');
 	}
+
+	public getRooms(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/rooms');
+	}
 }
