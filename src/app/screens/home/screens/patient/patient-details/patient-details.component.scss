@@ -1,6 +1,5 @@
 .form-style {
 	display: flex;
-	padding-left: 10px;
 	padding-bottom: 24px;
 	label {
 		width: 100%;
@@ -11,4 +10,21 @@
 	input {
 		max-width: 508px;
 	}
+	.city-form {
+		max-width: 358px;
+		margin-right: 16px;
+	}
+	.zip-form {
+		max-width: 134px;
+	}
+}
+.first-form {
+	padding-top: 24px;
+}
+.title-form {
+	padding-top: 38px;
+	font-size: 18px;
+	color: #b5bdc5;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #b5bdc5;
 }

@@ -1,10 +1,11 @@
 <kendo-tabstrip>
 	<kendo-tabstrip-tab title="Personal Info" [selected]="true">
 		<ng-template kendoTabContent>
-			<form [formGroup]="personGeneral" novalidate>
+			<form [formGroup]="personGeneral" novalidate style="max-width: 724px; padding-left: 10px">
+				<div class="title-form">Personal Info</div>
 				<div class="clearfix w-100">
 					<div class="column w-100">
-						<div class="w-100 form-style">
+						<div class="w-100 form-style first-form">
 							<label>Firstname</label>
 							<input
 								name="firstname"
@@ -53,12 +54,75 @@
 						<kendo-datepicker formControlName="dob"></kendo-datepicker>
 					</div>
 				</div>
-				<div>
-					<advenium-address
-						class="form-style"
-						formControlName="address"
-						name="address"
-					></advenium-address>
+				<div class="title-form">Address</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100 form-style first-form">
+							<label>Address 1</label>
+							<input
+								name="address1"
+								formControlName="address1"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100 form-style">
+							<label>Address 2</label>
+							<input
+								name="address2"
+								formControlName="address2"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100 form-style">
+							<label>City, Zip</label>
+
+							<input
+								name="city"
+								formControlName="city"
+								kendoTextBox
+								class="k-textbox city-form"
+								style="width: 100%"
+								maxlength="250"
+							/>
+							<input
+								name="zip"
+								formControlName="zip"
+								kendoTextBox
+								class="k-textbox zip-form"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100 form-style">
+							<label>State</label>
+							<input
+								name="state"
+								formControlName="state"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div>
 				</div>
 			</form>
 		</ng-template>
