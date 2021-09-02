@@ -123,6 +123,13 @@ export const DropdownActions = {
 	),
 	GetSexOrientationError: createAction('[Dropdown] Get SexOrientation error'),
 
+	GetCityStatePending: createAction('[Dropdown] Get CityState pending'),
+	GetCityStateSuccess: createAction(
+		'[Dropdown] Get CityState success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetCityStateError: createAction('[Dropdown] Get CityState error'),
+
 	GetRacePending: createAction('[Dropdown] Get Race pending'),
 	GetRaceSuccess: createAction('[Dropdown] Get Race success', props<{ data: IDropdownData[] }>()),
 	GetRaceError: createAction('[Dropdown] Get Race error'),

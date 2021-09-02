@@ -26,18 +26,7 @@ export class PatientDetailsComponent implements OnInit {
 
 	public initForm(): void {
 		this.personGeneral = new FormGroup({
-			id: new FormControl(this.current?.id || ''),
-			address: new FormGroup({
-				address1: new FormControl(this.current?.address1 || ''),
-				address2: new FormControl(this.current?.address2 || ''),
-				zip: new FormControl(this.current?.zip || ''),
-				city: new FormControl(this.current?.city || ''),
-				state: new FormControl(this.current?.state || ''),
-			}),
-			firstname: new FormControl(this.current?.firstname || ''),
-			lastname: new FormControl(this.current?.lastname || ''),
-			dob: new FormControl(this.current?.dob || ''),
-			middlename: new FormControl(this.current?.middlename || ''),
+			general: new FormControl(''),
 		});
 	}
 

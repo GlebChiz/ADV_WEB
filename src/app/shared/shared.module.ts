@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from '@progress/kendo-angular-buttons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { ComboBoxModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
@@ -11,13 +11,15 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { ButtonSelectorComponent } from './components/button-selector/button-selector.component';
 import { AddressControlComponent } from '../controls/address-control/address-control.component';
+import { PersonaInfoComponent } from './components/persona-info/persona-info.component';
 import { DemographicComponent } from './components/demografic/demographic.component';
 
 @NgModule({
-	imports: [CommonModule, ReactiveFormsModule, DropDownsModule],
+	imports: [DateInputsModule, CommonModule, FormsModule, ReactiveFormsModule, DropDownsModule],
 	exports: [
 		CommonModule,
 		ReactiveFormsModule,
+		FormsModule,
 		GridModule,
 		BreadCrumbModule,
 		DialogModule,
@@ -30,7 +32,13 @@ import { DemographicComponent } from './components/demografic/demographic.compon
 		ButtonSelectorComponent,
 		AddressControlComponent,
 		DemographicComponent,
+		PersonaInfoComponent,
 	],
-	declarations: [ButtonSelectorComponent, AddressControlComponent, DemographicComponent],
+	declarations: [
+		ButtonSelectorComponent,
+		AddressControlComponent,
+		DemographicComponent,
+		PersonaInfoComponent,
+	],
 })
 export class SharedModule {}

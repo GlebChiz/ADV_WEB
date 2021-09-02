@@ -149,10 +149,10 @@ export interface IPersonDemographicInfo {
 }
 
 export interface IPersonInfo {
-	id: string;
-	lastname: string;
+	id: string | null;
+	lastname: string | null;
 	address: Address;
-	firstname: string;
-	middlename: string;
-	dob: string;
+	firstname: string | null;
+	middlename: string | null;
+	dob: string | null;
 }
