@@ -2,14 +2,15 @@
 	<div class="clearfix">
 		<div>
 			<label>Administrative Sex</label>
-			<kendo-combobox
-				valueField="id"
-				style="min-width: 200px; width: 100%"
+			<advenium-button-selector
+				[disabled]="false"
+				[items]="sex"
 				textField="name"
-				[data]="(administrativeSex$ | async) || []"
-				formControlName="sex"
-			>
-			</kendo-combobox>
+				valueField="id"
+				formControlName="sexId"
+				name="sex"
+				style="min-width: 100px; width: 40%"
+			></advenium-button-selector>
 		</div>
 		<div>
 			<label>Gender Identity</label>
@@ -18,9 +19,21 @@
 				style="min-width: 200px; width: 100%"
 				textField="name"
 				[data]="(genderIdentity$ | async) || []"
-				formControlName="gender"
+				formControlName="genderId"
+				name="gender"
+				[valuePrimitive]="true"
 			>
 			</kendo-combobox>
+			<!-- <kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(employement$ | async) || []"
+				formControlName="employement"
+				name="employement"
+				[valuePrimitive]="true"
+			>
+			</kendo-combobox> -->
 		</div>
 		<div>
 			<label>Sexual Orientation</label>
@@ -29,7 +42,9 @@
 				style="min-width: 200px; width: 100%"
 				textField="name"
 				[data]="(sexualOrientation$ | async) || []"
-				formControlName="sexOrientation"
+				formControlName="sexOrientationId"
+				name="sexOrientation"
+				[valuePrimitive]="true"
 			>
 			</kendo-combobox>
 		</div>
@@ -40,31 +55,46 @@
 				style="min-width: 200px; width: 100%"
 				textField="name"
 				[data]="(race$ | async) || []"
-				formControlName="race"
+				formControlName="raceId"
+				name="race"
+				[valuePrimitive]="true"
 			>
 			</kendo-combobox>
 		</div>
 		<div>
 			<label>Languages</label>
-			<kendo-combobox
-				valueField="id"
-				style="min-width: 200px; width: 100%"
-				textField="name"
+			<kendo-multiselect
 				[data]="(languages$ | async) || []"
-				formControlName="languages"
+				valueField="id"
+				style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+				textField="name"
+				[valuePrimitive]="true"
+				[kendoDropDownFilter]="filterSettings"
+				formControlName="languageIds"
+				name="languages"
+				[valuePrimitive]="true"
 			>
-			</kendo-combobox>
+			</kendo-multiselect>
 		</div>
 		<div>
 			<label>Marital Status</label>
-			<kendo-combobox
+			<advenium-button-selector
+				[disabled]="false"
+				[items]="maritalStatus"
+				textField="name"
+				valueField="id"
+				formControlName="maritalStatusId"
+				style="min-width: 100px; width: 40%"
+				name="maritalStatus"
+			></advenium-button-selector>
+			<!-- <kendo-combobox
 				valueField="id"
 				style="min-width: 200px; width: 100%"
 				textField="name"
 				[data]="(maritalStatus$ | async) || []"
 				formControlName="maritalStatus"
 			>
-			</kendo-combobox>
+			</kendo-combobox>  -->
 		</div>
 		<div>
 			<label>Employment</label>
@@ -73,7 +103,9 @@
 				style="min-width: 200px; width: 100%"
 				textField="name"
 				[data]="(employement$ | async) || []"
-				formControlName="employement"
+				formControlName="employementId"
+				name="employement"
+				[valuePrimitive]="true"
 			>
 			</kendo-combobox>
 		</div>
