@@ -331,4 +331,32 @@ export class DropdownEffects {
 			),
 		),
 	);
+
+	public getPreferredContact$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetPreferredContactPending),
+			mergeMap(() =>
+				this.service.getPreferredContact().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetPreferredContactSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetPreferredContactError())),
+				),
+			),
+		),
+	);
+
+	public getPhoneType$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetPhoneTypePending),
+			mergeMap(() =>
+				this.service.getPhoneType().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetPhoneTypeSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetPhoneTypeError())),
+				),
+			),
+		),
+	);
 }

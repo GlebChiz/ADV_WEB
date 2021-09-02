@@ -12,6 +12,7 @@ import { LayoutModule } from '@progress/kendo-angular-layout';
 import { ButtonSelectorComponent } from './components/button-selector/button-selector.component';
 import { AddressControlComponent } from '../controls/address-control/address-control.component';
 import { DemographicComponent } from './components/demografic/demographic.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
 	imports: [CommonModule, ReactiveFormsModule, DropDownsModule],
@@ -30,7 +31,13 @@ import { DemographicComponent } from './components/demografic/demographic.compon
 		ButtonSelectorComponent,
 		AddressControlComponent,
 		DemographicComponent,
+		ContactComponent,
 	],
-	declarations: [ButtonSelectorComponent, AddressControlComponent, DemographicComponent],
+	declarations: [
+		ButtonSelectorComponent,
+		AddressControlComponent,
+		DemographicComponent,
+		ContactComponent,
+	],
 })
 export class SharedModule {}

@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-types */
+import { IPersonContactInfo } from '../components/contact/contact.component';
 import { IPersonDemographicInfo } from '../components/demografic/demographic.component';
 
 export interface IPersonState {
-	// eslint-disable-next-line @typescript-eslint/ban-types
 	personDemographicInfo: IPersonDemographicInfo | {};
+	personContactInfo: IPersonContactInfo | {};
 }

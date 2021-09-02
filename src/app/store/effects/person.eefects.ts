@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, mergeMap } from 'rxjs/operators';
+import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.component';
+
 import { IPersonDemographicInfo } from 'src/app/shared/components/demografic/demographic.component';
 import { PersonService } from 'src/app/shared/services/person.service';
 import { PersonActions } from '../actions/person.actions';
@@ -44,4 +46,33 @@ export class PersonEffects {
 			),
 		),
 	);
+
+	public getPesronContactInfo$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PersonActions.GetPersonContactInfoPending),
+			mergeMap(({ id }: { id: string }) =>
+				this.personService.getPersonContactInfo(id).pipe(
+					map((personContactInfo: IPersonContactInfo) => {
+						return PersonActions.GetPersonContactInfoSuccess({ personContactInfo });
+					}),
+					catchError(() => of(PersonActions.GetPersonContactInfoError())),
+				),
+			),
+		),
+	);
+
+	public updatePesronContactInfo$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PersonActions.UpdatePersonContactInfoPending),
+			mergeMap(({ id, personContactInfo }: { id: string; personContactInfo: IPersonContactInfo }) =>
+				this.personService.updatePersonContactInfo(id, personContactInfo).pipe(
+					map(() => {
+						return PersonActions.UpdatePersonContactInfoSuccess();
+					}),
+					catchError(() => of(PersonActions.UpdatePersonContactInfoError())),
+				),
+			),
+		),
+	);
+
 }

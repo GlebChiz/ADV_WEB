@@ -150,5 +150,17 @@ export function dropdownReducers(
 				return { ...state, race: data, isLoading: false };
 			},
 		),
+		on(
+			DropdownActions.GetPreferredContactSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, preferredContact: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetPhoneTypeSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, phoneType: data, isLoading: false };
+			},
+		),
 	)(dropdownState, action);
 }

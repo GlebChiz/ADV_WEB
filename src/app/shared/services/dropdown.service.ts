@@ -98,4 +98,12 @@ export class DropdownService {
 	public getEmployement(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/Employement');
 	}
+
+	public getPreferredContact(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/PreferredContactMethod');
+	}
+
+	public getPhoneType(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/PhoneType');
+	}
 }
