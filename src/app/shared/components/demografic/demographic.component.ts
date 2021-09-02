@@ -155,4 +155,5 @@ export interface IPersonInfo {
 	firstname: string | null;
 	middlename: string | null;
 	dob: string | null;
+
 }

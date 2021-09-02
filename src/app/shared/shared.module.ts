@@ -13,6 +13,7 @@ import { ButtonSelectorComponent } from './components/button-selector/button-sel
 import { AddressControlComponent } from '../controls/address-control/address-control.component';
 import { PersonaInfoComponent } from './components/persona-info/persona-info.component';
 import { DemographicComponent } from './components/demografic/demographic.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
 	imports: [DateInputsModule, CommonModule, FormsModule, ReactiveFormsModule, DropDownsModule],
@@ -32,13 +33,18 @@ import { DemographicComponent } from './components/demografic/demographic.compon
 		ButtonSelectorComponent,
 		AddressControlComponent,
 		DemographicComponent,
+
 		PersonaInfoComponent,
+
+		ContactComponent,
+
 	],
 	declarations: [
 		ButtonSelectorComponent,
 		AddressControlComponent,
 		DemographicComponent,
 		PersonaInfoComponent,
+		ContactComponent,
 	],
 })
 export class SharedModule {}

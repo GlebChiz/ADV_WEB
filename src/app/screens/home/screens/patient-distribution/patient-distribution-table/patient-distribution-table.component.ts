@@ -116,6 +116,7 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 						controller: this.controller,
 					}),
 				);
+				this.selectedItems = [];
 			}
 		});
 	}

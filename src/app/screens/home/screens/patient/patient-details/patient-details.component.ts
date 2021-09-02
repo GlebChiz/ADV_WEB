@@ -29,7 +29,7 @@ export class PatientDetailsComponent implements OnInit {
 			general: new FormControl(''),
 		});
 	}
-
+  
 	public initDemographicForm(): void {
 		this.personDemographic = new FormGroup({
 			demographic: new FormControl(''),

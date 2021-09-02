@@ -1,4 +1,8 @@
 import { createAction, props } from '@ngrx/store';
+
+
+import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.component';
+
 import {
 	IPersonDemographicInfo,
 	IPersonInfo,
@@ -31,10 +35,29 @@ export const PersonActions = {
 	),
 	UpdatePersonDemographicInfoError: createAction('[Person] Update person demographic info error'),
 
+
 	UpdatePersonInfoPending: createAction(
 		'[Person] Update person info pending',
 		props<{ id: string; personInfo: IPersonInfo }>(),
 	),
 	UpdatePersonInfoSuccess: createAction('[Person] Update person info success'),
 	UpdatePersonInfoError: createAction('[Person] Update person info error'),
+
+	GetPersonContactInfoPending: createAction(
+		'[Person] Get person contact info pending',
+		props<{ id: string }>(),
+	),
+	GetPersonContactInfoSuccess: createAction(
+		'[Person] Get person contact info success',
+		props<{ personContactInfo: IPersonContactInfo }>(),
+	),
+	GetPersonContactInfoError: createAction('[Person] Get person contact info error'),
+
+	UpdatePersonContactInfoPending: createAction(
+		'[Person] Update person contact info pending',
+		props<{ id: string; personContactInfo: IPersonContactInfo }>(),
+	),
+	UpdatePersonContactInfoSuccess: createAction('[Person] Update person contact info success'),
+	UpdatePersonContactInfoError: createAction('[Person] Update person contact info error'),
+
 };

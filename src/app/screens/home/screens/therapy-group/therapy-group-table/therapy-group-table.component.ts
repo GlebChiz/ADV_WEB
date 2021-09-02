@@ -219,6 +219,7 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 						controller: this.controller,
 					}),
 				);
+				this.selectedItems = [];
 			}
 		});
 	}
@@ -242,6 +243,7 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 						controller: this.controller,
 					}),
 				);
+				this.selectedItems = [];
 			}
 		});
 	}
@@ -265,6 +267,7 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 						controller: this.controller,
 					}),
 				);
+				this.selectedItems = [];
 			}
 		});
 	}
@@ -288,6 +291,7 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 						controller: this.controller,
 					}),
 				);
+				this.selectedItems = [];
 			}
 		});
 	}
@@ -311,6 +315,7 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 						controller: this.controller,
 					}),
 				);
+				this.selectedItems = [];
 			}
 		});
 	}
@@ -334,6 +339,7 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 						controller: this.controller,
 					}),
 				);
+				this.selectedItems = [];
 			}
 		});
 	}

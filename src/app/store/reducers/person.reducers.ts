@@ -5,8 +5,9 @@ import {
 } from 'src/app/shared/components/demografic/demographic.component';
 import { IPersonState } from 'src/app/shared/interfaces/person.interface';
 import { PersonActions } from '../actions/person.actions';
+import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.component';
 
-const initialPersonState: IPersonState = { personDemographicInfo: {}, personInfo: {} };
+const initialPersonState: IPersonState = { personDemographicInfo: {}, personInfo: {}, personContactInfo: {}  };
 
 export function personReducers(
 	locationState: IPersonState | undefined,
@@ -29,5 +30,11 @@ export function personReducers(
 				return { ...state, personInfo };
 			},
 		),
+			PersonActions.GetPersonContactInfoSuccess,
+			(state: IPersonState, { personContactInfo }: { personContactInfo: IPersonContactInfo }) => {
+				return { ...state, personContactInfo };
+			},
+		),
+
 	)(locationState, action);
 }

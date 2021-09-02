@@ -6,6 +6,7 @@ import {
 	IPersonDemographicInfo,
 	IPersonInfo,
 } from 'src/app/shared/components/demografic/demographic.component';
+import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.component';
 import { PersonService } from 'src/app/shared/services/person.service';
 import { PersonActions } from '../actions/person.actions';
 
@@ -57,6 +58,15 @@ export class PersonEffects {
 						return PersonActions.GetPersonInfoSuccess({ personInfo });
 					}),
 					catchError(() => of(PersonActions.GetPersonInfoError())),
+	public getPesronContactInfo$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PersonActions.GetPersonContactInfoPending),
+			mergeMap(({ id }: { id: string }) =>
+				this.personService.getPersonContactInfo(id).pipe(
+					map((personContactInfo: IPersonContactInfo) => {
+						return PersonActions.GetPersonContactInfoSuccess({ personContactInfo });
+					}),
+					catchError(() => of(PersonActions.GetPersonContactInfoError())),
 				),
 			),
 		),
@@ -71,6 +81,15 @@ export class PersonEffects {
 						return PersonActions.UpdatePersonInfoSuccess();
 					}),
 					catchError(() => of(PersonActions.UpdatePersonInfoError())),
+	public updatePesronContactInfo$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PersonActions.UpdatePersonContactInfoPending),
+			mergeMap(({ id, personContactInfo }: { id: string; personContactInfo: IPersonContactInfo }) =>
+				this.personService.updatePersonContactInfo(id, personContactInfo).pipe(
+					map(() => {
+						return PersonActions.UpdatePersonContactInfoSuccess();
+					}),
+					catchError(() => of(PersonActions.UpdatePersonContactInfoError())),
 				),
 			),
 		),
