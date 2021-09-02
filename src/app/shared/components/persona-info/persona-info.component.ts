@@ -53,6 +53,7 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit {
 			lastname: new FormControl(this.personInfo?.lastname || ''),
 			dob: new FormControl(new Date() || ''),
 			address: new FormGroup({
+				id: new FormControl(this.personInfo?.address?.id || ''),
 				address1: new FormControl(this.personInfo?.address?.address1 || ''),
 				address2: new FormControl(this.personInfo?.address?.address2 || ''),
 				zip: new FormControl(this.personInfo?.address?.zip || ''),
