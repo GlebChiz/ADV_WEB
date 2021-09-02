@@ -18,6 +18,7 @@
 			</div>
 			<label>Legends</label>
 			<kendo-multiselect
+				[autoClose]="false"
 				formControlName="legends"
 				textField="name"
 				[data]="(legends$ | async) || []"

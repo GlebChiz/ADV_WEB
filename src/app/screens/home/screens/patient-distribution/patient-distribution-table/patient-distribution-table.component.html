@@ -2,7 +2,7 @@
 	Patient Distribution
 </div>
 <div class="new-button">
-	<button (click)="openDialogSupervisor()" [disabled]="!(selectedItems.length > 0)">
+	<button (click)="openDialogSupervisor()" [hidden]="!(selectedItems.length > 0)">
 		Supervisor
 	</button>
 	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Record</button>
