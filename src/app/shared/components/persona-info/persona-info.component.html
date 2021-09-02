@@ -123,9 +123,10 @@
 				<div class="w-100 form-style">
 					<label>State</label>
 					<kendo-combobox
-						valueField="id"
+						valueField="abbreviation"
 						textField="name"
 						[data]="stateCity$ | async"
+						formControlName="state"
 						[valuePrimitive]="true"
 					>
 					</kendo-combobox>
