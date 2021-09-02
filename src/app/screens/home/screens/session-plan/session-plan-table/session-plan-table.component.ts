@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
