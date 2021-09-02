@@ -22,9 +22,10 @@ export class PatientDetailsComponent implements OnInit {
 
 	public personGeneral!: FormGroup;
 
+	public personDemographic!: FormGroup;
+
 	public initForm(): void {
 		this.personGeneral = new FormGroup({
-			demographic: new FormControl(''),
 			id: new FormControl(this.current?.id || ''),
 			address: new FormGroup({
 				address1: new FormControl(this.current?.address1 || ''),
@@ -40,6 +41,12 @@ export class PatientDetailsComponent implements OnInit {
 		});
 	}
 
+	public initDemographicForm(): void {
+		this.personDemographic = new FormGroup({
+			demographic: new FormControl(''),
+		});
+	}
+
 	public ngOnInit(): void {
 		this.store.dispatch(
 			PatientDetailsActions.GetPatientDetailsPending({
@@ -47,5 +54,6 @@ export class PatientDetailsComponent implements OnInit {
 			}),
 		);
 		this.initForm();
+		this.initDemographicForm();
 	}
 }
