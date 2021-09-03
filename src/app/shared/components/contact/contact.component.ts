@@ -84,7 +84,7 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 
 		this.myContactForm.valueChanges?.subscribe((newData: IPersonContactInfo) => {
 			const correctPhone: IPhone[] = newData.phones.filter((value: IPhone) => {
-				return new RegExp(/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/).test(value?.phone);
+				return new RegExp(/\d{9,9}/).test(value?.phone);
 			});
 			if (correctPhone?.length !== newData?.phones?.length) {
 				newData.phones = correctPhone;
