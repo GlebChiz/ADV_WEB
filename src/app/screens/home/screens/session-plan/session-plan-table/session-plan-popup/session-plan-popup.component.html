@@ -32,15 +32,18 @@
 							</div>
 						</div>
 					</div>
-					<kendo-multiselect
-						[autoClose]="false"
-						formControlName="seriesPlanIds"
-						textField="name"
-						[data]="(seriesPlansDropdown$ | async) || []"
-						valueField="id"
-						[valuePrimitive]="true"
-					>
-					</kendo-multiselect>
+					<div class="clearfix w-100">
+						<div class="column w-100">
+							<div class="w-100">
+								<label>Linked to Series Plans:</label>
+								<ul>
+									<li class="mL20" *ngFor="let seriesPlan of (seriesPlansDropdown$ | async) || []">
+										{{seriesPlan.name}}
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</ng-template>
 			</kendo-tabstrip-tab>
 			<kendo-tabstrip-tab [title]="'Outline'">

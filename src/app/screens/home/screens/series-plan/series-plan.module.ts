@@ -41,6 +41,26 @@ import { SeriesplansComponent } from './series-plan.component';
 				path: '',
 				component: SeriesplansComponent,
 			},
+			{
+				path: ':id',
+				loadChildren: (): any =>
+					import('./series-plan-details/series-plan-details.module').then(
+						(m: any) => m.SeriesPlanDetailsModule,
+					),
+				data: {
+					breadcrumb: 'Series Plan Details',
+				},
+			},
+			{
+				path: ':id/select',
+				loadChildren: (): any =>
+					import('./series-plan-details-unlinked-selector/series-plan-details-unlinked-selector.module').then(
+						(m: any) => m.SeriesPlanDetailsUnlinkedSelectorModule,
+					),
+				data: {
+					breadcrumb: 'Select unlinked Session Plans',
+				},
+			},
 		]),
 		StoreModule.forFeature('seriesplanTable', seriesplansTableReducers),
 		EffectsModule.forFeature([SeriesPlansEffects]),
