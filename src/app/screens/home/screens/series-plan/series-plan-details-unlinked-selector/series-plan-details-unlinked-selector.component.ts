@@ -18,9 +18,10 @@ export class SeriesPlanDetailsUnlinkedSelectorComponent  extends UnSubscriber im
 		private _store: Store<IStore>) {
 		super();
 	}
-	public id = '';
-	public title = '';
-	ngOnInit(): void {
+	public id: string = '';
+	public title: string = '';
+
+	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSeriesPlansPending());
 		this._activatedRoute.params.subscribe((params: Params) => {
 			this.id = params.id || null;

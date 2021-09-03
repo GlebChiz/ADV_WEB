@@ -17,10 +17,10 @@ export class SeriesPlanDetailsComponent extends UnSubscriber implements OnInit {
 		super();
 	}
 
-	public id = '';
-	public title = '';
+	public id: string = '';
+	public title: string = '';
 
-	ngOnInit(): void {
+	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSeriesPlansPending());
 		this._activatedRoute.params.subscribe((params: Params) => {
 			this.id = params.id || null;
