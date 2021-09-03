@@ -64,6 +64,7 @@
 		<div>
 			<label>Languages</label>
 			<kendo-multiselect
+				[autoClose]="false"
 				[data]="(languages$ | async) || []"
 				valueField="id"
 				style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"

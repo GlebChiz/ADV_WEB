@@ -5,6 +5,7 @@ import {
 	IPersonDemographicInfo,
 	IPersonInfo,
 } from '../components/demografic/demographic.component';
+import { IPersonContactInfo } from '../components/contact/contact.component';
 
 @Injectable({ providedIn: 'root' })
 export class PersonService {
@@ -24,5 +25,13 @@ export class PersonService {
 
 	public updatePersonInfo(id: string, body: IPersonInfo): Observable<any> {
 		return this.http.put(`person/${id}/general`, body);
+	}
+
+	public getPersonContactInfo(id: string): Observable<any> {
+		return this.http.get(`person/${id}/contacts`);
+	}
+
+	public updatePersonContactInfo(id: string, body: IPersonContactInfo): Observable<any> {
+		return this.http.put(`person/${id}/contacts`, body);
 	}
 }

@@ -42,6 +42,7 @@
 				<div class="w-100">
 					<label>Areas</label>
 					<kendo-multiselect
+						[autoClose]="false"
 						formControlName="areaIds"
 						textField="name"
 						[data]="(areas$ | async) || []"
@@ -54,6 +55,7 @@
 				<!-- <div class="w-100">
 					<label>Service Types</label>
 					<kendo-multiselect
+[autoClose]="false"
 						formControlName="serviceTypeIds"
 						placeholder="Service Types"
 						textField="name"

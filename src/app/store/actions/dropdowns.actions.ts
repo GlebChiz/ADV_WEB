@@ -147,4 +147,16 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetEmployementError: createAction('[Dropdown] Get Employement error'),
+	GetPreferredContactPending: createAction('[Dropdown] Get PreferredContact pending'),
+	GetPreferredContactSuccess: createAction(
+		'[Dropdown] Get PreferredContact success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetPreferredContactError: createAction('[Dropdown] Get PreferredContact error'),
+	GetPhoneTypePending: createAction('[Dropdown] Get PhoneType pending'),
+	GetPhoneTypeSuccess: createAction(
+		'[Dropdown] Get PhoneType success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetPhoneTypeError: createAction('[Dropdown] Get PhoneType error'),
 };

@@ -7,8 +7,14 @@
 						<div class="column w-100">
 							<div class="w-100">
 								<label>Title</label>
-								<input name="title" formControlName="title" kendoTextBox class="k-textbox"
-									style="width: 100%" maxlength="250" />
+								<input
+									name="title"
+									formControlName="title"
+									kendoTextBox
+									class="k-textbox"
+									style="width: 100%"
+									maxlength="250"
+								/>
 							</div>
 						</div>
 					</div>
@@ -16,13 +22,24 @@
 						<div class="column w-100">
 							<div class="w-100">
 								<label>Method</label>
-								<textarea name="method" formControlName="method" kendoTextArea class="k-textbox"
-									style="width: 100%; height: 150px"></textarea>
+								<textarea
+									name="method"
+									formControlName="method"
+									kendoTextArea
+									class="k-textbox"
+									style="width: 100%; height: 150px"
+								></textarea>
 							</div>
 						</div>
 					</div>
-					<kendo-multiselect formControlName="seriesPlanIds" textField="name"
-						[data]="(seriesPlansDropdown$ | async) || []" valueField="id" [valuePrimitive]="true">
+					<kendo-multiselect
+						[autoClose]="false"
+						formControlName="seriesPlanIds"
+						textField="name"
+						[data]="(seriesPlansDropdown$ | async) || []"
+						valueField="id"
+						[valuePrimitive]="true"
+					>
 					</kendo-multiselect>
 				</ng-template>
 			</kendo-tabstrip-tab>
@@ -136,8 +153,15 @@
 						<div class="column w-100">
 							<div class="w-100">
 								<label class="mR10">Minutes:</label>
-								<input type="number" name="calloutMinutes1" formControlName="calloutMinutes1"
-									kendoTextBox class="k-textbox" style="width: 50px" maxlength="2" />
+								<input
+									type="number"
+									name="calloutMinutes1"
+									formControlName="calloutMinutes1"
+									kendoTextBox
+									class="k-textbox"
+									style="width: 50px"
+									maxlength="2"
+								/>
 							</div>
 						</div>
 					</div>
@@ -199,8 +223,15 @@
 						<div class="column w-100">
 							<div class="w-100">
 								<label class="mR10">Minutes:</label>
-								<input type="number" name="calloutMinutes2" formControlName="calloutMinutes2"
-									kendoTextBox class="k-textbox" style="width: 50px" maxlength="2" />
+								<input
+									type="number"
+									name="calloutMinutes2"
+									formControlName="calloutMinutes2"
+									kendoTextBox
+									class="k-textbox"
+									style="width: 50px"
+									maxlength="2"
+								/>
 							</div>
 						</div>
 					</div>
@@ -262,8 +293,15 @@
 						<div class="column w-100">
 							<div class="w-100">
 								<label class="mR10">Minutes:</label>
-								<input type="number" name="calloutMinutes3" formControlName="calloutMinutes3"
-									kendoTextBox class="k-textbox" style="width: 50px" maxlength="2" />
+								<input
+									type="number"
+									name="calloutMinutes3"
+									formControlName="calloutMinutes3"
+									kendoTextBox
+									class="k-textbox"
+									style="width: 50px"
+									maxlength="2"
+								/>
 							</div>
 						</div>
 					</div>
@@ -325,8 +363,15 @@
 						<div class="column w-100">
 							<div class="w-100">
 								<label class="mR10">Minutes:</label>
-								<input type="number" name="wrapupMinutes" formControlName="wrapupMinutes" kendoTextBox
-									class="k-textbox" style="width: 50px" maxlength="2" />
+								<input
+									type="number"
+									name="wrapupMinutes"
+									formControlName="wrapupMinutes"
+									kendoTextBox
+									class="k-textbox"
+									style="width: 50px"
+									maxlength="2"
+								/>
 							</div>
 						</div>
 					</div>

@@ -21,6 +21,7 @@
 					<div class="w-100">
 						<label>Modalities</label>
 						<kendo-multiselect
+							[autoClose]="false"
 							formControlName="modalityIds"
 							textField="name"
 							[data]="(modalities$ | async) || []"

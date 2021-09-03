@@ -1,0 +1,34 @@
+<div>
+	<div class="column w-100">
+		<div class="w-100">
+			<input
+				name="phone"
+				formControlName="phone"
+				kendoTextBox
+				class="k-textbox"
+				style="width: 100%"
+				maxlength="250"
+			/>
+		</div>
+	</div>
+	<div class="column w-100">
+		<div class="w-100">
+			<kendo-combobox
+				valueField="id"
+				style="min-width: 200px; width: 100%"
+				textField="name"
+				[data]="(phoneType$ | async) || []"
+				formControlName="typeId"
+				name="typeId"
+				[valuePrimitive]="true"
+			>
+			</kendo-combobox>
+		</div>
+	</div>
+	<input type="checkbox" formControlName="noVoice" name="noVoice" />
+	<label for="noVoice">No voice messages</label>
+	<input type="checkbox" formControlName="noText" name="noText" />
+	<label for="noText">No text messages</label>
+	<input type="checkbox" formControlName="isPreferred" name="isPreferred" />
+	<label for="isPreferred">Prefererd</label>
+</div>
