@@ -24,16 +24,15 @@ import { PublicSnipitPopupComponent } from './public-snipit-popup/public-snipit-
 })
 export class PublicSnipitTableComponent extends CustomTableDirective {
 	public constructor(
-		// private dialogService: DialogService,
 		private dialogService: DialogService,
 		private _router: Router,
 		_store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
-		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
+
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
-		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any, // @Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
+		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);

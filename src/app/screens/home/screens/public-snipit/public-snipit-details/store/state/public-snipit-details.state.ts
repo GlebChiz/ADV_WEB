@@ -7,8 +7,3 @@ export const initialPublicSnipitDetailsState: IPublicSnipitDetailsState = {
 	isLoading: false,
 	current: {},
 };
-
-// export interface IPatient {
-// 	id: string;
-// 	person: IPatientPerson[];
-// }

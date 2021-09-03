@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { Address } from 'src/app/shared/interfaces/address.intarface';
@@ -19,7 +18,6 @@ import {
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { LocationActions } from 'src/app/store/actions/location.actions';
 import { LocationPopupComponent } from '../../location-table/location-popup/location-popup.component';
-// import { LocationPopupComponent } from '../../location-table/location-popup/location-popup.component';
 import { RoomPopupComponent } from './room-popup/room-popup.component';
 
 @Component({

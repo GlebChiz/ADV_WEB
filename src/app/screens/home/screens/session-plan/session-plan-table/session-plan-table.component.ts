@@ -46,7 +46,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
 
-	public id = '';
+	public id: string = '';
 
 	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store
 		.select('dropdown' as any, 'seriesPlans')
