@@ -11,6 +11,7 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { ButtonSelectorComponent } from './components/button-selector/button-selector.component';
 import { AddressControlComponent } from '../controls/address-control/address-control.component';
+import { PersonaInfoComponent } from './components/persona-info/persona-info.component';
 import { DemographicComponent } from './components/demografic/demographic.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { PhoneComponent } from './components/phone/phone.component';
@@ -20,6 +21,7 @@ import { PhoneComponent } from './components/phone/phone.component';
 	exports: [
 		CommonModule,
 		ReactiveFormsModule,
+		FormsModule,
 		GridModule,
 		BreadCrumbModule,
 		DialogModule,
@@ -32,6 +34,7 @@ import { PhoneComponent } from './components/phone/phone.component';
 		ButtonSelectorComponent,
 		AddressControlComponent,
 		DemographicComponent,
+		PersonaInfoComponent,
 		ContactComponent,
 		PhoneComponent,
 	],
@@ -39,6 +42,7 @@ import { PhoneComponent } from './components/phone/phone.component';
 		ButtonSelectorComponent,
 		AddressControlComponent,
 		DemographicComponent,
+		PersonaInfoComponent,
 		ContactComponent,
 		PhoneComponent,
 	],

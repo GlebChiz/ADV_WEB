@@ -304,6 +304,20 @@ export class DropdownEffects {
 		),
 	);
 
+	public getCityState$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetCityStatePending),
+			mergeMap(() =>
+				this.service.getCityState().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetCityStateSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetCityStateError())),
+				),
+			),
+		),
+	);
+
 	public getMaritalStatus$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetMaritalStatusPending),

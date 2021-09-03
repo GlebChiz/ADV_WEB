@@ -87,6 +87,10 @@ export class DropdownService {
 		return this.http.get<IDropdownData[]>('dropdowns/SexOrientation');
 	}
 
+	public getCityState(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/usstate');
+	}
+
 	public getRace(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/Race');
 	}

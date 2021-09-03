@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, mergeMap } from 'rxjs/operators';
+import {
+	IPersonDemographicInfo,
+	IPersonInfo,
+} from 'src/app/shared/components/demografic/demographic.component';
 import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.component';
-
-import { IPersonDemographicInfo } from 'src/app/shared/components/demografic/demographic.component';
 import { PersonService } from 'src/app/shared/services/person.service';
 import { PersonActions } from '../actions/person.actions';
 
@@ -47,6 +49,20 @@ export class PersonEffects {
 		),
 	);
 
+	public getPersonInfo$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PersonActions.GetPersonInfoPending),
+			mergeMap(({ id }: { id: string }) =>
+				this.personService.getPersonInfo(id).pipe(
+					map((personInfo: IPersonInfo) => {
+						return PersonActions.GetPersonInfoSuccess({ personInfo });
+					}),
+					catchError(() => of(PersonActions.GetPersonInfoError())),
+				),
+			),
+		),
+	);
+
 	public getPesronContactInfo$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(PersonActions.GetPersonContactInfoPending),
@@ -56,6 +72,20 @@ export class PersonEffects {
 						return PersonActions.GetPersonContactInfoSuccess({ personContactInfo });
 					}),
 					catchError(() => of(PersonActions.GetPersonContactInfoError())),
+				),
+			),
+		),
+	);
+
+	public updatePersonInfo$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(PersonActions.UpdatePersonInfoPending),
+			mergeMap(({ id, personInfo }: { id: string; personInfo: IPersonInfo }) =>
+				this.personService.updatePersonInfo(id, personInfo).pipe(
+					map(() => {
+						return PersonActions.UpdatePersonInfoSuccess();
+					}),
+					catchError(() => of(PersonActions.UpdatePersonInfoError())),
 				),
 			),
 		),
@@ -74,5 +104,4 @@ export class PersonEffects {
 			),
 		),
 	);
-
 }

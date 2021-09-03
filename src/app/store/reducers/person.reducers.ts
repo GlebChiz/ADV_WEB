@@ -1,12 +1,17 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.component';
-
-import { IPersonDemographicInfo } from 'src/app/shared/components/demografic/demographic.component';
+import {
+	IPersonDemographicInfo,
+	IPersonInfo,
+} from 'src/app/shared/components/demografic/demographic.component';
 import { IPersonState } from 'src/app/shared/interfaces/person.interface';
+import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.component';
 import { PersonActions } from '../actions/person.actions';
 
-const initialPersonState: IPersonState = { personDemographicInfo: {}, personContactInfo: {} };
-
+const initialPersonState: IPersonState = {
+	personDemographicInfo: {},
+	personInfo: {},
+	personContactInfo: {},
+};
 
 export function personReducers(
 	locationState: IPersonState | undefined,
@@ -24,11 +29,16 @@ export function personReducers(
 			},
 		),
 		on(
+			PersonActions.GetPersonInfoSuccess,
+			(state: IPersonState, { personInfo }: { personInfo: IPersonInfo }) => {
+				return { ...state, personInfo };
+			},
+		),
+		on(
 			PersonActions.GetPersonContactInfoSuccess,
 			(state: IPersonState, { personContactInfo }: { personContactInfo: IPersonContactInfo }) => {
 				return { ...state, personContactInfo };
 			},
 		),
-
 	)(locationState, action);
 }

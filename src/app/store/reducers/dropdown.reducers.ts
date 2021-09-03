@@ -145,6 +145,12 @@ export function dropdownReducers(
 			},
 		),
 		on(
+			DropdownActions.GetCityStateSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, CityState: data, isLoading: false };
+			},
+		),
+		on(
 			DropdownActions.GetRaceSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, race: data, isLoading: false };
