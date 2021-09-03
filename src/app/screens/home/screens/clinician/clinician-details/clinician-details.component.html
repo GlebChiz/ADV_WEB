@@ -3,7 +3,9 @@
 		<ng-template kendoTabContent> <div>Hellow World1</div></ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Demographic">
-		<ng-template kendoTabContent> <div>Hellow World2</div></ng-template>
+		<ng-template kendoTabContent>
+			<advenium-demographic-info [personId]="(personId$ | async) || ''"></advenium-demographic-info>
+		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Contacts">
 		<ng-template kendoTabContent> <div>Hellow World3</div></ng-template>

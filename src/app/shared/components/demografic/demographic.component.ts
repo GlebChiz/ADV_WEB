@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -29,7 +29,9 @@ export class DemographicComponent extends UnSubscriber implements OnInit {
 		super();
 	}
 
-	public personId!: string;
+	// public personId!: string;
+
+	@Input() public personId: string = '';
 
 	public personDemographicInfo!: IPersonDemographicInfo;
 
@@ -87,17 +89,7 @@ export class DemographicComponent extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this._store
-			.select('patient' as any, 'current')
-			.pipe(takeUntil(this.unsubscribe$$))
-			.subscribe((current: any) => {
-				if (current.person?.id) {
-					this.personId = current.person?.id;
-					this._store.dispatch(
-						PersonActions.GetPersonDemographicInfoPending({ id: current.person?.id }),
-					);
-				}
-			});
+		this._store.dispatch(PersonActions.GetPersonDemographicInfoPending({ id: this.personId }));
 		this._store
 			.select('person' as any, 'personDemographicInfo')
 			.pipe(takeUntil(this.unsubscribe$$))

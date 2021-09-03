@@ -1,8 +1,9 @@
-import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { Observable } from 'rxjs';
 import { PatientDetailsActions } from './store/actions/patient-details.actions';
 
 @Component({
@@ -11,30 +12,14 @@ import { PatientDetailsActions } from './store/actions/patient-details.actions';
 	templateUrl: './patient-details.component.html',
 	styleUrls: ['./patient-details.component.scss'],
 })
-export class PatientDetailsComponent implements OnInit {
-	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {}
-
-	public current!: any;
-
-	public myForm!: FormGroup;
-
-	public patientDetails$: Observable<any> = this.store.select('patient');
-
-	public personGeneral!: FormGroup;
-
-	public personDemographic!: FormGroup;
-
-	public initForm(): void {
-		this.personGeneral = new FormGroup({
-			general: new FormControl(''),
-		});
+export class PatientDetailsComponent extends UnSubscriber implements OnInit {
+	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {
+		super();
 	}
 
-	public initDemographicForm(): void {
-		this.personDemographic = new FormGroup({
-			demographic: new FormControl(''),
-		});
-	}
+	public personId$: Observable<string> = this.store
+		.select('patient', 'current', 'person', 'id')
+		.pipe(takeUntil(this.unsubscribe$$));
 
 	public ngOnInit(): void {
 		this.store.dispatch(
@@ -42,7 +27,5 @@ export class PatientDetailsComponent implements OnInit {
 				id: this.activatedRoute.snapshot.params.id,
 			}),
 		);
-		this.initForm();
-		this.initDemographicForm();
 	}
 }
