@@ -9,6 +9,7 @@ import { CheckBoxModule } from '@progress/kendo-angular-inputs';
 import { BreadCrumbModule } from '@progress/kendo-angular-navigation';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { LayoutModule } from '@progress/kendo-angular-layout';
+import { NgxMaskModule } from 'ngx-mask';
 import { ButtonSelectorComponent } from './components/button-selector/button-selector.component';
 import { AddressControlComponent } from '../controls/address-control/address-control.component';
 import { PersonaInfoComponent } from './components/persona-info/persona-info.component';
@@ -17,9 +18,16 @@ import { ContactComponent } from './components/contact/contact.component';
 import { PhoneComponent } from './components/phone/phone.component';
 
 @NgModule({
-	imports: [CommonModule, ReactiveFormsModule, DropDownsModule, FormsModule],
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		DropDownsModule,
+		FormsModule,
+		NgxMaskModule.forRoot(),
+	],
 	exports: [
 		CommonModule,
+		NgxMaskModule,
 		ReactiveFormsModule,
 		FormsModule,
 		GridModule,

@@ -1,13 +1,15 @@
-<div>
+<form [formGroup]="myPhoneForm">
 	<div class="column w-100">
 		<div class="w-100">
 			<input
 				name="phone"
-				formControlName="phone"
 				kendoTextBox
 				class="k-textbox"
-				style="width: 100%"
+				formControlName="phone"
 				maxlength="250"
+				style="width: 100%"
+				mask="(000)000-0000"
+				placeholder="(000)000-0000"
 			/>
 		</div>
 	</div>
@@ -31,4 +33,4 @@
 	<label for="noText">No text messages</label>
 	<input type="checkbox" formControlName="isPreferred" name="isPreferred" />
 	<label for="isPreferred">Prefererd</label>
-</div>
+</form>

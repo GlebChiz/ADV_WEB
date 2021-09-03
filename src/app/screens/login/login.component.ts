@@ -18,19 +18,13 @@ export class LoginComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
 		private router: Router,
-		// private authenticationService: AuthenticationService,
-		// private alertService: AlertService,
 		private _store: Store<any>,
 	) {
-		// redirect to home if already logged in
 		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
 			if (user) {
 				this.router.navigate(['/']);
 			}
 		});
-		// if (this.authenticationService.getCurrentUser()) {
-		// 	this.router.navigate(['/']);
-		// }
 	}
 
 	public ngOnInit(): void {
@@ -39,10 +33,7 @@ export class LoginComponent implements OnInit {
 			password: ['', Validators.required],
 		});
 
-		// get return url from route parameters or default to '/'
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-
-		// this._store.dispatch(PageSettingsActions.SetTitle({ settings: { title: 'Login' } }));
 	}
 
 	// convenience getter for easy access to form fields

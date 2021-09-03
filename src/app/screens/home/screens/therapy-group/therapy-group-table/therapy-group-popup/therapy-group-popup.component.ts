@@ -60,7 +60,7 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 	public initForm(): void {
 		this.therapyGroupForm = new FormGroup({
 			clinicianId: new FormControl(this.therapyGroup?.clinicianId || ''),
-			// clinicianName: new FormControl(this.therapyGroup?.clinicianName || ''),
+
 			createdBy: new FormControl(this.therapyGroup?.createdBy || ''),
 			createdDate: new FormControl(this.therapyGroup?.createdDate || ''),
 			id: new FormControl(this.therapyGroup?.id || ''),

@@ -1,30 +1,6 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
-	Session plans
-</div>
 <div class="new-button">
-	<kendo-combobox
-		valueField="id"
-		style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
-		textField="name"
-		[data]="languagesDropdown$ | async"
-		[formControl]="language"
-		(selectionChange)="selectionChangeLanguage($event)"
-		[valuePrimitive]="true"
-		placeholder="Language"
-	>
-	</kendo-combobox>
-	<kendo-combobox
-		valueField="id"
-		style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
-		textField="name"
-		[data]="seriesPlansDropdown$ | async"
-		[formControl]="seriesPlan"
-		(selectionChange)="selectionChangeSeriesPlan($event)"
-		[valuePrimitive]="true"
-		placeholder="Series Plan"
-	>
-	</kendo-combobox>
-	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Session Plan</button>
+	<button class="mR10" (click)="backToLinked()">Close</button>
+	<button (click)="link()" [hidden]="!(selectedItems.length > 0)"><img src="/assets/images/player.svg" />Link</button>
 </div>
 <kendo-grid
 	[filterable]="true"
@@ -38,11 +14,14 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	[selectable]="{ enabled: true, checkboxOnly: true }"
+	(selectionChange)="selectionChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
+	<kendo-grid-checkbox-column [width]="50" [showSelectAll]="true"></kendo-grid-checkbox-column>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"
@@ -52,15 +31,9 @@
 		[sortable]="col.sortable ?? true"
 		[filterable]="col.filterable"
 		[filter]="col.type"
+		[style]="col.style || {}"
+		[headerStyle]="col.headerStyle || {}"
 	>
-		<ng-template *ngIf="col.field === 'seriesPlans'" kendoGridCellTemplate let-dataItem>
-			<div *ngFor="let seriesPlan of dataItem.seriesPlans">
-				{{ seriesPlan.name }}
-			</div>
-		</ng-template>
-		<ng-template *ngIf="col.field === 'translated'" kendoGridCellTemplate let-dataItem>
-			<div>{{ dataItem.translated }}% translated</div>
-		</ng-template>
 		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
@@ -107,24 +80,4 @@
 			>
 			</kendo-grid-date-filter-cell> </ng-template
 	></kendo-grid-column>
-	<kendo-grid-command-column [width]="35">
-		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link" (click)="openDialog(dataItem)"></div>
-		</ng-template>
-	</kendo-grid-command-column>
-	<kendo-grid-command-column [width]="35">
-		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link" (click)="openDialog(dataItem, true)"></div>
-		</ng-template>
-	</kendo-grid-command-column>
-	<kendo-grid-command-column [width]="35">
-		<ng-template kendoGridCellTemplate let-dataItem>
-			<div
-				class="k-icon k-i-trash k-link"
-				title="Modify"
-				(click)="deleteWithPopup(dataItem.id)"
-			></div>
-		</ng-template>
-	</kendo-grid-command-column>
 </kendo-grid>
-<div kendoDialogContainer></div>

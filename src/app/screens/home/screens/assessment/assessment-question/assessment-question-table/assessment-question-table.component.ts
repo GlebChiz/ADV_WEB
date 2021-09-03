@@ -44,7 +44,7 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
 
-	public id = '';
+	public id: string = '';
 
 	public language: FormControl = new FormControl();
 

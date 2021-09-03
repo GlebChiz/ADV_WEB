@@ -29,8 +29,6 @@ export class DemographicComponent extends UnSubscriber implements OnInit {
 		super();
 	}
 
-	// public personId!: string;
-
 	@Input() public personId: string = '';
 
 	public personDemographicInfo!: IPersonDemographicInfo;

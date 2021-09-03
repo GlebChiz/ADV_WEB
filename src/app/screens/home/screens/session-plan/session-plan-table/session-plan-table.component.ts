@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
@@ -46,7 +45,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
 
-	public id = '';
+	public id: string = '';
 
 	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store
 		.select('dropdown' as any, 'seriesPlans')
@@ -220,15 +219,6 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 
 	public columns: IColumn[] = [
 		{
-			field: 'orderNumber',
-			title: 'Order',
-			includeInChooser: false,
-			hidden: true,
-			filterable: false,
-			sortable: true,
-			type: 'text',
-		},
-		{
 			field: 'title',
 			title: 'Title',
 			hidden: false,
@@ -256,8 +246,4 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			type: 'text',
 		},
 	];
-
-	public onCellClick(e: CellClickEvent): void {
-		this._router.navigate([e.dataItem.id], { relativeTo: this._activatedRoute });
-	}
 }

@@ -46,58 +46,50 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 		operator: 'contains',
 	};
 
-	// public getPhone(): FormGroup {
-	// 	return this.myContactForm.get('phones') as FormGroup;
-	// }
-
 	public addPhone(): void {
-		this.phones.push(
-			new FormGroup({
-				isPreferred: new FormControl(true),
-				phone: new FormControl(''),
-				noVoice: new FormControl(true),
-				noText: new FormControl(true),
-				typeId: new FormControl(''),
-			}),
-		);
-		this.initForm();
+		const form: FormControl = new FormControl({
+			isPreferred: false,
+			phone: '',
+			noVoice: false,
+			noText: false,
+			typeId: '6a9cb657-fd59-469e-a56b-dbf67b41b590',
+		});
+		this.phones.push(form);
 	}
 
-	public phones: FormArray = new FormArray([]);
+	public removePhone(index: number): void {
+		this.phones.removeAt(index);
+	}
+
+	public get phones(): FormArray {
+		return this.myContactForm.get('phones') as FormArray;
+	}
+
+	public set phones(value: FormArray) {
+		this.myContactForm.get('phones')?.setValue(value);
+	}
 
 	public initForm(): void {
-		this.phones = new FormArray([
-			...this.personContactInfo?.phones?.map((phone: IPhone) => {
-				return new FormGroup({
-					isPreferred: new FormControl(phone?.isPreferred || true),
-					phone: new FormControl(phone?.phone || ''),
-					noVoice: new FormControl(phone?.noVoice || true),
-					noText: new FormControl(phone?.noText || true),
-					typeId: new FormControl(phone?.typeId || ''),
-				});
-			}),
-		]);
-
 		this.myContactForm = new FormGroup({
 			email: new FormControl(this.personContactInfo?.email || ''),
-			useInternet: new FormControl(this.personContactInfo?.useInternet.toString() || 'true'),
+			useInternet: new FormControl(this.personContactInfo?.useInternet?.toString() || 'true'),
 			preferredContactId: new FormControl(this.personContactInfo?.preferredContactId || ''),
-			// phones: new FormArray([
-			// 	...this.personContactInfo?.phones?.map((phone: IPhone) => {
-			// 		return new FormGroup({
-			// 			isPreferred: new FormControl(phone?.isPreferred || true),
-			// 			phone: new FormControl(phone?.phone || ''),
-			// 			noVoice: new FormControl(phone?.noVoice || true),
-			// 			noText: new FormControl(phone?.noText || true),
-			// 			typeId: new FormControl(phone?.typeId || ''),
-			// 		});
-			// 	}),
-			// ]),
+			phones: new FormArray([]),
 		});
+		if (this.personContactInfo?.phones) {
+			this.personContactInfo.phones.forEach((phone: IPhone) => {
+				this.phones.push(new FormControl({ ...phone }));
+			});
+		}
 
 		this.myContactForm.valueChanges?.subscribe((newData: IPersonContactInfo) => {
+			const correctPhone: IPhone[] = newData.phones.filter((value: IPhone) => {
+				return new RegExp(/\d{9,9}/).test(value?.phone);
+			});
+			if (correctPhone?.length !== newData?.phones?.length) {
+				newData.phones = correctPhone;
+			}
 			newData.useInternet = newData?.useInternet === 'true';
-
 			this._store.dispatch(
 				PersonActions.UpdatePersonContactInfoPending({
 					id: this.personId,
@@ -106,8 +98,6 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 			);
 		});
 	}
-
-	// public phones = (this.myContactForm?.get('phones') as FormArray) ?? [];
 
 	public ngOnInit(): void {
 		this._store

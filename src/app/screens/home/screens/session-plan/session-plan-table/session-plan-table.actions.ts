@@ -89,4 +89,14 @@ export const SessionPlanTableActions = {
 	),
 	ReorderPlanSuccess: createAction('[Session Plan Reorder] Reorder current item success'),
 	ReorderPlanError: createAction('[Session Plan Reorder] Reorder current item error'),
+
+	LinkSessionPlansPending: createAction(
+		'[Session Plan] Link Session Plans Pending',
+		props<{ controller: string, ids: string[]; seriesPlanId: string, link: boolean, storePath: string }>(),
+	),
+	LinkSessionPlansError: createAction(
+		'[Session Plans] Link Session Plans Error'),
+	LinkSessionPlansSuccess: createAction(
+		'[Session Plan] Link Session Plans Success',
+	),
 };
