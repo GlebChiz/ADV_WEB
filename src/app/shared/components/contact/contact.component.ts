@@ -1,8 +1,7 @@
 import { Component, forwardRef, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { Observable } from 'rxjs';
 
 import { takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -35,11 +34,6 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 
 	public preferredContact: IButtonSelector[] = [];
 
-	public phoneType$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown',
-		'phoneType' as any,
-	);
-
 	public isInternet: IButtonSelector[] = [
 		{ name: 'Yes', id: 'true' },
 		{ name: 'No', id: 'false' },
@@ -56,7 +50,34 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 	// 	return this.myContactForm.get('phones') as FormGroup;
 	// }
 
+	public addPhone(): void {
+		this.phones.push(
+			new FormGroup({
+				isPreferred: new FormControl(true),
+				phone: new FormControl(''),
+				noVoice: new FormControl(true),
+				noText: new FormControl(true),
+				typeId: new FormControl(''),
+			}),
+		);
+		this.initForm();
+	}
+
+	public phones: FormArray = new FormArray([]);
+
 	public initForm(): void {
+		this.phones = new FormArray([
+			...this.personContactInfo?.phones?.map((phone: IPhone) => {
+				return new FormGroup({
+					isPreferred: new FormControl(phone?.isPreferred || true),
+					phone: new FormControl(phone?.phone || ''),
+					noVoice: new FormControl(phone?.noVoice || true),
+					noText: new FormControl(phone?.noText || true),
+					typeId: new FormControl(phone?.typeId || ''),
+				});
+			}),
+		]);
+
 		this.myContactForm = new FormGroup({
 			email: new FormControl(this.personContactInfo?.email || ''),
 			useInternet: new FormControl(this.personContactInfo?.useInternet.toString() || 'true'),
@@ -65,15 +86,18 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 			// 	...this.personContactInfo?.phones?.map((phone: IPhone) => {
 			// 		return new FormGroup({
 			// 			isPreferred: new FormControl(phone?.isPreferred || true),
-			// 			phone: new FormControl(phone.phone || ''),
-			// 			noVoice: new FormControl(phone.noVoice || true),
-			// 			noText: new FormControl(phone.noText || true),
-			// 			typeId: new FormControl(phone.typeId || ''),
+			// 			phone: new FormControl(phone?.phone || ''),
+			// 			noVoice: new FormControl(phone?.noVoice || true),
+			// 			noText: new FormControl(phone?.noText || true),
+			// 			typeId: new FormControl(phone?.typeId || ''),
 			// 		});
 			// 	}),
 			// ]),
 		});
+
 		this.myContactForm.valueChanges?.subscribe((newData: IPersonContactInfo) => {
+			newData.useInternet = newData?.useInternet === 'true';
+
 			this._store.dispatch(
 				PersonActions.UpdatePersonContactInfoPending({
 					id: this.personId,
@@ -82,6 +106,8 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 			);
 		});
 	}
+
+	// public phones = (this.myContactForm?.get('phones') as FormArray) ?? [];
 
 	public ngOnInit(): void {
 		this._store
@@ -103,7 +129,6 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 				this.initForm();
 			});
 		this._store.dispatch(DropdownActions.GetPreferredContactPending());
-		this._store.dispatch(DropdownActions.GetPhoneTypePending());
 		this._store
 			.select('dropdown', 'preferredContact' as any)
 			.pipe(takeUntil(this.unsubscribe$$))
@@ -121,7 +146,7 @@ export class ContactComponent extends UnSubscriber implements OnInit {
 }
 
 export interface IPersonContactInfo {
-	useInternet: boolean;
+	useInternet: boolean | string;
 	email: string;
 	preferredContactId: string;
 	phones: IPhone[];

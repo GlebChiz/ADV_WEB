@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from '@progress/kendo-angular-buttons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { ComboBoxModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
@@ -13,9 +13,10 @@ import { ButtonSelectorComponent } from './components/button-selector/button-sel
 import { AddressControlComponent } from '../controls/address-control/address-control.component';
 import { DemographicComponent } from './components/demografic/demographic.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { PhoneComponent } from './components/phone/phone.component';
 
 @NgModule({
-	imports: [CommonModule, ReactiveFormsModule, DropDownsModule],
+	imports: [CommonModule, ReactiveFormsModule, DropDownsModule, FormsModule],
 	exports: [
 		CommonModule,
 		ReactiveFormsModule,
@@ -32,12 +33,14 @@ import { ContactComponent } from './components/contact/contact.component';
 		AddressControlComponent,
 		DemographicComponent,
 		ContactComponent,
+		PhoneComponent,
 	],
 	declarations: [
 		ButtonSelectorComponent,
 		AddressControlComponent,
 		DemographicComponent,
 		ContactComponent,
+		PhoneComponent,
 	],
 })
 export class SharedModule {}
