@@ -7,7 +7,6 @@ import {
 	IPersonInfo,
 } from 'src/app/shared/components/demografic/demographic.component';
 import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.component';
-
 import { PersonService } from 'src/app/shared/services/person.service';
 import { PersonActions } from '../actions/person.actions';
 
