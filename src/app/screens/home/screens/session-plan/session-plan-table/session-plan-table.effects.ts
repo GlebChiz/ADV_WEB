@@ -110,7 +110,49 @@ export class SessionPlansEffects extends TableEffects {
 								}),
 								catchError(() => {
 									return of(SessionPlanTableActions.ReorderPlanError());
+								})
+							);
+						}),
+					);
+				},
+			),
+		);
+	});
+
+	public linkSessionPlans$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(SessionPlanTableActions.LinkSessionPlansPending),
+			switchMap(
+				({
+					controller,
+					ids,
+					seriesPlanId,
+					link,
+					storePath
+				}: {
+					controller: string;
+					ids: string[];
+					seriesPlanId: string;
+					link: boolean;
+					storePath: string;
+				}) => {
+					return of(1).pipe(
+						withLatestFrom(this._store.select(storePath)),
+						switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
+							return this._service.link(ids, seriesPlanId, link).pipe(
+								mergeMap(() => {
+									return [
+										SessionPlanTableActions.ReorderPlanSuccess(),
+										this.getTableDataPending({
+											controller,
+											filter: latest.filter,
+											columns: latest.columns,
+										}),
+									];
 								}),
+								catchError(() => {
+									return of(SessionPlanTableActions.ReorderPlanError());
+								})
 							);
 						}),
 					);

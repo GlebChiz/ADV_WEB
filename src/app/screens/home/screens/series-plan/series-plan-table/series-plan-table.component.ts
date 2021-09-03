@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, Inject } from '@angular/core';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -27,6 +27,7 @@ export class SeriesplansTableComponent extends CustomTableDirective {
 		private _router: Router,
 		_store: Store<IStore>,
 		private dialogService: DialogService,
+		private _activatedRoute: ActivatedRoute,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
@@ -93,6 +94,6 @@ export class SeriesplansTableComponent extends CustomTableDirective {
 	}
 
 	public onCellClick({ dataItem: { id } }: { dataItem: { id: string } }): void {
-		this._router.navigate(['sessionplans'], { queryParams: { seriesPlanId: id } });
+		this._router.navigate([id], { relativeTo: this._activatedRoute, });
 	}
 }

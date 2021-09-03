@@ -55,7 +55,6 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, A
 
 	public initForm(): void {
 		this.sessionPlanForm = new FormGroup({
-			seriesPlanIds: new FormControl(this.sessionPlan?.seriesPlanIds || []),
 			title: new FormControl(this.sessionPlan?.title || ''),
 			method: new FormControl(this.sessionPlan?.method || ''),
 			outline: new FormControl(this.sessionPlan?.outline || ''),

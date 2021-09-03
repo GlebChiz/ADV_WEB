@@ -10,4 +10,12 @@ export class SessionPlanTableSerivce {
 	public reorder(controller: string, body: any): Observable<any> {
 		return this.http.post(`${controller}/reorder`, body);
 	}
+
+	public link(ids: string[], seriesPlanId: string, link: boolean): Observable<any> {
+		return this.http.put(`sessionplan/link`, {
+			sessionPlanIds:ids,
+			seriesPlanId: seriesPlanId,
+			link: link
+		});
+	}
 }
