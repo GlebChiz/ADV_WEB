@@ -7,8 +7,3 @@ export const initialPateintDetailsState: IPatientDetailsState = {
 	isLoading: false,
 	current: {},
 };
-
-// export interface IPatient {
-// 	id: string;
-// 	person: IPatientPerson[];
-// }

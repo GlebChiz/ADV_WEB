@@ -22,25 +22,4 @@ export class LocationEffects {
 			),
 		),
 	);
-
-	// public getLocation$ = createEffect(() => {
-	// 	return this.actions$.pipe(
-	// 		ofType(LocationActions.GetSelectedLocationPending),
-	// 		switchMap(({ id }: { id: string }) => {
-	// 			return of(1).pipe(
-	// 				withLatestFrom(this._store.select(`${controller}Table` as any)),
-	// 				switchMap(([]: [any, any]) => {
-	// 					return this._tableService.getOne(controller, id).pipe(
-	// 						map((item: any) => {
-	// 							return this.getCurrentItemSuccess({ item });
-	// 						}),
-	// 						catchError((error: string) => {
-	// 							return of(this.getCurrentItemError(error));
-	// 						}),
-	// 					);
-	// 				}),
-	// 			);
-	// 		}),
-	// 	);
-	// });
 }

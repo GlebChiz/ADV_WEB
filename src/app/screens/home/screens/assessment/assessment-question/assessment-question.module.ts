@@ -43,16 +43,6 @@ import { AssessmentQuestionPopupComponent } from './assessment-question-table/as
 				path: '',
 				component: AssessmentQuestionComponent,
 			},
-			// {
-			// 	path: ':id',
-			// 	loadChildren: (): any =>
-			// 		import('./assessment-question-details/assessment-question-details.module').then(
-			// 			(m: any) => m.AssessmentQuestionDetailsModule,
-			// 		),
-			// 	data: {
-			// 		breadcrumb: 'Single',
-			// 	},
-			// },
 		]),
 		StoreModule.forFeature('assessmentquestionTable', assessmentQuestionTableReducers),
 		EffectsModule.forFeature([AssessmentQuestionTableEffects]),

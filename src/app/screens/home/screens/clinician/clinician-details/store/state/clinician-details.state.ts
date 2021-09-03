@@ -7,8 +7,3 @@ export const initialClinicanDetailsState: IClinicanDetailsState = {
 	isLoading: false,
 	current: {},
 };
-
-// export interface IPatient {
-// 	id: string;
-// 	person: IPatientPerson[];
-// }
