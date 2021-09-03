@@ -5,6 +5,38 @@ kendo-drawer-container {
 kendo-drawer-content {
 	padding: 10px;
 }
+::ng-deep .k-tabstrip-items {
+	padding-bottom: 15px;
+	border-bottom: 1px solid #dce0e4;
+}
+
+::ng-deep .k-multiselect .k-multiselect-wrap .k-button,
+.k-dropdowntree .k-multiselect-wrap .k-button {
+	padding: 5px 4px;
+}
+::ng-deep .form-style {
+	display: flex;
+	padding-bottom: 24px;
+	label {
+		width: 100%;
+		max-width: 216px;
+		align-self: center;
+		margin-bottom: 0;
+	}
+	input {
+		max-width: 508px;
+	}
+	.city-form {
+		max-width: 358px;
+		margin-right: 16px;
+	}
+	.zip-form {
+		max-width: 134px;
+	}
+}
+::ng-deep .first-form {
+	padding-top: 48px;
+}
 
 ::ng-deep .k-checkbox:checked,
 .k-checkbox.k-checked {
