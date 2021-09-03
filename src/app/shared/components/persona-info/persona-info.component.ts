@@ -1,5 +1,5 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 
@@ -15,13 +15,6 @@ import { Address } from '../../interfaces/address.intarface';
 @Component({
 	selector: 'advenium-persona-info',
 	templateUrl: './persona-info.component.html',
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => PersonaInfoComponent),
-			multi: true,
-		},
-	],
 	styleUrls: ['./persona-info.component.scss'],
 })
 export class PersonaInfoComponent extends UnSubscriber implements OnInit {
