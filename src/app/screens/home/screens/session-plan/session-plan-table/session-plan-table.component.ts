@@ -192,6 +192,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 				sessionPlanId: dataitem.id,
 				seriesPlanId: this.id,
 				index: isUp ? dataitem.orderNumber + 1 : dataitem.orderNumber - 1,
+				storePath: this.storePath
 			}),
 		);
 	}

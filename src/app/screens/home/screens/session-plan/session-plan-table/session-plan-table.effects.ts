@@ -88,14 +88,16 @@ export class SessionPlansEffects extends TableEffects {
 					sessionPlanId,
 					seriesPlanId,
 					index,
+					storePath
 				}: {
 					sessionPlanId: string;
 					seriesPlanId: string;
 					controller: string;
 					index: number;
+					storePath: string;
 				}) => {
 					return of(1).pipe(
-						withLatestFrom(this._store.select(`${controller}Table`)),
+						withLatestFrom(this._store.select(storePath)),
 						switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
 							return this._service.reorder(controller, { seriesPlanId, sessionPlanId, index }).pipe(
 								mergeMap(() => {
@@ -142,7 +144,7 @@ export class SessionPlansEffects extends TableEffects {
 							return this._service.link(ids, seriesPlanId, link).pipe(
 								mergeMap(() => {
 									return [
-										SessionPlanTableActions.ReorderPlanSuccess(),
+										SessionPlanTableActions.LinkSessionPlansSuccess(),
 										this.getTableDataPending({
 											controller,
 											filter: latest.filter,
@@ -151,7 +153,7 @@ export class SessionPlansEffects extends TableEffects {
 									];
 								}),
 								catchError(() => {
-									return of(SessionPlanTableActions.ReorderPlanError());
+									return of(SessionPlanTableActions.LinkSessionPlansError());
 								})
 							);
 						}),

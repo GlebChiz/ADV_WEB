@@ -73,6 +73,7 @@ export class SeriesPlanLinkedTableComponent extends CustomTableDirective impleme
 				sessionPlanId: dataitem.id,
 				seriesPlanId: this.seriesPlanId,
 				index: isUp ? dataitem.orderNumber + 1 : dataitem.orderNumber - 1,
+				storePath: this.storePath
 			}),
 		);
 	}

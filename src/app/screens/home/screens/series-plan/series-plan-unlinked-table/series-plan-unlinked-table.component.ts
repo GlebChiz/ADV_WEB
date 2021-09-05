@@ -13,6 +13,8 @@ import { IStore } from 'src/app/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
 import { SessionPlanTableActions } from '../../session-plan/session-plan-table/session-plan-table.actions';
+import { takeUntil } from 'rxjs/operators';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
 	providers: [],
@@ -24,6 +26,7 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 	public constructor(
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
+		private _action$: Actions,
 		_store: Store<IStore>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
@@ -35,9 +38,37 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 
 	@Input() public seriesPlanId = '';
 
+	public allSelectedItems: any[] = [];
+
+	public onlySelected: boolean = false;
+
+	public showOnlySelected(value: boolean): boolean {
+		this.onlySelected = value;
+		if (this.gridSettings.state.filter) {
+			this.gridSettings.state.filter.filters = [
+				...this.gridSettings.state.filter.filters,
+				{
+					field: 'ids',
+					operator: 'custom',
+					value: value === true ? this.allSelectedItems : null,
+				},
+			];
+		}
+		this.gridSettings.state.skip = 0;
+		super.ngOnInit();
+		return false;
+	}
+
 	public override ngOnInit(): void {
 		this.addFiltersSorting(this.seriesPlanId);
 		super.ngOnInit();
+	}
+
+	public discard(): boolean {
+		this.allSelectedItems = [];
+		this.selectedItems = [];
+		this.showOnlySelected(false);
+		return false;
 	}
 
 	public addFiltersSorting(id: string | undefined): void {
@@ -56,7 +87,7 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 					{
 						field: 'notLinkedTo',
 						operator: 'custom',
-						value: id
+						value: id,
 					},
 				];
 			}
@@ -66,14 +97,19 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 	}
 
 	public link(): void {
+		this._action$.pipe(
+			ofType(SessionPlanTableActions.LinkSessionPlansSuccess),
+			takeUntil(this.unsubscribe$$)).subscribe(() => {
+				this.backToLinked();
+			});
 		this._store.dispatch(
 			SessionPlanTableActions.LinkSessionPlansPending({
 				controller: this.controller,
-				ids: this.selectedItems,
+				ids: this.allSelectedItems,
 				seriesPlanId: this.seriesPlanId,
 				link: true,
 				storePath: this.storePath,
-			}),
+			})
 		);
 	}
 
@@ -81,7 +117,12 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 		this._router.navigate(['../'], { relativeTo: this._activatedRoute });
 	}
 
+	public isRowSelected = (e: RowArgs) =>
+		this.allSelectedItems?.includes(e.dataItem.id) === true ||
+		this.selectedItems?.includes(e.dataItem.id) === true;
+
 	public selectionChange(event: SelectionEvent): void {
+		const currentSelectedItems: any[] = [...this.selectedItems];
 		if (event.shiftKey) {
 			if (event.selectedRows?.length !== 0 && event.selectedRows) {
 				this.selectedItems = [
@@ -99,6 +140,16 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 				const idUnselectdItem: string = event.deselectedRows[0].dataItem.id;
 				this.selectedItems = this.selectedItems.filter((item: string) => item !== idUnselectdItem);
 			}
+		}
+		currentSelectedItems.forEach((item) => {
+			var index = this.allSelectedItems.indexOf(item);
+			if (index >= 0) {
+				this.allSelectedItems.splice(index, 1);
+			}
+		});
+		this.selectedItems.forEach((item) => this.allSelectedItems.push(item));
+		if (this.allSelectedItems.length === 0) {
+			this.showOnlySelected(false);
 		}
 	}
 

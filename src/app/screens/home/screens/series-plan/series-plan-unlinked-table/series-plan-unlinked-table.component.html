@@ -1,6 +1,12 @@
+<div class="left">
+	<span>{{allSelectedItems.length === 0 ? 'No' : allSelectedItems.length}} plans selected</span>
+	<a class="mL10" href="#" (click)="showOnlySelected(true)" *ngIf="(onlySelected !== true) && allSelectedItems.length > 0">Show Only Selected</a>
+	<a class="mL10" href="#" (click)="showOnlySelected(false)" *ngIf="onlySelected === true">Show All Available</a>
+	<a class="mL10" href="#" (click)="discard()" *ngIf="allSelectedItems.length > 0">Discard</a>
+</div>
 <div class="new-button">
-	<button class="mR10" (click)="backToLinked()">Close</button>
-	<button (click)="link()" [hidden]="!(selectedItems.length > 0)"><img src="/assets/images/player.svg" />Link</button>
+	<button class="mR10" (click)="backToLinked()">Cancel</button>
+	<button (click)="link()" [hidden]="!(allSelectedItems.length > 0)"><img src="/assets/images/player.svg" />Link</button>
 </div>
 <kendo-grid
 	[filterable]="true"
@@ -16,6 +22,7 @@
 	(dataStateChange)="dataStateChange($event)"
 	[selectable]="{ enabled: true, checkboxOnly: true }"
 	(selectionChange)="selectionChange($event)"
+	[rowSelected]="isRowSelected"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
