@@ -1,11 +1,6 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
-	Patient Distribution
-</div>
+<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Insurance</div>
 <div class="new-button">
-	<button (click)="openDialogSupervisor()" [hidden]="!(selectedItems.length > 0)">
-		Supervisor
-	</button>
-	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Record</button>
+	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Insurance</button>
 </div>
 <kendo-grid
 	[filterable]="true"
@@ -19,23 +14,27 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
-	[selectable]="{ enabled: true, checkboxOnly: true }"
-	(selectionChange)="selectionChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
-	<kendo-grid-checkbox-column [showSelectAll]="true"></kendo-grid-checkbox-column>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"
 		[field]="col.field"
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
+		[filter]="col.type"
 	>
-		<ng-template *ngIf="col.field === 'start'" kendoGridCellTemplate let-dataItem>
-			{{ dataItem.start | date: 'MM/dd/yyyy' }}
+		<ng-template *ngIf="col.field === 'effectiveDate'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.effectiveDate | date: 'MM/dd/yyyy' }}
+		</ng-template>
+		<ng-template *ngIf="col.field === 'closedDate'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.closedDate | date: 'MM/dd/yyyy' }}
+		</ng-template>
+		<ng-template *ngIf="col.field === 'orderType'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.orderType === 1 ? 'Primary' : 'Secondary' }}
 		</ng-template>
 		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
@@ -83,7 +82,6 @@
 			>
 			</kendo-grid-date-filter-cell> </ng-template
 	></kendo-grid-column>
-
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
 			<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>

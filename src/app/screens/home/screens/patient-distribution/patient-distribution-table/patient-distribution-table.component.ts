@@ -118,6 +118,7 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 				);
 				this.selectedItems = [];
 			}
+			this._store.dispatch(this.clearCurrentItem());
 		});
 	}
 

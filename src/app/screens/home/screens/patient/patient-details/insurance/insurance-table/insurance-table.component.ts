@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
@@ -13,20 +12,18 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { LocationActions } from 'src/app/store/actions/location.actions';
-import { LocationPopupComponent } from './location-popup/location-popup.component';
+import { InsurancePopupComponent } from './insurance-popup/insurance-popup.component';
 
 @Component({
 	providers: [],
-	selector: 'advenium-location-table',
-	templateUrl: './location-table.component.html',
-	styleUrls: ['../../../home.component.scss', './location-table.component.scss'],
+	selector: 'advenium-insurance-table',
+	templateUrl: './insurance-table.component.html',
+	styleUrls: ['../../../../../home.component.scss'],
 })
-export class LocationTableComponent extends CustomTableDirective implements OnInit {
+export class InsuranceTableComponent extends CustomTableDirective {
 	public constructor(
 		private dialogService: DialogService,
 		_store: Store<any>,
-		private _router: Router,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -45,22 +42,20 @@ export class LocationTableComponent extends CustomTableDirective implements OnIn
 	}
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {
-		this._store.dispatch(this.clearCurrentItem());
-		this._store.dispatch(LocationActions.ClearSelectedLocation());
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
 			);
 		}
-
 		const dialog: DialogRef = this.dialogService.open({
-			title: 'Location',
-			content: LocationPopupComponent,
+			title: 'Insurance',
+			content: InsurancePopupComponent,
 			width: 600,
-			height: 550,
+			height: 600,
 			minWidth: 250,
 		});
-		dialog.content.instance.payer = { ...dataItem };
+
+		dialog.content.instance.modality = { ...dataItem };
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				if (isDublicate) {
@@ -78,78 +73,44 @@ export class LocationTableComponent extends CustomTableDirective implements OnIn
 
 	public columns: IColumn[] = [
 		{
-			field: 'name',
-			title: 'Name',
+			field: 'orderType',
+			title: 'Type',
 			hidden: false,
 			filterable: true,
+			sortable: false,
 			type: 'text',
 		},
 		{
-			field: 'master',
-			title: 'Master Location',
+			field: 'payer',
+			title: 'Payer',
 			hidden: false,
 			filterable: true,
+			sortable: false,
 			type: 'text',
 		},
 		{
-			field: 'city',
-			title: 'City',
+			field: 'effectiveDate',
+			title: 'Effective Date',
 			hidden: false,
 			filterable: true,
-			type: 'text',
+			sortable: false,
+			type: 'date',
 		},
 		{
-			field: 'address',
-			title: 'Address',
+			field: 'closedDate',
+			title: 'Closed Date',
 			hidden: false,
 			filterable: true,
-			type: 'text',
+			sortable: false,
+			type: 'date',
 		},
 		{
-			field: 'state',
-			title: 'State',
+			field: 'memberId',
+			title: 'Member ID',
 			hidden: false,
 			filterable: true,
-			type: 'text',
-		},
-		{
-			field: 'zip',
-			title: 'Zip',
-			hidden: false,
-			filterable: true,
-			type: 'text',
-		},
-		{
-			field: 'code',
-			title: 'Code',
-			hidden: false,
-			filterable: true,
-			type: 'text',
-		},
-		{
-			field: 'billingCode',
-			title: 'Billing Code',
-			hidden: false,
-			filterable: true,
-			type: 'text',
-		},
-		{
-			field: 'initiatives',
-			title: 'Initiatives',
-			hidden: false,
-			filterable: true,
-			type: 'text',
-		},
-		{
-			field: 'roomCount',
-			title: 'RoomCount',
-			hidden: false,
-			filterable: true,
+			sortable: false,
 			type: 'text',
 		},
 	];
-
-	public onCellClick(e: any): void {
-		this._router.navigate(['locations', e.id]);
-	}
 }

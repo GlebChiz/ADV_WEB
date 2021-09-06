@@ -1,0 +1,190 @@
+<form [formGroup]="myInsuranceForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Payer</label>
+						<kendo-combobox
+							valueField="id"
+							style="min-width: 200px; width: 100%"
+							textField="name"
+							[data]="(payers$ | async) || []"
+							[kendoDropDownFilter]="filterSettings"
+							formControlName="payerId"
+							[valuePrimitive]="true"
+						>
+						</kendo-combobox>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Effective date</label>
+						<kendo-datepicker
+							formControlName="effectiveDate"
+							format="MMMM"
+							kendoTextBox
+							formatPlaceholder="wide"
+						></kendo-datepicker>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Closed date</label>
+						<kendo-datepicker
+							formControlName="closedDate"
+							format="MMMM"
+							kendoTextBox
+							formatPlaceholder="wide"
+						></kendo-datepicker>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Type</label>
+						<advenium-button-selector
+							[disabled]="false"
+							[items]="isInternet"
+							textField="name"
+							valueField="id"
+							formControlName="orderType"
+							name="orderType"
+							style="min-width: 100px; width: 40%"
+						></advenium-button-selector>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Copay</label>
+						<input
+							name="copay"
+							formControlName="copay"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Deductiblet</label>
+						<input
+							name="deductible"
+							formControlName="deductible"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Member ID</label>
+						<input
+							name="memberId"
+							formControlName="memberId"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Employee</label>
+						<input
+							name="employee"
+							formControlName="employee"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Plan name</label>
+						<input
+							name="planName"
+							formControlName="planName"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Policy group</label>
+						<input
+							name="policyGroup"
+							formControlName="policyGroup"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Insured party</label>
+						<kendo-combobox
+							valueField="id"
+							style="min-width: 200px; width: 100%"
+							textField="name"
+							[data]="(payers$ | async) || []"
+							[kendoDropDownFilter]="filterSettings"
+							formControlName="insuredParty"
+							[valuePrimitive]="true"
+						>
+						</kendo-combobox>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Verification</label>
+						<input type="checkbox" formControlName="isVerified" name="isVerified" />
+						<kendo-datepicker
+							formControlName="verificationDate"
+							format="MMMM"
+							kendoTextBox
+							formatPlaceholder="wide"
+						></kendo-datepicker>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>

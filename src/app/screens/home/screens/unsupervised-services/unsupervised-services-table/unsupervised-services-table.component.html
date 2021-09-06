@@ -45,6 +45,10 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 	>
+		<ng-template *ngIf="col.field === 'date'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.date | date: 'MM/dd/yyyy' }}
+		</ng-template>
+
 		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"

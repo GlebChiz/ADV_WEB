@@ -30,7 +30,6 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Patients',
 						},
 					},
-
 					{
 						path: 'modalities',
 						loadChildren: (): any =>
@@ -39,6 +38,7 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Modalities',
 						},
 					},
+
 					{
 						path: 'payers',
 						loadChildren: (): any =>

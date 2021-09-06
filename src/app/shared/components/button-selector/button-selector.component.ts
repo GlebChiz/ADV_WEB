@@ -3,7 +3,7 @@ import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface IButtonSelector {
-	[key: string]: string;
+	[key: string]: string | number;
 }
 
 @Component({
@@ -25,7 +25,7 @@ export class ButtonSelectorComponent implements ControlValueAccessor {
 
 	@Input() public textField = 'name';
 
-	public value: string | undefined;
+	public value: string | number | undefined;
 
 	public onClick(item: IButtonSelector): void {
 		this.value = item[this.valueField];
