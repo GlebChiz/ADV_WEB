@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
@@ -13,11 +13,7 @@ import { PatientDetailsActions } from './store/actions/patient-details.actions';
 	styleUrls: ['./patient-details.component.scss'],
 })
 export class PatientDetailsComponent extends UnSubscriber implements OnInit {
-	public constructor(
-		private store: Store<any>,
-		private activatedRoute: ActivatedRoute,
-		private _router: Router,
-	) {
+	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {
 		super();
 	}
 
@@ -31,9 +27,5 @@ export class PatientDetailsComponent extends UnSubscriber implements OnInit {
 				id: this.activatedRoute.snapshot.params.id,
 			}),
 		);
-	}
-
-	public toInsurance(): void {
-		this._router.navigate(['patients', this.activatedRoute.snapshot.params.id, 'insurances']);
 	}
 }

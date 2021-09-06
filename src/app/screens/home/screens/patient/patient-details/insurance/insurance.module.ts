@@ -30,7 +30,8 @@ import { InsurancePopupComponent } from './insurance-table/insurance-popup/insur
 import { InsuranceTableActions } from './insurance-table/insurance-table.actions';
 import { InsuranceTableComponent } from './insurance-table/insurance-table.component';
 import { InsuranceTableEffect } from './insurance-table/insurance-table.effects';
-import { insuranceTableReducers } from './insurance-table/insurance-table.reducers';
+import { insuranceReducers } from './insurance-table/insurance-table.reducers';
+import { InsuranceService } from './insurance-table/insurance-table.service';
 import { InsuranceComponent } from './insurance.component';
 
 @NgModule({
@@ -42,12 +43,14 @@ import { InsuranceComponent } from './insurance.component';
 				component: InsuranceComponent,
 			},
 		]),
-		StoreModule.forFeature('insuranceTable', insuranceTableReducers),
+		StoreModule.forFeature('insuranceTable', insuranceReducers),
 		EffectsModule.forFeature([InsuranceTableEffect]),
 	],
 	declarations: [InsuranceComponent, InsuranceTableComponent, InsurancePopupComponent],
+	exports: [InsuranceComponent],
 	entryComponents: [],
 	providers: [
+		InsuranceService,
 		{
 			provide: GET_TABLE_DATA_PENDING,
 			useValue: InsuranceTableActions.GetInsuranceTableDataPending,
