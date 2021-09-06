@@ -1,6 +1,10 @@
 <div class="new-button">
-	<button (click)="link()" class="mR10"><img src="/assets/images/player.svg" />Add Session Plans</button>
-	<button (click)="unlink()" [hidden]="!(selectedItems.length > 0)"><img src="/assets/images/player.svg" />Unlink</button>
+	<button (click)="link()" class="mR10">
+		<img src="/assets/images/add-plans.svg" />Add Session Plans
+	</button>
+	<button (click)="unlink()" [hidden]="!(selectedItems.length > 0)">
+		<img src="/assets/images/link.svg" alt="Logo" />Unlink
+	</button>
 </div>
 <kendo-grid
 	[filterable]="true"
