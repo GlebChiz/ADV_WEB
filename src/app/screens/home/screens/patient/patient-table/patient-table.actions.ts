@@ -85,6 +85,5 @@ export const PatientTableActions = {
 		'[Patient Table] get current item error',
 		props<{ controller: string; id: string }>(),
 	),
-
 	ClearPatientTable: createAction('[Patient Table] Clear'),
 };

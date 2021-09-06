@@ -25,9 +25,10 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 } from 'src/app/shared/table/table.tokens';
+
 import { PatientTableActions } from './patient-table/patient-table.actions';
 import { PatientTableComponent } from './patient-table/patient-table.component';
-import { SomeEffect } from './patient-table/patient-table.effects';
+import { PatientEffect } from './patient-table/patient-table.effects';
 import { patientTableReducers } from './patient-table/patient-table.reducers';
 import { PatientComponent } from './patient.component';
 
@@ -49,19 +50,9 @@ import { PatientComponent } from './patient.component';
 					breadcrumb: 'Single',
 				},
 			},
-			{
-				path: ':id/insurances',
-				loadChildren: (): any =>
-					import('./patient-details/insurance/insurance.module').then(
-						(m: any) => m.InsuranceModule,
-					),
-				data: {
-					breadcrumb: 'Insurance',
-				},
-			},
 		]),
 		StoreModule.forFeature('patientTable', patientTableReducers),
-		EffectsModule.forFeature([SomeEffect]),
+		EffectsModule.forFeature([PatientEffect]),
 	],
 	declarations: [PatientComponent, PatientTableComponent],
 	entryComponents: [],

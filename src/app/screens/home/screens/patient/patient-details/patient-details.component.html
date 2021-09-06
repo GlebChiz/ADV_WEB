@@ -1,3 +1,4 @@
+asdfjdfgdfgdfgdfgdfg
 <kendo-tabstrip>
 	<kendo-tabstrip-tab title="Personal Info" [selected]="true">
 		<ng-template kendoTabContent
@@ -15,8 +16,9 @@
 		></ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Insurance">
-		<ng-template kendoTabTitle>
-			<span (click)="toInsurance()">Insurance</span>
-		</ng-template>
+		<ng-template kendoTabContent>
+			<!-- <advenium-insurance [personId]="(personId$ | async) || ''"></advenium-insurance> -->
+			<advenium-contact-info [personId]="(personId$ | async) || ''"> </advenium-contact-info
+		></ng-template>
 	</kendo-tabstrip-tab>
 </kendo-tabstrip>

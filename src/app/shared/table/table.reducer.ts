@@ -22,9 +22,6 @@ export function tableReducersFactory(
 		on(getCurrentItemSuccess, (state: any, payload: any) => {
 			return { ...state, current: payload.item };
 		}),
-		// on(getCurrentItemSuccess, (state: any, payload: any) => {
-		// 	return { ...state, current: payload.item };
-		// }),
 		on(getTableDataPending, (state: any, payload: any) => {
 			return {
 				...state,
