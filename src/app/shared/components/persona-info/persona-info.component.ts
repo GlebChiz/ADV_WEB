@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -29,7 +29,7 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit {
 		super();
 	}
 
-	public personId!: string;
+	@Input() public personId!: string;
 
 	public personInfo!: IPersonInfo;
 
@@ -46,8 +46,6 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit {
 	};
 
 	public initForm(): void {
-		console.log(this.personInfo?.dob);
-
 		this.myPersonaInfoForm = new FormGroup({
 			id: new FormControl(this.personInfo?.id || ''),
 			firstname: new FormControl(this.personInfo?.firstname || ''),
@@ -79,15 +77,7 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this._store
-			.select('patient' as any, 'current')
-			.pipe(takeUntil(this.unsubscribe$$))
-			.subscribe((current: any) => {
-				if (current.person?.id) {
-					this.personId = current.person?.id;
-					this._store.dispatch(PersonActions.GetPersonInfoPending({ id: current.person?.id }));
-				}
-			});
+		this._store.dispatch(PersonActions.GetPersonInfoPending({ id: this.personId }));
 		this._store
 			.select('person' as any, 'personInfo')
 			.pipe(takeUntil(this.unsubscribe$$))

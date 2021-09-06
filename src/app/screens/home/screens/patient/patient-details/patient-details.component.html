@@ -1,6 +1,8 @@
 <kendo-tabstrip>
 	<kendo-tabstrip-tab title="Personal Info" [selected]="true">
-		<ng-template kendoTabContent><advenium-persona-info></advenium-persona-info> </ng-template>
+		<ng-template kendoTabContent
+			><advenium-persona-info [personId]="(personId$ | async) || ''"></advenium-persona-info>
+		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Demographic">
 		<ng-template kendoTabContent>
@@ -8,9 +10,10 @@
 		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Contact Info">
-		<ng-template kendoTabContent><advenium-contact-info></advenium-contact-info></ng-template>
+		<ng-template kendoTabContent
+			><advenium-contact-info [personId]="(personId$ | async) || ''"></advenium-contact-info
+		></ng-template>
 	</kendo-tabstrip-tab>
-
 	<kendo-tabstrip-tab title="Insurance">
 		<ng-template kendoTabContent><div>Hellow World4</div> </ng-template>
 	</kendo-tabstrip-tab>
