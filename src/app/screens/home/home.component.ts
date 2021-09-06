@@ -40,18 +40,22 @@ export class HomeComponent implements OnInit {
 	public constructor(
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		public _store: Store<IStore>,
+		public _store: Store<IStore>
 	) {}
 
 	public nameUser!: string;
 
 	public urlAvatarUser!: string;
+	public avatar: any;
 
 	public ngOnInit(): void {
 		this._store.select('userState', 'user').subscribe((user: IUser | undefined) => {
 			if (user) {
 				this.nameUser = user?.userName;
 				this.urlAvatarUser = `${environment.apiUrl}/user/${user?.userId}/picture`;
+				this._store.select('userState', 'urlAvatar').subscribe(img => {
+					this.avatar = img;
+				});
 			}
 		});
 		this.setCurrent();

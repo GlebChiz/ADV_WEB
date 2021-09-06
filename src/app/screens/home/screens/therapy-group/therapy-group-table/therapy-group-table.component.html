@@ -30,7 +30,7 @@
 		<kendo-grid-spacer></kendo-grid-spacer>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
-	<kendo-grid-checkbox-column [showSelectAll]="true"></kendo-grid-checkbox-column>
+	<kendo-grid-checkbox-column [width]="50" [showSelectAll]="true"></kendo-grid-checkbox-column>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"

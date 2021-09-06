@@ -44,7 +44,11 @@ export class AuthenticationService implements OnInit {
 	}
 
 	public getUserAvatar(id: number): Observable<any> {
-		return this.http.get<any>(`${environment.apiUrl}/user/${id}/picture`);
+		return this.http.get<any>(`${environment.apiUrl}/user/${id}/picture-base64`);
+	}
+
+	public getUserAvatarBase64(id: number): Observable<any> {
+		return this.http.get<any>(`${environment.apiUrl}/user/${id}/picture-base64`);
 	}
 
 	public sharedCalllogin(sharedCallId: string, code: any): any {

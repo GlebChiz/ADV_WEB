@@ -46,8 +46,8 @@ export class UserEffects {
 				({ login, password }: { login: string | undefined; password: string | undefined }) => {
 					return this.authenticationService.login(login, password).pipe(
 						map((user: IUser) => {
-							this._store.dispatch(UserActions.GetUserAvatarPending({ id: user.userId }));
 							this.authenticationService.saveToken(user.token);
+							this._store.dispatch(UserActions.GetUserAvatarPending({ id: user.userId }));
 							return AuthUserActions.SignInComplete({ user });
 						}),
 						catchError((errors) => {
@@ -64,8 +64,8 @@ export class UserEffects {
 			ofType(UserActions.GetUserAvatarPending),
 			switchMap(({ id }: { id: number }) => {
 				return this.authenticationService.getUserAvatar(id).pipe(
-					map((url: any) => {
-						return UserActions.GetUserAvatarSuccess({ url });
+					map((response: any) => {
+						return UserActions.GetUserAvatarSuccess({ url: response.data });
 					}),
 					catchError((errors: any) => {
 						console.log(errors);
