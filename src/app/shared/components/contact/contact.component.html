@@ -1,6 +1,6 @@
-<form [formGroup]="myContactForm">
+<form [formGroup]="myContactForm" style="max-width: 724px; padding-left: 10px">
 	<div class="clearfix">
-		<div>
+		<div class="form-style first-form">
 			<label>Email / Internet</label>
 			<advenium-button-selector
 				[disabled]="false"
@@ -9,10 +9,10 @@
 				valueField="id"
 				formControlName="useInternet"
 				name="useInternet"
-				style="min-width: 100px; width: 40%"
+				style="min-width: 100px; width: 100%"
 			></advenium-button-selector>
 		</div>
-		<div>
+		<div class="form-style">
 			<label>Email Address</label>
 			<input
 				name="email"
@@ -23,16 +23,27 @@
 				maxlength="250"
 			/>
 		</div>
-		<label>Phones</label>
-		<ng-container formArrayName="phones">
-			<div *ngFor="let phone of phones?.controls; index as i">
-				<advenium-phone [formControlName]="i"></advenium-phone>
-				<button (click)="removePhone(i)">delete</button>
+		<div class="form-style">
+			<label style="align-self: flex-start; padding-top: 7px">Phones</label>
+			<div class="w-100">
+				<ng-container formArrayName="phones">
+					<div *ngFor="let phone of phones?.controls; index as i" style="display: flex">
+						<advenium-phone [formControlName]="i" class="w-100"></advenium-phone>
+						<button (click)="removePhone(i)" class="button-delete">
+							<img src="/assets/images/delete.svg" style="width: 17.5px; height: 20px" />
+						</button>
+					</div>
+				</ng-container>
+				<button
+					(click)="addPhone()"
+					style="width: 100%; max-width: 508px; height: 30px; border-color: #f7f9fb"
+				>
+					<img src="/assets/images/add-phone.svg" style="margin-right: 10px" />Add phone number
+				</button>
 			</div>
-		</ng-container>
+		</div>
 
-		<button (click)="addPhone()">Add phone</button>
-		<div>
+		<div class="w-100 form-style">
 			<label>Preferred Contact Method</label>
 			<advenium-button-selector
 				[disabled]="false"
@@ -41,7 +52,7 @@
 				valueField="id"
 				formControlName="preferredContactId"
 				name="preferredContactId"
-				style="min-width: 100px; width: 40%"
+				style="min-width: 100px; width: 100%"
 			></advenium-button-selector>
 		</div>
 	</div>

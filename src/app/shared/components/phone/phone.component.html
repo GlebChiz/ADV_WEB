@@ -1,36 +1,39 @@
 <form [formGroup]="myPhoneForm">
 	<div class="column w-100">
-		<div class="w-100">
-			<input
-				name="phone"
-				kendoTextBox
-				class="k-textbox"
-				formControlName="phone"
-				maxlength="250"
-				style="width: 100%"
-				mask="(000)000-0000"
-				placeholder="(000)000-0000"
-			/>
+		<div class="form-style-phone">
+			<div class="w-100 phone-number-style">
+				<input
+					name="phone"
+					kendoTextBox
+					class="k-textbox"
+					formControlName="phone"
+					maxlength="250"
+					style="width: 100%; max-width: 291px"
+					mask="(000)000-0000"
+					placeholder="(000)000-0000"
+				/>
+			</div>
+			<div class="w-100" style="max-width: 155px">
+				<kendo-combobox
+					valueField="id"
+					style="width: 100%"
+					textField="name"
+					[data]="(phoneType$ | async) || []"
+					formControlName="typeId"
+					name="typeId"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
 		</div>
 	</div>
-	<div class="column w-100">
-		<div class="w-100">
-			<kendo-combobox
-				valueField="id"
-				style="min-width: 200px; width: 100%"
-				textField="name"
-				[data]="(phoneType$ | async) || []"
-				formControlName="typeId"
-				name="typeId"
-				[valuePrimitive]="true"
-			>
-			</kendo-combobox>
-		</div>
+
+	<div class="w-100 phone-checkbox-style">
+		<input type="checkbox" formControlName="noVoice" name="noVoice" class="k-checkbox" />
+		<span for="noVoice">No voice messages</span>
+		<input type="checkbox" formControlName="noText" name="noText" class="k-checkbox" />
+		<span for="noText">No text messages</span>
+		<input type="radio" formControlName="isPreferred" name="isPreferred" class="k-radio" />
+		<span for="isPreferred">Prefererd</span>
 	</div>
-	<input type="checkbox" formControlName="noVoice" name="noVoice" />
-	<label for="noVoice">No voice messages</label>
-	<input type="checkbox" formControlName="noText" name="noText" />
-	<label for="noText">No text messages</label>
-	<input type="checkbox" formControlName="isPreferred" name="isPreferred" />
-	<label for="isPreferred">Prefererd</label>
 </form>
