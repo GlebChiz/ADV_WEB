@@ -92,5 +92,6 @@ export const InsuranceTableActions = {
 		'[Patient Table] Get current insurance success',
 		props<{ insurance: any }>(),
 	),
+
 	GetCurrentInsuranceError: createAction('[Patient Table] Get current insurance error'),
 };
