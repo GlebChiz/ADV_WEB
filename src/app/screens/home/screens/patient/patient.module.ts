@@ -29,7 +29,8 @@ import {
 import { PatientTableActions } from './patient-table/patient-table.actions';
 import { PatientTableComponent } from './patient-table/patient-table.component';
 import { PatientEffect } from './patient-table/patient-table.effects';
-import { patientTableReducers } from './patient-table/patient-table.reducers';
+import { patientReducers } from './patient-table/patient-table.reducers';
+import { PatientService } from './patient-table/patient-table.service';
 import { PatientComponent } from './patient.component';
 
 @NgModule({
@@ -51,12 +52,13 @@ import { PatientComponent } from './patient.component';
 				},
 			},
 		]),
-		StoreModule.forFeature('patientTable', patientTableReducers),
+		StoreModule.forFeature('patientTable', patientReducers),
 		EffectsModule.forFeature([PatientEffect]),
 	],
 	declarations: [PatientComponent, PatientTableComponent],
 	entryComponents: [],
 	providers: [
+		PatientService,
 		{
 			provide: GET_TABLE_DATA_PENDING,
 			useValue: PatientTableActions.GetPatientTableDataPending,

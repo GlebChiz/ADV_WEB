@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IPatientGeneralInfo } from 'src/app/shared/components/patient-general-info/patient-general-info.component';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
@@ -86,4 +87,22 @@ export const PatientTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	ClearPatientTable: createAction('[Patient Table] Clear'),
+
+	GetPatientGeneralInfoPending: createAction(
+		'[Patient Table] Get patient general info pending',
+		props<{ id: string }>(),
+	),
+	GetPatientGeneralInfoSuccess: createAction(
+		'[Patient Table] Get patient general info success',
+		props<{ patientInfo: IPatientGeneralInfo }>(),
+	),
+	GetPatientGeneralInfoError: createAction('[Patient Table] Get patient general info error'),
+	UpdatePatientGeneralInfoPending: createAction(
+		'[Patient Table] Update patient general info pending',
+		props<{ id: string; patientInfo: IPatientGeneralInfo }>(),
+	),
+	UpdatePatientGeneralInfoSuccess: createAction(
+		'[Patient Table] Update patient general info success',
+	),
+	UpdatePatientGeneralInfoError: createAction('[Patient Table] Update patient general info error'),
 };

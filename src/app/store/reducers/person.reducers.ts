@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import { Action, createReducer, on } from '@ngrx/store';
 import {
 	IPersonDemographicInfo,
@@ -8,9 +9,9 @@ import { IPersonContactInfo } from 'src/app/shared/components/contact/contact.co
 import { PersonActions } from '../actions/person.actions';
 
 const initialPersonState: IPersonState = {
-	personDemographicInfo: {},
-	personInfo: {},
-	personContactInfo: {},
+	personDemographicInfo: [],
+	personInfo: [],
+	personContactInfo: [],
 };
 
 export function personReducers(
@@ -23,22 +24,78 @@ export function personReducers(
 			PersonActions.GetPersonDemographicInfoSuccess,
 			(
 				state: IPersonState,
-				{ personDemographicInfo }: { personDemographicInfo: IPersonDemographicInfo },
+				{
+					personDemographicInfo,
+					id,
+				}: { personDemographicInfo: IPersonDemographicInfo; id: string },
 			) => {
-				return { ...state, personDemographicInfo };
+				return {
+					...state,
+					personDemographicInfo: [...state.personDemographicInfo, { [id]: personDemographicInfo }],
+				};
 			},
 		),
 		on(
 			PersonActions.GetPersonInfoSuccess,
-			(state: IPersonState, { personInfo }: { personInfo: IPersonInfo }) => {
-				return { ...state, personInfo };
+			(state: IPersonState, { personInfo, id }: { personInfo: IPersonInfo; id: string }) => {
+				return { ...state, personInfo: [...state.personInfo, { [id]: personInfo }] };
 			},
 		),
 		on(
 			PersonActions.GetPersonContactInfoSuccess,
-			(state: IPersonState, { personContactInfo }: { personContactInfo: IPersonContactInfo }) => {
-				return { ...state, personContactInfo };
+			(
+				state: IPersonState,
+				{ personContactInfo, id }: { personContactInfo: IPersonContactInfo; id: string },
+			) => {
+				return {
+					...state,
+					personContactInfo: [...state.personContactInfo, { [id]: personContactInfo }],
+				};
 			},
 		),
+		on(PersonActions.RemovePersonContact, (state: IPersonState, { id }: { id: string }) => {
+			const newPersonContactInfo: {
+				[key: string]: IPersonContactInfo;
+			}[] = [...state.personContactInfo];
+			newPersonContactInfo.find((item: { [key: string]: IPersonContactInfo }, index: number) => {
+				if (item.hasOwnProperty(`${[id]}`)) {
+					newPersonContactInfo.splice(index, 1);
+				}
+			});
+			return {
+				...state,
+				personContactInfo: [...newPersonContactInfo],
+			};
+		}),
+		on(PersonActions.RemovePersonDemographic, (state: IPersonState, { id }: { id: string }) => {
+			const newPersonDemographicInfo: {
+				[key: string]: IPersonDemographicInfo;
+			}[] = [...state.personDemographicInfo];
+			newPersonDemographicInfo.find(
+				(item: { [key: string]: IPersonDemographicInfo }, index: number) => {
+					if (item.hasOwnProperty(`${[id]}`)) {
+						newPersonDemographicInfo.splice(index, 1);
+					}
+				},
+			);
+			return {
+				...state,
+				personDemographicInfo: [...newPersonDemographicInfo],
+			};
+		}),
+		on(PersonActions.RemovePersonInfo, (state: IPersonState, { id }: { id: string }) => {
+			const newPersonInfo: {
+				[key: string]: IPersonInfo;
+			}[] = [...state.personInfo];
+			newPersonInfo.find((item: { [key: string]: IPersonInfo }, index: number) => {
+				if (item.hasOwnProperty(`${[id]}`)) {
+					newPersonInfo.splice(index, 1);
+				}
+			});
+			return {
+				...state,
+				personInfo: [...newPersonInfo],
+			};
+		}),
 	)(locationState, action);
 }

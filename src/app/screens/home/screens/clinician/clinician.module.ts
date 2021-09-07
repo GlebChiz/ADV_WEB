@@ -29,8 +29,9 @@ import {
 import { ClinicianPopupComponent } from './clinician-table/clinician-popup/clinician-popup.component';
 import { ClinicianTableActions } from './clinician-table/clinician-table.actions';
 import { ClinicianTableComponent } from './clinician-table/clinician-table.component';
-import { SomeEffect } from './clinician-table/clinician-table.effects';
-import { clinicianTableReducers } from './clinician-table/clinician-table.reducers';
+import { ClinicianEffect } from './clinician-table/clinician-table.effects';
+import { clinicianReducers } from './clinician-table/clinician-table.reducers';
+import { ClinicianService } from './clinician-table/clinician-table.service';
 import { ClinicianComponent } from './clinician.component';
 
 @NgModule({
@@ -52,12 +53,13 @@ import { ClinicianComponent } from './clinician.component';
 				},
 			},
 		]),
-		StoreModule.forFeature('clinicianTable', clinicianTableReducers),
-		EffectsModule.forFeature([SomeEffect]),
+		StoreModule.forFeature('clinicianTable', clinicianReducers),
+		EffectsModule.forFeature([ClinicianEffect]),
 	],
 	declarations: [ClinicianComponent, ClinicianTableComponent, ClinicianPopupComponent],
 	entryComponents: [],
 	providers: [
+		ClinicianService,
 		{
 			provide: GET_TABLE_DATA_PENDING,
 			useValue: ClinicianTableActions.GetClinicianTableDataPending,

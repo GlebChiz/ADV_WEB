@@ -12,14 +12,14 @@ export const PersonActions = {
 	),
 	GetPersonDemographicInfoSuccess: createAction(
 		'[Person] Get person demographic info success',
-		props<{ personDemographicInfo: IPersonDemographicInfo }>(),
+		props<{ personDemographicInfo: IPersonDemographicInfo; id: string }>(),
 	),
 	GetPersonDemographicInfoError: createAction('[Person] Get person demographic info error'),
 
 	GetPersonInfoPending: createAction('[Person] Get person info pending', props<{ id: string }>()),
 	GetPersonInfoSuccess: createAction(
 		'[Person] Get person info success',
-		props<{ personInfo: IPersonInfo }>(),
+		props<{ personInfo: IPersonInfo; id: string }>(),
 	),
 	GetPersonInfoError: createAction('[Person] Get person info error'),
 
@@ -45,7 +45,7 @@ export const PersonActions = {
 	),
 	GetPersonContactInfoSuccess: createAction(
 		'[Person] Get person contact info success',
-		props<{ personContactInfo: IPersonContactInfo }>(),
+		props<{ personContactInfo: IPersonContactInfo; id: string }>(),
 	),
 	GetPersonContactInfoError: createAction('[Person] Get person contact info error'),
 
@@ -55,4 +55,10 @@ export const PersonActions = {
 	),
 	UpdatePersonContactInfoSuccess: createAction('[Person] Update person contact info success'),
 	UpdatePersonContactInfoError: createAction('[Person] Update person contact info error'),
+	RemovePersonDemographic: createAction(
+		'[Person] Remove person demographic',
+		props<{ id: string }>(),
+	),
+	RemovePersonContact: createAction('[Person] Remove person contact', props<{ id: string }>()),
+	RemovePersonInfo: createAction('[Person] Remove person info', props<{ id: string }>()),
 };

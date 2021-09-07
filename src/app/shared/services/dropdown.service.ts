@@ -110,4 +110,12 @@ export class DropdownService {
 	public getPhoneType(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/PhoneType');
 	}
+
+	public getPatientStatus(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/PatientStatus');
+	}
+
+	public getClinicianType(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/ClinicianType');
+	}
 }

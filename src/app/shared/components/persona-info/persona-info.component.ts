@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -13,7 +13,7 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { Address } from '../../interfaces/address.intarface';
 
 @Component({
-	selector: 'advenium-persona-info',
+	selector: 'advenium-person-info',
 	templateUrl: './persona-info.component.html',
 	styleUrls: ['./persona-info.component.scss'],
 	providers: [
@@ -24,14 +24,14 @@ import { Address } from '../../interfaces/address.intarface';
 		},
 	],
 })
-export class PersonaInfoComponent extends UnSubscriber implements OnInit {
+export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDestroy, OnChanges {
 	public constructor(private _store: Store<IStore>) {
 		super();
 	}
 
 	@Input() public personId!: string;
 
-	public personInfo!: IPersonInfo;
+	public personInfo!: IPersonInfo | undefined;
 
 	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'UsState' as any);
 
@@ -73,18 +73,35 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit {
 		return this.myPersonaInfoForm.get('address') as FormGroup;
 	}
 
+	public ngOnChanges(): void {
+		if (this.personId) {
+			this._store.dispatch(PersonActions.GetPersonInfoPending({ id: this.personId }));
+		}
+	}
+
 	public ngOnInit(): void {
-		this._store.dispatch(PersonActions.GetPersonInfoPending({ id: this.personId }));
 		this._store
 			.select('person' as any, 'personInfo')
 			.pipe(takeUntil(this.unsubscribe$$))
-			.subscribe((personInfo: IPersonInfo) => {
-				this.personInfo = personInfo;
+			.subscribe((personInfo: { [key: string]: IPersonInfo }[]) => {
+				const currentPersonInfo: { [key: string]: IPersonInfo } =
+					personInfo.find((item: { [key: string]: IPersonInfo }) =>
+						// eslint-disable-next-line no-prototype-builtins
+						item.hasOwnProperty(this.personId),
+					) ?? {};
+				if (currentPersonInfo && currentPersonInfo[this.personId]) {
+					this.personInfo = currentPersonInfo[this.personId];
+				}
+
 				this.initForm();
 			});
 		this._store.dispatch(DropdownActions.GetUsStatePending());
 
 		this.initForm();
+	}
+
+	public ngOnDestroy(): void {
+		this._store.dispatch(PersonActions.RemovePersonInfo({ id: this.personId }));
 	}
 }
 

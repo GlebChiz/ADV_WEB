@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -24,14 +24,14 @@ import { IButtonSelector } from '../button-selector/button-selector.component';
 		},
 	],
 })
-export class DemographicComponent extends UnSubscriber implements OnInit {
+export class DemographicComponent extends UnSubscriber implements OnInit, OnDestroy, OnChanges {
 	public constructor(private _store: Store<IStore>) {
 		super();
 	}
 
 	@Input() public personId: string = '';
 
-	public personDemographicInfo!: IPersonDemographicInfo;
+	public personDemographicInfo!: IPersonDemographicInfo | undefined;
 
 	public sex: IButtonSelector[] = [];
 
@@ -86,13 +86,26 @@ export class DemographicComponent extends UnSubscriber implements OnInit {
 		});
 	}
 
+	public ngOnChanges(): void {
+		if (this.personId) {
+			this._store.dispatch(PersonActions.GetPersonDemographicInfoPending({ id: this.personId }));
+		}
+	}
+
 	public ngOnInit(): void {
-		this._store.dispatch(PersonActions.GetPersonDemographicInfoPending({ id: this.personId }));
 		this._store
 			.select('person' as any, 'personDemographicInfo')
 			.pipe(takeUntil(this.unsubscribe$$))
-			.subscribe((personDemographicInfo: IPersonDemographicInfo) => {
-				this.personDemographicInfo = personDemographicInfo;
+			.subscribe((personDemographicInfo: { [key: string]: IPersonDemographicInfo }[]) => {
+				const currentPersonDemographic: { [key: string]: IPersonDemographicInfo } =
+					personDemographicInfo.find((item: { [key: string]: IPersonDemographicInfo }) =>
+						// eslint-disable-next-line no-prototype-builtins
+						item.hasOwnProperty(this.personId),
+					) ?? {};
+				if (currentPersonDemographic && currentPersonDemographic[this.personId]) {
+					this.personDemographicInfo = currentPersonDemographic[this.personId];
+				}
+
 				this.initForm();
 			});
 		this._store.dispatch(DropdownActions.GetLanguagesPending());
@@ -125,6 +138,10 @@ export class DemographicComponent extends UnSubscriber implements OnInit {
 				});
 			});
 		this.initForm();
+	}
+
+	public ngOnDestroy(): void {
+		this._store.dispatch(PersonActions.RemovePersonDemographic({ id: this.personId }));
 	}
 }
 

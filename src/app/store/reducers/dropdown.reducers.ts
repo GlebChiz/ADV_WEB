@@ -168,5 +168,17 @@ export function dropdownReducers(
 				return { ...state, phoneType: data, isLoading: false };
 			},
 		),
+		on(
+			DropdownActions.GetPatientStatusSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, patientStatus: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetClinicianTypeSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, clinicianType: data, isLoading: false };
+			},
+		),
 	)(dropdownState, action);
 }
