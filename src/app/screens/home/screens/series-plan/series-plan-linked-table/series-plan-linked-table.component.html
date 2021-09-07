@@ -2,8 +2,12 @@
 	<button (click)="link()" class="mR10">
 		<img src="/assets/images/add-plans.svg" />Add Session Plans
 	</button>
-	<button (click)="unlink()" [hidden]="!(selectedItems.length > 0)">
-		<img src="/assets/images/link.svg" alt="Logo" />Unlink
+	<button
+		(click)="unlink()"
+		[hidden]="!(selectedItems.length > 0)"
+		style="background-color: #ff4656; border-color: #ff4656"
+	>
+		<img src="/assets/images/delete-link.svg" alt="Logo" />Unlink
 	</button>
 </div>
 <kendo-grid
