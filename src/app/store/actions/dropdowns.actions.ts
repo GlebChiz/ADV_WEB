@@ -159,4 +159,16 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetPhoneTypeError: createAction('[Dropdown] Get PhoneType error'),
+	GetPatientStatusPending: createAction('[Dropdown] Get PatientStatus pending'),
+	GetPatientStatusSuccess: createAction(
+		'[Dropdown] Get PatientStatus success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetPatientStatusError: createAction('[Dropdown] Get PatientStatus error'),
+	GetClinicianTypePending: createAction('[Dropdown] Get ClinicianType pending'),
+	GetClinicianTypeSuccess: createAction(
+		'[Dropdown] Get ClinicianType success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetClinicianTypeError: createAction('[Dropdown] Get ClinicianType error'),
 };

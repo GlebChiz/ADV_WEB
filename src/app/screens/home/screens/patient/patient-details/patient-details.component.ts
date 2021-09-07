@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { Observable } from 'rxjs';
+import { IStore } from 'src/app/store';
 import { PatientDetailsActions } from './store/actions/patient-details.actions';
 
 @Component({
@@ -13,13 +14,15 @@ import { PatientDetailsActions } from './store/actions/patient-details.actions';
 	styleUrls: ['./patient-details.component.scss'],
 })
 export class PatientDetailsComponent extends UnSubscriber implements OnInit {
-	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {
+	public constructor(private store: Store<IStore>, private activatedRoute: ActivatedRoute) {
 		super();
 	}
 
 	public personId$: Observable<string> = this.store
-		.select('patient', 'current', 'person', 'id')
+		.select('patient' as any, 'current', 'person', 'id')
 		.pipe(takeUntil(this.unsubscribe$$));
+
+	public patientId: string = this.activatedRoute.snapshot.params.id;
 
 	public ngOnInit(): void {
 		this.store.dispatch(

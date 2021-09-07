@@ -373,4 +373,32 @@ export class DropdownEffects {
 			),
 		),
 	);
+
+	public getPatientStatus$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetPatientStatusPending),
+			mergeMap(() =>
+				this.service.getPatientStatus().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetPatientStatusSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetPatientStatusError())),
+				),
+			),
+		),
+	);
+
+	public getClinicianType$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetClinicianTypePending),
+			mergeMap(() =>
+				this.service.getClinicianType().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetClinicianTypeSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetClinicianTypeError())),
+				),
+			),
+		),
+	);
 }

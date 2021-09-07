@@ -13,7 +13,7 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { Address } from '../../interfaces/address.intarface';
 
 @Component({
-	selector: 'advenium-persona-info',
+	selector: 'advenium-person-info',
 	templateUrl: './persona-info.component.html',
 	styleUrls: ['./persona-info.component.scss'],
 	providers: [

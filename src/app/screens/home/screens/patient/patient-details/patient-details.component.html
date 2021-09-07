@@ -1,8 +1,8 @@
-asdfjdfgdfgdfgdfgdfg
 <kendo-tabstrip>
 	<kendo-tabstrip-tab title="Personal Info" [selected]="true">
-		<ng-template kendoTabContent
-			><advenium-persona-info [personId]="(personId$ | async) || ''"></advenium-persona-info>
+		<ng-template kendoTabContent>
+			<advenium-patient-general-info [patientId]="patientId"></advenium-patient-general-info>
+			<advenium-person-info [personId]="(personId$ | async) || ''"></advenium-person-info>
 		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Demographic">

@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IClinicianGeneralInfo } from 'src/app/shared/components/clinician-general-info/clinician-general-info.component';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
@@ -88,4 +89,25 @@ export const ClinicianTableActions = {
 	),
 
 	ClearClinicianTable: createAction('[Clinician Table] Clear'),
+
+	GetClinicianGeneralInfoPending: createAction(
+		'[Clinician Table] Get Clinician general info pending',
+		props<{ id: string }>(),
+	),
+	GetClinicianGeneralInfoSuccess: createAction(
+		'[Clinician Table] Get Clinician general info success',
+		props<{ clinicianInfo: IClinicianGeneralInfo }>(),
+	),
+	GetClinicianGeneralInfoError: createAction('[Clinician Table] Get Clinician general info error'),
+
+	UpdateClinicianGeneralInfoPending: createAction(
+		'[Clinician Table] Update Clinician general info pending',
+		props<{ id: string; clinicianInfo: IClinicianGeneralInfo }>(),
+	),
+	UpdateClinicianGeneralInfoSuccess: createAction(
+		'[Clinician Table] Update Clinician general info success',
+	),
+	UpdateClinicianGeneralInfoError: createAction(
+		'[Clinician Table] Update Clinician general info error',
+	),
 };

@@ -20,6 +20,8 @@ export class ClinicianDetailsComponent extends UnSubscriber implements OnInit {
 		.select('clinician', 'current', 'person', 'id')
 		.pipe(takeUntil(this.unsubscribe$$));
 
+	public clinicianId: string = this.activatedRoute.snapshot.params.id;
+
 	public ngOnInit(): void {
 		this.store.dispatch(
 			ClinicanDetailsActions.GetClinicanDetailsPending({

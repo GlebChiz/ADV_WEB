@@ -16,6 +16,8 @@ import { PersonaInfoComponent } from './components/persona-info/persona-info.com
 import { DemographicComponent } from './components/demografic/demographic.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { PhoneComponent } from './components/phone/phone.component';
+import { PatientGeneralInfoComponent } from './components/patient-general-info/patient-general-info.component';
+import { ClinicianGeneralInfoComponent } from './components/clinician-general-info/clinician-general-info.component';
 
 @NgModule({
 	imports: [
@@ -43,14 +45,18 @@ import { PhoneComponent } from './components/phone/phone.component';
 		AddressControlComponent,
 		DemographicComponent,
 		PersonaInfoComponent,
+		PatientGeneralInfoComponent,
 		ContactComponent,
 		PhoneComponent,
+		ClinicianGeneralInfoComponent,
 	],
 	declarations: [
 		ButtonSelectorComponent,
+		ClinicianGeneralInfoComponent,
 		AddressControlComponent,
 		DemographicComponent,
 		PersonaInfoComponent,
+		PatientGeneralInfoComponent,
 		ContactComponent,
 		PhoneComponent,
 	],

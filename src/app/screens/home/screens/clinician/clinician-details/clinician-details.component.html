@@ -1,7 +1,10 @@
 <kendo-tabstrip>
 	<kendo-tabstrip-tab title="General" [selected]="true">
 		<ng-template kendoTabContent>
-			<advenium-persona-info [personId]="(personId$ | async) || ''"></advenium-persona-info>
+			<advenium-clinician-general-info
+				[clinicianId]="clinicianId"
+			></advenium-clinician-general-info>
+			<advenium-person-info [personId]="(personId$ | async) || ''"></advenium-person-info>
 		</ng-template>
 	</kendo-tabstrip-tab>
 	<kendo-tabstrip-tab title="Demographic">
