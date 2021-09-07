@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -24,7 +24,7 @@ import { Address } from '../../interfaces/address.intarface';
 		},
 	],
 })
-export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDestroy {
+export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDestroy, OnChanges {
 	public constructor(private _store: Store<IStore>) {
 		super();
 	}
@@ -76,8 +76,13 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 		return this.myPersonaInfoForm.get('address') as FormGroup;
 	}
 
+	public ngOnChanges(): void {
+		if (this.personId) {
+			this._store.dispatch(PersonActions.GetPersonInfoPending({ id: this.personId }));
+		}
+	}
+
 	public ngOnInit(): void {
-		this._store.dispatch(PersonActions.GetPersonInfoPending({ id: this.personId }));
 		this._store
 			.select('person' as any, 'personInfo')
 			.pipe(takeUntil(this.unsubscribe$$))

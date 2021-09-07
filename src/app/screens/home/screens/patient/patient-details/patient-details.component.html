@@ -1,24 +1,19 @@
-<kendo-tabstrip>
-	<kendo-tabstrip-tab title="Personal Info" [selected]="true">
-		<ng-template kendoTabContent>
+<kendo-tabstrip (tabSelect)="onTabSelect($event)" content>
+	<kendo-tabstrip-tab
+		*ngFor="let tab of tabs"
+		[title]="tab"
+		[selected]="currentFragment === (tab | lowercase)"
+	>
+		<ng-template *ngIf="tab === 'General'" kendoTabContent>
 			<advenium-patient-general-info [patientId]="patientId"></advenium-patient-general-info>
 			<advenium-person-info [personId]="(personId$ | async) || ''"></advenium-person-info>
 		</ng-template>
-	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Demographic">
-		<ng-template kendoTabContent>
+		<ng-template *ngIf="tab === 'Demographic'" kendoTabContent>
 			<advenium-demographic-info [personId]="(personId$ | async) || ''"></advenium-demographic-info>
 		</ng-template>
-	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Contact Info">
-		<ng-template kendoTabContent
-			><advenium-contact-info [personId]="(personId$ | async) || ''"></advenium-contact-info
+		<ng-template *ngIf="tab === 'Contacts'" kendoTabContent>
+			<advenium-contact-info [personId]="(personId$ | async) || ''"></advenium-contact-info
 		></ng-template>
-	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Insurance">
-		<ng-template kendoTabContent>
-			<!-- <advenium-insurance [personId]="(personId$ | async) || ''"></advenium-insurance> -->
-			<advenium-contact-info [personId]="(personId$ | async) || ''"> </advenium-contact-info
-		></ng-template>
+		<ng-template *ngIf="tab === 'Insurance'" kendoTabContent> asfd </ng-template>
 	</kendo-tabstrip-tab>
 </kendo-tabstrip>

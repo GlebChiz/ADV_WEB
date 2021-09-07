@@ -1,9 +1,11 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { SelectEvent } from '@progress/kendo-angular-layout';
+import { IStore } from 'src/app/store';
 import { ClinicanDetailsActions } from './store/actions/clinician-details.actions';
 
 @Component({
@@ -12,12 +14,20 @@ import { ClinicanDetailsActions } from './store/actions/clinician-details.action
 	templateUrl: './clinician-details.component.html',
 })
 export class ClinicianDetailsComponent extends UnSubscriber implements OnInit {
-	public constructor(private store: Store<any>, private activatedRoute: ActivatedRoute) {
+	public constructor(
+		private store: Store<IStore>,
+		private router: Router,
+		private activatedRoute: ActivatedRoute,
+	) {
 		super();
 	}
 
+	public currentFragment!: string;
+
+	public tabs: string[] = ['General', 'Demographic', 'Contacts'];
+
 	public personId$: Observable<string> = this.store
-		.select('clinician', 'current', 'person', 'id')
+		.select('clinician' as any, 'current', 'person', 'id')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public clinicianId: string = this.activatedRoute.snapshot.params.id;
@@ -28,5 +38,21 @@ export class ClinicianDetailsComponent extends UnSubscriber implements OnInit {
 				id: this.activatedRoute.snapshot.params.id,
 			}),
 		);
+
+		this.activatedRoute.fragment.subscribe((fragment: any) => {
+			this.currentFragment = fragment;
+		});
+
+		if (this.tabs[0] && !this.currentFragment) {
+			this.router.navigate([], {
+				fragment: this.tabs[0].toLowerCase(),
+			});
+		}
+	}
+
+	public onTabSelect(e: SelectEvent): void {
+		this.router.navigate([], {
+			fragment: e.title.toLowerCase(),
+		});
 	}
 }

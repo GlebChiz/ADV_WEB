@@ -1,26 +1,20 @@
-<kendo-tabstrip>
-	<kendo-tabstrip-tab title="General" [selected]="true">
-		<ng-template kendoTabContent>
+<kendo-tabstrip (tabSelect)="onTabSelect($event)" content>
+	<kendo-tabstrip-tab
+		*ngFor="let tab of tabs"
+		[title]="tab"
+		[selected]="currentFragment === (tab | lowercase)"
+	>
+		<ng-template *ngIf="tab === 'General'" kendoTabContent>
 			<advenium-clinician-general-info
 				[clinicianId]="clinicianId"
 			></advenium-clinician-general-info>
 			<advenium-person-info [personId]="(personId$ | async) || ''"></advenium-person-info>
 		</ng-template>
-	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Demographic">
-		<ng-template kendoTabContent>
+		<ng-template *ngIf="tab === 'Demographic'" kendoTabContent>
 			<advenium-demographic-info [personId]="(personId$ | async) || ''"></advenium-demographic-info>
 		</ng-template>
-	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Contacts">
-		<ng-template kendoTabContent>
+		<ng-template *ngIf="tab === 'Contacts'" kendoTabContent>
 			<advenium-contact-info [personId]="(personId$ | async) || ''"></advenium-contact-info
 		></ng-template>
-	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Insurance">
-		<ng-template kendoTabContent><div>Hellow World4</div> </ng-template>
-	</kendo-tabstrip-tab>
-	<kendo-tabstrip-tab title="Modality Selection">
-		<ng-template kendoTabContent><div>Hellow World5</div> </ng-template>
 	</kendo-tabstrip-tab>
 </kendo-tabstrip>
