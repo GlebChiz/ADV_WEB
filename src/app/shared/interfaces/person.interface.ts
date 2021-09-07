@@ -5,7 +5,7 @@ import {
 import { IPersonContactInfo } from '../components/contact/contact.component';
 
 export interface IPersonState {
-	personDemographicInfo: IPersonDemographicInfo | {};
-	personInfo: IPersonInfo | {};
-	personContactInfo: IPersonContactInfo | {};
+	personDemographicInfo: { [key: string]: IPersonDemographicInfo }[];
+	personInfo: { [key: string]: IPersonInfo }[];
+	personContactInfo: { [key: string]: IPersonContactInfo }[];
 }
