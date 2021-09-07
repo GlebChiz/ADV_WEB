@@ -1,8 +1,10 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
-	Assessment template
-</div>
-<div class="new-button">
-	<button><img src="/assets/images/player.svg" />New Template</button>
+<div class="header-form-style">
+	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
+		Assessment template
+	</div>
+	<div class="new-button">
+		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Template</button>
+	</div>
 </div>
 <kendo-grid
 	[filterable]="true"
@@ -94,3 +96,4 @@
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>
+<div kendoDialogContainer></div>

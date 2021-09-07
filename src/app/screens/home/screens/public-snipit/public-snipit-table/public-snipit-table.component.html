@@ -1,7 +1,10 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Snipits</div>
-<div class="new-button">
-	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Snipit</button>
+<div class="header-form-style">
+	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Snipits</div>
+	<div class="new-button">
+		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Snipit</button>
+	</div>
 </div>
+
 <kendo-grid
 	[filterable]="true"
 	[data]="gridData"

@@ -12,9 +12,9 @@ import {
 import { IStore } from 'src/app/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
-import { SessionPlanTableActions } from '../../session-plan/session-plan-table/session-plan-table.actions';
 import { takeUntil } from 'rxjs/operators';
 import { Actions, ofType } from '@ngrx/effects';
+import { SessionPlanTableActions } from '../../session-plan/session-plan-table/session-plan-table.actions';
 
 @Component({
 	providers: [],
@@ -97,9 +97,9 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 	}
 
 	public link(): void {
-		this._action$.pipe(
-			ofType(SessionPlanTableActions.LinkSessionPlansSuccess),
-			takeUntil(this.unsubscribe$$)).subscribe(() => {
+		this._action$
+			.pipe(ofType(SessionPlanTableActions.LinkSessionPlansSuccess), takeUntil(this.unsubscribe$$))
+			.subscribe(() => {
 				this.backToLinked();
 			});
 		this._store.dispatch(
@@ -109,7 +109,7 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 				seriesPlanId: this.seriesPlanId,
 				link: true,
 				storePath: this.storePath,
-			})
+			}),
 		);
 	}
 

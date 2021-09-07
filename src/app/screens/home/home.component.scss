@@ -31,6 +31,17 @@ kendo-drawer-content {
 		}
 	}
 }
+::ng-deep .click-element {
+	cursor: pointer;
+	&:hover {
+		color: #631ed3;
+	}
+}
+
+::ng-deep .header-form-style {
+	display: flex;
+	justify-content: space-between;
+}
 ::ng-deep .form-style {
 	display: flex;
 	padding-bottom: 24px;

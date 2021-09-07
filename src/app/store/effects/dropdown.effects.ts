@@ -304,15 +304,15 @@ export class DropdownEffects {
 		),
 	);
 
-	public getCityState$ = createEffect(() =>
+	public getUsState$ = createEffect(() =>
 		this.actions$.pipe(
-			ofType(DropdownActions.GetCityStatePending),
+			ofType(DropdownActions.GetUsStatePending),
 			mergeMap(() =>
-				this.service.getCityState().pipe(
+				this.service.getUsState().pipe(
 					map((data: IDropdownData[]) => {
-						return DropdownActions.GetCityStateSuccess({ data });
+						return DropdownActions.GetUsStateSuccess({ data });
 					}),
-					catchError(() => of(DropdownActions.GetCityStateError())),
+					catchError(() => of(DropdownActions.GetUsStateError())),
 				),
 			),
 		),

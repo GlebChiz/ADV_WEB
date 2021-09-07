@@ -33,10 +33,7 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit {
 
 	public personInfo!: IPersonInfo;
 
-	public stateCity$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown',
-		'CityState' as any,
-	);
+	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'UsState' as any);
 
 	public myPersonaInfoForm!: FormGroup;
 
@@ -85,7 +82,7 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit {
 				this.personInfo = personInfo;
 				this.initForm();
 			});
-		this._store.dispatch(DropdownActions.GetCityStatePending());
+		this._store.dispatch(DropdownActions.GetUsStatePending());
 
 		this.initForm();
 	}

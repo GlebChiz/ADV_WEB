@@ -1,0 +1,104 @@
+<form [formGroup]="assessmentTemplateForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Id</label>
+						<input
+							name="Id"
+							formControlName="id"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+				<div class="column w-100">
+					<div class="w-100">
+						<label>questionId</label>
+						<input
+							name="questionId"
+							formControlName="questionId"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Response Option</label>
+						<input
+							name="responseOption"
+							formControlName="responseOption"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+				<!-- <div class="w-100">
+					<label>text</label>
+					<kendo-multiselect
+						[autoClose]="false"
+						formControlName="areaIds"
+						textField="name"
+						[data]="(areas$ | async) || []"
+						placeholder="Areas"
+						valueField="id"
+						[valuePrimitive]="true"
+					>
+					</kendo-multiselect>
+				</div> -->
+				<!-- <div class="w-100">
+					<label>Service Types</label>
+					<kendo-multiselect
+[autoClose]="false"
+						formControlName="serviceTypeIds"
+						placeholder="Service Types"
+						textField="name"
+						[data]="(serviceSubTypes$ | async) || []"
+						valueField="id"
+						[valuePrimitive]="true"
+					>
+					</kendo-multiselect>
+				</div> -->
+				<!-- <div [formGroup]="getPerson()">
+					<div class="column w-100">
+						<div class="w-100">
+							<label>First name</label>
+							<input
+								name="firstname"
+								formControlName="firstname"
+								kendoTextBox
+								class="k-textbox"
+								style="width: 100%"
+								maxlength="250"
+							/>
+						</div>
+					</div> -->
+				<div class="column w-100">
+					<div class="w-100">
+						<label>type</label>
+						<input
+							name="type"
+							formControlName="type"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>

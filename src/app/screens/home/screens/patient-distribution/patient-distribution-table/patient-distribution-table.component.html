@@ -1,12 +1,15 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
-	Patient Distribution
+<div class="header-form-style">
+	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
+		Patient Distribution
+	</div>
+	<div class="new-button">
+		<button (click)="openDialogSupervisor()" [hidden]="!(selectedItems.length > 0)">
+			Supervisor
+		</button>
+		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Record</button>
+	</div>
 </div>
-<div class="new-button">
-	<button (click)="openDialogSupervisor()" [hidden]="!(selectedItems.length > 0)">
-		Supervisor
-	</button>
-	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Record</button>
-</div>
+
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"

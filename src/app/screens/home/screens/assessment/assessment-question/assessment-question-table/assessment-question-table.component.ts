@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
-import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -83,6 +82,13 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 			filterable: false,
 			type: 'text',
 		},
+		{
+			field: 'templates',
+			title: 'Templates',
+			hidden: false,
+			filterable: false,
+			type: 'text',
+		},
 	];
 
 	public selectionChangeLanguage(item: IDropdownData | undefined): void {
@@ -151,8 +157,8 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		}
 	}
 
-	public onCellClick(e: CellClickEvent): void {
-		this._router.navigate([e.dataItem.id], { relativeTo: this._activatedRoute });
+	public onCellClick(): void {
+		this._router.navigate(['templates'], { relativeTo: this._activatedRoute });
 	}
 
 	public toAssessments(): void {

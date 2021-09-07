@@ -145,9 +145,9 @@ export function dropdownReducers(
 			},
 		),
 		on(
-			DropdownActions.GetCityStateSuccess,
+			DropdownActions.GetUsStateSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
-				return { ...state, CityState: data, isLoading: false };
+				return { ...state, UsState: data, isLoading: false };
 			},
 		),
 		on(
