@@ -20,7 +20,7 @@ export class PersonEffects {
 			mergeMap(({ id }: { id: string }) =>
 				this.personService.getPersonDemographicInfo(id).pipe(
 					map((personDemographicInfo: IPersonDemographicInfo) => {
-						return PersonActions.GetPersonDemographicInfoSuccess({ personDemographicInfo });
+						return PersonActions.GetPersonDemographicInfoSuccess({ personDemographicInfo, id });
 					}),
 					catchError(() => of(PersonActions.GetPersonDemographicInfoError())),
 				),
@@ -55,7 +55,7 @@ export class PersonEffects {
 			mergeMap(({ id }: { id: string }) =>
 				this.personService.getPersonInfo(id).pipe(
 					map((personInfo: IPersonInfo) => {
-						return PersonActions.GetPersonInfoSuccess({ personInfo });
+						return PersonActions.GetPersonInfoSuccess({ personInfo, id });
 					}),
 					catchError(() => of(PersonActions.GetPersonInfoError())),
 				),
@@ -69,7 +69,7 @@ export class PersonEffects {
 			mergeMap(({ id }: { id: string }) =>
 				this.personService.getPersonContactInfo(id).pipe(
 					map((personContactInfo: IPersonContactInfo) => {
-						return PersonActions.GetPersonContactInfoSuccess({ personContactInfo });
+						return PersonActions.GetPersonContactInfoSuccess({ personContactInfo, id });
 					}),
 					catchError(() => of(PersonActions.GetPersonContactInfoError())),
 				),
