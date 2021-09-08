@@ -388,6 +388,34 @@ export class DropdownEffects {
 		),
 	);
 
+	public getCriteriasType$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetCriteriasTypePending),
+			mergeMap(({ questionId }: { questionId: string }) =>
+				this.service.getCriteriasType(questionId).pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetCriteriasTypeSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetCriteriasTypeError())),
+				),
+			),
+		),
+	);
+
+	public getResponseOption$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetResponseOptionPending),
+			mergeMap(() =>
+				this.service.getResponseOption().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetResponseOptionSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetResponseOptionError())),
+				),
+			),
+		),
+	);
+
 	public getClinicianType$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetClinicianTypePending),

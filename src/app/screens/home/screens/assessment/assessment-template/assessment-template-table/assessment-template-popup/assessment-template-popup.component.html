@@ -4,10 +4,10 @@
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Id</label>
+						<label>Text</label>
 						<input
-							name="Id"
-							formControlName="id"
+							name="text"
+							formControlName="text"
 							kendoTextBox
 							class="k-textbox"
 							style="width: 100%"
@@ -15,83 +15,37 @@
 						/>
 					</div>
 				</div>
-				<div class="column w-100">
-					<div class="w-100">
-						<label>questionId</label>
-						<input
-							name="questionId"
-							formControlName="questionId"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
-					</div>
-				</div>
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Response Option</label>
-						<input
-							name="responseOption"
-							formControlName="responseOption"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
-					</div>
-				</div>
-				<!-- <div class="w-100">
-					<label>text</label>
-					<kendo-multiselect
-						[autoClose]="false"
-						formControlName="areaIds"
-						textField="name"
-						[data]="(areas$ | async) || []"
-						placeholder="Areas"
-						valueField="id"
-						[valuePrimitive]="true"
-					>
-					</kendo-multiselect>
-				</div> -->
-				<!-- <div class="w-100">
-					<label>Service Types</label>
-					<kendo-multiselect
-[autoClose]="false"
-						formControlName="serviceTypeIds"
-						placeholder="Service Types"
-						textField="name"
-						[data]="(serviceSubTypes$ | async) || []"
-						valueField="id"
-						[valuePrimitive]="true"
-					>
-					</kendo-multiselect>
-				</div> -->
-				<!-- <div [formGroup]="getPerson()">
+
+				<div class="clearfix w-100">
 					<div class="column w-100">
 						<div class="w-100">
-							<label>First name</label>
-							<input
-								name="firstname"
-								formControlName="firstname"
-								kendoTextBox
-								class="k-textbox"
-								style="width: 100%"
-								maxlength="250"
-							/>
+							<label>Response Option</label>
+							<kendo-multiselect
+								[autoClose]="false"
+								formControlName="responseOption"
+								textField="name"
+								[data]="(responseOption$ | async) || []"
+								valueField="id"
+								[valuePrimitive]="true"
+							>
+							</kendo-multiselect>
 						</div>
-					</div> -->
-				<div class="column w-100">
-					<div class="w-100">
-						<label>type</label>
-						<input
-							name="type"
-							formControlName="type"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
+					</div>
+				</div>
+				<div class="clearfix w-100">
+					<div class="column w-100">
+						<div class="w-100">
+							<label>Type</label>
+							<kendo-multiselect
+								[autoClose]="false"
+								formControlName="type"
+								textField="type"
+								[data]="(criteriasType$ | async) || []"
+								valueField="id"
+								[valuePrimitive]="true"
+							>
+							</kendo-multiselect>
+						</div>
 					</div>
 				</div>
 			</div>
