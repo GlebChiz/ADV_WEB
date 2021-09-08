@@ -41,12 +41,11 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.assessmentTemplate, ...this.assessmentTemplateForm.value });
+		this._dialogService.close({ ...this.assessmentTemplateForm.value });
 	}
 
 	public initForm(): void {
 		this.assessmentTemplateForm = new FormGroup({
-			id: new FormControl(this.assessmentTemplate?.id || ''),
 			questionId: new FormControl(
 				this.assessmentTemplate?.questionId || this._activatedRoute?.snapshot?.params?.id,
 			),
