@@ -14,6 +14,8 @@
 		<ng-template *ngIf="tab === 'Contacts'" kendoTabContent>
 			<advenium-contact-info [personId]="(personId$ | async) || ''"></advenium-contact-info
 		></ng-template>
-		<ng-template *ngIf="tab === 'Insurance'" kendoTabContent> asfd </ng-template>
+		<ng-template *ngIf="tab === 'Insurance'" kendoTabContent>
+			<advenium-insurance [personId]="(personId$ | async) || ''"></advenium-insurance>
+		</ng-template>
 	</kendo-tabstrip-tab>
 </kendo-tabstrip>

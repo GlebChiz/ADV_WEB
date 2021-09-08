@@ -13,7 +13,6 @@ import { HomeComponent } from './home.component';
 				component: HomeComponent,
 				children: [
 					{ path: '', redirectTo: 'payers' },
-
 					{
 						path: 'clinicians',
 						loadChildren: (): any =>

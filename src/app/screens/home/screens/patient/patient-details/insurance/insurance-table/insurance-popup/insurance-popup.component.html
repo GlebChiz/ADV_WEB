@@ -152,18 +152,22 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100" style="display: flex">
 						<label>Insured party</label>
 						<kendo-combobox
 							valueField="id"
-							style="min-width: 200px; width: 100%"
+							style="width: 200px"
 							textField="name"
-							[data]="(payers$ | async) || []"
+							[data]="(linkedPersons$ | async) || []"
 							[kendoDropDownFilter]="filterSettings"
-							formControlName="insuredParty"
+							formControlName="insuranceHolderId"
 							[valuePrimitive]="true"
 						>
 						</kendo-combobox>
+						<span *ngIf="myInsuranceForm.value.insuranceHolderId &&  myInsuranceForm.value.insuranceHolderId !== personId" (click)="openDialogCopy()"
+							>Copy</span
+						>
+					
 					</div>
 				</div>
 			</div>
@@ -173,6 +177,7 @@
 						<label>Verification</label>
 						<input type="checkbox" formControlName="isVerified" name="isVerified" />
 						<kendo-datepicker
+							*ngIf="myInsuranceForm.value.isVerified"
 							formControlName="verificationDate"
 							format="MMMM"
 							kendoTextBox

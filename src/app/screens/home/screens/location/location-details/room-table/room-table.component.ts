@@ -24,7 +24,7 @@ import { RoomPopupComponent } from './room-popup/room-popup.component';
 	providers: [],
 	selector: 'advenium-room-table',
 	templateUrl: './room-table.component.html',
-	styleUrls: ['../../../../home.component.scss', './room-table.component.scss'],
+	styleUrls: ['../../../../home.component.scss'],
 })
 export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(

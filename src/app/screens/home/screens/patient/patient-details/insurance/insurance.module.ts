@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -26,31 +25,29 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
 } from 'src/app/shared/table/table.tokens';
+import { InsuranceCopyPopupComponent } from './insurance-table/copy-popup/copy-popup.component';
 import { InsurancePopupComponent } from './insurance-table/insurance-popup/insurance-popup.component';
 import { InsuranceTableActions } from './insurance-table/insurance-table.actions';
 import { InsuranceTableComponent } from './insurance-table/insurance-table.component';
 import { InsuranceTableEffect } from './insurance-table/insurance-table.effects';
 import { insuranceReducers } from './insurance-table/insurance-table.reducers';
-import { InsuranceService } from './insurance-table/insurance-table.service';
 import { InsuranceComponent } from './insurance.component';
 
 @NgModule({
 	imports: [
 		SharedModule,
-		RouterModule.forChild([
-			{
-				path: '',
-				component: InsuranceComponent,
-			},
-		]),
 		StoreModule.forFeature('insuranceTable', insuranceReducers),
 		EffectsModule.forFeature([InsuranceTableEffect]),
 	],
-	declarations: [InsuranceComponent, InsuranceTableComponent, InsurancePopupComponent],
+	declarations: [
+		InsuranceComponent,
+		InsuranceCopyPopupComponent,
+		InsuranceTableComponent,
+		InsurancePopupComponent,
+	],
 	exports: [InsuranceComponent],
 	entryComponents: [],
 	providers: [
-		InsuranceService,
 		{
 			provide: GET_TABLE_DATA_PENDING,
 			useValue: InsuranceTableActions.GetInsuranceTableDataPending,

@@ -1,3 +1,58 @@
+
+<div style="display: flex; justify-content: space-between">
+	<div class="container-location-info purple-container">
+		<div>
+			<div class="heading-info heading-info-white">Primary Insurance</div>
+			<div class="names-and-info" *ngIf="currentPrimaryInsurance$ | async; else none_content">
+				<div class="names-info names-info-white">
+					<div class="name-info">Payer</div>
+					<div class="name-info">Effective date</div>
+					<div class="name-info">Member ID</div>
+				</div>
+				<div class="infos infos-white">
+					<div class="info">{{ (currentPrimaryInsurance$ | async)?.payer }}</div>
+					<div class="info">
+						{{ (currentPrimaryInsurance$ | async)?.effectiveDate | date }}
+					</div>
+					<div class="info">{{ (currentPrimaryInsurance$ | async)?.memberId }}</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<button (click)="openDialog()" class="button-edit button-edit-white">
+				<img src="/assets/images/edit.svg" />
+				<span>Edit</span>
+			</button>
+		</div>
+	</div>
+	<div class="container-location-info">
+		<div>
+			<div class="heading-info">Secondary Insurance</div>
+			<div class="names-and-info" *ngIf="currentSecondaryInsurance$ | async; else none_content">
+				<div class="names-info">
+					<div class="name-info">Payer</div>
+					<div class="name-info">Effective date</div>
+					<div class="name-info">Member ID</div>
+				</div>
+				<div class="infos">
+					<div class="info">{{ (currentSecondaryInsurance$ | async)?.payer }}</div>
+					<div class="info">
+						{{ (currentSecondaryInsurance$ | async)?.effectiveDate | date }}
+					</div>
+					<div class="info">{{ (currentSecondaryInsurance$ | async)?.memberId }}</div>
+				</div>
+			</div>
+			<div *ngElse></div>
+		</div>
+		<div>
+			<button (click)="openDialog()" class="button-edit">
+				<img src="/assets/images/edit.svg" />
+				<span>Edit</span>
+			</button>
+		</div>
+	</div>
+</div>
+<ng-template #none_content>None</ng-template>
 <div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Insurance</div>
 <div class="new-button">
 	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Insurance</button>

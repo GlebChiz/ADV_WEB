@@ -26,7 +26,14 @@ export function patientInsuranceReducers(
 			InsuranceTableActions.GetCurrentInsuranceSuccess,
 			(state: any, { insurance }: { insurance: any }) => ({
 				...state,
-				insurance,
+				currentInsurance: insurance,
+			}),
+		),
+		on(
+			InsuranceTableActions.GetOtherInsuranceSuccess,
+			(state: any, { insurance }: { insurance: any }) => ({
+				...state,
+				otherInsurance: insurance,
 			}),
 		),
 	)(assessmentLegendTranlsatedState, action);

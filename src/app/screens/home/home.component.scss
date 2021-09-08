@@ -213,3 +213,110 @@ kendo-drawer-content {
 	font-weight: bold;
 	margin: 15px 0;
 }
+
+// block with info
+.header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.container-location-info {
+	width: 40%;
+	padding: 24px;
+	margin-bottom: 20px;
+	border-radius: 8px;
+	background-color: #eff2f5;
+	display: flex;
+	justify-content: space-between;
+}
+
+.purple-container {
+	background-color: #631ed3;
+}
+
+.heading-info {
+	font-weight: 700;
+	font-size: 18px;
+	margin-bottom: 24px;
+}
+
+.heading-info-white {
+	color: white;
+}
+
+.names-and-info {
+	display: flex;
+}
+
+.names-info {
+	width: 200px;
+}
+
+.names-info-white {
+	color: white;
+}
+
+.name-info {
+	font-weight: 400;
+	font-size: 15px;
+	opacity: 0.7;
+	margin: 5px 0;
+	height: 70px;
+}
+
+.infos {
+	width: 200px;
+}
+
+.infos-white {
+	color: white;
+}
+
+.info {
+	height: 70px;
+	font-weight: 400;
+	font-size: 15px;
+	margin: 5px 0;
+}
+
+.button-edit {
+	border: 1px solid black;
+	border-radius: 4px;
+	padding: 5px 16px;
+	background-color: transparent;
+	img {
+		margin: 9px;
+	}
+	span {
+		font-size: 13px;
+		font-weight: 600;
+	}
+}
+
+.button-edit-white {
+	border: 1px solid white;
+	img {
+		color: white;
+	}
+	span {
+		color: white;
+	}
+}
+
+.back-button {
+	margin: 15px 0;
+	display: flex;
+
+	button {
+		margin-bottom: 10px;
+		padding: 0px 10px;
+		background-color: #631ed3;
+		color: white;
+		height: 38px;
+		border-radius: 4px;
+		border: 1px solid #631ed3;
+		img {
+			margin-right: 10px;
+		}
+	}
+}

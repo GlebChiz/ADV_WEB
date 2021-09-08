@@ -182,6 +182,12 @@ export function dropdownReducers(
 			},
 		),
 		on(
+			DropdownActions.GetLinkedPersonsSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, linkedPersons: data, isLoading: false };
+      },
+     ),
+    on(
 			DropdownActions.GetCriteriasTypeSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, criterias: data, isLoading: false };

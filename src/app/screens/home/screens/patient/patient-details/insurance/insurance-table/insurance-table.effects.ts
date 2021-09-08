@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
@@ -77,7 +77,8 @@ export class InsuranceTableEffect extends TableEffects {
 		);
 	}
 
-	public getTranslation$ = createEffect(() => {
+
+	public getGetCurrentInsurance$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(InsuranceTableActions.GetCurrentInsurancePending),
 			switchMap(({ id }: { id: string }) => {
@@ -88,4 +89,17 @@ export class InsuranceTableEffect extends TableEffects {
 			}),
 		);
 	});
+
+	public getGetOtherInsurance$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(InsuranceTableActions.GetOtherInsurancePending),
+			switchMap(({ id }: { id: string }) => {
+				return this._service.getCurrentInsurance(id).pipe(
+					map((insurance: any) => InsuranceTableActions.GetOtherInsuranceSuccess({ insurance })),
+					catchError(() => of(InsuranceTableActions.GetOtherInsuranceError())),
+				);
+			}),
+		);
+	});
+
 }

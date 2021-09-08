@@ -388,6 +388,21 @@ export class DropdownEffects {
 		),
 	);
 
+
+	public getClinicianType$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetClinicianTypePending),
+			mergeMap(() =>
+				this.service.getClinicianType().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetClinicianTypeSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetClinicianTypeError())),
+        ),
+			),
+		),
+	);
+
 	public getCriteriasType$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetCriteriasTypePending),
@@ -416,15 +431,16 @@ export class DropdownEffects {
 		),
 	);
 
-	public getClinicianType$ = createEffect(() =>
+	public getLinkedPersons$ = createEffect(() =>
 		this.actions$.pipe(
-			ofType(DropdownActions.GetClinicianTypePending),
-			mergeMap(() =>
-				this.service.getClinicianType().pipe(
+			ofType(DropdownActions.GetLinkedPersonsPending),
+			mergeMap(({ personId }: { personId: string }) =>
+				this.service.getLinkedPersons(personId).pipe(
 					map((data: IDropdownData[]) => {
-						return DropdownActions.GetClinicianTypeSuccess({ data });
+						return DropdownActions.GetLinkedPersonsSuccess({ data });
 					}),
-					catchError(() => of(DropdownActions.GetClinicianTypeError())),
+					catchError(() => of(DropdownActions.GetLinkedPersonsError())),
+
 				),
 			),
 		),

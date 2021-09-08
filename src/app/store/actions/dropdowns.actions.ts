@@ -165,7 +165,6 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetPatientStatusError: createAction('[Dropdown] Get PatientStatus error'),
-
 	GetCriteriasTypePending: createAction(
 		'[Dropdown] Get CriteriasType pending',
 		props<{ questionId: string }>(),
@@ -182,11 +181,20 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetResponseOptionError: createAction('[Dropdown] Get ResponseOption error'),
-
 	GetClinicianTypePending: createAction('[Dropdown] Get ClinicianType pending'),
 	GetClinicianTypeSuccess: createAction(
 		'[Dropdown] Get ClinicianType success',
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetClinicianTypeError: createAction('[Dropdown] Get ClinicianType error'),
+	GetLinkedPersonsPending: createAction(
+		'[Dropdown] Get LinkedPersons pending',
+		props<{ personId: string }>(),
+	),
+	GetLinkedPersonsSuccess: createAction(
+		'[Dropdown] Get LinkedPersons success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetLinkedPersonsError: createAction('[Dropdown] Get LinkedPersons error'),
+
 };

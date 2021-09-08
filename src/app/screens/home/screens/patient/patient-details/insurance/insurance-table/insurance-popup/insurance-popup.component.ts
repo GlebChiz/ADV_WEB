@@ -1,7 +1,7 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DialogRef } from '@progress/kendo-angular-dialog';
+import { DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -10,13 +10,23 @@ import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { IInsuranceInfo } from '../insurance-table.component';
+import { InsuranceCopyPopupComponent } from '../copy-popup/copy-popup.component';
+import { InsuranceTableActions } from '../insurance-table.actions';
+
 
 @Component({
 	selector: 'advenium-insurance-popup',
 	templateUrl: './insurance-popup.component.html',
 })
-export class InsurancePopupComponent extends UnSubscriber implements OnInit, OnChanges {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+
+export class InsurancePopupComponent extends UnSubscriber implements OnInit {
+	public constructor(
+		private _dialogRef: DialogRef,
+		private _store: Store<IStore>,
+		private dialogService: DialogService,
+	) {
+
 		super();
 	}
 
@@ -30,7 +40,14 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit, OnC
 		'supervisorLicensePayers',
 	);
 
+	public linkedPersons$: Observable<IDropdownData[]> = this._store.select(
+		'dropdown' as any,
+		'linkedPersons',
+	);
+
 	public insurance!: IInsurence;
+
+	public personId!: string;
 
 	public myInsuranceForm!: FormGroup;
 
@@ -40,11 +57,11 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit, OnC
 	};
 
 	public onCancelAction(): void {
-		this._dialogService.close();
+		this._dialogRef.close();
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.insurance, ...this.myInsuranceForm.value });
+		this._dialogRef.close({ ...this.insurance, ...this.myInsuranceForm.value });
 	}
 
 	public initForm(): void {
@@ -65,29 +82,64 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit, OnC
 			employee: new FormControl(this.insurance?.employee || ''),
 			planName: new FormControl(this.insurance?.planName || ''),
 			policyGroup: new FormControl(this.insurance?.policyGroup || ''),
-			isVerified: new FormControl(this.insurance?.isVerified || true),
+			isVerified: new FormControl(this.insurance?.isVerified),
 			verificationDate: new FormControl(this.insurance?.verificationDate || ''),
 			id: new FormControl(this.insurance?.id || ''),
 			insuranceHolderId: new FormControl(this.insurance?.insuranceHolderId || ''),
-			insuredParty: new FormControl(this.insurance?.insuredParty || true),
+			insuredParty: new FormControl(this.insurance?.insuredParty || ''),
 			personId: new FormControl(this.insurance?.personId || ''),
 		});
+
+		this.myInsuranceForm
+			.get('insuranceHolderId')
+			?.valueChanges.subscribe((insuranceHolder: string) => {
+				// if (insuranceHolder && insuranceHolder !== this.personId) {
+				this._store.dispatch(
+					InsuranceTableActions.GetOtherInsurancePending({ id: insuranceHolder }),
+				);
+				// }
+			});
+
 	}
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
+
 		this._store
-			.select('insuranceTable' as any, 'current')
+			.select('insuranceTable' as any, 'table', 'current')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((current: IInsurence) => {
 				this.insurance = current;
 				this.initForm();
 			});
+
+		this._store
+			.select('patient' as any, 'current', 'person', 'id')
+			.pipe(takeUntil(this.unsubscribe$$))
+			.subscribe((personId: string) => {
+				this.personId = personId;
+				this._store.dispatch(DropdownActions.GetLinkedPersonsPending({ personId }));
+			});
+
+		this._store
+			.select('insuranceTable' as any, 'insurance', 'otherInsurance')
+			.pipe(takeUntil(this.unsubscribe$$))
+			.subscribe((insurance: IInsuranceInfo) => {
+				console.log(insurance);
+			});
+
 		this.initForm();
 	}
 
-	public ngOnChanges(): void {
-		this.initForm();
+	public openDialogCopy(): void {
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Copy',
+			content: InsuranceCopyPopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+		console.log(dialog);
 	}
 }
 

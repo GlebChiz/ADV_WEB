@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
-
-import { filter, takeUntil } from 'rxjs/operators';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
-import { process } from '@progress/kendo-data-query';
 import {
 	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
@@ -16,8 +13,11 @@ import {
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { FormControl, FormGroup } from '@angular/forms';
+import { IStore } from 'src/app/store';
 import { InsurancePopupComponent } from './insurance-popup/insurance-popup.component';
 import { InsuranceTableActions } from './insurance-table.actions';
+import { Observable } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
 	providers: [],
@@ -25,10 +25,10 @@ import { InsuranceTableActions } from './insurance-table.actions';
 	templateUrl: './insurance-table.component.html',
 	styleUrls: ['../../../../../home.component.scss'],
 })
-export class InsuranceTableComponent extends CustomTableDirective implements OnInit {
+export class InsuranceTableComponent extends CustomTableDirective implements OnChanges {
 	public constructor(
 		private dialogService: DialogService,
-		_store: Store<any>,
+		_store: Store<IStore>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -40,6 +40,14 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnI
 	}
 
 	@Input() public personId!: string;
+
+	public currentPrimaryInsurance$: Observable<IInsuranceInfo> = this._store
+		.select('insuranceTable' as any, 'insurance', 'currentInsurance', 'primary')
+		.pipe(takeUntil(this.unsubscribe$$));
+
+	public currentSecondaryInsurance$: Observable<IInsuranceInfo> = this._store
+		.select('insuranceTable' as any, 'insurance', 'currentInsurance', 'secondary')
+		.pipe(takeUntil(this.unsubscribe$$));
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {
@@ -70,11 +78,20 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnI
 			});
 	}
 
-	public ngOnInit(): void {
+	public ngOnChanges(): void {
 		if (this.personId) {
+			if (this.gridSettings.state.filter) {
+				this.gridSettings.state.filter.filters = [
+					...this.gridSettings.state.filter.filters,
+					{
+						field: 'personId',
+						operator: 'custom',
+						value: this.personId,
+					},
+				];
+			}
 			this._store.dispatch(InsuranceTableActions.GetCurrentInsurancePending({ id: this.personId }));
 		}
-
 		super.ngOnInit();
 	}
 
@@ -151,3 +168,13 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnI
 		},
 	];
 }
+
+export interface IInsuranceInfo {
+	id: string;
+	effectiveDate: string;
+	closedDate: string | null;
+	orderType: number;
+	payer: string;
+	memberId: string;
+}
+
