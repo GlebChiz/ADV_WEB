@@ -123,12 +123,12 @@ export const DropdownActions = {
 	),
 	GetSexOrientationError: createAction('[Dropdown] Get SexOrientation error'),
 
-	GetCityStatePending: createAction('[Dropdown] Get CityState pending'),
-	GetCityStateSuccess: createAction(
-		'[Dropdown] Get CityState success',
+	GetUsStatePending: createAction('[Dropdown] Get UsState pending'),
+	GetUsStateSuccess: createAction(
+		'[Dropdown] Get UsState success',
 		props<{ data: IDropdownData[] }>(),
 	),
-	GetCityStateError: createAction('[Dropdown] Get CityState error'),
+	GetUsStateError: createAction('[Dropdown] Get UsState error'),
 
 	GetRacePending: createAction('[Dropdown] Get Race pending'),
 	GetRaceSuccess: createAction('[Dropdown] Get Race success', props<{ data: IDropdownData[] }>()),
@@ -165,6 +165,24 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetPatientStatusError: createAction('[Dropdown] Get PatientStatus error'),
+
+	GetCriteriasTypePending: createAction(
+		'[Dropdown] Get CriteriasType pending',
+		props<{ questionId: string }>(),
+	),
+	GetCriteriasTypeSuccess: createAction(
+		'[Dropdown] Get CriteriasType success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetCriteriasTypeError: createAction('[Dropdown] Get ResponseOption error'),
+
+	GetResponseOptionPending: createAction('[Dropdown] Get ResponseOption pending'),
+	GetResponseOptionSuccess: createAction(
+		'[Dropdown] Get CriteriasType success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetResponseOptionError: createAction('[Dropdown] Get ResponseOption error'),
+
 	GetClinicianTypePending: createAction('[Dropdown] Get ClinicianType pending'),
 	GetClinicianTypeSuccess: createAction(
 		'[Dropdown] Get ClinicianType success',

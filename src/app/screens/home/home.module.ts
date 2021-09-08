@@ -108,9 +108,9 @@ import { HomeComponent } from './home.component';
 						},
 					},
 					{
-						path: 'assessmenttemplate',
+						path: 'templates',
 						loadChildren: (): any =>
-							import('./screens/assessment-template/assessment-template.module').then(
+							import('./screens/assessment/assessment-template/assessment-template.module').then(
 								(m: any) => m.AssessmentTemplateModuleModule,
 							),
 						data: {

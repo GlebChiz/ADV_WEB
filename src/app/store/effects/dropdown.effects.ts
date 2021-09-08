@@ -304,15 +304,15 @@ export class DropdownEffects {
 		),
 	);
 
-	public getCityState$ = createEffect(() =>
+	public getUsState$ = createEffect(() =>
 		this.actions$.pipe(
-			ofType(DropdownActions.GetCityStatePending),
+			ofType(DropdownActions.GetUsStatePending),
 			mergeMap(() =>
-				this.service.getCityState().pipe(
+				this.service.getUsState().pipe(
 					map((data: IDropdownData[]) => {
-						return DropdownActions.GetCityStateSuccess({ data });
+						return DropdownActions.GetUsStateSuccess({ data });
 					}),
-					catchError(() => of(DropdownActions.GetCityStateError())),
+					catchError(() => of(DropdownActions.GetUsStateError())),
 				),
 			),
 		),
@@ -383,6 +383,34 @@ export class DropdownEffects {
 						return DropdownActions.GetPatientStatusSuccess({ data });
 					}),
 					catchError(() => of(DropdownActions.GetPatientStatusError())),
+				),
+			),
+		),
+	);
+
+	public getCriteriasType$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetCriteriasTypePending),
+			mergeMap(({ questionId }: { questionId: string }) =>
+				this.service.getCriteriasType(questionId).pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetCriteriasTypeSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetCriteriasTypeError())),
+				),
+			),
+		),
+	);
+
+	public getResponseOption$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetResponseOptionPending),
+			mergeMap(() =>
+				this.service.getResponseOption().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetResponseOptionSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetResponseOptionError())),
 				),
 			),
 		),

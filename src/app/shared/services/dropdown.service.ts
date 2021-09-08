@@ -11,6 +11,14 @@ export class DropdownService {
 		return this.http.get<IDropdownData[]>('dropdowns/series-plans');
 	}
 
+	public getCriteriasType(questionId: string): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>(`dropdowns/${questionId}/auto-note-criterias`);
+	}
+
+	public getResponseOption(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>('dropdowns/response-options');
+	}
+
 	public getSupervisorLicense(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/supervisors');
 	}
@@ -87,7 +95,7 @@ export class DropdownService {
 		return this.http.get<IDropdownData[]>('dropdowns/SexOrientation');
 	}
 
-	public getCityState(): Observable<IDropdownData[]> {
+	public getUsState(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/usstate');
 	}
 

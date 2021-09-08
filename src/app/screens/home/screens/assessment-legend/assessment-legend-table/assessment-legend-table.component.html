@@ -1,18 +1,21 @@
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
-	Assessment legend
+<div class="header-form-style">
+	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
+		Assessment legend
+	</div>
+	<div class="new-button">
+		<kendo-combobox
+			valueField="id"
+			style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
+			textField="name"
+			[data]="languagesDropdown$ | async"
+			[formControl]="language"
+			[valuePrimitive]="true"
+			placeholder="Language"
+		></kendo-combobox>
+		<button><img src="/assets/images/player.svg" />New Assessment Legend</button>
+	</div>
 </div>
-<div class="new-button">
-	<kendo-combobox
-		valueField="id"
-		style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
-		textField="name"
-		[data]="languagesDropdown$ | async"
-		[formControl]="language"
-		[valuePrimitive]="true"
-		placeholder="Language"
-	></kendo-combobox>
-	<button><img src="/assets/images/player.svg" />New Assessment Legend</button>
-</div>
+
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
@@ -39,9 +42,9 @@
 		[filterable]="col.filterable"
 		[filter]="col.type"
 	>
-	<ng-template *ngIf="col.field === 'icon'" kendoGridCellTemplate let-dataItem>
-		<img [src]="dataItem.iconBase64" style="width:64px;height:64px;"/>
-	</ng-template>
+		<ng-template *ngIf="col.field === 'icon'" kendoGridCellTemplate let-dataItem>
+			<img [src]="dataItem.iconBase64" style="width: 64px; height: 64px" />
+		</ng-template>
 		<ng-template *ngIf="col.field === 'translated'" kendoGridCellTemplate let-dataItem>
 			<div (click)="openDialog(dataItem)">{{ dataItem.translated ? 'YES' : 'NO' }}</div>
 		</ng-template>

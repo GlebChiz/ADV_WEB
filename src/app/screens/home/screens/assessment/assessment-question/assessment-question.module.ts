@@ -43,6 +43,16 @@ import { AssessmentQuestionPopupComponent } from './assessment-question-table/as
 				path: '',
 				component: AssessmentQuestionComponent,
 			},
+			{
+				path: 'templates',
+				loadChildren: (): any =>
+					import('../assessment-template/assessment-template.module').then(
+						(m: any) => m.AssessmentTemplateModuleModule,
+					),
+				data: {
+					breadcrumb: 'Assesment template',
+				},
+			},
 		]),
 		StoreModule.forFeature('assessmentquestionTable', assessmentQuestionTableReducers),
 		EffectsModule.forFeature([AssessmentQuestionTableEffects]),

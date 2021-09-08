@@ -65,6 +65,7 @@ export function dropdownReducers(
 				return { ...state, modalities: data, isLoading: false };
 			},
 		),
+
 		on(
 			DropdownActions.GetSnipiTypeSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
@@ -145,9 +146,9 @@ export function dropdownReducers(
 			},
 		),
 		on(
-			DropdownActions.GetCityStateSuccess,
+			DropdownActions.GetUsStateSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
-				return { ...state, CityState: data, isLoading: false };
+				return { ...state, UsState: data, isLoading: false };
 			},
 		),
 		on(
@@ -178,6 +179,18 @@ export function dropdownReducers(
 			DropdownActions.GetClinicianTypeSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, clinicianType: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetCriteriasTypeSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, criterias: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetResponseOptionSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, responseOption: data, isLoading: false };
 			},
 		),
 	)(dropdownState, action);

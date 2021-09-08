@@ -4,8 +4,7 @@ import { Store } from '@ngrx/store';
 import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
 import { filter } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
-import { AuthUserActions, IUser } from 'src/app/store/actions/user.actions';
-import { environment } from 'src/environments/environment';
+import { AuthUserActions } from 'src/app/store/actions/user.actions';
 
 export interface IItem {
 	text: string;
@@ -29,7 +28,6 @@ export class HomeComponent implements OnInit {
 		{ text: 'Series Plans', icon: 'k-i-delicious-box', path: 'seriesplans' },
 		{ text: 'Session Plan', icon: 'k-i-graph', path: 'sessionplans' },
 		{ text: 'Assessment Legend', icon: 'k-i-brightness-contrast', path: 'assessmentlegend' },
-		{ text: 'Assessment Template', icon: 'k-i-cells-merge', path: 'assessmenttemplate' },
 		{ text: 'Assessment Manager', icon: 'k-i-select-box', path: 'assessments' },
 		{ text: 'Patient Distribution', icon: 'k-i-select-box', path: 'patientdistribution' },
 		{ text: 'Unsupervised Services', icon: 'k-i-select-box', path: 'unsupervisedservices' },
@@ -40,23 +38,16 @@ export class HomeComponent implements OnInit {
 	public constructor(
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		public _store: Store<IStore>
+		public _store: Store<IStore>,
 	) {}
 
 	public nameUser!: string;
 
-	public urlAvatarUser!: string;
 	public avatar: any;
 
 	public ngOnInit(): void {
-		this._store.select('userState', 'user').subscribe((user: IUser | undefined) => {
-			if (user) {
-				this.nameUser = user?.userName;
-				this.urlAvatarUser = `${environment.apiUrl}/user/${user?.userId}/picture`;
-				this._store.select('userState', 'urlAvatar').subscribe(img => {
-					this.avatar = img;
-				});
-			}
+		this._store.select('userState', 'urlAvatar').subscribe((img: any) => {
+			this.avatar = img;
 		});
 		this.setCurrent();
 		this.router.events
