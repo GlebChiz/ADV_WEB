@@ -5,6 +5,7 @@ import { DialogRef } from '@progress/kendo-angular-dialog';
 import { filter, takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IButtonSelector } from 'src/app/shared/components/button-selector/button-selector.component';
+import { IStore } from 'src/app/store';
 import { AssessmentLegendTableActions } from '../assessment-legend-table.actions';
 
 @Component({
@@ -12,7 +13,7 @@ import { AssessmentLegendTableActions } from '../assessment-legend-table.actions
 	templateUrl: './assessment-translated-popup.component.html',
 })
 export class AssessmentTranslatedPopupComponent extends UnSubscriber implements OnInit {
-	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
+	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
 		super();
 	}
 
@@ -50,7 +51,7 @@ export class AssessmentTranslatedPopupComponent extends UnSubscriber implements 
 			AssessmentLegendTableActions.GetTranslationPending({ languageId, legendId }),
 		);
 		this._store
-			.select('assessmentLegendTable', 'tranlsated')
+			.select('assessmentLegendTable' as any, 'tranlsated')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((item: any) => {
 				this.assessmentForm.get('original')?.disable();

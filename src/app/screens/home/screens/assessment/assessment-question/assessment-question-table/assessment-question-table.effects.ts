@@ -146,13 +146,9 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 			ofType(AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionPending),
 			switchMap(
 				({
-					questionId,
-					languageId,
 					currentTranslation,
 					controller,
 				}: {
-					questionId: string;
-					languageId: string;
 					currentTranslation: IAssessmentQuestionTranslate;
 					controller: string;
 				}) => {
@@ -160,25 +156,23 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 						withLatestFrom(this._store.select(`${controller}Table`)),
 						switchMap(
 							([, latest]: [number, ITableState<IAssessmentQuestion, IAssessmentQuestion>]) => {
-								return this._service
-									.updateCurrentTransletion(questionId, languageId, currentTranslation)
-									.pipe(
-										mergeMap(() => {
-											return [
-												AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionSuccess(),
-												this.getTableDataPending({
-													controller,
-													filter: latest.filter,
-													columns: latest.columns,
-												}),
-											];
-										}),
-										catchError(() => {
-											return of(
-												AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionError(),
-											);
-										}),
-									);
+								return this._service.updateCurrentTransletion(currentTranslation).pipe(
+									mergeMap(() => {
+										return [
+											AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionSuccess(),
+											this.getTableDataPending({
+												controller,
+												filter: latest.filter,
+												columns: latest.columns,
+											}),
+										];
+									}),
+									catchError(() => {
+										return of(
+											AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionError(),
+										);
+									}),
+								);
 							},
 						),
 					);

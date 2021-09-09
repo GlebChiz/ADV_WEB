@@ -1,6 +1,8 @@
 <form [formGroup]="myInsuranceCopyForm" novalidate>
 	<div>
 		<div class="p10 form">
+			<div *ngFor="let item of insuranceCopy | keyvalue">{{ item.key }}-{{ item.value }}</div>
+
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">

@@ -61,7 +61,7 @@ export class AssessmentQuestionPopupComponent extends UnSubscriber implements On
 
 	public ngOnInit(): void {
 		this._store
-			.select('assessmentquestionTable')
+			.select('assessmentquestionTable', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((assessmentQuestionTable: unknown) => {
 				this.assessment = (

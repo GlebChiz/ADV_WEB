@@ -97,11 +97,11 @@ export class AssessmentLegendEffect extends TableEffects {
 	public setTranslation$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(AssessmentLegendTableActions.SetTranslationPending),
-			switchMap(({ type, controller, ...data }: { type: string; controller: string }) => {
+			switchMap(({ item, controller }: { item: any; controller: string }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}Table`)),
 					switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
-						return this._service.setAssessmentLegend(data).pipe(
+						return this._service.setAssessmentLegend(item).pipe(
 							mergeMap(() => {
 								return [
 									AssessmentLegendTableActions.SetTranslationSuccess(),
