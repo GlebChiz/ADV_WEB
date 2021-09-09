@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
+import { process } from '@progress/kendo-data-query';
 import {
 	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
@@ -14,10 +15,10 @@ import {
 } from 'src/app/shared/table/table.tokens';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IStore } from 'src/app/store';
-import { InsurancePopupComponent } from './insurance-popup/insurance-popup.component';
-import { InsuranceTableActions } from './insurance-table.actions';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { InsurancePopupComponent } from './insurance-popup/insurance-popup.component';
+import { InsuranceTableActions } from './insurance-table.actions';
 
 @Component({
 	providers: [],
@@ -177,4 +178,3 @@ export interface IInsuranceInfo {
 	payer: string;
 	memberId: string;
 }
-
