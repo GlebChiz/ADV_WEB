@@ -14,19 +14,16 @@ import { IInsuranceInfo } from '../insurance-table.component';
 import { InsuranceCopyPopupComponent } from '../copy-popup/copy-popup.component';
 import { InsuranceTableActions } from '../insurance-table.actions';
 
-
 @Component({
 	selector: 'advenium-insurance-popup',
 	templateUrl: './insurance-popup.component.html',
 })
-
 export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 	public constructor(
 		private _dialogRef: DialogRef,
 		private _store: Store<IStore>,
 		private dialogService: DialogService,
 	) {
-
 		super();
 	}
 
@@ -99,7 +96,6 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 				);
 				// }
 			});
-
 	}
 
 	public ngOnInit(): void {

@@ -114,7 +114,7 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 				const currentPersonContact: { [key: string]: IPersonContactInfo } =
 					personContactInfo.find((item: { [key: string]: IPersonContactInfo }) =>
 						// eslint-disable-next-line no-prototype-builtins
-						item.hasOwnProperty(this.personId),
+						item?.hasOwnProperty(this.personId),
 					) ?? {};
 				if (currentPersonContact && currentPersonContact[this.personId]) {
 					this.personContactInfo = currentPersonContact[this.personId];

@@ -164,10 +164,11 @@
 							[valuePrimitive]="true"
 						>
 						</kendo-combobox>
-						<span *ngIf="myInsuranceForm.value.insuranceHolderId &&  myInsuranceForm.value.insuranceHolderId !== personId" (click)="openDialogCopy()"
+						<span *ngIf="myInsuranceForm.value.insuranceHolderId" (click)="openDialogCopy()"
 							>Copy</span
 						>
-					
+						<!-- &&
+								myInsuranceForm.value.insuranceHolderId !== personId -->
 					</div>
 				</div>
 			</div>

@@ -45,7 +45,6 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 
 	public initForm(): void {
 		this.myPatientDistributionForm = new FormGroup({
-			id: new FormControl(this.patientDistribution?.id || ''),
 			clinicianName: new FormControl(this.patientDistribution?.clinicianName || ''),
 			patientName: new FormControl(this.patientDistribution?.patientName || ''),
 			patientId: new FormControl(this.patientDistribution?.patientId || ''),

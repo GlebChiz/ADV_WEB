@@ -46,10 +46,6 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 
 	public initForm(): void {
 		this.assessmentTemplateForm = new FormGroup({
-			id: new FormControl(this.assessmentTemplate?.id || ''),
-			questionId: new FormControl(
-				this.assessmentTemplate?.questionId || this._activatedRoute?.snapshot?.params?.id,
-			),
 			responseOption: new FormControl(this.assessmentTemplate?.responseOption || ''),
 			text: new FormControl(this.assessmentTemplate?.text || ''),
 			type: new FormControl(this.assessmentTemplate?.type || ''),

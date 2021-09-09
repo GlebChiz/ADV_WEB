@@ -34,6 +34,7 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, A
 	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
 		super();
 	}
+
 	public isVisible = false;
 
 	public sessionPlan!: ISessionPlanCurrent | undefined;
@@ -71,17 +72,19 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, A
 
 	public ngOnInit(): void {
 		this._store
-		.select('sessionPlanTable')
-		.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-		.subscribe((sessionPlanTable: unknown) => {
-			this.sessionPlan = (
-				sessionPlanTable as ITableState<ISessionPlan, ISessionPlanCurrent>
-			).current;
-			this.initForm();
-		});
+			.select('sessionPlanTable')
+			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((sessionPlanTable: unknown) => {
+				this.sessionPlan = (
+					sessionPlanTable as ITableState<ISessionPlan, ISessionPlanCurrent>
+				).current;
+				this.initForm();
+			});
 	}
 
 	ngAfterViewInit(): void {
-		setTimeout(() => { this.isVisible = true; }, 0);
+		setTimeout(() => {
+			this.isVisible = true;
+		}, 0);
 	}
 }

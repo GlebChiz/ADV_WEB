@@ -100,7 +100,7 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 				const currentPersonDemographic: { [key: string]: IPersonDemographicInfo } =
 					personDemographicInfo.find((item: { [key: string]: IPersonDemographicInfo }) =>
 						// eslint-disable-next-line no-prototype-builtins
-						item.hasOwnProperty(this.personId),
+						item?.hasOwnProperty(this.personId),
 					) ?? {};
 				if (currentPersonDemographic && currentPersonDemographic[this.personId]) {
 					this.personDemographicInfo = currentPersonDemographic[this.personId];

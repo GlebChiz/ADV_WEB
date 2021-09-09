@@ -51,7 +51,6 @@ export class AssessmentPopupComponent extends UnSubscriber implements OnInit {
 	public initForm(): void {
 		this._store.dispatch(DropdownActions.GetLegendsPending());
 		this.assessmentForm = new FormGroup({
-			modalityId: new FormControl(this.assessment?.modalityId || ''),
 			patientName: new FormControl(this.assessment?.patientName || ''),
 			type: new FormControl(this.assessment?.type.toString() || '1'),
 		});

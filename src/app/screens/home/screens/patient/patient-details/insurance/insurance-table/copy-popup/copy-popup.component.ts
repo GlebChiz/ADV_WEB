@@ -4,10 +4,12 @@ import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { IButtonSelector } from 'src/app/shared/components/button-selector/button-selector.component';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { IInsuranceInfo } from '../insurance-table.component';
 
 @Component({
 	selector: 'advenium-copy-popup',
@@ -23,12 +25,7 @@ export class InsuranceCopyPopupComponent extends UnSubscriber implements OnInit 
 		'supervisorLicensePayers',
 	);
 
-	public linkedPersons$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown' as any,
-		'linkedPersons',
-	);
-
-	public insuranceCopy!: any;
+	public insuranceCopy!: IInsuranceInfo;
 
 	public myInsuranceCopyForm!: FormGroup;
 
@@ -47,7 +44,7 @@ export class InsuranceCopyPopupComponent extends UnSubscriber implements OnInit 
 
 	public initForm(): void {
 		this.myInsuranceCopyForm = new FormGroup({
-			payerId: new FormControl(this.insuranceCopy?.payerId || ''),
+			payerId: new FormControl(this.insuranceCopy?.payer || ''),
 			orderType: new FormControl(this.insuranceCopy?.orderType || 1),
 		});
 	}
@@ -58,16 +55,12 @@ export class InsuranceCopyPopupComponent extends UnSubscriber implements OnInit 
 	];
 
 	public ngOnInit(): void {
-		// this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
-
-		// this._store
-		// 	.select('insuranceTable' as any, 'table', 'current')
-		// 	.pipe(takeUntil(this.unsubscribe$$))
-		// 	.subscribe((current: IInsurence) => {
-		// 		this.insurance = current;
-		// 		this.initForm();
-		// 	});
-
+		this._store
+			.select('insuranceTable' as any, 'insurance', 'otherInsurance')
+			.pipe(takeUntil(this.unsubscribe$$))
+			.subscribe((insurance: any) => {
+				this.insuranceCopy = insurance.primary;
+			});
 		this.initForm();
 	}
 }
