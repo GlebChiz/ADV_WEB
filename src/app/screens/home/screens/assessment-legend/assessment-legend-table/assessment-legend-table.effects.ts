@@ -83,8 +83,8 @@ export class AssessmentLegendEffect extends TableEffects {
 	public getTranslation$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(AssessmentLegendTableActions.GetTranslationPending),
-			switchMap(({ legendId, languageId }: { legendId: string; languageId: string }) => {
-				return this._service.getAssessmentLegend(legendId, languageId).pipe(
+			switchMap(({ id, languageId }: { id: string; languageId: string }) => {
+				return this._service.getAssessmentLegend(id, languageId).pipe(
 					map((tranlsated: any) =>
 						AssessmentLegendTableActions.GetTranslationSuccess({ tranlsated }),
 					),
@@ -100,23 +100,28 @@ export class AssessmentLegendEffect extends TableEffects {
 			switchMap(({ item, controller }: { item: any; controller: string }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}Table`)),
-					switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
-						return this._service.setAssessmentLegend(item).pipe(
-							mergeMap(() => {
-								return [
-									AssessmentLegendTableActions.SetTranslationSuccess(),
-									this.getTableDataPending({
-										controller,
-										filter: latest.filter,
-										columns: latest.columns,
-									}),
-								];
-							}),
-							catchError(() => {
-								return of(AssessmentLegendTableActions.SetTranslationError());
-							}),
-						);
-					}),
+					switchMap(
+						([, latest]: [number, { table: ITableState<ISessionPlan, ISessionPlanCurrent> }]) => {
+							console.log(latest);
+							console.log(controller, latest.table.filter, latest.table.columns);
+
+							return this._service.setAssessmentLegend(item).pipe(
+								mergeMap(() => {
+									return [
+										AssessmentLegendTableActions.SetTranslationSuccess(),
+										this.getTableDataPending({
+											controller,
+											filter: latest.table.filter,
+											columns: latest.table.columns,
+										}),
+									];
+								}),
+								catchError(() => {
+									return of(AssessmentLegendTableActions.SetTranslationError());
+								}),
+							);
+						},
+					),
 				);
 			}),
 		);

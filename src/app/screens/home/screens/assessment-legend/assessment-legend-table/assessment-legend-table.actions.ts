@@ -90,7 +90,7 @@ export const AssessmentLegendTableActions = {
 	ClearAssessmentLegendTable: createAction('[Assessment Legend Table] Clear'),
 	GetTranslationPending: createAction(
 		'[Assessment Legend Translated] get current item pending',
-		props<{ legendId: string; languageId: string }>(),
+		props<{ id: string; languageId: string }>(),
 	),
 	GetTranslationSuccess: createAction(
 		'[Assessment Legend Translated] get current item success',

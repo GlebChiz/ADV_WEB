@@ -45,13 +45,10 @@ export class AssessmentTranslatedPopupComponent extends UnSubscriber implements 
 	}
 
 	public ngOnInit(): void {
-		const { legendId, languageId }: { legendId: string; languageId: string } =
-			this.assessmentTranslated;
-		this._store.dispatch(
-			AssessmentLegendTableActions.GetTranslationPending({ languageId, legendId }),
-		);
+		const { id, languageId }: { id: string; languageId: string } = this.assessmentTranslated;
+		this._store.dispatch(AssessmentLegendTableActions.GetTranslationPending({ languageId, id }));
 		this._store
-			.select('assessmentLegendTable' as any, 'tranlsated')
+			.select('assessmentlegendTable' as any, 'tranlsated')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((item: any) => {
 				this.assessmentForm.get('original')?.disable();
