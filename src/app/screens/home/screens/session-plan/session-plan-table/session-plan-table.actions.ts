@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
+import { ISessionPlanTranslate } from './session-plan-translate-popup/session-plan-translate-popup.component';
 
 export const SessionPlanTableActions = {
 	GetSessionPlanTableDataPending: createAction(
@@ -91,7 +92,7 @@ export const SessionPlanTableActions = {
 			sessionPlanId: string;
 			index: number;
 			storePath: string;
-		 }>(),
+		}>(),
 	),
 	ReorderPlanSuccess: createAction('[Session Plan Reorder] Reorder current item success'),
 	ReorderPlanError: createAction('[Session Plan Reorder] Reorder current item error'),
@@ -103,11 +104,37 @@ export const SessionPlanTableActions = {
 			ids: string[];
 			seriesPlanId: string;
 			link: boolean;
-			storePath: string }>(),
+			storePath: string;
+		}>(),
 	),
-	LinkSessionPlansError: createAction(
-		'[Session Plans] Link Session Plans Error'),
-	LinkSessionPlansSuccess: createAction(
-		'[Session Plan] Link Session Plans Success',
+	LinkSessionPlansError: createAction('[Session Plans] Link Session Plans Error'),
+	LinkSessionPlansSuccess: createAction('[Session Plan] Link Session Plans Success'),
+
+	GetCurrentTranslationSessionPlanPending: createAction(
+		'[Session Plan] Get current translation pending',
+		props<{ languageId: string }>(),
+	),
+	GetCurrentTranslationSessionPlanSuccess: createAction(
+		'[Session Plan] Get current translation success',
+		props<{ currentTranslation: any }>(),
+	),
+	GetCurrentTranslationSessionPlanError: createAction(
+		'[Session Plan] Get current translation error',
+	),
+
+	UpdateCurrentTranslationSessionPlanPending: createAction(
+		'[Session Plan] Update current translation pending',
+		props<{
+			questionId: string;
+			languageId: string;
+			currentTranslation: ISessionPlanTranslate;
+			controller: string;
+		}>(),
+	),
+	UpdateCurrentTranslationSessionPlanSuccess: createAction(
+		'[Session Plan] Update current translation success',
+	),
+	UpdateCurrentTranslationSessionPlanError: createAction(
+		'[Session Plan] Update current translation error',
 	),
 };

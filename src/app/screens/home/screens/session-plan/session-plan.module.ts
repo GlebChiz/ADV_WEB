@@ -36,6 +36,7 @@ import { SessionPlanPopupComponent } from './session-plan-table/session-plan-pop
 import { SessionPlanTableSerivce } from './session-plan-table/session-plan-table.service';
 import { EditorModule } from '@progress/kendo-angular-editor';
 import { TabStripModule } from '@progress/kendo-angular-layout';
+import { SessionPlanTranslatePopupComponent } from './session-plan-table/session-plan-translate-popup/session-plan-translate-popup.component';
 
 @NgModule({
 	imports: [
@@ -61,7 +62,12 @@ import { TabStripModule } from '@progress/kendo-angular-layout';
 		StoreModule.forFeature('sessionPlanTable', sessionPlanTableReducers),
 		EffectsModule.forFeature([SessionPlansEffects]),
 	],
-	declarations: [SessionPlanComponent, SessionPlanTableComponent, SessionPlanPopupComponent],
+	declarations: [
+		SessionPlanComponent,
+		SessionPlanTableComponent,
+		SessionPlanPopupComponent,
+		SessionPlanTranslatePopupComponent,
+	],
 	entryComponents: [],
 	providers: [
 		SessionPlanTableSerivce,

@@ -46,9 +46,15 @@ export class HomeComponent implements OnInit {
 	public avatar: any;
 
 	public ngOnInit(): void {
-		this._store.select('userState', 'urlAvatar').subscribe((img: any) => {
-			this.avatar = img;
+		this._store.select('userState').subscribe((user: any) => {
+			if (user?.user?.userName) {
+				this.nameUser = user.user.userName;
+			}
+			if (user?.urlAvatar) {
+				this.avatar = user.urlAvatar;
+			}
 		});
+
 		this.setCurrent();
 		this.router.events
 			.pipe(filter((event: any) => event instanceof NavigationEnd))
