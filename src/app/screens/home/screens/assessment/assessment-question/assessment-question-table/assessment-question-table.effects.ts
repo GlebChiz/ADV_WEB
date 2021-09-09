@@ -155,15 +155,18 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 					return of(1).pipe(
 						withLatestFrom(this._store.select(`${controller}Table`)),
 						switchMap(
-							([, latest]: [number, ITableState<IAssessmentQuestion, IAssessmentQuestion>]) => {
+							([, latest]: [
+								number,
+								{ table: ITableState<IAssessmentQuestion, IAssessmentQuestion> },
+							]) => {
 								return this._service.updateCurrentTransletion(currentTranslation).pipe(
 									mergeMap(() => {
 										return [
 											AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionSuccess(),
 											this.getTableDataPending({
 												controller,
-												filter: latest.filter,
-												columns: latest.columns,
+												filter: latest.table.filter,
+												columns: latest.table.columns,
 											}),
 										];
 									}),
