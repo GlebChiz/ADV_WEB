@@ -28,12 +28,13 @@ import {
 } from 'src/app/shared/table/table.tokens';
 
 import { AssessmentQuestionComponent } from './assessment-question.component';
-import { assessmentQuestionTableReducers } from './assessment-question-table/assessment-question-table.reducers';
+import { assessmentQuestionReducers } from './assessment-question-table/assessment-question-table.reducers';
 import { AssessmentQuestionTableEffects } from './assessment-question-table/assessment-question-table.effects';
 import { AssessmentQuestionTableComponent } from './assessment-question-table/assessment-question-table.component';
 import { AssessmentQuestionTableActions } from './assessment-question-table/assessment-question-table.actions';
 import { AssessmentQuestionTableSerivce } from './assessment-question-table/assessment-question-table.service';
 import { AssessmentQuestionPopupComponent } from './assessment-question-table/assessment-question-popup/assessment-question-popup.component';
+import { AssessmentQuestionTranslatePopupComponent } from './assessment-question-table/assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 @NgModule({
 	imports: [
@@ -54,13 +55,14 @@ import { AssessmentQuestionPopupComponent } from './assessment-question-table/as
 				},
 			},
 		]),
-		StoreModule.forFeature('assessmentquestionTable', assessmentQuestionTableReducers),
+		StoreModule.forFeature('assessmentquestionTable', assessmentQuestionReducers),
 		EffectsModule.forFeature([AssessmentQuestionTableEffects]),
 	],
 	declarations: [
 		AssessmentQuestionComponent,
 		AssessmentQuestionTableComponent,
 		AssessmentQuestionPopupComponent,
+		AssessmentQuestionTranslatePopupComponent,
 	],
 	entryComponents: [],
 	providers: [

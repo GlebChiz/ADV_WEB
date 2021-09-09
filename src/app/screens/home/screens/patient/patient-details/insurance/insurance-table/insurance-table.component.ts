@@ -178,4 +178,3 @@ export interface IInsuranceInfo {
 	payer: string;
 	memberId: string;
 }
-// orderType, payerId, copay, deductible, memberid, policyGroup, employee, planName

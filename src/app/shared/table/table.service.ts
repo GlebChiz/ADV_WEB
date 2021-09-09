@@ -58,7 +58,7 @@ export class TableService {
 				...filter,
 			},
 			...gridFilterParams,
-			gridId: `${gridId ?? controller}-manager-grid`,
+			gridId: gridId ?? `${controller}-manager-grid`,
 			sorting: this.getSorting(columns, state),
 		});
 	}
