@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Action } from '@ngrx/store';
+import { Action, createReducer } from '@ngrx/store';
 import { ITableState, tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { SessionPlanTableActions } from './session-plan-table.actions';
 
@@ -18,26 +18,12 @@ export function sessionPlanTableReducers(
 ): any {
 	return tableReducers(state, action);
 }
-// export function assessmentQuestionTranslateReducers(
-// 	patientInfoState: any | undefined,
-// 	action: Action,
-// ): any {
-// 	return createReducer(
-// 		{},
-// 		on(
-// 			SessionPlanTableActions.GetCurrentTranslationAssessmentQuestionSuccess,
-// 			(
-// 				state: any,
-// 				{ currentTranslation }: { currentTranslation: IЫTranslate },
-// 			) => ({
-// 				...state,
-// 				...currentTranslation,
-// 			}),
-// 		),
-// 	)(patientInfoState, action);
-// }
 
-// export const assessmentQuestionReducers: any = {
-// 	table: assessmentQuestionTableReducers,
-// 	assessmentQuestionTranslate: assessmentQuestionTranslateReducers,
-// };
+export function sessionPlanInfoReducers(sessionPlanState: any, action: Action): any {
+	return createReducer({})(sessionPlanState, action);
+}
+
+export const sessionPlanReducers: any = {
+	table: sessionPlanTableReducers,
+	sessionPlanInfo: sessionPlanInfoReducers,
+};

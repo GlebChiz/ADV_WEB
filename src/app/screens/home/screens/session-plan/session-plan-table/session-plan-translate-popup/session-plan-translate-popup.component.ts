@@ -40,7 +40,7 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 
 	public ngOnInit(): void {
 		this._store
-			.select('sessionPlanTable' as any, 'sessionPlanTableTranslate')
+			.select('sessionPlan' as any, 'table', 'sessionPlanTableTranslate')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((sessionPlanTranslate: any) => {
 				this.sessionPlanTranslate = sessionPlanTranslate;

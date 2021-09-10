@@ -27,7 +27,7 @@ import {
 } from 'src/app/shared/table/table.tokens';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationComponent } from './location.component';
-import { locationTableReducers } from './location-table/location-table.reducers';
+import { locationReducers } from './location-table/location-table.reducers';
 import { LocationPopupComponent } from './location-table/location-popup/location-popup.component';
 import { LocationTableComponent } from './location-table/location-table.component';
 import { LocationTableActions } from './location-table/location-table.actions';
@@ -52,7 +52,7 @@ import { SomeEffect } from './location-table/location-table.effects';
 				},
 			},
 		]),
-		StoreModule.forFeature('locationTable', locationTableReducers),
+		StoreModule.forFeature('location', locationReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [LocationComponent, LocationTableComponent, LocationPopupComponent],

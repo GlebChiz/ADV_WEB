@@ -75,7 +75,7 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 		this._store.dispatch(DropdownActions.GetAreasPending());
 		this._store.dispatch(DropdownActions.GetClinicianTypePending());
 		this._store
-			.select('clinicianTable' as any, 'clinicianInfo')
+			.select('clinician' as any, 'clinicianInfo')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((clinicianInfo: IClinicianGeneralInfo) => {
 				this.clinicianInfo = clinicianInfo;

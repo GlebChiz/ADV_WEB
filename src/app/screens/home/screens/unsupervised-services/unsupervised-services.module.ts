@@ -29,7 +29,7 @@ import {
 import { UnsupervisedServicesTableActions } from './unsupervised-services-table/unsupervised-services-table.actions';
 import { UnsupervisedServicesTableComponent } from './unsupervised-services-table/unsupervised-services-table.component';
 import { SomeEffect } from './unsupervised-services-table/unsupervised-services-table.effects';
-import { unsupervisedServicesTableReducers } from './unsupervised-services-table/unsupervised-services-table.reducers';
+import { unsupervisedServicesReducers } from './unsupervised-services-table/unsupervised-services-table.reducers';
 import { UnsupervisedServicesComponent } from './unsupervised-services.component';
 
 @NgModule({
@@ -41,7 +41,7 @@ import { UnsupervisedServicesComponent } from './unsupervised-services.component
 				component: UnsupervisedServicesComponent,
 			},
 		]),
-		StoreModule.forFeature('vunsupervisedserviceTable', unsupervisedServicesTableReducers),
+		StoreModule.forFeature('vunsupervisedservice', unsupervisedServicesReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [UnsupervisedServicesComponent, UnsupervisedServicesTableComponent],

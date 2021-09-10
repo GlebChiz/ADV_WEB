@@ -30,7 +30,7 @@ import { ModalityPopupComponent } from './modality-table/modality-popup/modality
 import { ModalityTableActions } from './modality-table/modality-table.actions';
 import { ModalityTableComponent } from './modality-table/modality-table.component';
 import { SomeEffect } from './modality-table/modality-table.effects';
-import { modalityTableReducers } from './modality-table/modality-table.reducers';
+import { modalityReducers } from './modality-table/modality-table.reducers';
 import { ModalityComponent } from './modality.component';
 
 @NgModule({
@@ -42,7 +42,7 @@ import { ModalityComponent } from './modality.component';
 				component: ModalityComponent,
 			},
 		]),
-		StoreModule.forFeature('modalityTable', modalityTableReducers),
+		StoreModule.forFeature('modality', modalityReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [ModalityComponent, ModalityTableComponent, ModalityPopupComponent],

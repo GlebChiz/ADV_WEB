@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
-import { process } from '@progress/kendo-data-query';
 import {
 	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
@@ -13,10 +12,9 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { FormControl, FormGroup } from '@angular/forms';
 import { IStore } from 'src/app/store';
 import { Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { InsurancePopupComponent } from './insurance-popup/insurance-popup.component';
 import { InsuranceTableActions } from './insurance-table.actions';
 
@@ -43,11 +41,11 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 	@Input() public personId!: string;
 
 	public currentPrimaryInsurance$: Observable<IInsuranceInfo> = this._store
-		.select('insuranceTable' as any, 'insurance', 'currentInsurance', 'primary')
+		.select('insurance' as any, 'insurance', 'currentInsurance', 'primary')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public currentSecondaryInsurance$: Observable<IInsuranceInfo> = this._store
-		.select('insuranceTable' as any, 'insurance', 'currentInsurance', 'secondary')
+		.select('insurance' as any, 'insurance', 'currentInsurance', 'secondary')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public deleteWithPopup(id: string): void {
@@ -55,28 +53,6 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 			return;
 		}
 		this.delete(id);
-	}
-
-	public override selectState(): void {
-		this._store
-			.select((state: any) => state[this.storePath].table)
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((tableData: any) => {
-				if (this.group && tableData?.data) {
-					this.gridData = process(tableData?.data, { group: this.group });
-					this.gridData.total = tableData?.total;
-				}
-				this.gridDataWithoutGroup = tableData;
-
-				this.isLoading = tableData.isLoading;
-				const group: any = {};
-				if (tableData?.current) {
-					Object.keys(tableData?.current).forEach((field: string) => {
-						group[field] = new FormControl(tableData?.current[field] || '');
-					});
-				}
-				this.myForm = new FormGroup(group);
-			});
 	}
 
 	public ngOnChanges(): void {
@@ -109,7 +85,6 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 			height: 600,
 			minWidth: 250,
 		});
-
 		dialog.content.instance.modality = { ...dataItem };
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {

@@ -55,7 +55,7 @@ import { AssessmentQuestionTranslatePopupComponent } from './assessment-question
 				},
 			},
 		]),
-		StoreModule.forFeature('assessmentquestionTable', assessmentQuestionReducers),
+		StoreModule.forFeature('assessmentquestion', assessmentQuestionReducers),
 		EffectsModule.forFeature([AssessmentQuestionTableEffects]),
 	],
 	declarations: [

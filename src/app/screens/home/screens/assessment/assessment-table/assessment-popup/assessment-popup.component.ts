@@ -60,7 +60,7 @@ export class AssessmentPopupComponent extends UnSubscriber implements OnInit {
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetModalitiesPending());
 		this._store
-			.select('assessmentTable')
+			.select('assessment', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((assessmentTable: unknown) => {
 				this.assessment = (assessmentTable as ITableState<IAssessment, IAssessment>).current;

@@ -2,11 +2,11 @@
 	Series Plan Details for
 </div>
 <div [ngStyle]="{ 'font-size': '16px', 'font-weight': 'bold', margin: '15px 0' }">
-	{{title}}
+	{{ title }}
 </div>
 <advenium-series-plan-linked-table
 	*ngIf="id"
 	[seriesPlanId]="id"
-	storePath="sessionPlanTable"
+	storePath="sessionPlan"
 	controller="sessionPlan"
 ></advenium-series-plan-linked-table>

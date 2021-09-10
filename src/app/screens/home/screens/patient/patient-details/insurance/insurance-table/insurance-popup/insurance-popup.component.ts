@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -10,7 +10,6 @@ import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
-import { IInsuranceInfo } from '../insurance-table.component';
 import { InsuranceCopyPopupComponent } from '../copy-popup/copy-popup.component';
 import { InsuranceTableActions } from '../insurance-table.actions';
 
@@ -87,12 +86,18 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 			personId: new FormControl(this.insurance?.personId || ''),
 		});
 
+		if (this.insurance?.insuranceHolderId) {
+			this._store.dispatch(
+				InsuranceTableActions.GetOtherInsurancePending({ id: this.insurance?.insuranceHolderId }),
+			);
+		}
+
 		this.myInsuranceForm
 			.get('insuranceHolderId')
-			?.valueChanges.subscribe((insuranceHolder: string) => {
+			?.valueChanges.subscribe((insuranceHolderId: string) => {
 				// if (insuranceHolder && insuranceHolder !== this.personId) {
 				this._store.dispatch(
-					InsuranceTableActions.GetOtherInsurancePending({ id: insuranceHolder }),
+					InsuranceTableActions.GetOtherInsurancePending({ id: insuranceHolderId }),
 				);
 				// }
 			});
@@ -102,7 +107,7 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
 
 		this._store
-			.select('insuranceTable' as any, 'table', 'current')
+			.select('insurance' as any, 'table', 'current')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((current: IInsurence) => {
 				this.insurance = current;
@@ -117,13 +122,6 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 				this._store.dispatch(DropdownActions.GetLinkedPersonsPending({ personId }));
 			});
 
-		this._store
-			.select('insuranceTable' as any, 'insurance', 'otherInsurance')
-			.pipe(takeUntil(this.unsubscribe$$))
-			.subscribe((insurance: IInsuranceInfo) => {
-				console.log(insurance);
-			});
-
 		this.initForm();
 	}
 
@@ -135,7 +133,23 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 			height: 500,
 			minWidth: 250,
 		});
-		console.log(dialog);
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this.myInsuranceForm.setValue({
+					...this.myInsuranceForm.value,
+					orderType: result?.orderType || '',
+					payerId: result?.payerId || '',
+					copay: result?.copay || '',
+					deductible: result?.deductible || '',
+					memberId: result?.memberId || '',
+					policyGroup: result?.policyGroup || '',
+					employee: result?.employee || '',
+					planName: result?.planName || '',
+					isVerified: false,
+					verificationDate: null,
+				});
+			}
+		});
 	}
 }
 
