@@ -61,6 +61,13 @@ export class AssessmentTableComponent extends CustomTableDirective {
 			filterable: true,
 			type: 'text',
 		},
+		{
+			field: 'title',
+			title: 'Title',
+			hidden: false,
+			filterable: true,
+			type: 'text',
+		},
 	];
 
 	public openDialog(dataItem?: IAssessment, isDublicate?: boolean): void {

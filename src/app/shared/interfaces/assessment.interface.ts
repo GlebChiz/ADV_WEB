@@ -6,4 +6,8 @@ export interface IAssessment {
 	modalityId: string;
 	patient?: string | undefined;
 	patientName?: string | undefined;
+	title?: string;
+	sexId?: string | null;
+	ageFrom?: number | null;
+	ageTo?: number | null;
 }
