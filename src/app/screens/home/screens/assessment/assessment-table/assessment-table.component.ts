@@ -70,7 +70,7 @@ export class AssessmentTableComponent extends CustomTableDirective {
 			);
 		}
 		const dialog: DialogRef = this.dialogService.open({
-			title: 'Assessment Question',
+			title: 'Assessment',
 			content: AssessmentPopupComponent,
 			width: 600,
 			height: 500,
