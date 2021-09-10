@@ -21,7 +21,11 @@ export class AssessmentQuestionTableSerivce {
 		) as Observable<IAssessmentQuestionTranslate>;
 	}
 
-	public updateCurrentTransletion(body: IAssessmentQuestionTranslate): Observable<any> {
-		return this.http.post(`assessmentquestion/translation`, body);
+	public updateCurrentTransletion(
+		questionId: string,
+		languageId: string,
+		body: IAssessmentQuestionTranslate,
+	): Observable<any> {
+		return this.http.put(`assessmentquestion/${questionId}/translation/${languageId}`, body);
 	}
 }

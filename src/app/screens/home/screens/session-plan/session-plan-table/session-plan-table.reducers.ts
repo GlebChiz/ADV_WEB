@@ -18,3 +18,26 @@ export function sessionPlanTableReducers(
 ): any {
 	return tableReducers(state, action);
 }
+// export function assessmentQuestionTranslateReducers(
+// 	patientInfoState: any | undefined,
+// 	action: Action,
+// ): any {
+// 	return createReducer(
+// 		{},
+// 		on(
+// 			SessionPlanTableActions.GetCurrentTranslationAssessmentQuestionSuccess,
+// 			(
+// 				state: any,
+// 				{ currentTranslation }: { currentTranslation: IЫTranslate },
+// 			) => ({
+// 				...state,
+// 				...currentTranslation,
+// 			}),
+// 		),
+// 	)(patientInfoState, action);
+// }
+
+// export const assessmentQuestionReducers: any = {
+// 	table: assessmentQuestionTableReducers,
+// 	assessmentQuestionTranslate: assessmentQuestionTranslateReducers,
+// };

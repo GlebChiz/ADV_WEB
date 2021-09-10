@@ -9,6 +9,7 @@ import { IButtonSelector } from 'src/app/shared/components/button-selector/butto
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { IInsuranceInfo } from '../insurance-table.component';
 
 @Component({
 	selector: 'advenium-copy-popup',
@@ -24,7 +25,7 @@ export class InsuranceCopyPopupComponent extends UnSubscriber implements OnInit 
 		'supervisorLicensePayers',
 	);
 
-	public insuranceCopy: any;
+	public insuranceCopy!: IInsuranceInfo;
 
 	public myInsuranceCopyForm!: FormGroup;
 
@@ -58,9 +59,7 @@ export class InsuranceCopyPopupComponent extends UnSubscriber implements OnInit 
 			.select('insuranceTable' as any, 'insurance', 'otherInsurance')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((insurance: any) => {
-				console.log(insurance);
-
-				this.insuranceCopy = insurance;
+				this.insuranceCopy = insurance.primary;
 			});
 		this.initForm();
 	}

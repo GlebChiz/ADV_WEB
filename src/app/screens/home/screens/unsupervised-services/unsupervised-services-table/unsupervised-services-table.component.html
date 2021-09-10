@@ -1,8 +1,16 @@
 <div class="unsupervised-serviced">Unsupervised Services</div>
-<form [formGroup]="formDate">
-	<kendo-datepicker formControlName="from" placeholder="Start"></kendo-datepicker>
-	<kendo-datepicker formControlName="to" placeholder="End"></kendo-datepicker>
-</form>
+<div>
+	<kendo-datepicker
+		(valueChange)="valueChange()"
+		[(value)]="from"
+		placeholder="Start"
+	></kendo-datepicker>
+	<kendo-datepicker
+		[(value)]="to"
+		(valueChange)="valueChange()"
+		placeholder="End"
+	></kendo-datepicker>
+</div>
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"

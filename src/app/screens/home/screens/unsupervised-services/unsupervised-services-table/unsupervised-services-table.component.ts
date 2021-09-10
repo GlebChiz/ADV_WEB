@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -24,37 +23,34 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 		_store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
+		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
 
-	public formDate!: FormGroup;
+	public from!: Date;
 
-	public ngOnInit(): void {
-		this.formDate = new FormGroup({
-			from: new FormControl(''),
-			to: new FormControl(''),
-		});
-		this.formDate.valueChanges.subscribe((item: any) => {
-			if (this.gridSettings.state.filter && item.from && item.to) {
-				this.gridSettings.state.filter.filters = [
-					...this.gridSettings.state.filter.filters,
-					{
-						field: 'from',
-						operator: 'custom',
-						value: item.from.toISOString(),
-					},
-					{
-						field: 'to',
-						operator: 'custom',
-						value: item.to.toISOString(),
-					},
-				];
-				super.ngOnInit();
-			}
-		});
+	public to!: Date;
+
+	public valueChange(): void {
+		if (this.gridSettings.state.filter && this.from && this.to) {
+			this.gridSettings.state.filter.filters = [
+				...this.gridSettings.state.filter.filters,
+				{
+					field: 'from',
+					operator: 'custom',
+					value: this.from.toISOString(),
+				},
+				{
+					field: 'to',
+					operator: 'custom',
+					value: this.to.toISOString(),
+				},
+			];
+			super.ngOnInit();
+		}
 	}
 
 	public columns: IColumn[] = [
