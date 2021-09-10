@@ -30,7 +30,7 @@ import { PublicSnipitComponent } from './public-snipit.component';
 import { PublicSnipitTableActions } from './public-snipit-table/public-snipit-table.actions';
 import { PublicSnipitTableComponent } from './public-snipit-table/public-snipit-table.component';
 import { SomeEffect } from './public-snipit-table/public-snipit-table.effects';
-import { publicSnipitTableReducers } from './public-snipit-table/public-snipit-table.reducers';
+import { publicSnipitReducers } from './public-snipit-table/public-snipit-table.reducers';
 import { PublicSnipitPopupComponent } from './public-snipit-table/public-snipit-popup/public-snipit-popup.component';
 
 @NgModule({
@@ -52,7 +52,7 @@ import { PublicSnipitPopupComponent } from './public-snipit-table/public-snipit-
 				},
 			},
 		]),
-		StoreModule.forFeature('publicsnipitTable', publicSnipitTableReducers),
+		StoreModule.forFeature('publicsnipitTable', publicSnipitReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [PublicSnipitComponent, PublicSnipitTableComponent, PublicSnipitPopupComponent],

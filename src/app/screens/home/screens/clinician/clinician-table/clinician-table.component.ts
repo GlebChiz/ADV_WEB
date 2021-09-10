@@ -12,11 +12,8 @@ import {
 	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { process } from '@progress/kendo-data-query';
 import { IStore } from 'src/app/store';
 import { CellClickEvent } from '@progress/kendo-angular-grid';
-import { filter, takeUntil } from 'rxjs/operators';
-import { FormControl, FormGroup } from '@angular/forms';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { ClinicianPopupComponent } from './clinician-popup/clinician-popup.component';
 
@@ -41,28 +38,6 @@ export class ClinicianTableComponent extends CustomTableDirective {
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
-	}
-
-	public override selectState(): void {
-		this._store
-			.select((state: any) => state[this.storePath].table)
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((tableData: any) => {
-				if (this.group && tableData?.data) {
-					this.gridData = process(tableData?.data, { group: this.group });
-					this.gridData.total = tableData?.total;
-				}
-				this.gridDataWithoutGroup = tableData;
-
-				this.isLoading = tableData.isLoading;
-				const group: any = {};
-				if (tableData?.current) {
-					Object.keys(tableData?.current).forEach((field: string) => {
-						group[field] = new FormControl(tableData?.current[field] || '');
-					});
-				}
-				this.myForm = new FormGroup(group);
-			});
 	}
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {

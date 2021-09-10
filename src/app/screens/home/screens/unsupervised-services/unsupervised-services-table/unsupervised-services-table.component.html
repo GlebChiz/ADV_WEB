@@ -40,7 +40,9 @@
 		<ng-template *ngIf="col.field === 'date'" kendoGridCellTemplate let-dataItem>
 			{{ dataItem.date | date: 'MM/dd/yyyy' }}
 		</ng-template>
-
+		<ng-template *ngIf="col.field === 'supervisors'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.supervisors | json }}
+		</ng-template>
 		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"

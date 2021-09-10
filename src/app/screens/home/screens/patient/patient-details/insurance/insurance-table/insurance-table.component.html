@@ -2,52 +2,73 @@
 	<div class="container-location-info purple-container">
 		<div>
 			<div class="heading-info heading-info-white">Primary Insurance</div>
-			<div class="names-and-info" *ngIf="currentPrimaryInsurance$ | async; else none_content">
+			<div class="names-and-info" *ngIf="currentPrimaryInsurance$ | async as currentPrimary">
 				<div class="names-info names-info-white">
 					<div class="name-info">Payer</div>
 					<div class="name-info">Effective date</div>
 					<div class="name-info">Member ID</div>
 				</div>
 				<div class="infos infos-white">
-					<div class="info">{{ (currentPrimaryInsurance$ | async)?.payer }}</div>
+					<div class="info">{{ currentPrimary?.payer }}</div>
 					<div class="info">
-						{{ (currentPrimaryInsurance$ | async)?.effectiveDate | date }}
+						{{ currentPrimary?.effectiveDate | date }}
 					</div>
-					<div class="info">{{ (currentPrimaryInsurance$ | async)?.memberId }}</div>
+					<div class="info">{{ currentPrimary?.memberId }}</div>
 				</div>
 			</div>
 		</div>
 		<div>
-			<button (click)="openDialog()" class="button-edit button-edit-white">
+			<button
+				*ngIf="currentPrimaryInsurance$ | async as currentPrimary; else new_insurance"
+				(click)="openDialog(currentPrimary)"
+				class="button-edit button-edit-white"
+			>
 				<img src="/assets/images/edit.svg" />
 				<span>Edit</span>
 			</button>
+			<ng-template #new_insurance>
+				<button (click)="openDialog()" class="button-edit">
+					<img src="/assets/images/edit.svg" /> <span>New</span>
+				</button>
+			</ng-template>
 		</div>
 	</div>
 	<div class="container-location-info">
 		<div>
 			<div class="heading-info">Secondary Insurance</div>
-			<div class="names-and-info" *ngIf="currentSecondaryInsurance$ | async; else none_content">
+			<div
+				class="names-and-info"
+				*ngIf="currentSecondaryInsurance$ | async as currentSecondary; else none_content"
+			>
 				<div class="names-info">
 					<div class="name-info">Payer</div>
 					<div class="name-info">Effective date</div>
 					<div class="name-info">Member ID</div>
 				</div>
 				<div class="infos">
-					<div class="info">{{ (currentSecondaryInsurance$ | async)?.payer }}</div>
+					<div class="info">{{ currentSecondary?.payer }}</div>
 					<div class="info">
-						{{ (currentSecondaryInsurance$ | async)?.effectiveDate | date }}
+						{{ currentSecondary?.effectiveDate | date }}
 					</div>
-					<div class="info">{{ (currentSecondaryInsurance$ | async)?.memberId }}</div>
+					<div class="info">{{ currentSecondary?.memberId }}</div>
 				</div>
 			</div>
 			<div *ngElse></div>
 		</div>
 		<div>
-			<button (click)="openDialog()" class="button-edit">
+			<button
+				*ngIf="currentSecondaryInsurance$ | async as currentSecondary; else new_insurance"
+				(click)="openDialog(currentSecondary)"
+				class="button-edit"
+			>
 				<img src="/assets/images/edit.svg" />
 				<span>Edit</span>
 			</button>
+			<ng-template #new_insurance>
+				<button (click)="openDialog()" class="button-edit">
+					<img src="/assets/images/edit.svg" /> <span>New</span>
+				</button>
+			</ng-template>
 		</div>
 	</div>
 </div>

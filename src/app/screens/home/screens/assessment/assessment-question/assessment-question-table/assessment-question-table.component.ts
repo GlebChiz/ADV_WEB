@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
-import { process } from '@progress/kendo-data-query';
 import {
 	GET_TABLE_DATA_PENDING,
 	GET_CURRENT_ITEM_PENDING,
@@ -241,28 +239,6 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 				return;
 			}
 		});
-	}
-
-	public override selectState(): void {
-		this._store
-			.select((state: any) => state[this.storePath].table)
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((tableData: any) => {
-				if (this.group && tableData?.data) {
-					this.gridData = process(tableData?.data, { group: this.group });
-					this.gridData.total = tableData?.total;
-				}
-				this.gridDataWithoutGroup = tableData;
-
-				this.isLoading = tableData.isLoading;
-				const group: any = {};
-				if (tableData?.current) {
-					Object.keys(tableData?.current).forEach((field: string) => {
-						group[field] = new FormControl(tableData?.current[field] || '');
-					});
-				}
-				this.myForm = new FormGroup(group);
-			});
 	}
 
 	public deleteWithPopup(id: string): void {
