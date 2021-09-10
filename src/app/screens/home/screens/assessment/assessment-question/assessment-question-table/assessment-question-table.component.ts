@@ -112,21 +112,6 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 				}
 			}
 		});
-
-		this.language.valueChanges.subscribe((value: string) => {
-			if (this.gridSettings.state.filter) {
-				this.gridSettings.state.filter.filters = [
-					...this.gridSettings.state.filter.filters,
-					{
-						field: 'languageId',
-						operator: 'custom',
-						value,
-					},
-				];
-			}
-			super.ngOnInit();
-		});
-
 		this._activatedRoute.params.subscribe((params: Params) => {
 			this.addFiltersSorting(params.id);
 			this.id = params.id || '';
@@ -232,6 +217,8 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
 					AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionPending({
+						questionId,
+						languageId: this.language.value,
 						currentTranslation: result,
 						controller: this.controller,
 					}),

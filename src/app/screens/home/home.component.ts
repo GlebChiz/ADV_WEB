@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
+import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { AuthUserActions } from 'src/app/store/actions/user.actions';
@@ -43,12 +44,11 @@ export class HomeComponent implements OnInit {
 
 	public nameUser!: string;
 
+	public user$: Observable<any> = this._store.select('userState', 'user');
+
 	public avatar: any;
 
 	public ngOnInit(): void {
-		this._store.select('userState', 'urlAvatar').subscribe((img: any) => {
-			this.avatar = img;
-		});
 		this.setCurrent();
 		this.router.events
 			.pipe(filter((event: any) => event instanceof NavigationEnd))

@@ -5,7 +5,6 @@ import { DialogRef } from '@progress/kendo-angular-dialog';
 import { filter, takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IButtonSelector } from 'src/app/shared/components/button-selector/button-selector.component';
-import { IStore } from 'src/app/store';
 import { AssessmentLegendTableActions } from '../assessment-legend-table.actions';
 
 @Component({
@@ -13,7 +12,7 @@ import { AssessmentLegendTableActions } from '../assessment-legend-table.actions
 	templateUrl: './assessment-translated-popup.component.html',
 })
 export class AssessmentTranslatedPopupComponent extends UnSubscriber implements OnInit {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
 		super();
 	}
 
@@ -45,10 +44,13 @@ export class AssessmentTranslatedPopupComponent extends UnSubscriber implements 
 	}
 
 	public ngOnInit(): void {
-		const { id, languageId }: { id: string; languageId: string } = this.assessmentTranslated;
-		this._store.dispatch(AssessmentLegendTableActions.GetTranslationPending({ languageId, id }));
+		const { legendId, languageId }: { legendId: string; languageId: string } =
+			this.assessmentTranslated;
+		this._store.dispatch(
+			AssessmentLegendTableActions.GetTranslationPending({ languageId, legendId }),
+		);
 		this._store
-			.select('assessmentlegendTable' as any, 'tranlsated')
+			.select('assessmentLegendTable', 'tranlsated')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((item: any) => {
 				this.assessmentForm.get('original')?.disable();

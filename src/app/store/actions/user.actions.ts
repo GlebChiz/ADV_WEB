@@ -35,6 +35,7 @@ export interface IUser {
 	userId: number;
 	userName: string;
 	// userNameId: string;
+	urlAvatar: string;
 	name: string;
 	token: string;
 	success: true;

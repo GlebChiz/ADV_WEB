@@ -84,7 +84,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 		});
 
 		dialog.content.instance.assessmentTranslated = {
-			id: dataItem.id,
+			legendId: dataItem.id,
 			languageId: this.language.value,
 		};
 		dialog.result.subscribe((result: any) => {
@@ -114,19 +114,6 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 				super.ngOnInit();
 				translatedColumn.hidden = !language;
 			}
-		});
-		this.language.valueChanges.subscribe((value: string) => {
-			if (this.gridSettings.state.filter) {
-				this.gridSettings.state.filter.filters = [
-					...this.gridSettings.state.filter.filters,
-					{
-						field: 'languageId',
-						operator: 'custom',
-						value,
-					},
-				];
-			}
-			super.ngOnInit();
 		});
 		super.ngOnInit();
 	}

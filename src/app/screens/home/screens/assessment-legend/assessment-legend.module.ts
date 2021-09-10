@@ -43,7 +43,7 @@ import { AssessmentLegendComponent } from './assessment-legend.component';
 				component: AssessmentLegendComponent,
 			},
 		]),
-		StoreModule.forFeature('assessmentlegendTable', assessmentLegendReducers),
+		StoreModule.forFeature('assessmentLegendTable', assessmentLegendReducers),
 		EffectsModule.forFeature([AssessmentLegendEffect]),
 	],
 	declarations: [

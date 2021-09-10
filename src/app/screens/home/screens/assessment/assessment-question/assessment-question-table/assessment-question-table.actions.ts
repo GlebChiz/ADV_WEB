@@ -117,6 +117,8 @@ export const AssessmentQuestionTableActions = {
 	UpdateCurrentTranslationAssessmentQuestionPending: createAction(
 		'[Assessment Question] Update current translation pending',
 		props<{
+			questionId: string;
+			languageId: string;
 			currentTranslation: IAssessmentQuestionTranslate;
 			controller: string;
 		}>(),
