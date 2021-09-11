@@ -90,6 +90,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			}
 		});
 		this._activatedRoute.queryParams.subscribe((query: Params) => {
+			console.log(this.language);
 			this.addFiltersSorting(query.seriesPlanId, this.language.value);
 			this.id = query.seriesPlanId || '';
 			super.ngOnInit();
@@ -104,16 +105,17 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		});
 	}
 
-	public openDialogTranslate(questionId: string): void {
+	public openDialogTranslate(sessionPlanId: string): void {
 		this._store.dispatch(
 			SessionPlanTableActions.GetCurrentTranslationSessionPlanPending({
 				languageId: this.language.value,
+				sessionPlanId,
 			}),
 		);
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Session Plan Translate',
 			content: SessionPlanTranslatePopupComponent,
-			width: 600,
+			width: 800,
 			height: 500,
 			minWidth: 250,
 		});
@@ -121,7 +123,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
 					SessionPlanTableActions.UpdateCurrentTranslationSessionPlanPending({
-						questionId,
+						sessionPlanId,
 						languageId: this.language.value,
 						currentTranslation: result,
 						controller: this.controller,

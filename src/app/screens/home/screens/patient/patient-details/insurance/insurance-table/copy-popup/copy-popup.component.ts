@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
-import { IInsuranceInfo } from '../insurance-table.component';
 
 @Component({
 	selector: 'advenium-copy-popup',

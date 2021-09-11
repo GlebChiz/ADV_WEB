@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Action, createReducer } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import { ITableState, tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { SessionPlanTableActions } from './session-plan-table.actions';
 
@@ -20,7 +20,16 @@ export function sessionPlanTableReducers(
 }
 
 export function sessionPlanInfoReducers(sessionPlanState: any, action: Action): any {
-	return createReducer({})(sessionPlanState, action);
+	return createReducer(
+		{},
+		on(
+			SessionPlanTableActions.GetCurrentTranslationSessionPlanSuccess,
+			(state: any, { currentTranslation }: { currentTranslation: any }) => ({
+				...state,
+				...currentTranslation,
+			}),
+		),
+	)(sessionPlanState, action);
 }
 
 export const sessionPlanReducers: any = {

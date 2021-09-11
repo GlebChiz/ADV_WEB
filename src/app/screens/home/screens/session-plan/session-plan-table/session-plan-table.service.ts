@@ -15,25 +15,21 @@ export class SessionPlanTableSerivce {
 	public link(ids: string[], seriesPlanId: string, link: boolean): Observable<any> {
 		return this.http.put(`sessionplan/link`, {
 			sessionPlanIds: ids,
-			seriesPlanId: seriesPlanId,
-			link: link,
+			seriesPlanId,
+			link,
 		});
 	}
 
-	public getCurrentTransletion(
-		questionId: string,
+	public getCurrentTransletionSessionPlan(
+		sessionPlanId: string,
 		languageId: string,
 	): Observable<ISessionPlanTranslate> {
 		return this.http.get(
-			`sessionplan/${questionId}/translation/${languageId}`,
+			`sessionplan/${sessionPlanId}/translation/${languageId}`,
 		) as Observable<ISessionPlanTranslate>;
 	}
 
-	public updateCurrentTransletion(
-		questionId: string,
-		languageId: string,
-		body: ISessionPlanTranslate,
-	): Observable<any> {
-		return this.http.put(`sessionplan/${questionId}/translation/${languageId}`, body);
+	public updateCurrentTransletionSessionPlan(body: ISessionPlanTranslate): Observable<any> {
+		return this.http.post(`sessionplan/translation`, body);
 	}
 }

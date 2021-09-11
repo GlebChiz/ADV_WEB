@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IStore } from 'src/app/store';
-import { filter, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'advenium-session-plan-translate-popup',
@@ -14,6 +14,8 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
 		super();
 	}
+
+	public isVisible = false;
 
 	public sessionPlanTranslate!: ISessionPlanTranslate | undefined;
 
@@ -32,20 +34,46 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 
 	public initForm(): void {
 		this.sessionPlanTranslateForm = new FormGroup({
-			original: new FormControl(this.sessionPlanTranslate?.original || ''),
-			translation: new FormControl(this.sessionPlanTranslate?.translation || []),
+			id: new FormControl(this.sessionPlanTranslate?.id || false),
+			languageId: new FormControl(this.sessionPlanTranslate?.languageId || ''),
+			original: new FormGroup({
+				outline: new FormControl(this.sessionPlanTranslate?.original.outline || ''),
+				callout1: new FormControl(this.sessionPlanTranslate?.original.callout1 || ''),
+				callout2: new FormControl(this.sessionPlanTranslate?.original.callout2 || ''),
+				callout3: new FormControl(this.sessionPlanTranslate?.original.callout3 || ''),
+				wrapup: new FormControl(this.sessionPlanTranslate?.original.wrapup || ''),
+			}),
+			translation: new FormGroup({
+				outline: new FormControl(this.sessionPlanTranslate?.translation.outline || ''),
+				callout1: new FormControl(this.sessionPlanTranslate?.translation.callout1 || ''),
+				callout2: new FormControl(this.sessionPlanTranslate?.translation.callout2 || ''),
+				callout3: new FormControl(this.sessionPlanTranslate?.translation.callout3 || ''),
+				wrapup: new FormControl(this.sessionPlanTranslate?.translation.wrapup || ''),
+			}),
 		});
-		this.sessionPlanTranslateForm?.controls?.original?.disable();
 	}
 
+	// public initForm(): void {
+	// 	this.sessionPlanTranslateForm = new FormGroup({
+	// 		original: new FormControl(this.sessionPlanTranslate?.original || ''),
+	// 		translation: new FormControl(this.sessionPlanTranslate?.translation || []),
+	// 	});
+	// 	this.sessionPlanTranslateForm?.controls?.original?.disable();
+	// }
+	public translate$: Observable<any> = this._store.select(
+		'sessionPlanTable' as any,
+		'sessionPlanInfo',
+	);
+
 	public ngOnInit(): void {
-		this._store
-			.select('sessionPlanTable' as any, 'sessionPlanTableTranslate')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((sessionPlanTranslate: any) => {
-				this.sessionPlanTranslate = sessionPlanTranslate;
-				this.initForm();
-			});
+		// this._store
+		// 	.select('sessionPlanTable' as any, 'sessionPlanInfo')
+		// 	.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+		// 	.subscribe((sessionPlanTranslate: any) => {
+		// 		console.log(sessionPlanTranslate);
+		// 		// this.sessionPlanTranslate = sessionPlanTranslate;
+		// 		this.initForm();
+		// 	});
 		this.initForm();
 	}
 }
@@ -58,9 +86,9 @@ export interface ISessionPlanTranslate {
 }
 
 export interface ISessionPlanHtml {
-	outline: string;
-	callout1: string;
-	callout2: string;
-	callout3: string;
-	wrapup: string;
+	outline: string | null;
+	callout1: string | null;
+	callout2: string | null;
+	callout3: string | null;
+	wrapup: string | null;
 }
