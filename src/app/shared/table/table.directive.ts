@@ -78,7 +78,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public selectState(): void {
 		this._store
-			.select((state: any) => state[this.storePath])
+			.select((state: any) => state[this.storePath].table)
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((tableData: any) => {
 				if (this.group && tableData?.data) {

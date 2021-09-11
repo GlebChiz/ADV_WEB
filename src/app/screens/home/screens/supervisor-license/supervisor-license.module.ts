@@ -31,7 +31,7 @@ import { SupervisorLicenseComponent } from './supervisor-license.component';
 import { SupervisorLicenseTableComponent } from './supervisor-license-table/supervisor-license-table.component';
 import { SomeEffect } from './supervisor-license-table/supervisor-license-table.effects';
 import { SupervisorLicenseTableActions } from './supervisor-license-table/supervisor-license-table.actions';
-import { supervisorLicenseTableReducers } from './supervisor-license-table/supervisor-license-table.reducers';
+import { supervisorLicenseReducers } from './supervisor-license-table/supervisor-license-table.reducers';
 
 @NgModule({
 	imports: [
@@ -42,7 +42,7 @@ import { supervisorLicenseTableReducers } from './supervisor-license-table/super
 				component: SupervisorLicenseComponent,
 			},
 		]),
-		StoreModule.forFeature('supervisorLicenseTable', supervisorLicenseTableReducers),
+		StoreModule.forFeature('supervisorLicenseTable', supervisorLicenseReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [

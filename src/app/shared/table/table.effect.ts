@@ -100,7 +100,7 @@ export class TableEffects {
 			ofType(this.deleteItemTablePending),
 			switchMap(({ id, controller }: { controller: string; id: string }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}Table`)),
+					withLatestFrom(this._store.select(`${controller}Table`, 'table')),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.delete(controller, id).pipe(
 							mergeMap(() => {
@@ -130,7 +130,7 @@ export class TableEffects {
 			ofType(this.createItemTablePending),
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}Table` as any)),
+					withLatestFrom(this._store.select(`${controller}Table` as any, 'table')),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.create(controller, item).pipe(
 							map(() => {
@@ -158,8 +158,10 @@ export class TableEffects {
 			ofType(this.editItemTablePending),
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}Table` as any)),
+					withLatestFrom(this._store.select(`${controller}Table` as any, 'table')),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
+						console.log(`${controller}Table`, latest);
+
 						return this._tableService.update(controller, item).pipe(
 							map(() => {
 								this._toasterService.success('Item has been successfully updated');

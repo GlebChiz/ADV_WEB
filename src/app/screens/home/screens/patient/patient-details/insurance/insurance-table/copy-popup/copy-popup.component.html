@@ -1,43 +1,12 @@
-<form [formGroup]="myInsuranceCopyForm" novalidate>
-	<div>
-		<div class="p10 form">
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Payer</label>
-						<kendo-combobox
-							valueField="name"
-							style="min-width: 200px; width: 100%"
-							textField="name"
-							[data]="(payers$ | async) || []"
-							[kendoDropDownFilter]="filterSettings"
-							formControlName="payerId"
-							[valuePrimitive]="true"
-						>
-						</kendo-combobox>
-					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<label>Type</label>
-						<advenium-button-selector
-							[disabled]="false"
-							[items]="isPrimary"
-							textField="name"
-							valueField="id"
-							formControlName="orderType"
-							name="orderType"
-							style="min-width: 100px; width: 40%"
-						></advenium-button-selector>
-					</div>
-				</div>
+<div>
+	<div class="p10 form" *ngIf="insuranceCopy$ | async as insurance">
+		<div
+			style="height: 50px; margin: 20px 0; cursor: pointer"
+			*ngFor="let key of objectKeys(insurance)"
+		>
+			<div *ngIf="insurance[key]" (click)="onConfirmAction(insurance[key])">
+				{{ key }} - {{ insurance[key]?.payer }}
 			</div>
 		</div>
 	</div>
-</form>
-<kendo-dialog-actions>
-	<button kendoButton (click)="onCancelAction()">Cancel</button>
-	<button kendoButton (click)="onConfirmAction()">Save</button>
-</kendo-dialog-actions>
+</div>

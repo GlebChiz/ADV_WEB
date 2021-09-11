@@ -15,10 +15,7 @@ import {
 } from 'src/app/shared/table/table.tokens';
 import { CellClickEvent, RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
 import { ActivatedRoute, Router } from '@angular/router';
-import { process } from '@progress/kendo-data-query';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
-import { FormControl, FormGroup } from '@angular/forms';
-import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { ITherapyGroup } from 'src/app/shared/interfaces/therapy-group.interface';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
@@ -98,27 +95,6 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 
 	public onCellClick(e: CellClickEvent): void {
 		this._router.navigate([e.dataItem.id], { relativeTo: this._activatedRoute });
-	}
-
-	public override selectState(): void {
-		this._store
-			.select((state: any) => state[this.storePath].table)
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((tableData: any) => {
-				if (this.group && tableData?.data) {
-					this.gridData = process(tableData?.data, { group: this.group });
-					this.gridData.total = tableData?.total;
-				}
-				this.gridDataWithoutGroup = tableData;
-				this.isLoading = tableData.isLoading;
-				const group: any = {};
-				if (tableData?.current) {
-					Object.keys(tableData?.current).forEach((field: string) => {
-						group[field] = new FormControl(tableData?.current[field] || '');
-					});
-				}
-				this.myForm = new FormGroup(group);
-			});
 	}
 
 	public columns: IColumn[] = [

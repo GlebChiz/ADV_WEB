@@ -30,7 +30,7 @@ import {
 import { SessionPlanComponent } from './session-plan.component';
 import { SessionPlanTableComponent } from './session-plan-table/session-plan-table.component';
 import { SessionPlanTableActions } from './session-plan-table/session-plan-table.actions';
-import { sessionPlanTableReducers } from './session-plan-table/session-plan-table.reducers';
+import { sessionPlanReducers } from './session-plan-table/session-plan-table.reducers';
 import { SessionPlansEffects } from './session-plan-table/session-plan-table.effects';
 import { SessionPlanPopupComponent } from './session-plan-table/session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableSerivce } from './session-plan-table/session-plan-table.service';
@@ -59,7 +59,7 @@ import { SessionPlanTranslatePopupComponent } from './session-plan-table/session
 				},
 			},
 		]),
-		StoreModule.forFeature('sessionPlanTable', sessionPlanTableReducers),
+		StoreModule.forFeature('sessionPlanTable', sessionPlanReducers),
 		EffectsModule.forFeature([SessionPlansEffects]),
 	],
 	declarations: [

@@ -30,7 +30,7 @@ import { SeriesPlanPopupComponent } from './series-plan-table/series-plan-popup/
 import { SeriesplansTableActions } from './series-plan-table/series-plan-table.actions';
 import { SeriesplansTableComponent } from './series-plan-table/series-plan-table.component';
 import { SeriesPlansEffects } from './series-plan-table/series-plan-table.effects';
-import { seriesplansTableReducers } from './series-plan-table/series-plan-table.reducers';
+import { seriesplansReducers } from './series-plan-table/series-plan-table.reducers';
 import { SeriesplansComponent } from './series-plan.component';
 
 @NgModule({
@@ -54,15 +54,15 @@ import { SeriesplansComponent } from './series-plan.component';
 			{
 				path: ':id/select',
 				loadChildren: (): any =>
-					import('./series-plan-details-unlinked-selector/series-plan-details-unlinked-selector.module').then(
-						(m: any) => m.SeriesPlanDetailsUnlinkedSelectorModule,
-					),
+					import(
+						'./series-plan-details-unlinked-selector/series-plan-details-unlinked-selector.module'
+					).then((m: any) => m.SeriesPlanDetailsUnlinkedSelectorModule),
 				data: {
 					breadcrumb: 'Select unlinked Session Plans',
 				},
 			},
 		]),
-		StoreModule.forFeature('seriesplanTable', seriesplansTableReducers),
+		StoreModule.forFeature('seriesplanTable', seriesplansReducers),
 		EffectsModule.forFeature([SeriesPlansEffects]),
 	],
 	declarations: [SeriesplansComponent, SeriesplansTableComponent, SeriesPlanPopupComponent],
