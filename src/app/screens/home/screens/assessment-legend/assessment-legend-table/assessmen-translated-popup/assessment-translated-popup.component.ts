@@ -50,7 +50,7 @@ export class AssessmentTranslatedPopupComponent extends UnSubscriber implements 
 			AssessmentLegendTableActions.GetTranslationPending({ languageId, legendId }),
 		);
 		this._store
-			.select('assessmentLegendTable', 'tranlsated')
+			.select('assessmentLegend', 'tranlsated')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((item: any) => {
 				this.assessmentForm.get('original')?.disable();

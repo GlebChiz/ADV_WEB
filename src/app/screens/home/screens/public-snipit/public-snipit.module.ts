@@ -52,7 +52,7 @@ import { PublicSnipitPopupComponent } from './public-snipit-table/public-snipit-
 				},
 			},
 		]),
-		StoreModule.forFeature('publicsnipitTable', publicSnipitReducers),
+		StoreModule.forFeature('publicsnipit', publicSnipitReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [PublicSnipitComponent, PublicSnipitTableComponent, PublicSnipitPopupComponent],

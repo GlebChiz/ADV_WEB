@@ -31,13 +31,13 @@ import { RoomTableActions } from './room-table/room-table.actions';
 import { RoomTableComponent } from './room-table/room-table.component';
 import { SomeEffect } from './room-table/room-table.effects';
 
-import { roomTableReducers } from './room-table/room-table.reducers';
+import { roomReducers } from './room-table/room-table.reducers';
 import { RoomPopupComponent } from './room-table/room-popup/room-popup.component';
 
 @NgModule({
 	imports: [
 		SharedModule,
-		StoreModule.forFeature('roomTable', roomTableReducers),
+		StoreModule.forFeature('room', roomReducers),
 		EffectsModule.forFeature([SomeEffect]),
 		RouterModule.forChild([
 			{

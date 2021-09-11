@@ -95,7 +95,6 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 		this.myInsuranceForm
 			.get('insuranceHolderId')
 			?.valueChanges.subscribe((insuranceHolderId: string) => {
-				console.log('asdlsldlslslslslslslslls');
 				// if (insuranceHolder && insuranceHolder !== this.personId) {
 				this._store.dispatch(
 					InsuranceTableActions.GetOtherInsurancePending({ id: insuranceHolderId }),
@@ -108,7 +107,7 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
 
 		this._store
-			.select('insuranceTable' as any, 'table', 'current')
+			.select('insurance' as any, 'table', 'current')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((current: IInsurence) => {
 				this.insurance = current;

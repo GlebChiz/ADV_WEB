@@ -75,7 +75,7 @@ export class ClinicianPopupComponent extends UnSubscriber implements OnInit {
 		this._store.dispatch(DropdownActions.GetAreasPending());
 		this._store.dispatch(DropdownActions.GetServiceSubTypesPending());
 		this._store
-			.select('clinicianTable')
+			.select('clinician', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((cliniciansTable: unknown) => {
 				this.clinician = (cliniciansTable as ITableState<any, any>).current;

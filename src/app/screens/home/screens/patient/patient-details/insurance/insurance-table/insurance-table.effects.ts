@@ -77,7 +77,6 @@ export class InsuranceTableEffect extends TableEffects {
 		);
 	}
 
-
 	public getGetCurrentInsurance$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(InsuranceTableActions.GetCurrentInsurancePending),
@@ -101,5 +100,4 @@ export class InsuranceTableEffect extends TableEffects {
 			}),
 		);
 	});
-
 }

@@ -62,7 +62,7 @@ import { PatientComponent } from './patient.component';
 				},
 			},
 		]),
-		StoreModule.forFeature('patientTable', patientReducers),
+		StoreModule.forFeature('patient', patientReducers),
 		EffectsModule.forFeature([PatientEffect]),
 	],
 	declarations: [PatientComponent, PatientTableComponent],

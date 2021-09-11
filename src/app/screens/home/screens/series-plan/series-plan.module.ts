@@ -62,7 +62,7 @@ import { SeriesplansComponent } from './series-plan.component';
 				},
 			},
 		]),
-		StoreModule.forFeature('seriesplanTable', seriesplansReducers),
+		StoreModule.forFeature('seriesplan', seriesplansReducers),
 		EffectsModule.forFeature([SeriesPlansEffects]),
 	],
 	declarations: [SeriesplansComponent, SeriesplansTableComponent, SeriesPlanPopupComponent],

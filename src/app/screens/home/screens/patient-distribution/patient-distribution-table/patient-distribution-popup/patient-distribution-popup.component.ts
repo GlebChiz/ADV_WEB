@@ -59,7 +59,7 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 
 	public ngOnInit(): void {
 		this._store
-			.select('patientsupervisorTable' as any)
+			.select('patientsupervisor' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((patientDistributionTable: any) => {
 				this.patientDistribution = patientDistributionTable.current;

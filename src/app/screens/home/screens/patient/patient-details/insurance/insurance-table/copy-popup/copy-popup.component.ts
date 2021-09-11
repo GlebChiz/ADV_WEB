@@ -19,7 +19,11 @@ export class InsuranceCopyPopupComponent extends UnSubscriber {
 	public objectKeys = Object.keys;
 
 	public insuranceCopy$: Observable<any> = this._store
+<<<<<<< HEAD
 		.select('insuranceTable' as any, 'insurance', 'otherInsurance')
+=======
+		.select('insurance' as any, 'insurance', 'otherInsurance')
+>>>>>>> 723e46faba40002fd0390a78d38b79bb609f035d
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public readonly filterSettings: DropDownFilterSettings = {

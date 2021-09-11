@@ -35,6 +35,10 @@ export class AssessmentPopupComponent extends UnSubscriber implements OnInit {
 		.select('dropdown', 'modalities')
 		.pipe(takeUntil(this.unsubscribe$$));
 
+	public sex$: Observable<IDropdownData[]> = this._store
+		.select('dropdown', 'sex')
+		.pipe(takeUntil(this.unsubscribe$$));
+
 	public assessmentForm!: FormGroup;
 
 	public onCancelAction(): void {
@@ -51,16 +55,22 @@ export class AssessmentPopupComponent extends UnSubscriber implements OnInit {
 	public initForm(): void {
 		this._store.dispatch(DropdownActions.GetLegendsPending());
 		this.assessmentForm = new FormGroup({
+			modalityId: new FormControl(this.assessment?.modalityId || ''),
 			patientName: new FormControl(this.assessment?.patientName || ''),
 			type: new FormControl(this.assessment?.type.toString() || '1'),
+			title: new FormControl(this.assessment?.title || ''),
+			sexId: new FormControl(this.assessment?.sexId || ''),
+			ageFrom: new FormControl(this.assessment?.ageFrom || ''),
+			ageTo: new FormControl(this.assessment?.ageTo || ''),
 		});
 		this.assessmentForm.get('patientName')?.disable();
 	}
 
 	public ngOnInit(): void {
+		this._store.dispatch(DropdownActions.GetSexPending());
 		this._store.dispatch(DropdownActions.GetModalitiesPending());
 		this._store
-			.select('assessmentTable')
+			.select('assessment', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((assessmentTable: unknown) => {
 				this.assessment = (assessmentTable as ITableState<IAssessment, IAssessment>).current;

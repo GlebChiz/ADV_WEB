@@ -37,7 +37,7 @@ import { InsuranceComponent } from './insurance.component';
 @NgModule({
 	imports: [
 		SharedModule,
-		StoreModule.forFeature('insuranceTable', insuranceReducers),
+		StoreModule.forFeature('insurance', insuranceReducers),
 		EffectsModule.forFeature([InsuranceTableEffect]),
 	],
 	declarations: [

@@ -43,7 +43,7 @@ export class ModalityPopupComponent extends UnSubscriber implements OnInit, OnCh
 
 	public ngOnInit(): void {
 		this._store
-			.select('modalityTable' as any)
+			.select('modality' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((modalityTable: any) => {
 				this.modality = modalityTable.current;

@@ -30,7 +30,7 @@ import {
 import { AssessmentComponent } from './assessment.component';
 import { AssessmentTableComponent } from './assessment-table/assessment-table.component';
 import { AssessmentTableActions } from './assessment-table/assessment-table.actions';
-import { assessmentTableReducers } from './assessment-table/assessment-table.reducers';
+import { assessmentReducers } from './assessment-table/assessment-table.reducers';
 import { SomeEffect } from './assessment-table/assessment-table.effects';
 import { AssessmentTemplatePopupComponent } from './assessment-template/assessment-template-table/assessment-template-popup/assessment-template-popup.component';
 import { AssessmentPopupComponent } from './assessment-table/assessment-popup/assessment-popup.component';
@@ -54,7 +54,7 @@ import { AssessmentPopupComponent } from './assessment-table/assessment-popup/as
 				},
 			},
 		]),
-		StoreModule.forFeature('assessmentTable', assessmentTableReducers),
+		StoreModule.forFeature('assessment', assessmentReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [

@@ -57,7 +57,7 @@ export class SeriesPlanPopupComponent extends UnSubscriber implements OnInit {
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetModalitiesPending());
 		this._store
-			.select('seriesplanTable')
+			.select('seriesplan', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((seriesPlanTable: unknown) => {
 				this.seriesPlan = (seriesPlanTable as ITableState<ISeriesPlan, ISeriesPlanCurrent>).current;

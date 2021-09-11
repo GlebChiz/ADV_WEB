@@ -45,7 +45,7 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 				component: PatientDistributionComponent,
 			},
 		]),
-		StoreModule.forFeature('patientsupervisorTable', patientDistributionReducers),
+		StoreModule.forFeature('patientsupervisor', patientDistributionReducers),
 		EffectsModule.forFeature([PatientDistributionEffects]),
 	],
 	declarations: [

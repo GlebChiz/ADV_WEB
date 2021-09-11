@@ -59,7 +59,7 @@ import { SessionPlanTranslatePopupComponent } from './session-plan-table/session
 				},
 			},
 		]),
-		StoreModule.forFeature('sessionPlanTable', sessionPlanReducers),
+		StoreModule.forFeature('sessionPlan', sessionPlanReducers),
 		EffectsModule.forFeature([SessionPlansEffects]),
 	],
 	declarations: [

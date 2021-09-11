@@ -42,7 +42,7 @@ import { supervisorLicenseReducers } from './supervisor-license-table/supervisor
 				component: SupervisorLicenseComponent,
 			},
 		]),
-		StoreModule.forFeature('supervisorLicenseTable', supervisorLicenseReducers),
+		StoreModule.forFeature('supervisorLicense', supervisorLicenseReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [

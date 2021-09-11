@@ -41,11 +41,11 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 	@Input() public personId!: string;
 
 	public currentPrimaryInsurance$: Observable<IInsuranceInfo> = this._store
-		.select('insuranceTable' as any, 'insurance', 'currentInsurance', 'primary')
+		.select('insurance' as any, 'insurance', 'currentInsurance', 'primary')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public currentSecondaryInsurance$: Observable<IInsuranceInfo> = this._store
-		.select('insuranceTable' as any, 'insurance', 'currentInsurance', 'secondary')
+		.select('insurance' as any, 'insurance', 'currentInsurance', 'secondary')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public deleteWithPopup(id: string): void {

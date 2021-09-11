@@ -56,7 +56,7 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 	// public initForm(): void {
 	// 	this.sessionPlanTranslateForm = new FormGroup({
 	// 		original: new FormControl(this.sessionPlanTranslate?.original || ''),
-	// 		translation: new FormControl(this.sessionPlanTranslate?.translation || []),
+	// 		translation: new FormControl(this.sessi onPlanTranslate?.translation || []),
 	// 	});
 	// 	this.sessionPlanTranslateForm?.controls?.original?.disable();
 	// }

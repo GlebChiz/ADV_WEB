@@ -51,6 +51,7 @@ export class TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) private getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) private getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) private getCurrentItemError: any,
+
 		public _tableService: TableService,
 		public _store: Store<any>,
 		private readonly _toasterService: ToastrService,
@@ -77,9 +78,11 @@ export class TableEffects {
 						.pipe(
 							switchMap(() => {
 								return this._tableService.getData(controller, filterId.toString()).pipe(
-									map((result: any) => {
-										this._store.dispatch(this.getTableDataSuccess());
-										return this.updateTableState({ data: { ...result, isLoading: false } });
+									mergeMap((result: any) => {
+										return [
+											this.getTableDataSuccess(),
+											this.updateTableState({ data: { ...result, isLoading: false } }),
+										];
 									}),
 									catchError((error: string) => {
 										return of(this.getTableDataError(error));
@@ -100,7 +103,7 @@ export class TableEffects {
 			ofType(this.deleteItemTablePending),
 			switchMap(({ id, controller }: { controller: string; id: string }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}Table`, 'table')),
+					withLatestFrom(this._store.select(`${controller}`, 'table')),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.delete(controller, id).pipe(
 							mergeMap(() => {
@@ -130,17 +133,19 @@ export class TableEffects {
 			ofType(this.createItemTablePending),
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}Table` as any, 'table')),
+					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						return this._tableService.create(controller, item).pipe(
-							map(() => {
+							mergeMap(() => {
 								this._toasterService.success('Item has been successfully created');
-								this._store.dispatch(this.createItemTableSuccess());
-								return this.getTableDataPending({
-									controller,
-									filter: latest.filter,
-									columns: latest.columns,
-								});
+								return [
+									this.createItemTableSuccess(),
+									this.getTableDataPending({
+										controller,
+										filter: latest.filter,
+										columns: latest.columns,
+									}),
+								];
 							}),
 							catchError((error: string) => {
 								this._toasterService.error(`Create item error: ${error}`);
@@ -158,14 +163,12 @@ export class TableEffects {
 			ofType(this.editItemTablePending),
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}Table` as any, 'table')),
+					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
 						console.log(`${controller}Table`, latest);
 
 						return this._tableService.update(controller, item).pipe(
-							map(() => {
-								this._toasterService.success('Item has been successfully updated');
-								this._store.dispatch(this.editItemTableSuccess());
+							mergeMap(() => {
 								if (controller === 'location') {
 									this._store.dispatch(
 										LocationActions.GetSelectedLocationPending({
@@ -173,15 +176,19 @@ export class TableEffects {
 										}),
 									);
 								}
-
-								return this.getTableDataPending({
-									controller,
-									filter: latest.filter,
-									columns: latest.columns,
-								});
+								this._toasterService.success('Item has been successfully updated');
+								return [
+									this.editItemTableSuccess(),
+									this.getTableDataPending({
+										controller,
+										filter: latest.filter,
+										columns: latest.columns,
+									}),
+								];
 							}),
 							catchError((error: string) => {
 								console.log(error);
+
 								this._toasterService.success(`update item error: ${error}`);
 								return of(this.editItemTableError(error));
 							}),

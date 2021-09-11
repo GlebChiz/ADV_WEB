@@ -42,7 +42,7 @@ import { PayerComponent } from './payer.component';
 				component: PayerComponent,
 			},
 		]),
-		StoreModule.forFeature('payerTable', payerReducers),
+		StoreModule.forFeature('payer', payerReducers),
 		EffectsModule.forFeature([TableEffects]),
 	],
 	declarations: [PayerComponent, PayerTableComponent, PayerPopupComponent],

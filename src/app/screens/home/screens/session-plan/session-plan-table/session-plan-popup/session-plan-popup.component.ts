@@ -72,7 +72,7 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, A
 
 	public ngOnInit(): void {
 		this._store
-			.select('sessionPlanTable')
+			.select('sessionPlan', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((sessionPlanTable: unknown) => {
 				this.sessionPlan = (
@@ -82,7 +82,7 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, A
 			});
 	}
 
-	ngAfterViewInit(): void {
+	public ngAfterViewInit(): void {
 		setTimeout(() => {
 			this.isVisible = true;
 		}, 0);
