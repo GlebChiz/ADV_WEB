@@ -53,7 +53,7 @@ import { ClinicianComponent } from './clinician.component';
 				},
 			},
 		]),
-		StoreModule.forFeature('clinicianTable', clinicianReducers),
+		StoreModule.forFeature('clinician', clinicianReducers),
 		EffectsModule.forFeature([ClinicianEffect]),
 	],
 	declarations: [ClinicianComponent, ClinicianTableComponent, ClinicianPopupComponent],

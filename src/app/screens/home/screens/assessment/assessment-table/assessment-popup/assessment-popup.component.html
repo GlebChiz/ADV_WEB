@@ -31,10 +31,72 @@
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
-						<label>Text</label>
+						<label>Patient</label>
 						<input
 							name="text"
 							formControlName="patientName"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Title</label>
+						<input
+							name="text"
+							formControlName="title"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Gender</label>
+					<kendo-combobox
+						valueField="id"
+						style="min-width: 200px; width: 100%"
+						textField="name"
+						[data]="(sex$ | async) || []"
+						formControlName="sexId"
+						[valuePrimitive]="true"
+						placeholder="Modality"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Minimal Age</label>
+						<input
+							name="text"
+							type="number"
+							formControlName="ageFrom"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Maximal Age</label>
+						<input
+							name="text"
+							type="number"
+							formControlName="ageTo"
 							kendoTextBox
 							class="k-textbox"
 							style="width: 100%"

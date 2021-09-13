@@ -58,7 +58,7 @@ export function personReducers(
 				[key: string]: IPersonContactInfo;
 			}[] = [...state.personContactInfo];
 			newPersonContactInfo.find((item: { [key: string]: IPersonContactInfo }, index: number) => {
-				if (item.hasOwnProperty(`${[id]}`)) {
+				if (item?.hasOwnProperty(`${[id]}`)) {
 					newPersonContactInfo.splice(index, 1);
 				}
 			});
@@ -73,7 +73,7 @@ export function personReducers(
 			}[] = [...state.personDemographicInfo];
 			newPersonDemographicInfo.find(
 				(item: { [key: string]: IPersonDemographicInfo }, index: number) => {
-					if (item.hasOwnProperty(`${[id]}`)) {
+					if (item?.hasOwnProperty(`${[id]}`)) {
 						newPersonDemographicInfo.splice(index, 1);
 					}
 				},
@@ -88,7 +88,7 @@ export function personReducers(
 				[key: string]: IPersonInfo;
 			}[] = [...state.personInfo];
 			newPersonInfo.find((item: { [key: string]: IPersonInfo }, index: number) => {
-				if (item.hasOwnProperty(`${[id]}`)) {
+				if (item?.hasOwnProperty(`${[id]}`)) {
 					newPersonInfo.splice(index, 1);
 				}
 			});

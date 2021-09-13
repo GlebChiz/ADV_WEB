@@ -51,7 +51,7 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetLocationInitiativeIdsPending());
 		this._store
-			.select('locationTable' as any)
+			.select('location' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((locationTable: any) => {
 				this.location = locationTable.current;

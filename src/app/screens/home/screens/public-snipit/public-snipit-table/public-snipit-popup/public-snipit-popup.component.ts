@@ -47,7 +47,6 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 
 	public initForm(): void {
 		this.myPublicSnipitForm = new FormGroup({
-			id: new FormControl(this.publicSnipit?.id || ''),
 			text: new FormControl(this.publicSnipit?.text || ''),
 			categoryId: new FormControl(this.publicSnipit?.categoryId),
 			type: new FormControl(this.publicSnipit?.type),
@@ -58,7 +57,7 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 		this._store.dispatch(DropdownActions.GetSnipiTypePending());
 		this._store.dispatch(DropdownActions.GetSnipiCategoryPending());
 		this._store
-			.select('publicsnipitTable' as any)
+			.select('publicsnipit' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((modalityTable: any) => {
 				this.publicSnipit = modalityTable.current;

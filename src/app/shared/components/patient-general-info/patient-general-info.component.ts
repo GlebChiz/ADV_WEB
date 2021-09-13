@@ -67,7 +67,7 @@ export class PatientGeneralInfoComponent extends UnSubscriber implements OnInit 
 		this._store.dispatch(DropdownActions.GetAreasPending());
 		this._store.dispatch(DropdownActions.GetPatientStatusPending());
 		this._store
-			.select('patientTable' as any, 'patientInfo')
+			.select('patient' as any, 'patientInfo')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((patientInfo: IPatientGeneralInfo) => {
 				this.patientInfo = patientInfo;

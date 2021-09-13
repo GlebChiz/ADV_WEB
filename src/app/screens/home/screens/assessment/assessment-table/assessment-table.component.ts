@@ -61,6 +61,13 @@ export class AssessmentTableComponent extends CustomTableDirective {
 			filterable: true,
 			type: 'text',
 		},
+		{
+			field: 'title',
+			title: 'Title',
+			hidden: false,
+			filterable: true,
+			type: 'text',
+		},
 	];
 
 	public openDialog(dataItem?: IAssessment, isDublicate?: boolean): void {
@@ -70,7 +77,7 @@ export class AssessmentTableComponent extends CustomTableDirective {
 			);
 		}
 		const dialog: DialogRef = this.dialogService.open({
-			title: 'Assessment Question',
+			title: 'Assessment',
 			content: AssessmentPopupComponent,
 			width: 600,
 			height: 500,

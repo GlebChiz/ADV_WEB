@@ -53,7 +53,7 @@ export class RoomPopupComponent extends UnSubscriber implements OnInit {
 		this._store.dispatch(DropdownActions.GetRoomSizePending());
 		this._store.dispatch(DropdownActions.GetRoomSetupPending());
 		this._store
-			.select('roomTable' as any)
+			.select('room' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((roomTable: any) => {
 				this.room = roomTable.current;

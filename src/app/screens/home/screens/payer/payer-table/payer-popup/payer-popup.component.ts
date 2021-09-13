@@ -52,7 +52,7 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 	public ngOnInit(): void {
 		this._store.dispatch(PayerActions.GetTypesPending());
 		this._store
-			.select('payerTable' as any)
+			.select('payer' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((payerTable: any) => {
 				this.payer = payerTable.current;

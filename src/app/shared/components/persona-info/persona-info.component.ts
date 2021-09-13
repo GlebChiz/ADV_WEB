@@ -87,7 +87,7 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 				const currentPersonInfo: { [key: string]: IPersonInfo } =
 					personInfo.find((item: { [key: string]: IPersonInfo }) =>
 						// eslint-disable-next-line no-prototype-builtins
-						item.hasOwnProperty(this.personId),
+						item?.hasOwnProperty(this.personId),
 					) ?? {};
 				if (currentPersonInfo && currentPersonInfo[this.personId]) {
 					this.personInfo = currentPersonInfo[this.personId];

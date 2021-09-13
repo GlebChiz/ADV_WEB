@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Action } from '@ngrx/store';
+import { Action, createReducer } from '@ngrx/store';
 import { tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { SupervisorLicenseTableActions } from './supervisor-license-table.actions';
 
@@ -15,3 +15,12 @@ const tableReducers: any = tableReducersFactory(
 export function supervisorLicenseTableReducers(state: any | undefined, action: Action): any {
 	return tableReducers(state, action);
 }
+
+export function supervisorLicenseInfoReducers(unsupervisedServicesState: any, action: Action): any {
+	return createReducer({})(unsupervisedServicesState, action);
+}
+
+export const supervisorLicenseReducers: any = {
+	table: supervisorLicenseTableReducers,
+	supervisorLicenseInfo: supervisorLicenseInfoReducers,
+};

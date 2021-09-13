@@ -33,7 +33,7 @@ import { PatientDistributionPopupComponent } from './patient-distribution-table/
 import { PatientDistributionTableActions } from './patient-distribution-table/patient-distribution-table.actions';
 import { PatientDistributionTableComponent } from './patient-distribution-table/patient-distribution-table.component';
 import { PatientDistributionEffects } from './patient-distribution-table/patient-distribution-table.effects';
-import { patientDistributionTableReducers } from './patient-distribution-table/patient-distribution-table.reducers';
+import { patientDistributionReducers } from './patient-distribution-table/patient-distribution-table.reducers';
 import { PatientDistributionComponent } from './patient-distribution.component';
 
 @NgModule({
@@ -45,7 +45,7 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 				component: PatientDistributionComponent,
 			},
 		]),
-		StoreModule.forFeature('patientsupervisorTable', patientDistributionTableReducers),
+		StoreModule.forFeature('patientsupervisor', patientDistributionReducers),
 		EffectsModule.forFeature([PatientDistributionEffects]),
 	],
 	declarations: [

@@ -2,8 +2,8 @@
 	<div><img src="/assets/images/logo-adv.svg" kendoButton look="flat" /></div>
 	<div>
 		<span><img src="/assets/images/bell.svg" /></span>
-		<span class="avatar"><img class="avatar" [src]="avatar" /></span>
-		<span class="user-name">{{ nameUser }}</span>
+		<span class="avatar"><img class="avatar" [src]="(user$ | async)?.urlAvatar" /></span>
+		<span class="user-name">{{ (user$ | async)?.userName }}</span>
 		<span class="logout" (click)="logout()">
 			<span class="k-icon k-i-logout"></span>
 		</span>

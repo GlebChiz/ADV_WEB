@@ -58,7 +58,7 @@ import { RoomForGroupPopupComponent } from './therapy-group-popups/room-for-grou
 				},
 			},
 		]),
-		StoreModule.forFeature('therapygroupTable', therapyGroupReducers),
+		StoreModule.forFeature('therapygroup', therapyGroupReducers),
 		EffectsModule.forFeature([TherapyGroupEffects]),
 	],
 	declarations: [

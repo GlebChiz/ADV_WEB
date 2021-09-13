@@ -22,6 +22,7 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { DropdownActions } from '../../../../../store/actions/dropdowns.actions';
 import { SessionPlanPopupComponent } from './session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableActions } from './session-plan-table.actions';
+import { SessionPlanTranslatePopupComponent } from './session-plan-translate-popup/session-plan-translate-popup.component';
 
 @Component({
 	providers: [],
@@ -100,6 +101,33 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 					item.hidden = !query.seriesPlanId;
 				}
 			});
+		});
+	}
+
+	public openDialogTranslate(sessionPlanId: string): void {
+		this._store.dispatch(
+			SessionPlanTableActions.GetCurrentTranslationSessionPlanPending({
+				languageId: this.language.value,
+				sessionPlanId,
+			}),
+		);
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Session Plan Translate',
+			content: SessionPlanTranslatePopupComponent,
+			width: 1000,
+			height: 1000,
+			minWidth: 250,
+		});
+
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					SessionPlanTableActions.SetTranslationSessionPlanPending({
+						item: result,
+						controller: this.controller,
+					}),
+				);
+			}
 		});
 	}
 
@@ -192,7 +220,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 				sessionPlanId: dataitem.id,
 				seriesPlanId: this.id,
 				index: isUp ? dataitem.orderNumber + 1 : dataitem.orderNumber - 1,
-				storePath: this.storePath
+				storePath: this.storePath,
 			}),
 		);
 	}

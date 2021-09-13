@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -19,6 +20,7 @@ import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { IColumn } from '../../../../../../shared/interfaces/column.interface';
 import { AssessmentQuestionPopupComponent } from './assessment-question-popup/assessment-question-popup.component';
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
+import { AssessmentQuestionTranslatePopupComponent } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 @Component({
 	providers: [],
@@ -34,7 +36,6 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		_store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
-		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
@@ -195,6 +196,35 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 				this._store.dispatch(this.createDataPending({ item: result, controller: this.controller }));
 			}
 			this._store.dispatch(this.clearCurrentItem());
+		});
+	}
+
+	public openDialogTranslate(questionId: string): void {
+		this._store.dispatch(
+			AssessmentQuestionTableActions.GetCurrentTranslationAssessmentQuestionPending({
+				questionId,
+				languageId: this.language.value,
+			}),
+		);
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Assessment Question Translate',
+			content: AssessmentQuestionTranslatePopupComponent,
+			width: 600,
+			height: 500,
+			minWidth: 250,
+		});
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionPending({
+						questionId,
+						languageId: this.language.value,
+						currentTranslation: result,
+						controller: this.controller,
+					}),
+				);
+				return;
+			}
 		});
 	}
 

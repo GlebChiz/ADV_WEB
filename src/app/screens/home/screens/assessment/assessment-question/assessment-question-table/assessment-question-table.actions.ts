@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
+import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 export const AssessmentQuestionTableActions = {
 	GetAssessmentQuestionTableDataPending: createAction(
@@ -102,4 +103,30 @@ export const AssessmentQuestionTableActions = {
 		'[Assessment Question] Reorder current item success',
 	),
 	ReorderAssessmentQuestionError: createAction('[Assessment Question] Reorder current item error'),
+	GetCurrentTranslationAssessmentQuestionPending: createAction(
+		'[Assessment Question] Get current translation pending',
+		props<{ questionId: string; languageId: string }>(),
+	),
+	GetCurrentTranslationAssessmentQuestionSuccess: createAction(
+		'[Assessment Question] Get current translation success',
+		props<{ currentTranslation: any }>(),
+	),
+	GetCurrentTranslationAssessmentQuestionError: createAction(
+		'[Assessment Question] Get current translation error',
+	),
+	UpdateCurrentTranslationAssessmentQuestionPending: createAction(
+		'[Assessment Question] Update current translation pending',
+		props<{
+			questionId: string;
+			languageId: string;
+			currentTranslation: IAssessmentQuestionTranslate;
+			controller: string;
+		}>(),
+	),
+	UpdateCurrentTranslationAssessmentQuestionSuccess: createAction(
+		'[Assessment Question] Update current translation success',
+	),
+	UpdateCurrentTranslationAssessmentQuestionError: createAction(
+		'[Assessment Question] Update current translation error',
+	),
 };

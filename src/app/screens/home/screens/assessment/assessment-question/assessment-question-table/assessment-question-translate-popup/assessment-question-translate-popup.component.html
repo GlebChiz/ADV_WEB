@@ -1,0 +1,40 @@
+<form [formGroup]="assessmentTranslateForm" novalidate>
+	<div>
+		<div class="p10 form">
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Original</label>
+						<input
+							name="original"
+							formControlName="original"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix w-100">
+				<div class="column w-100">
+					<div class="w-100">
+						<label>Translation</label>
+						<input
+							name="translation"
+							formControlName="translation"
+							kendoTextBox
+							class="k-textbox"
+							style="width: 100%"
+							maxlength="250"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<kendo-dialog-actions>
+	<button kendoButton (click)="onCancelAction()">Cancel</button>
+	<button kendoButton (click)="onConfirmAction()">Save</button>
+</kendo-dialog-actions>

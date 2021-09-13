@@ -3,14 +3,34 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CLEAR_CURRENT_ITEM, CREATE_ITEM_TABLE_ERROR, CREATE_ITEM_TABLE_PENDING, CREATE_ITEM_TABLE_SUCCESS, DELETE_ITEM_TABLE_ERROR, DELETE_ITEM_TABLE_PENDING, DELETE_ITEM_TABLE_SUCCESS, DUBLICATE_ITEM_TABLE_ERROR, DUBLICATE_ITEM_TABLE_PENDING, DUBLICATE_ITEM_TABLE_SUCCESS, EDIT_ITEM_TABLE_ERROR, EDIT_ITEM_TABLE_PENDING, EDIT_ITEM_TABLE_SUCCESS, GET_CURRENT_ITEM_ERROR, GET_CURRENT_ITEM_PENDING, GET_CURRENT_ITEM_SUCCESS, GET_TABLE_DATA_ERROR, GET_TABLE_DATA_PENDING, GET_TABLE_DATA_SUCCESS, UPDATE_TABLE_STATE } from 'src/app/shared/table/table.tokens';
+import {
+	CLEAR_CURRENT_ITEM,
+	CREATE_ITEM_TABLE_ERROR,
+	CREATE_ITEM_TABLE_PENDING,
+	CREATE_ITEM_TABLE_SUCCESS,
+	DELETE_ITEM_TABLE_ERROR,
+	DELETE_ITEM_TABLE_PENDING,
+	DELETE_ITEM_TABLE_SUCCESS,
+	DUBLICATE_ITEM_TABLE_ERROR,
+	DUBLICATE_ITEM_TABLE_PENDING,
+	DUBLICATE_ITEM_TABLE_SUCCESS,
+	EDIT_ITEM_TABLE_ERROR,
+	EDIT_ITEM_TABLE_PENDING,
+	EDIT_ITEM_TABLE_SUCCESS,
+	GET_CURRENT_ITEM_ERROR,
+	GET_CURRENT_ITEM_PENDING,
+	GET_CURRENT_ITEM_SUCCESS,
+	GET_TABLE_DATA_ERROR,
+	GET_TABLE_DATA_PENDING,
+	GET_TABLE_DATA_SUCCESS,
+	UPDATE_TABLE_STATE,
+} from 'src/app/shared/table/table.tokens';
 import { SessionPlanTableActions } from '../../session-plan/session-plan-table/session-plan-table.actions';
 import { SessionPlansEffects } from '../../session-plan/session-plan-table/session-plan-table.effects';
 import { sessionPlanTableReducers } from '../../session-plan/session-plan-table/session-plan-table.reducers';
 import { SessionPlanTableSerivce } from '../../session-plan/session-plan-table/session-plan-table.service';
 import { SeriesPlanUnlinkedTableComponent } from '../series-plan-unlinked-table/series-plan-unlinked-table.component';
 import { SeriesPlanDetailsUnlinkedSelectorComponent } from './series-plan-details-unlinked-selector.component';
-
 
 @NgModule({
 	imports: [
@@ -21,7 +41,7 @@ import { SeriesPlanDetailsUnlinkedSelectorComponent } from './series-plan-detail
 				component: SeriesPlanDetailsUnlinkedSelectorComponent,
 			},
 		]),
-		StoreModule.forFeature('sessionPlanUnlinkedTable', sessionPlanTableReducers),
+		StoreModule.forFeature('sessionPlanUnlinked', sessionPlanTableReducers),
 		EffectsModule.forFeature([SessionPlansEffects]),
 	],
 	declarations: [SeriesPlanDetailsUnlinkedSelectorComponent, SeriesPlanUnlinkedTableComponent],

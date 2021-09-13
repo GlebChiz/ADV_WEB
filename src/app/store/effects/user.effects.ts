@@ -82,8 +82,11 @@ export class UserEffects {
 			ofType(AuthUserActions.CheckToken),
 			switchMap(() => {
 				return this.authenticationService.checkToken().pipe(
-					map((user: IUser) => {
-						return AuthUserActions.SignInComplete({ user });
+					mergeMap((user: IUser) => {
+						return [
+							AuthUserActions.SignInComplete({ user }),
+							UserActions.GetUserAvatarPending({ id: user.userId }),
+						];
 					}),
 					catchError((errors) => {
 						return of(AuthUserActions.CheckTokenError({ errors }));

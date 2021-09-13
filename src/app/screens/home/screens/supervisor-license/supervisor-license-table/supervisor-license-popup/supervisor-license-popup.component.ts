@@ -48,7 +48,6 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 
 	public initForm(): void {
 		this.myForm = new FormGroup({
-			id: new FormControl(this.supervisorLicense?.id || ''),
 			clinicianId: new FormControl(this.supervisorLicense?.supervisor || ''),
 			payerId: new FormControl(this.supervisorLicense?.payer || ''),
 			startDate: new FormControl(this.supervisorLicense?.start || ''),

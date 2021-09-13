@@ -41,15 +41,12 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.assessmentTemplate, ...this.assessmentTemplateForm.value });
+		this._dialogService.close({ ...this.assessmentTemplateForm.value });
 	}
 
 	public initForm(): void {
 		this.assessmentTemplateForm = new FormGroup({
-			id: new FormControl(this.assessmentTemplate?.id || ''),
-			questionId: new FormControl(
-				this.assessmentTemplate?.questionId || this._activatedRoute?.snapshot?.params?.id,
-			),
+			questionId: new FormControl(this._activatedRoute?.snapshot?.params?.id),
 			responseOption: new FormControl(this.assessmentTemplate?.responseOption || ''),
 			text: new FormControl(this.assessmentTemplate?.text || ''),
 			type: new FormControl(this.assessmentTemplate?.type || ''),
@@ -65,7 +62,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 		);
 
 		this._store
-			.select('assessmentTemplateTable')
+			.select('assessmentTemplate', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((assessmentTemplateTable: unknown) => {
 				this.assessmentTemplate = (assessmentTemplateTable as ITableState<any, any>).current;
@@ -77,8 +74,8 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 export interface IAssessmentTemplateInterface {
 	id: string;
 	criteria: string;
-	responseOption: string;
+	responseOption: number;
 	text: string;
 	questionId: string;
-	type: string;
+	type: number;
 }

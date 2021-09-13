@@ -30,12 +30,13 @@ import {
 import { SessionPlanComponent } from './session-plan.component';
 import { SessionPlanTableComponent } from './session-plan-table/session-plan-table.component';
 import { SessionPlanTableActions } from './session-plan-table/session-plan-table.actions';
-import { sessionPlanTableReducers } from './session-plan-table/session-plan-table.reducers';
+import { sessionPlanReducers } from './session-plan-table/session-plan-table.reducers';
 import { SessionPlansEffects } from './session-plan-table/session-plan-table.effects';
 import { SessionPlanPopupComponent } from './session-plan-table/session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableSerivce } from './session-plan-table/session-plan-table.service';
-import { EditorModule } from '@progress/kendo-angular-editor';
+import { SessionPlanTranslatePopupComponent } from './session-plan-table/session-plan-translate-popup/session-plan-translate-popup.component';
 import { TabStripModule } from '@progress/kendo-angular-layout';
+import { EditorModule } from '@progress/kendo-angular-editor';
 
 @NgModule({
 	imports: [
@@ -58,10 +59,15 @@ import { TabStripModule } from '@progress/kendo-angular-layout';
 				},
 			},
 		]),
-		StoreModule.forFeature('sessionPlanTable', sessionPlanTableReducers),
+		StoreModule.forFeature('sessionPlan', sessionPlanReducers),
 		EffectsModule.forFeature([SessionPlansEffects]),
 	],
-	declarations: [SessionPlanComponent, SessionPlanTableComponent, SessionPlanPopupComponent],
+	declarations: [
+		SessionPlanComponent,
+		SessionPlanTableComponent,
+		SessionPlanPopupComponent,
+		SessionPlanTranslatePopupComponent,
+	],
 	entryComponents: [],
 	providers: [
 		SessionPlanTableSerivce,

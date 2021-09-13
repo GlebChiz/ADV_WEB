@@ -3,7 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { switchMap, withLatestFrom, mergeMap, catchError } from 'rxjs/operators';
+import { switchMap, withLatestFrom, mergeMap, catchError, map } from 'rxjs/operators';
 import { TableEffects } from 'src/app/shared/table/table.effect';
 import { ITableState } from 'src/app/shared/table/table.reducer';
 import { TableService } from 'src/app/shared/table/table.service';
@@ -28,6 +28,7 @@ import {
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
 import { AssessmentQuestionTableSerivce } from './assessment-question-table.service';
 import { ToastrService } from 'ngx-toastr';
+import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 @Injectable()
 export class AssessmentQuestionTableEffects extends TableEffects {
@@ -112,6 +113,72 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 										return of(AssessmentQuestionTableActions.ReorderAssessmentQuestionError());
 									}),
 								);
+							},
+						),
+					);
+				},
+			),
+		);
+	});
+
+	public getCurrentTranslation$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(AssessmentQuestionTableActions.GetCurrentTranslationAssessmentQuestionPending),
+			switchMap(({ questionId, languageId }: { questionId: string; languageId: string }) => {
+				return this._service.getCurrentTransletion(questionId, languageId).pipe(
+					map((currentTranslation: IAssessmentQuestionTranslate) =>
+						AssessmentQuestionTableActions.GetCurrentTranslationAssessmentQuestionSuccess({
+							currentTranslation,
+						}),
+					),
+					catchError(() => {
+						return of(
+							AssessmentQuestionTableActions.GetCurrentTranslationAssessmentQuestionError(),
+						);
+					}),
+				);
+			}),
+		);
+	});
+
+	public updateCurrentTranslation$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionPending),
+			switchMap(
+				({
+					questionId,
+					languageId,
+					currentTranslation,
+					controller,
+				}: {
+					questionId: string;
+					languageId: string;
+					currentTranslation: IAssessmentQuestionTranslate;
+					controller: string;
+				}) => {
+					return of(1).pipe(
+						withLatestFrom(this._store.select(`${controller}Table`)),
+						switchMap(
+							([, latest]: [number, ITableState<IAssessmentQuestion, IAssessmentQuestion>]) => {
+								return this._service
+									.updateCurrentTransletion(questionId, languageId, currentTranslation)
+									.pipe(
+										mergeMap(() => {
+											return [
+												AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionSuccess(),
+												this.getTableDataPending({
+													controller,
+													filter: latest.filter,
+													columns: latest.columns,
+												}),
+											];
+										}),
+										catchError(() => {
+											return of(
+												AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionError(),
+											);
+										}),
+									);
 							},
 						),
 					);
