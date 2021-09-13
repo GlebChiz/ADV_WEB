@@ -29,7 +29,7 @@ export class SessionPlanTableSerivce {
 		) as Observable<ISessionPlanTranslate>;
 	}
 
-	public updateCurrentTransletionSessionPlan(body: ISessionPlanTranslate): Observable<any> {
-		return this.http.post(`sessionplan/translation`, body);
+	public updateCurrentTransletionSessionPlan(body: any): Observable<any> {
+		return this.http.post(`sessionplan/translation`, body.item);
 	}
 }

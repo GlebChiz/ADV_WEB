@@ -3,12 +3,12 @@
 		<kendo-tabstrip [keepTabContent]="true">
 			<kendo-tabstrip-tab [title]="'Outline'" [selected]="true">
 				<ng-template kendoTabContent>
-					<div class="clearfix w-100">
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
 						<div class="column w-100">
 							<div class="w-100">
 								<label>Original</label>
 								<textarea
-									formControlName="originalOutline"
+									formControlName="outline"
 									kendoTextBox
 									class="k-textbox"
 									style="width: 100%; height: 150px"
@@ -18,13 +18,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="clearfix w-100">
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
 						<div class="column w-100">
 							<div class="w-100">
 								<label>Translation</label>
 								<textarea
 									name="translationOutline"
-									formControlName="translationOutline"
+									formControlName="outline"
 									kendoTextArea
 									class="k-textbox"
 									style="width: 100%; height: 150px"
@@ -39,12 +39,12 @@
 					<div class="clearfix w-100 mT10">
 						<div class="column w-100">
 							<div class="w-100">
-								<div class="clearfix w-100">
+								<div class="clearfix w-100" [formGroup]="getOriginal()">
 									<div class="column w-100">
 										<div class="w-100">
 											<label>Original</label>
 											<textarea
-												formControlName="originalCallout1"
+												formControlName="callout1"
 												kendoTextBox
 												class="k-textbox"
 												style="width: 100%; height: 150px"
@@ -54,12 +54,12 @@
 										</div>
 									</div>
 								</div>
-								<div class="clearfix w-100">
+								<div class="clearfix w-100" [formGroup]="getTranslation()">
 									<div class="column w-100">
 										<div class="w-100">
 											<label>Translation</label>
 											<textarea
-												formControlName="translationCallout1"
+												formControlName="callout1"
 												kendoTextArea
 												class="k-textbox"
 												style="width: 100%; height: 150px"
@@ -77,12 +77,12 @@
 					<div class="clearfix w-100 mT10">
 						<div class="column w-100">
 							<div class="w-100">
-								<div class="clearfix w-100">
+								<div class="clearfix w-100" [formGroup]="getOriginal()">
 									<div class="column w-100">
 										<div class="w-100">
 											<label>Original</label>
 											<textarea
-												formControlName="originalCallout2"
+												formControlName="callout2"
 												kendoTextBox
 												class="k-textbox"
 												style="width: 100%; height: 150px"
@@ -92,12 +92,12 @@
 										</div>
 									</div>
 								</div>
-								<div class="clearfix w-100">
+								<div class="clearfix w-100" [formGroup]="getTranslation()">
 									<div class="column w-100">
 										<div class="w-100">
 											<label>Translation</label>
 											<textarea
-												formControlName="translationCallout2"
+												formControlName="callout2"
 												kendoTextArea
 												class="k-textbox"
 												style="width: 100%; height: 150px"
@@ -115,12 +115,12 @@
 					<div class="clearfix w-100 mT10">
 						<div class="column w-100">
 							<div class="w-100">
-								<div class="clearfix w-100">
+								<div class="clearfix w-100" [formGroup]="getOriginal()">
 									<div class="column w-100">
 										<div class="w-100">
 											<label>Original</label>
 											<textarea
-												formControlName="originalCallout3"
+												formControlName="callout3"
 												kendoTextBox
 												class="k-textbox"
 												style="width: 100%; height: 150px"
@@ -130,12 +130,12 @@
 										</div>
 									</div>
 								</div>
-								<div class="clearfix w-100">
+								<div class="clearfix w-100" [formGroup]="getTranslation()">
 									<div class="column w-100">
 										<div class="w-100">
 											<label>Translation</label>
 											<textarea
-												formControlName="translationCallout3"
+												formControlName="callout3"
 												kendoTextArea
 												class="k-textbox"
 												style="width: 100%; height: 150px"
@@ -153,12 +153,12 @@
 					<div class="clearfix w-100 mT10">
 						<div class="column w-100">
 							<div class="w-100">
-								<div class="clearfix w-100">
+								<div class="clearfix w-100" [formGroup]="getOriginal()">
 									<div class="column w-100">
 										<div class="w-100">
 											<label>Original</label>
 											<textarea
-												formControlName="originalWrapup"
+												formControlName="wrapup"
 												kendoTextBox
 												class="k-textbox"
 												style="width: 100%; height: 150px"
@@ -168,12 +168,12 @@
 										</div>
 									</div>
 								</div>
-								<div class="clearfix w-100">
+								<div class="clearfix w-100" [formGroup]="getTranslation()">
 									<div class="column w-100">
 										<div class="w-100">
 											<label>Translation</label>
 											<textarea
-												formControlName="translationCWrapup"
+												formControlName="wrapup"
 												kendoTextArea
 												class="k-textbox"
 												style="width: 100%; height: 150px"

@@ -15,8 +15,6 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 		super();
 	}
 
-	public isVisible = false;
-
 	public sessionPlanInfo!: ISessionPlanTranslate | undefined;
 
 	public sessionPlanTranslateForm!: FormGroup;
@@ -34,22 +32,30 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 
 	public initForm(): void {
 		this.sessionPlanTranslateForm = new FormGroup({
-			originalOutline: new FormControl(this.sessionPlanInfo?.original?.outline || ''),
-			originalCallout1: new FormControl(this.sessionPlanInfo?.original?.callout1 || ''),
-			originalCallout2: new FormControl(this.sessionPlanInfo?.original?.callout2 || ''),
-			originalCallout3: new FormControl(this.sessionPlanInfo?.original?.callout3 || ''),
-			originalWrapup: new FormControl(this.sessionPlanInfo?.original?.wrapup || ''),
-			translationOutline: new FormControl(this.sessionPlanInfo?.translation?.outline || ''),
-			translationCallout1: new FormControl(this.sessionPlanInfo?.translation?.callout1 || ''),
-			translationCallout2: new FormControl(this.sessionPlanInfo?.translation?.callout2 || ''),
-			translationCallout3: new FormControl(this.sessionPlanInfo?.translation?.callout3 || ''),
-			translationCWrapup: new FormControl(this.sessionPlanInfo?.translation?.wrapup || ''),
+			original: new FormGroup({
+				outline: new FormControl(this.sessionPlanInfo?.original?.outline || ''),
+				callout1: new FormControl(this.sessionPlanInfo?.original?.callout1 || ''),
+				callout2: new FormControl(this.sessionPlanInfo?.original?.callout2 || ''),
+				callout3: new FormControl(this.sessionPlanInfo?.original?.callout3 || ''),
+				wrapup: new FormControl(this.sessionPlanInfo?.original?.wrapup || ''),
+			}),
+			translation: new FormGroup({
+				outline: new FormControl(this.sessionPlanInfo?.translation?.outline || ''),
+				callout1: new FormControl(this.sessionPlanInfo?.translation?.callout1 || ''),
+				callout2: new FormControl(this.sessionPlanInfo?.translation?.callout2 || ''),
+				callout3: new FormControl(this.sessionPlanInfo?.translation?.callout3 || ''),
+				wrapup: new FormControl(this.sessionPlanInfo?.translation?.wrapup || ''),
+			}),
 		});
-		this.sessionPlanTranslateForm?.controls?.originalOutline?.disable();
-		this.sessionPlanTranslateForm?.controls?.originalCallout1?.disable();
-		this.sessionPlanTranslateForm?.controls?.originalCallout2?.disable();
-		this.sessionPlanTranslateForm?.controls?.originalCallout3?.disable();
-		this.sessionPlanTranslateForm?.controls?.originalWrapup?.disable();
+		this.sessionPlanTranslateForm?.controls?.original?.disable();
+	}
+
+	public getOriginal(): FormGroup {
+		return this.sessionPlanTranslateForm.get('original') as FormGroup;
+	}
+
+	public getTranslation(): FormGroup {
+		return this.sessionPlanTranslateForm.get('translation') as FormGroup;
 	}
 
 	public ngOnInit(): void {

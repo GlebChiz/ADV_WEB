@@ -180,4 +180,32 @@ export class SessionPlansEffects extends TableEffects {
 			}),
 		);
 	});
+
+	public setCurrentTranslation$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(SessionPlanTableActions.SetTranslationPending),
+			switchMap(({ controller, ...item }: { controller: string }) => {
+				return of(1).pipe(
+					withLatestFrom(this._store.select(controller)),
+					switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
+						return this._service.updateCurrentTransletionSessionPlan(item).pipe(
+							mergeMap(() => {
+								return [
+									SessionPlanTableActions.SetTranslationSuccess(),
+									this.getTableDataPending({
+										controller,
+										filter: latest.filter,
+										columns: latest.columns,
+									}),
+								];
+							}),
+							catchError(() => {
+								return of(SessionPlanTableActions.SetTranslationError());
+							}),
+						);
+					}),
+				);
+			}),
+		);
+	});
 }

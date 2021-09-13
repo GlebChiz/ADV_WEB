@@ -118,13 +118,13 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			height: 500,
 			minWidth: 250,
 		});
+
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
+				console.log('asdas', result);
 				this._store.dispatch(
-					SessionPlanTableActions.UpdateCurrentTranslationSessionPlanPending({
-						sessionPlanId,
-						languageId: this.language.value,
-						currentTranslation: result,
+					SessionPlanTableActions.SetTranslationPending({
+						item: result,
 						controller: this.controller,
 					}),
 				);

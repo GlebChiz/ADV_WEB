@@ -125,8 +125,6 @@ export const SessionPlanTableActions = {
 	UpdateCurrentTranslationSessionPlanPending: createAction(
 		'[Session Plan] Update current translation pending',
 		props<{
-			sessionPlanId: string;
-			languageId: string;
 			currentTranslation: ISessionPlanTranslate;
 			controller: string;
 		}>(),
@@ -137,4 +135,11 @@ export const SessionPlanTableActions = {
 	UpdateCurrentTranslationSessionPlanError: createAction(
 		'[Session Plan] Update current translation error',
 	),
+	SetTranslationPending: createAction(
+		'[Session Plan] set current item pending',
+		props<{ item: any; controller: string }>(),
+	),
+	SetTranslationSuccess: createAction('[Session Plan] set current item success'),
+	SetTranslationError: createAction('[Session Plan] set current item error'),
+	СlearTranslation: createAction('[Session Plan] set current item error'),
 };
