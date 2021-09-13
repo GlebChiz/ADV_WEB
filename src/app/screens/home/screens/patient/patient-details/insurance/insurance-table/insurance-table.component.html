@@ -1,4 +1,3 @@
-
 <div style="display: flex; justify-content: space-between">
 	<div class="container-location-info purple-container">
 		<div>
@@ -24,7 +23,7 @@
 				(click)="openDialog(currentPrimary)"
 				class="button-edit button-edit-white"
 			>
-				<img src="/assets/images/edit.svg" />
+				<img src="/assets/images/edit-insurance.svg" />
 				<span>Edit</span>
 			</button>
 			<ng-template #new_insurance>
@@ -74,10 +73,13 @@
 	</div>
 </div>
 <ng-template #none_content>None</ng-template>
-<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Insurance</div>
-<div class="new-button">
-	<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Insurance</button>
+<div class="header-form-style">
+	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Insurance</div>
+	<div class="new-button">
+		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Insurance</button>
+	</div>
 </div>
+
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
