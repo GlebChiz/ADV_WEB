@@ -165,8 +165,6 @@ export class TableEffects {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
 					switchMap(([, latest]: [number, ITableState<any, any>]) => {
-						console.log(`${controller}Table`, latest);
-
 						return this._tableService.update(controller, item).pipe(
 							mergeMap(() => {
 								if (controller === 'location') {
