@@ -55,10 +55,6 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 				wrapup: new FormControl(this.sessionPlanInfo?.translation?.wrapup || ''),
 			}),
 		});
-		this.getOriginal().valueChanges.subscribe((itme) => console.log(itme));
-		// console.log(this.sessionPlanInfo);
-
-		// this.sessionPlanTranslateForm?.controls?.original?.disable();
 	}
 
 	public getOriginal(): FormGroup {
