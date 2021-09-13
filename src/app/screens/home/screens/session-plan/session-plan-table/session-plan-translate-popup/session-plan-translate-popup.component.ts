@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IStore } from 'src/app/store';
-import { Observable } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'advenium-session-plan-translate-popup',
@@ -17,7 +17,7 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 
 	public isVisible = false;
 
-	public sessionPlanTranslate!: ISessionPlanTranslate | undefined;
+	public sessionPlanInfo!: ISessionPlanTranslate | undefined;
 
 	public sessionPlanTranslateForm!: FormGroup;
 
@@ -27,53 +27,39 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 
 	public onConfirmAction(): void {
 		this._dialogService.close({
-			...this.sessionPlanTranslate,
+			...this.sessionPlanInfo,
 			...this.sessionPlanTranslateForm.value,
 		});
 	}
 
 	public initForm(): void {
 		this.sessionPlanTranslateForm = new FormGroup({
-			id: new FormControl(this.sessionPlanTranslate?.id || false),
-			languageId: new FormControl(this.sessionPlanTranslate?.languageId || ''),
-			original: new FormGroup({
-				outline: new FormControl(this.sessionPlanTranslate?.original.outline || ''),
-				callout1: new FormControl(this.sessionPlanTranslate?.original.callout1 || ''),
-				callout2: new FormControl(this.sessionPlanTranslate?.original.callout2 || ''),
-				callout3: new FormControl(this.sessionPlanTranslate?.original.callout3 || ''),
-				wrapup: new FormControl(this.sessionPlanTranslate?.original.wrapup || ''),
-			}),
-			translation: new FormGroup({
-				outline: new FormControl(this.sessionPlanTranslate?.translation.outline || ''),
-				callout1: new FormControl(this.sessionPlanTranslate?.translation.callout1 || ''),
-				callout2: new FormControl(this.sessionPlanTranslate?.translation.callout2 || ''),
-				callout3: new FormControl(this.sessionPlanTranslate?.translation.callout3 || ''),
-				wrapup: new FormControl(this.sessionPlanTranslate?.translation.wrapup || ''),
-			}),
+			originalOutline: new FormControl(this.sessionPlanInfo?.original?.outline || ''),
+			originalCallout1: new FormControl(this.sessionPlanInfo?.original?.callout1 || ''),
+			originalCallout2: new FormControl(this.sessionPlanInfo?.original?.callout2 || ''),
+			originalCallout3: new FormControl(this.sessionPlanInfo?.original?.callout3 || ''),
+			originalWrapup: new FormControl(this.sessionPlanInfo?.original?.wrapup || ''),
+			translationOutline: new FormControl(this.sessionPlanInfo?.translation?.outline || ''),
+			translationCallout1: new FormControl(this.sessionPlanInfo?.translation?.callout1 || ''),
+			translationCallout2: new FormControl(this.sessionPlanInfo?.translation?.callout2 || ''),
+			translationCallout3: new FormControl(this.sessionPlanInfo?.translation?.callout3 || ''),
+			translationCWrapup: new FormControl(this.sessionPlanInfo?.translation?.wrapup || ''),
 		});
+		this.sessionPlanTranslateForm?.controls?.originalOutline?.disable();
+		this.sessionPlanTranslateForm?.controls?.originalCallout1?.disable();
+		this.sessionPlanTranslateForm?.controls?.originalCallout2?.disable();
+		this.sessionPlanTranslateForm?.controls?.originalCallout3?.disable();
+		this.sessionPlanTranslateForm?.controls?.originalWrapup?.disable();
 	}
 
-	// public initForm(): void {
-	// 	this.sessionPlanTranslateForm = new FormGroup({
-	// 		original: new FormControl(this.sessionPlanTranslate?.original || ''),
-	// 		translation: new FormControl(this.sessi onPlanTranslate?.translation || []),
-	// 	});
-	// 	this.sessionPlanTranslateForm?.controls?.original?.disable();
-	// }
-	public translate$: Observable<any> = this._store.select(
-		'sessionPlanTable' as any,
-		'sessionPlanInfo',
-	);
-
 	public ngOnInit(): void {
-		// this._store
-		// 	.select('sessionPlanTable' as any, 'sessionPlanInfo')
-		// 	.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-		// 	.subscribe((sessionPlanTranslate: any) => {
-		// 		console.log(sessionPlanTranslate);
-		// 		// this.sessionPlanTranslate = sessionPlanTranslate;
-		// 		this.initForm();
-		// 	});
+		this._store
+			.select('sessionPlan' as any, 'sessionPlanInfo')
+			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((sessionPlanInfo: any) => {
+				this.sessionPlanInfo = sessionPlanInfo;
+				this.initForm();
+			});
 		this.initForm();
 	}
 }

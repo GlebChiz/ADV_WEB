@@ -90,7 +90,6 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			}
 		});
 		this._activatedRoute.queryParams.subscribe((query: Params) => {
-			console.log(this.language);
 			this.addFiltersSorting(query.seriesPlanId, this.language.value);
 			this.id = query.seriesPlanId || '';
 			super.ngOnInit();
