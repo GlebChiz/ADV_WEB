@@ -1,37 +1,67 @@
 <form [formGroup]="sessionPlanTranslateForm" novalidate>
-	<div>
-		<div class="p10 form">
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
+	<div *ngIf="isVisible === true">
+		<kendo-tabstrip [keepTabContent]="true">
+			<kendo-tabstrip-tab [title]="'Outline'" [selected]="true">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
 						<label>Original</label>
-						<input
-							name="original"
-							formControlName="original"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
+						<kendo-editor formControlName="outline" [readonly]="true"> </kendo-editor>
 					</div>
-				</div>
-			</div>
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
 						<label>Translation</label>
-						<input
-							name="translation"
-							formControlName="translation"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
+						<kendo-editor formControlName="outline"> </kendo-editor>
 					</div>
-				</div>
-			</div>
-		</div>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Callout 1'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
+						<label>Original</label>
+						<kendo-editor formControlName="callout1" [readonly]="true"> </kendo-editor>
+					</div>
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
+						<label>Translation</label>
+						<kendo-editor formControlName="callout1"> </kendo-editor>
+					</div>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Callout 2'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
+						<label>Original</label>
+						<kendo-editor formControlName="callout2" [readonly]="true"> </kendo-editor>
+					</div>
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
+						<label>Translation</label>
+						<kendo-editor formControlName="callout2"> </kendo-editor>
+					</div>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Callout 3'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
+						<label>Original</label>
+						<kendo-editor formControlName="callout3" [readonly]="true"> </kendo-editor>
+					</div>
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
+						<label>Translation</label>
+						<kendo-editor formControlName="callout3"> </kendo-editor>
+					</div>
+				</ng-template>
+			</kendo-tabstrip-tab>
+			<kendo-tabstrip-tab [title]="'Wrapup'">
+				<ng-template kendoTabContent>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
+						<label>Original</label>
+						<kendo-editor formControlName="wrapup" [readonly]="true"> </kendo-editor>
+					</div>
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
+						<label>Translation</label>
+						<kendo-editor formControlName="wrapup"> </kendo-editor>
+					</div>
+				</ng-template>
+			</kendo-tabstrip-tab>
+		</kendo-tabstrip>
 	</div>
 </form>
 <kendo-dialog-actions>

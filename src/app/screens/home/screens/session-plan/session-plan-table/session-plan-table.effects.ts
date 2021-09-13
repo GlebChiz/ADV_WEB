@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { switchMap, withLatestFrom, mergeMap, catchError } from 'rxjs/operators';
+import { switchMap, withLatestFrom, mergeMap, catchError, map } from 'rxjs/operators';
 import { TableEffects } from 'src/app/shared/table/table.effect';
 import { TableService } from 'src/app/shared/table/table.service';
 import {
@@ -88,7 +88,7 @@ export class SessionPlansEffects extends TableEffects {
 					sessionPlanId,
 					seriesPlanId,
 					index,
-					storePath
+					storePath,
 				}: {
 					sessionPlanId: string;
 					seriesPlanId: string;
@@ -112,7 +112,7 @@ export class SessionPlansEffects extends TableEffects {
 								}),
 								catchError(() => {
 									return of(SessionPlanTableActions.ReorderPlanError());
-								})
+								}),
 							);
 						}),
 					);
@@ -130,7 +130,7 @@ export class SessionPlansEffects extends TableEffects {
 					ids,
 					seriesPlanId,
 					link,
-					storePath
+					storePath,
 				}: {
 					controller: string;
 					ids: string[];
@@ -154,12 +154,58 @@ export class SessionPlansEffects extends TableEffects {
 								}),
 								catchError(() => {
 									return of(SessionPlanTableActions.LinkSessionPlansError());
-								})
+								}),
 							);
 						}),
 					);
 				},
 			),
+		);
+	});
+
+	public getCurrentTranslation$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(SessionPlanTableActions.GetCurrentTranslationSessionPlanPending),
+			switchMap(({ sessionPlanId, languageId }: { sessionPlanId: string; languageId: string }) => {
+				return this._service.getCurrentTransletionSessionPlan(sessionPlanId, languageId).pipe(
+					map((currentTranslation: any) =>
+						SessionPlanTableActions.GetCurrentTranslationSessionPlanSuccess({
+							currentTranslation,
+						}),
+					),
+					catchError(() => {
+						return of(SessionPlanTableActions.GetCurrentTranslationSessionPlanError());
+					}),
+				);
+			}),
+		);
+	});
+
+	public setCurrentTranslation$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(SessionPlanTableActions.SetTranslationSessionPlanPending),
+			switchMap(({ controller, ...item }: { controller: string }) => {
+				return of(1).pipe(
+					withLatestFrom(this._store.select(controller, 'table')),
+					switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
+						return this._service.updateCurrentTransletionSessionPlan(item).pipe(
+							mergeMap(() => {
+								return [
+									SessionPlanTableActions.SetTranslationSessionPlanSuccess(),
+									this.getTableDataPending({
+										controller,
+										filter: latest.filter,
+										columns: latest.columns,
+									}),
+								];
+							}),
+							catchError(() => {
+								return of(SessionPlanTableActions.SetTranslationSessionPlanError());
+							}),
+						);
+					}),
+				);
+			}),
 		);
 	});
 }

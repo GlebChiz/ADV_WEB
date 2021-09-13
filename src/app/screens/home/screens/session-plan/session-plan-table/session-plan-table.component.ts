@@ -104,30 +104,29 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		});
 	}
 
-	public openDialogTranslate(questionId: string): void {
+	public openDialogTranslate(sessionPlanId: string): void {
 		this._store.dispatch(
 			SessionPlanTableActions.GetCurrentTranslationSessionPlanPending({
 				languageId: this.language.value,
+				sessionPlanId,
 			}),
 		);
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Session Plan Translate',
 			content: SessionPlanTranslatePopupComponent,
-			width: 600,
-			height: 500,
+			width: 1000,
+			height: 1000,
 			minWidth: 250,
 		});
+
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					SessionPlanTableActions.UpdateCurrentTranslationSessionPlanPending({
-						questionId,
-						languageId: this.language.value,
-						currentTranslation: result,
+					SessionPlanTableActions.SetTranslationSessionPlanPending({
+						item: result,
 						controller: this.controller,
 					}),
 				);
-				return;
 			}
 		});
 	}
