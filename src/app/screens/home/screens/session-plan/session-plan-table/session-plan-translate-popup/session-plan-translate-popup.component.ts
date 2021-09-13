@@ -15,6 +15,8 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 		super();
 	}
 
+	public isVisible: boolean = false;
+
 	public sessionPlanInfo!: ISessionPlanTranslate | undefined;
 
 	public sessionPlanTranslateForm!: FormGroup;
@@ -28,6 +30,12 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 			...this.sessionPlanInfo,
 			...this.sessionPlanTranslateForm.value,
 		});
+	}
+
+	public ngAfterViewInit(): void {
+		setTimeout(() => {
+			this.isVisible = true;
+		}, 0);
 	}
 
 	public initForm(): void {
@@ -47,7 +55,10 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 				wrapup: new FormControl(this.sessionPlanInfo?.translation?.wrapup || ''),
 			}),
 		});
-		this.sessionPlanTranslateForm?.controls?.original?.disable();
+		this.getOriginal().valueChanges.subscribe((itme) => console.log(itme));
+		// console.log(this.sessionPlanInfo);
+
+		// this.sessionPlanTranslateForm?.controls?.original?.disable();
 	}
 
 	public getOriginal(): FormGroup {

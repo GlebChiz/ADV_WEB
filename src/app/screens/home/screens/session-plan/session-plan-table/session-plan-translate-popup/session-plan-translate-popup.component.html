@@ -1,188 +1,63 @@
 <form [formGroup]="sessionPlanTranslateForm" novalidate>
-	<div>
+	<div *ngIf="isVisible === true">
 		<kendo-tabstrip [keepTabContent]="true">
 			<kendo-tabstrip-tab [title]="'Outline'" [selected]="true">
 				<ng-template kendoTabContent>
 					<div class="clearfix w-100" [formGroup]="getOriginal()">
-						<div class="column w-100">
-							<div class="w-100">
-								<label>Original</label>
-								<textarea
-									formControlName="outline"
-									kendoTextBox
-									class="k-textbox"
-									style="width: 100%; height: 150px"
-									maxlength="250"
-								>
-								</textarea>
-							</div>
-						</div>
+						<label>Original</label>
+						<kendo-editor formControlName="outline"> </kendo-editor>
 					</div>
 					<div class="clearfix w-100" [formGroup]="getTranslation()">
-						<div class="column w-100">
-							<div class="w-100">
-								<label>Translation</label>
-								<textarea
-									name="translationOutline"
-									formControlName="outline"
-									kendoTextArea
-									class="k-textbox"
-									style="width: 100%; height: 150px"
-								></textarea>
-							</div>
-						</div>
+						<label>Translation</label>
+						<kendo-editor formControlName="outline"> </kendo-editor>
 					</div>
 				</ng-template>
 			</kendo-tabstrip-tab>
 			<kendo-tabstrip-tab [title]="'Callout 1'">
 				<ng-template kendoTabContent>
-					<div class="clearfix w-100 mT10">
-						<div class="column w-100">
-							<div class="w-100">
-								<div class="clearfix w-100" [formGroup]="getOriginal()">
-									<div class="column w-100">
-										<div class="w-100">
-											<label>Original</label>
-											<textarea
-												formControlName="callout1"
-												kendoTextBox
-												class="k-textbox"
-												style="width: 100%; height: 150px"
-												maxlength="250"
-											>
-											</textarea>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix w-100" [formGroup]="getTranslation()">
-									<div class="column w-100">
-										<div class="w-100">
-											<label>Translation</label>
-											<textarea
-												formControlName="callout1"
-												kendoTextArea
-												class="k-textbox"
-												style="width: 100%; height: 150px"
-											></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
+						<label>Original</label>
+						<kendo-editor formControlName="callout1"> </kendo-editor>
+					</div>
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
+						<label>Translation</label>
+						<kendo-editor formControlName="callout1"> </kendo-editor>
 					</div>
 				</ng-template>
 			</kendo-tabstrip-tab>
 			<kendo-tabstrip-tab [title]="'Callout 2'">
 				<ng-template kendoTabContent>
-					<div class="clearfix w-100 mT10">
-						<div class="column w-100">
-							<div class="w-100">
-								<div class="clearfix w-100" [formGroup]="getOriginal()">
-									<div class="column w-100">
-										<div class="w-100">
-											<label>Original</label>
-											<textarea
-												formControlName="callout2"
-												kendoTextBox
-												class="k-textbox"
-												style="width: 100%; height: 150px"
-												maxlength="250"
-											>
-											</textarea>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix w-100" [formGroup]="getTranslation()">
-									<div class="column w-100">
-										<div class="w-100">
-											<label>Translation</label>
-											<textarea
-												formControlName="callout2"
-												kendoTextArea
-												class="k-textbox"
-												style="width: 100%; height: 150px"
-											></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
+						<label>Original</label>
+						<kendo-editor formControlName="callout2"> </kendo-editor>
+					</div>
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
+						<label>Translation</label>
+						<kendo-editor formControlName="callout2"> </kendo-editor>
 					</div>
 				</ng-template>
 			</kendo-tabstrip-tab>
 			<kendo-tabstrip-tab [title]="'Callout 3'">
 				<ng-template kendoTabContent>
-					<div class="clearfix w-100 mT10">
-						<div class="column w-100">
-							<div class="w-100">
-								<div class="clearfix w-100" [formGroup]="getOriginal()">
-									<div class="column w-100">
-										<div class="w-100">
-											<label>Original</label>
-											<textarea
-												formControlName="callout3"
-												kendoTextBox
-												class="k-textbox"
-												style="width: 100%; height: 150px"
-												maxlength="250"
-											>
-											</textarea>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix w-100" [formGroup]="getTranslation()">
-									<div class="column w-100">
-										<div class="w-100">
-											<label>Translation</label>
-											<textarea
-												formControlName="callout3"
-												kendoTextArea
-												class="k-textbox"
-												style="width: 100%; height: 150px"
-											></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
+						<label>Original</label>
+						<kendo-editor formControlName="callout3"> </kendo-editor>
+					</div>
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
+						<label>Translation</label>
+						<kendo-editor formControlName="callout3"> </kendo-editor>
 					</div>
 				</ng-template>
 			</kendo-tabstrip-tab>
 			<kendo-tabstrip-tab [title]="'Wrapup'">
 				<ng-template kendoTabContent>
-					<div class="clearfix w-100 mT10">
-						<div class="column w-100">
-							<div class="w-100">
-								<div class="clearfix w-100" [formGroup]="getOriginal()">
-									<div class="column w-100">
-										<div class="w-100">
-											<label>Original</label>
-											<textarea
-												formControlName="wrapup"
-												kendoTextBox
-												class="k-textbox"
-												style="width: 100%; height: 150px"
-												maxlength="250"
-											>
-											</textarea>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix w-100" [formGroup]="getTranslation()">
-									<div class="column w-100">
-										<div class="w-100">
-											<label>Translation</label>
-											<textarea
-												formControlName="wrapup"
-												kendoTextArea
-												class="k-textbox"
-												style="width: 100%; height: 150px"
-											></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="clearfix w-100" [formGroup]="getOriginal()">
+						<label>Original</label>
+						<kendo-editor formControlName="wrapup"> </kendo-editor>
+					</div>
+					<div class="clearfix w-100" [formGroup]="getTranslation()">
+						<label>Translation</label>
+						<kendo-editor formControlName="wrapup"> </kendo-editor>
 					</div>
 				</ng-template>
 			</kendo-tabstrip-tab>

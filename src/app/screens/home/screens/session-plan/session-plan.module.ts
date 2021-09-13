@@ -34,9 +34,9 @@ import { sessionPlanReducers } from './session-plan-table/session-plan-table.red
 import { SessionPlansEffects } from './session-plan-table/session-plan-table.effects';
 import { SessionPlanPopupComponent } from './session-plan-table/session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableSerivce } from './session-plan-table/session-plan-table.service';
-import { EditorModule } from '@progress/kendo-angular-editor';
-import { TabStripModule } from '@progress/kendo-angular-layout';
 import { SessionPlanTranslatePopupComponent } from './session-plan-table/session-plan-translate-popup/session-plan-translate-popup.component';
+import { TabStripModule } from '@progress/kendo-angular-layout';
+import { EditorModule } from '@progress/kendo-angular-editor';
 
 @NgModule({
 	imports: [

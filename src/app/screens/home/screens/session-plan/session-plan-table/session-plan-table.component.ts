@@ -114,8 +114,8 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Session Plan Translate',
 			content: SessionPlanTranslatePopupComponent,
-			width: 800,
-			height: 500,
+			width: 1000,
+			height: 1000,
 			minWidth: 250,
 		});
 
