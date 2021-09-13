@@ -55,7 +55,7 @@
 							valueField="id"
 							formControlName="orderType"
 							name="orderType"
-							style="min-width: 100px; width: 40%"
+							style="min-width: 100px; width: 100%"
 						></advenium-button-selector>
 					</div>
 				</div>
@@ -178,9 +178,14 @@
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100 form-style-insurance">
-						<label style="align-self: auto; margin-top: 7px">Verification</label>
-						<div *ngIf="" class="insurance-form-date">
-							<input type="checkbox" formControlName="isVerified" name="isVerified" />
+						<label style="align-self: auto">Verification</label>
+						<div class="insurance-form-date">
+							<input
+								type="checkbox"
+								formControlName="isVerified"
+								name="isVerified"
+								style="margin-bottom: 20px; margin-top: 4px"
+							/>
 							<kendo-datepicker
 								*ngIf="myInsuranceForm.value.isVerified"
 								formControlName="verificationDate"
