@@ -3,7 +3,7 @@
 		<div class="p10 form">
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Payer</label>
 						<kendo-combobox
 							valueField="id"
@@ -20,7 +20,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Effective date</label>
 						<kendo-datepicker
 							formControlName="effectiveDate"
@@ -33,7 +33,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Closed date</label>
 						<kendo-datepicker
 							formControlName="closedDate"
@@ -46,7 +46,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Type</label>
 						<advenium-button-selector
 							[disabled]="false"
@@ -62,7 +62,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Copay</label>
 						<input
 							name="copay"
@@ -77,7 +77,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Deductiblet</label>
 						<input
 							name="deductible"
@@ -92,7 +92,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Member ID</label>
 						<input
 							name="memberId"
@@ -107,7 +107,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Employee</label>
 						<input
 							name="employee"
@@ -122,7 +122,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Plan name</label>
 						<input
 							name="planName"
@@ -137,7 +137,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 form-style-insurance">
 						<label>Policy group</label>
 						<input
 							name="policyGroup"
@@ -152,7 +152,7 @@
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100" style="display: flex">
+					<div class="w-100 form-style-insurance">
 						<label>Insured party</label>
 						<kendo-combobox
 							valueField="id"
@@ -164,25 +164,31 @@
 							[valuePrimitive]="true"
 						>
 						</kendo-combobox>
-						<span *ngIf="myInsuranceForm.value.insuranceHolderId &&  myInsuranceForm.value.insuranceHolderId !== personId" (click)="openDialogCopy()"
+						<span
+							*ngIf="
+								myInsuranceForm.value.insuranceHolderId &&
+								myInsuranceForm.value.insuranceHolderId !== personId
+							"
+							(click)="openDialogCopy()"
 							>Copy</span
 						>
-					
 					</div>
 				</div>
 			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
-					<div class="w-100">
-						<label>Verification</label>
-						<input type="checkbox" formControlName="isVerified" name="isVerified" />
-						<kendo-datepicker
-							*ngIf="myInsuranceForm.value.isVerified"
-							formControlName="verificationDate"
-							format="MMMM"
-							kendoTextBox
-							formatPlaceholder="wide"
-						></kendo-datepicker>
+					<div class="w-100 form-style-insurance">
+						<label style="align-self: auto; margin-top: 7px">Verification</label>
+						<div *ngIf="" class="insurance-form-date">
+							<input type="checkbox" formControlName="isVerified" name="isVerified" />
+							<kendo-datepicker
+								*ngIf="myInsuranceForm.value.isVerified"
+								formControlName="verificationDate"
+								format="MMMM"
+								kendoTextBox
+								formatPlaceholder="wide"
+							></kendo-datepicker>
+						</div>
 					</div>
 				</div>
 			</div>

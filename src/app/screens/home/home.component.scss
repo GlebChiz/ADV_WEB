@@ -62,6 +62,33 @@ kendo-drawer-content {
 		max-width: 134px;
 	}
 }
+::ng-deep .form-style-insurance {
+	display: flex;
+	padding-bottom: 24px;
+	label {
+		width: 100%;
+		max-width: 120px;
+		align-self: center;
+		margin-bottom: 0;
+	}
+	input {
+		max-width: 508px;
+	}
+	.city-form {
+		max-width: 358px;
+		margin-right: 16px;
+	}
+	.zip-form {
+		max-width: 134px;
+	}
+	.insurance-form-date {
+		display: flex;
+		flex-direction: column;
+		height: 85px;
+		justify-content: space-around;
+	}
+}
+
 ::ng-deep .first-form {
 	padding-top: 48px;
 }
@@ -221,7 +248,9 @@ kendo-drawer-content {
 }
 
 .container-location-info {
-	width: 40%;
+	width: 100%;
+	margin-right: 25px;
+	max-width: 616px;
 	padding: 24px;
 	margin-bottom: 20px;
 	border-radius: 8px;
@@ -261,7 +290,7 @@ kendo-drawer-content {
 	font-size: 15px;
 	opacity: 0.7;
 	margin: 5px 0;
-	height: 70px;
+	height: 25px;
 }
 
 .infos {
@@ -273,7 +302,7 @@ kendo-drawer-content {
 }
 
 .info {
-	height: 70px;
+	height: 25px;
 	font-weight: 400;
 	font-size: 15px;
 	margin: 5px 0;
@@ -283,9 +312,11 @@ kendo-drawer-content {
 	border: 1px solid black;
 	border-radius: 4px;
 	padding: 5px 16px;
+	width: 90px;
+	height: 38px;
 	background-color: transparent;
 	img {
-		margin: 9px;
+		margin-right: 9px;
 	}
 	span {
 		font-size: 13px;
