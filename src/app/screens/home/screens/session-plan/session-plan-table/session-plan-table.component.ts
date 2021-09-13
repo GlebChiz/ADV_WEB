@@ -122,12 +122,11 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
-					SessionPlanTableActions.SetTranslationPending({
+					SessionPlanTableActions.SetTranslationSessionPlanPending({
 						item: result,
 						controller: this.controller,
 					}),
 				);
-				return;
 			}
 		});
 	}

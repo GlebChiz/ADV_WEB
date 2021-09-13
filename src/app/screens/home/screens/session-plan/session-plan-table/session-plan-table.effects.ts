@@ -183,15 +183,15 @@ export class SessionPlansEffects extends TableEffects {
 
 	public setCurrentTranslation$ = createEffect(() => {
 		return this.actions$.pipe(
-			ofType(SessionPlanTableActions.SetTranslationPending),
+			ofType(SessionPlanTableActions.SetTranslationSessionPlanPending),
 			switchMap(({ controller, ...item }: { controller: string }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(controller)),
+					withLatestFrom(this._store.select(controller, 'table')),
 					switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
 						return this._service.updateCurrentTransletionSessionPlan(item).pipe(
 							mergeMap(() => {
 								return [
-									SessionPlanTableActions.SetTranslationSuccess(),
+									SessionPlanTableActions.SetTranslationSessionPlanSuccess(),
 									this.getTableDataPending({
 										controller,
 										filter: latest.filter,
@@ -200,7 +200,7 @@ export class SessionPlansEffects extends TableEffects {
 								];
 							}),
 							catchError(() => {
-								return of(SessionPlanTableActions.SetTranslationError());
+								return of(SessionPlanTableActions.SetTranslationSessionPlanError());
 							}),
 						);
 					}),
