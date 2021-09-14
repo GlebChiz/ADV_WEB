@@ -42,6 +42,17 @@ kendo-drawer-content {
 	display: flex;
 	justify-content: space-between;
 }
+::ng-deep .copy-button {
+	border-radius: 4px;
+	outline: none;
+	border: 1px solid #dce0e4;
+	margin-left: 16px;
+	font-size: 13px;
+	img {
+		margin-right: 10px;
+		max-width: 15px;
+	}
+}
 ::ng-deep .form-style {
 	display: flex;
 	padding-bottom: 24px;
