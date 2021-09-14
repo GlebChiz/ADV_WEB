@@ -34,7 +34,6 @@ export interface IUser {
 	id: Guid;
 	userId: number;
 	userName: string;
-	// userNameId: string;
 	urlAvatar: string;
 	name: string;
 	token: string;
@@ -42,7 +41,6 @@ export interface IUser {
 	permissions: PermissionType[];
 	sharedCallId: Guid | null;
 	roles: number[]; // TODO
-	// person: IPerson;
 }
 
 export const enum CacheSection {

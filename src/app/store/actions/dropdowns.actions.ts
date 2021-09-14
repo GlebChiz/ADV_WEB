@@ -123,12 +123,12 @@ export const DropdownActions = {
 	),
 	GetSexOrientationError: createAction('[Dropdown] Get SexOrientation error'),
 
-	GetUsStatePending: createAction('[Dropdown] Get UsState pending'),
+	GetUsStatePending: createAction('[Dropdown] Get usState pending'),
 	GetUsStateSuccess: createAction(
 		'[Dropdown] Get UsState success',
 		props<{ data: IDropdownData[] }>(),
 	),
-	GetUsStateError: createAction('[Dropdown] Get UsState error'),
+	GetUsStateError: createAction('[Dropdown] Get usState error'),
 
 	GetRacePending: createAction('[Dropdown] Get Race pending'),
 	GetRaceSuccess: createAction('[Dropdown] Get Race success', props<{ data: IDropdownData[] }>()),
@@ -196,6 +196,7 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetLinkedPersonsError: createAction('[Dropdown] Get LinkedPersons error'),
+  
 	GetAutoNotePrefillsPending: createAction('[Dropdown] Get AutoNotePrefills pending'),
 	GetAutoNotePrefillsSuccess: createAction(
 		'[Dropdown] Get AutoNotePrefills success',

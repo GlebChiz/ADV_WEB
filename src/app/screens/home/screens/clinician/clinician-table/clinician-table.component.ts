@@ -49,7 +49,7 @@ export class ClinicianTableComponent extends CustomTableDirective {
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Clinician',
 			content: ClinicianPopupComponent,
-			width: 600,
+			width: 700,
 			height: 500,
 			minWidth: 250,
 		});

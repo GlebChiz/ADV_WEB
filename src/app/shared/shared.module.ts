@@ -11,13 +11,13 @@ import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 import { NgxMaskModule } from 'ngx-mask';
 import { ButtonSelectorComponent } from './components/button-selector/button-selector.component';
-import { AddressControlComponent } from '../controls/address-control/address-control.component';
 import { PersonaInfoComponent } from './components/persona-info/persona-info.component';
 import { DemographicComponent } from './components/demografic/demographic.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { PhoneComponent } from './components/phone/phone.component';
 import { PatientGeneralInfoComponent } from './components/patient-general-info/patient-general-info.component';
 import { ClinicianGeneralInfoComponent } from './components/clinician-general-info/clinician-general-info.component';
+import { AddressControlComponent } from './components/address-control/address-control.component';
 
 @NgModule({
 	imports: [

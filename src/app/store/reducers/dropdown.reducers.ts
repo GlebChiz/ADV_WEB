@@ -148,7 +148,7 @@ export function dropdownReducers(
 		on(
 			DropdownActions.GetUsStateSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
-				return { ...state, UsState: data, isLoading: false };
+				return { ...state, usState: data, isLoading: false };
 			},
 		),
 		on(
