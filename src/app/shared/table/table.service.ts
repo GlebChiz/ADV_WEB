@@ -92,29 +92,6 @@ export class TableService {
 				value: curr.value,
 			};
 			return prev;
-			// switch (typeof curr.value) {
-			// 	case ColumnFilterDataType.Number:
-			// 		formatTypes = this.formatNumberTypes(curr.operator);
-			// 		prev[curr.field as string] = {
-			// 			...formatTypes,
-			// 			value: curr.value,
-			// 		};
-			// 		return prev;
-			// 	case ColumnFilterDataType.Boolean:
-			// 		formatTypes = this.formatBooleanTypes(curr.operator);
-			// 		prev[curr.field as string] = {
-			// 			...formatTypes,
-			// 			value: curr.value,
-			// 		};
-			// 		return prev;
-			// 	default:
-			// 		formatTypes = this.formatStringTypes(curr.operator);
-			// 		prev[curr.field as string] = {
-			// 			...formatTypes,
-			// 			value: curr.value,
-			// 		};
-			// 		return prev;
-			// }
 		}, {});
 	}
 
