@@ -185,9 +185,9 @@ export function dropdownReducers(
 			DropdownActions.GetLinkedPersonsSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, linkedPersons: data, isLoading: false };
-      },
-     ),
-    on(
+			},
+		),
+		on(
 			DropdownActions.GetCriteriasTypeSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, criterias: data, isLoading: false };
@@ -197,6 +197,12 @@ export function dropdownReducers(
 			DropdownActions.GetResponseOptionSuccess,
 			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
 				return { ...state, responseOption: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetAutoNotePrefillsSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, autoNotePrefills: data, isLoading: false };
 			},
 		),
 	)(dropdownState, action);

@@ -28,7 +28,7 @@ import {
 } from 'src/app/shared/table/table.tokens';
 
 import { AssessmentTemplateComponent } from './assessment-template.component';
-import { assessmentTemplateTableReducers } from './assessment-template-table/assessment-template-table.reducers';
+import { assessmentTemplateReducers } from './assessment-template-table/assessment-template-table.reducers';
 import { AssessmentTemplateTableComponent } from './assessment-template-table/assessment-template-table.component';
 import { SomeEffect } from './assessment-template-table/assessment-template-table.effects';
 import { AssessmentTemplateTableActions } from './assessment-template-table/assessment-template-table.actions';
@@ -42,7 +42,7 @@ import { AssessmentTemplateTableActions } from './assessment-template-table/asse
 				component: AssessmentTemplateComponent,
 			},
 		]),
-		StoreModule.forFeature('assessmentTemplate', assessmentTemplateTableReducers),
+		StoreModule.forFeature('assessmentTemplate', assessmentTemplateReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [AssessmentTemplateComponent, AssessmentTemplateTableComponent],

@@ -388,7 +388,6 @@ export class DropdownEffects {
 		),
 	);
 
-
 	public getClinicianType$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetClinicianTypePending),
@@ -398,7 +397,7 @@ export class DropdownEffects {
 						return DropdownActions.GetClinicianTypeSuccess({ data });
 					}),
 					catchError(() => of(DropdownActions.GetClinicianTypeError())),
-        ),
+				),
 			),
 		),
 	);
@@ -440,7 +439,20 @@ export class DropdownEffects {
 						return DropdownActions.GetLinkedPersonsSuccess({ data });
 					}),
 					catchError(() => of(DropdownActions.GetLinkedPersonsError())),
+				),
+			),
+		),
+	);
 
+	public getAutoNotePrefills$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetAutoNotePrefillsPending),
+			mergeMap(() =>
+				this.service.getAutoNotePrefills().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetAutoNotePrefillsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetAutoNotePrefillsError())),
 				),
 			),
 		),
