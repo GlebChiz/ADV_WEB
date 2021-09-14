@@ -2,7 +2,7 @@ import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, catchError, mergeMap } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { DropdownService } from 'src/app/shared/services/dropdown.service';
 import { DropdownActions } from '../actions/dropdowns.actions';
 
@@ -13,7 +13,7 @@ export class DropdownEffects {
 	public getSeriesPlan$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSeriesPlansPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getSeriesPlans().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetSeriesPlansSuccess({ data });
@@ -27,7 +27,7 @@ export class DropdownEffects {
 	public getSupervisor$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSupervisorLicensePending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getSupervisorLicense().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetSupervisorLicenseSuccess({ data });
@@ -41,7 +41,7 @@ export class DropdownEffects {
 	public getLocationInitiatives$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetLocationInitiativeIdsPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getLocationInitiatives().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetLocationInitiativeIdsSuccess({ data });
@@ -55,7 +55,7 @@ export class DropdownEffects {
 	public getLocations$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetLocationsPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getLocations().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetLocationsSuccess({ data });
@@ -69,7 +69,7 @@ export class DropdownEffects {
 	public getClinicians$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetCliniciansPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getClinicians().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetCliniciansSuccess({ data });
@@ -83,7 +83,7 @@ export class DropdownEffects {
 	public getLegends$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetLegendsPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getLegends().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetLegendsSuccess({ data });
@@ -97,7 +97,7 @@ export class DropdownEffects {
 	public getSupervisorPayers$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSupervisorLicensePayersPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getSupervisorLicensePayers().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetSupervisorLicensePayersSuccess({ data });
@@ -111,7 +111,7 @@ export class DropdownEffects {
 	public getLanguages$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetLanguagesPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getSupervisorLanguages().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetLanguagesSuccess({ data });
@@ -125,7 +125,7 @@ export class DropdownEffects {
 	public getAreas$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetAreasPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getAreas().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetAreasSuccess({ data });
@@ -139,7 +139,7 @@ export class DropdownEffects {
 	public getServiceSubTypes$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetServiceSubTypesPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getServiceSubTypes().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetServiceSubTypesSuccess({ data });
@@ -153,7 +153,7 @@ export class DropdownEffects {
 	public getModalities$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetModalitiesPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getModalities().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetModalitiesSuccess({ data });
@@ -167,7 +167,7 @@ export class DropdownEffects {
 	public getRoomSize$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetRoomSizePending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getRoomSize().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetRoomSizeSuccess({ data });
@@ -181,7 +181,7 @@ export class DropdownEffects {
 	public getRoomSetup$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetRoomSetupPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getRoomSetup().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetRoomSetupSuccess({ data });
@@ -195,7 +195,7 @@ export class DropdownEffects {
 	public getSnipitTypes$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSnipiTypePending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getSnipitTypes().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetSnipiTypeSuccess({ data });
@@ -209,7 +209,7 @@ export class DropdownEffects {
 	public getSnipitCategory$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSnipiCategoryPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getSnipitCategory().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetSnipiCategorySuccess({ data });
@@ -223,7 +223,7 @@ export class DropdownEffects {
 	public getPatients$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetPatientsPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getPatients().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetPatientsSuccess({ data });
@@ -237,7 +237,7 @@ export class DropdownEffects {
 	public getRooms$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetRoomsPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getRooms().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetRoomsSuccess({ data });
@@ -251,7 +251,7 @@ export class DropdownEffects {
 	public getSex$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSexPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getSex().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetSexSuccess({ data });
@@ -265,7 +265,7 @@ export class DropdownEffects {
 	public getGender$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetGenderPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getGender().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetGenderSuccess({ data });
@@ -279,7 +279,7 @@ export class DropdownEffects {
 	public getRace$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetRacePending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getRace().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetRaceSuccess({ data });
@@ -293,7 +293,7 @@ export class DropdownEffects {
 	public getSexOrientation$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetSexOrientationPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getSexOrientation().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetSexOrientationSuccess({ data });
@@ -307,7 +307,7 @@ export class DropdownEffects {
 	public getUsState$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetUsStatePending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getUsState().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetUsStateSuccess({ data });
@@ -321,7 +321,7 @@ export class DropdownEffects {
 	public getMaritalStatus$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetMaritalStatusPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getMaritalStatus().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetMaritalStatusSuccess({ data });
@@ -335,7 +335,7 @@ export class DropdownEffects {
 	public getEmployement$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetEmployementPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getEmployement().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetEmployementSuccess({ data });
@@ -349,7 +349,7 @@ export class DropdownEffects {
 	public getPreferredContact$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetPreferredContactPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getPreferredContact().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetPreferredContactSuccess({ data });
@@ -363,7 +363,7 @@ export class DropdownEffects {
 	public getPhoneType$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetPhoneTypePending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getPhoneType().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetPhoneTypeSuccess({ data });
@@ -377,7 +377,7 @@ export class DropdownEffects {
 	public getPatientStatus$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetPatientStatusPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getPatientStatus().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetPatientStatusSuccess({ data });
@@ -391,7 +391,7 @@ export class DropdownEffects {
 	public getClinicianType$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetClinicianTypePending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getClinicianType().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetClinicianTypeSuccess({ data });
@@ -405,7 +405,7 @@ export class DropdownEffects {
 	public getCriteriasType$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetCriteriasTypePending),
-			mergeMap(({ questionId }: { questionId: string }) =>
+			switchMap(({ questionId }: { questionId: string }) =>
 				this.service.getCriteriasType(questionId).pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetCriteriasTypeSuccess({ data });
@@ -419,7 +419,7 @@ export class DropdownEffects {
 	public getResponseOption$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetResponseOptionPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getResponseOption().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetResponseOptionSuccess({ data });
@@ -433,7 +433,7 @@ export class DropdownEffects {
 	public getLinkedPersons$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetLinkedPersonsPending),
-			mergeMap(({ personId }: { personId: string }) =>
+			switchMap(({ personId }: { personId: string }) =>
 				this.service.getLinkedPersons(personId).pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetLinkedPersonsSuccess({ data });
@@ -447,7 +447,7 @@ export class DropdownEffects {
 	public getAutoNotePrefills$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(DropdownActions.GetAutoNotePrefillsPending),
-			mergeMap(() =>
+			switchMap(() =>
 				this.service.getAutoNotePrefills().pipe(
 					map((data: IDropdownData[]) => {
 						return DropdownActions.GetAutoNotePrefillsSuccess({ data });
