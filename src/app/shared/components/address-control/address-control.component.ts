@@ -31,9 +31,13 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy,
 		this.form.setValue(value);
 	}
 
-	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'UsState' as any);
+	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'usState' as any);
 
-	public constructor(private formBuilder: FormBuilder, private _store: Store<IStore>) {
+	// private formBuilder!: FormBuilder;
+
+	public constructor(private formBuilder: FormBuilder, private _store: Store<IStore>) {}
+
+	public ngOnInit(): void {
 		this.form = this.formBuilder.group({
 			id: [],
 			address1: [],
@@ -45,17 +49,13 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy,
 			latitude: [],
 			mapAddress: [],
 		});
-
 		this.subscriptions.push(
 			// any time the inner form changes update the parent of any change
-			this.form.valueChanges.subscribe((value) => {
+			this.form?.valueChanges.subscribe((value) => {
 				this.onChange(value);
 				this.onTouched();
 			}),
 		);
-	}
-
-	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetUsStatePending());
 	}
 
