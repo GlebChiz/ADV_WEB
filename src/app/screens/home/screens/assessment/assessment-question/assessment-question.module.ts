@@ -45,7 +45,7 @@ import { AssessmentQuestionTranslatePopupComponent } from './assessment-question
 				component: AssessmentQuestionComponent,
 			},
 			{
-				path: 'templates',
+				path: 'templates/:id',
 				loadChildren: (): any =>
 					import('../assessment-template/assessment-template.module').then(
 						(m: any) => m.AssessmentTemplateModuleModule,

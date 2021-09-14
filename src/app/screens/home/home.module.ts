@@ -107,16 +107,6 @@ import { HomeComponent } from './home.component';
 						},
 					},
 					{
-						path: 'templates',
-						loadChildren: (): any =>
-							import('./screens/assessment/assessment-template/assessment-template.module').then(
-								(m: any) => m.AssessmentTemplateModuleModule,
-							),
-						data: {
-							breadcrumb: 'Assessment Template',
-						},
-					},
-					{
 						path: 'assessments',
 						loadChildren: (): any =>
 							import('./screens/assessment/assessment.module').then((m: any) => m.AssessmentModule),

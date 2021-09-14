@@ -4,13 +4,17 @@
 			<div class="clearfix w-100">
 				<div style="display: flex; flex-wrap: wrap">
 					<div style="margin-right: 20px" *ngFor="let note of autoNotePrefills$ | async">
-						<button (click)="addToTexterea(note.name)" style="margin: 10px 0">
+						<button
+							(click)="addToTexterea(note.name)"
+							style="margin: 10px 0; padding: 6px"
+							class="copy-button"
+						>
 							{{ note?.name }}
 						</button>
 					</div>
 				</div>
 				<div class="column w-100">
-					<div class="w-100">
+					<div class="w-100 first-form">
 						<label>Text</label>
 						<textarea
 							#textTextarea
@@ -26,33 +30,33 @@
 				</div>
 				<div class="clearfix w-100">
 					<div class="column w-100">
-						<div class="w-100">
+						<div class="w-100 form-style first-form">
 							<label>Response Option</label>
-							<kendo-multiselect
-								[autoClose]="false"
+							<kendo-combobox
+								style="width: 100%"
 								formControlName="responseOption"
 								textField="name"
 								[data]="(responseOption$ | async) || []"
 								valueField="id"
 								[valuePrimitive]="true"
 							>
-							</kendo-multiselect>
+							</kendo-combobox>
 						</div>
 					</div>
 				</div>
 				<div class="clearfix w-100">
 					<div class="column w-100">
-						<div class="w-100">
+						<div class="w-100 form-style">
 							<label>Type</label>
-							<kendo-multiselect
-								[autoClose]="false"
+							<kendo-combobox
+								style="width: 100%"
 								formControlName="type"
-								textField="type"
+								textField="name"
 								[data]="(criteriasType$ | async) || []"
 								valueField="id"
 								[valuePrimitive]="true"
 							>
-							</kendo-multiselect>
+							</kendo-combobox>
 						</div>
 					</div>
 				</div>

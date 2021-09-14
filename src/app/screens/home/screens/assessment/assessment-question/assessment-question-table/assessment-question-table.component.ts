@@ -158,8 +158,8 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		}
 	}
 
-	public onCellClick(): void {
-		this._router.navigate(['templates'], { relativeTo: this._activatedRoute });
+	public onCellClick(dataItem: any): void {
+		this._router.navigate(['templates', dataItem.id], { relativeTo: this._activatedRoute });
 	}
 
 	public toAssessments(): void {

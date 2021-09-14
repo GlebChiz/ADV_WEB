@@ -69,7 +69,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 		);
 
 		this._store
-			.select('assessmentTemplate', 'table')
+			.select('assessmentnotetemplate', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((assessmentTemplateTable: unknown) => {
 				this.assessmentTemplate = (assessmentTemplateTable as ITableState<any, any>).current;

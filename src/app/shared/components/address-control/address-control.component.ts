@@ -1,3 +1,4 @@
+
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -18,6 +19,7 @@ import { IDropdownData } from '../../interfaces/dropdown.interface';
 		},
 	],
 })
+
 export class AddressControlComponent implements ControlValueAccessor, OnInit {
 	public form!: FormGroup;
 
@@ -45,7 +47,6 @@ export class AddressControlComponent implements ControlValueAccessor, OnInit {
 			latitude: [],
 			mapAddress: [],
 		});
-
 		this._store.dispatch(DropdownActions.GetUsStatePending());
 	}
 

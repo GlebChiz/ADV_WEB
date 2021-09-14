@@ -42,7 +42,7 @@ import { AssessmentTemplateTableActions } from './assessment-template-table/asse
 				component: AssessmentTemplateComponent,
 			},
 		]),
-		StoreModule.forFeature('assessmentTemplate', assessmentTemplateReducers),
+		StoreModule.forFeature('assessmentnotetemplate', assessmentTemplateReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [AssessmentTemplateComponent, AssessmentTemplateTableComponent],

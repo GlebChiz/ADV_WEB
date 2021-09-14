@@ -64,8 +64,10 @@
 		[filter]="col.type"
 		[includeInChooser]="col.includeInChooser || true"
 	>
-		<ng-template *ngIf="col.field === 'text'" kendoGridCellTemplate let-dataItem>
-			<div (click)="onCellClick()">{{ dataItem.text }}</div>
+		<ng-template *ngIf="col.field === 'templates'" kendoGridCellTemplate let-dataItem>
+			<div (click)="onCellClick(dataItem)">
+				{{ dataItem.templateCount === 0 ? 'None' : dataItem.templateCount }}
+			</div>
 		</ng-template>
 		<ng-template *ngIf="col.field === 'translated'" kendoGridCellTemplate let-dataItem>
 			<div (click)="openDialogTranslate(dataItem?.id)">
