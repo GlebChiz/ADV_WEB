@@ -47,8 +47,8 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Assesment-template',
 			content: AssessmentTemplatePopupComponent,
-			width: 600,
-			height: 500,
+			width: 800,
+			height: 800,
 			minWidth: 250,
 		});
 		dialog.content.instance.AssessmentTemplateTable = { ...dataItem };

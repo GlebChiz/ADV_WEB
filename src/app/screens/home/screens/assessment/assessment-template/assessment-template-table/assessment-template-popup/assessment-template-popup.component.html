@@ -2,20 +2,28 @@
 	<div>
 		<div class="p10 form">
 			<div class="clearfix w-100">
+				<div style="display: flex; flex-wrap: wrap">
+					<div style="margin-right: 20px" *ngFor="let note of autoNotePrefills$ | async">
+						<button (click)="addToTexterea(note.name)" style="margin: 10px 0">
+							{{ note?.name }}
+						</button>
+					</div>
+				</div>
 				<div class="column w-100">
 					<div class="w-100">
 						<label>Text</label>
-						<input
+						<textarea
+							#textTextarea
+							(click)="getCurrentPositionCursorTextares(textTextarea)"
+							(keyup)="getCurrentPositionCursorTextares(textTextarea)"
 							name="text"
 							formControlName="text"
 							kendoTextBox
 							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
+							style="width: 100%; height: 100px"
+						></textarea>
 					</div>
 				</div>
-
 				<div class="clearfix w-100">
 					<div class="column w-100">
 						<div class="w-100">
