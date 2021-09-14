@@ -3,11 +3,8 @@ import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 
-import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
-import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { PersonActions } from 'src/app/store/actions/person.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { Address } from '../../interfaces/address.intarface';
@@ -33,8 +30,6 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 
 	public personInfo!: IPersonInfo | undefined;
 
-	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'UsState' as any);
-
 	public myPersonaInfoForm!: FormGroup;
 
 	public readonly filterSettings: DropDownFilterSettings = {
@@ -49,14 +44,7 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 			middlename: new FormControl(this.personInfo?.middlename || ''),
 			lastname: new FormControl(this.personInfo?.lastname || ''),
 			dob: new FormControl(new Date() || ''),
-			address: new FormGroup({
-				id: new FormControl(this.personInfo?.address?.id || ''),
-				address1: new FormControl(this.personInfo?.address?.address1 || ''),
-				address2: new FormControl(this.personInfo?.address?.address2 || ''),
-				zip: new FormControl(this.personInfo?.address?.zip || ''),
-				city: new FormControl(this.personInfo?.address?.city || ''),
-				state: new FormControl(this.personInfo?.address?.state || ''),
-			}),
+			address: new FormControl(this.personInfo?.address || ''),
 		});
 
 		this.myPersonaInfoForm.valueChanges?.subscribe((newData: IPersonInfo) => {
@@ -95,8 +83,6 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 
 				this.initForm();
 			});
-		this._store.dispatch(DropdownActions.GetUsStatePending());
-
 		this.initForm();
 	}
 

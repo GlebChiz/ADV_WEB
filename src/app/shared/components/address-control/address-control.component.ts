@@ -1,7 +1,11 @@
-import { Component, forwardRef, OnDestroy } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { Address } from 'src/app/shared/interfaces/address.intarface';
+import { IStore } from 'src/app/store';
+import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
+import { IDropdownData } from '../../interfaces/dropdown.interface';
 
 @Component({
 	selector: 'advenium-address',
@@ -14,7 +18,7 @@ import { Address } from 'src/app/shared/interfaces/address.intarface';
 		},
 	],
 })
-export class AddressControlComponent implements ControlValueAccessor, OnDestroy {
+export class AddressControlComponent implements ControlValueAccessor, OnDestroy, OnInit {
 	public form!: FormGroup;
 
 	public subscriptions: Subscription[] = [];
@@ -27,7 +31,9 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy 
 		this.form.setValue(value);
 	}
 
-	public constructor(private formBuilder: FormBuilder) {
+	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'UsState' as any);
+
+	public constructor(private formBuilder: FormBuilder, private _store: Store<IStore>) {
 		this.form = this.formBuilder.group({
 			id: [],
 			address1: [],
@@ -48,6 +54,12 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy 
 			}),
 		);
 	}
+
+	public ngOnInit(): void {
+		this._store.dispatch(DropdownActions.GetUsStatePending());
+	}
+
+	@Input() public isHeader: boolean = true;
 
 	public writeValue(obj: any): void {
 		if (obj) {

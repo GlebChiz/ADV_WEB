@@ -51,7 +51,7 @@ export class PayerTableComponent extends CustomTableDirective {
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Payer',
 			content: PayerPopupComponent,
-			width: 600,
+			width: 700,
 			height: 550,
 			minWidth: 250,
 		});

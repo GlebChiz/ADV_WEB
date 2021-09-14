@@ -62,6 +62,13 @@ kendo-drawer-content {
 		max-width: 134px;
 	}
 }
+::ng-deep .title-form {
+	padding-top: 38px;
+	font-size: 18px;
+	color: #b5bdc5;
+	padding-bottom: 16px;
+	border-bottom: 1px solid #b5bdc5;
+}
 ::ng-deep .form-style-insurance {
 	display: flex;
 	padding-bottom: 24px;
@@ -247,7 +254,6 @@ kendo-drawer-content {
 
 .container-location-info {
 	width: 100%;
-	margin-right: 25px;
 	max-width: 616px;
 	padding: 24px;
 	margin-bottom: 20px;

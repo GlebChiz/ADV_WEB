@@ -1,0 +1,72 @@
+<form [formGroup]="form" *ngIf="this.value">
+	<div class="title-form" *ngIf="isHeader">Address</div>
+	<div class="clearfix w-100">
+		<div class="column w-100">
+			<div class="w-100 form-style first-form">
+				<label>Address 1</label>
+				<input
+					name="address1"
+					formControlName="address1"
+					kendoTextBox
+					class="k-textbox"
+					style="width: 100%"
+					maxlength="250"
+				/>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix w-100">
+		<div class="column w-100">
+			<div class="w-100 form-style">
+				<label>Address 2</label>
+				<input
+					name="address2"
+					formControlName="address2"
+					kendoTextBox
+					class="k-textbox"
+					style="width: 100%"
+					maxlength="250"
+				/>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix w-100">
+		<div class="column w-100">
+			<div class="w-100 form-style">
+				<label>City, Zip</label>
+
+				<input
+					name="city"
+					formControlName="city"
+					kendoTextBox
+					class="k-textbox city-form"
+					style="width: 100%"
+					maxlength="250"
+				/>
+				<input
+					name="zip"
+					formControlName="zip"
+					kendoTextBox
+					class="k-textbox zip-form"
+					style="width: 100%"
+					maxlength="250"
+				/>
+			</div>
+		</div>
+	</div>
+	<div class="clearfix w-100">
+		<div class="column w-100">
+			<div class="w-100 form-style">
+				<label>State</label>
+				<kendo-combobox
+					valueField="abbreviation"
+					textField="name"
+					[data]="stateCity$ | async"
+					formControlName="state"
+					[valuePrimitive]="true"
+				>
+				</kendo-combobox>
+			</div>
+		</div>
+	</div>
+</form>
