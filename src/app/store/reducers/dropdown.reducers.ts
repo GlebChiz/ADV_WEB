@@ -199,5 +199,11 @@ export function dropdownReducers(
 				return { ...state, responseOption: data, isLoading: false };
 			},
 		),
+		on(
+			DropdownActions.GetAutoNotePrefillsSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, autoNotePrefills: data, isLoading: false };
+			},
+		),
 	)(dropdownState, action);
 }

@@ -126,7 +126,12 @@ export class DropdownService {
 	public getClinicianType(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>('dropdowns/ClinicianType');
 	}
+
 	public getLinkedPersons(personId: string): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>(`person/${personId}/linked-persons`);
+	}
+
+	public getAutoNotePrefills(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>(`dropdowns/auto-note-prefills`);
 	}
 }

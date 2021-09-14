@@ -5,14 +5,17 @@ import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
-import { AuthUserActions } from 'src/app/store/actions/user.actions';
+import { AuthUserActions, PermissionType } from 'src/app/store/actions/user.actions';
 
 export interface IItem {
 	text: string;
 	icon: string;
 	path: string;
 	selected?: boolean;
+	permission?: PermissionType;
+	role?: number;
 }
+
 @Component({
 	selector: 'advenium-home',
 	templateUrl: './home.component.html',
