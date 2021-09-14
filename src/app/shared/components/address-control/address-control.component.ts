@@ -1,7 +1,7 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Address } from 'src/app/shared/interfaces/address.intarface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
@@ -18,10 +18,8 @@ import { IDropdownData } from '../../interfaces/dropdown.interface';
 		},
 	],
 })
-export class AddressControlComponent implements ControlValueAccessor, OnDestroy, OnInit {
+export class AddressControlComponent implements ControlValueAccessor, OnInit {
 	public form!: FormGroup;
-
-	public subscriptions: Subscription[] = [];
 
 	public get value(): Address {
 		return this.form.value;
@@ -32,8 +30,6 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy,
 	}
 
 	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'usState' as any);
-
-	// private formBuilder!: FormBuilder;
 
 	public constructor(private formBuilder: FormBuilder, private _store: Store<IStore>) {}
 
@@ -49,13 +45,7 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy,
 			latitude: [],
 			mapAddress: [],
 		});
-		this.subscriptions.push(
-			// any time the inner form changes update the parent of any change
-			this.form?.valueChanges.subscribe((value) => {
-				this.onChange(value);
-				this.onTouched();
-			}),
-		);
+
 		this._store.dispatch(DropdownActions.GetUsStatePending());
 	}
 
@@ -84,10 +74,6 @@ export class AddressControlComponent implements ControlValueAccessor, OnDestroy,
 		} else {
 			this.form.enable();
 		}
-	}
-
-	public ngOnDestroy(): void {
-		this.subscriptions.forEach((s) => s.unsubscribe());
 	}
 
 	public onChange: any = () => {};
