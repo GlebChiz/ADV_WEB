@@ -196,5 +196,10 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetLinkedPersonsError: createAction('[Dropdown] Get LinkedPersons error'),
-
+	GetAutoNotePrefillsPending: createAction('[Dropdown] Get AutoNotePrefills pending'),
+	GetAutoNotePrefillsSuccess: createAction(
+		'[Dropdown] Get AutoNotePrefills success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetAutoNotePrefillsError: createAction('[Dropdown] Get AutoNotePrefills error'),
 };

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
@@ -28,12 +28,18 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 
 	public assessmentTemplateForm!: FormGroup;
 
+	public currentPositionCursorTextares!: number;
+
 	public criteriasType$: Observable<IDropdownData[]> = this._store
 		.select('dropdown', 'criterias')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public responseOption$: Observable<IDropdownData[]> = this._store
 		.select('dropdown', 'responseOption')
+		.pipe(takeUntil(this.unsubscribe$$));
+
+	public autoNotePrefills$: Observable<IDropdownData[]> = this._store
+		.select('dropdown', 'autoNotePrefills')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public onCancelAction(): void {
@@ -55,6 +61,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetResponseOptionPending());
+		this._store.dispatch(DropdownActions.GetAutoNotePrefillsPending());
 		this._store.dispatch(
 			DropdownActions.GetCriteriasTypePending({
 				questionId: this._activatedRoute?.snapshot?.params?.id,
@@ -68,6 +75,19 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 				this.assessmentTemplate = (assessmentTemplateTable as ITableState<any, any>).current;
 				this.initForm();
 			});
+	}
+
+	public getCurrentPositionCursorTextares(oField: HTMLTextAreaElement): void {
+		this.currentPositionCursorTextares = oField.selectionStart;
+	}
+
+	public addToTexterea(name: string): void {
+		const text: AbstractControl | null = this.assessmentTemplateForm.get('text');
+		const res: string =
+			text?.value.substring(0, this.currentPositionCursorTextares) +
+			name +
+			text?.value.substring(this.currentPositionCursorTextares, text?.value.length);
+		text?.setValue(res);
 	}
 }
 
