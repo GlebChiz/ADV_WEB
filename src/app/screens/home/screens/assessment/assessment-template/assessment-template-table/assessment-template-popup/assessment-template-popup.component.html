@@ -28,15 +28,14 @@
 					<div class="column w-100">
 						<div class="w-100">
 							<label>Response Option</label>
-							<kendo-multiselect
-								[autoClose]="false"
+							<kendo-combobox
 								formControlName="responseOption"
 								textField="name"
 								[data]="(responseOption$ | async) || []"
 								valueField="id"
 								[valuePrimitive]="true"
 							>
-							</kendo-multiselect>
+							</kendo-combobox>
 						</div>
 					</div>
 				</div>
@@ -44,15 +43,14 @@
 					<div class="column w-100">
 						<div class="w-100">
 							<label>Type</label>
-							<kendo-multiselect
-								[autoClose]="false"
+							<kendo-combobox
 								formControlName="type"
-								textField="type"
+								textField="name"
 								[data]="(criteriasType$ | async) || []"
 								valueField="id"
 								[valuePrimitive]="true"
 							>
-							</kendo-multiselect>
+							</kendo-combobox>
 						</div>
 					</div>
 				</div>
