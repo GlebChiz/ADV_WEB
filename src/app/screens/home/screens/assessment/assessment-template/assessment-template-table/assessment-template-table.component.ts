@@ -90,22 +90,8 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 	public columns: IColumn[] = [
 		{
 			field: 'id',
-			title: 'Text',
+			title: 'id',
 			hidden: true,
-			filterable: true,
-			type: 'text',
-		},
-		{
-			field: 'responseOption',
-			title: 'Response option',
-			hidden: false,
-			filterable: true,
-			type: 'text',
-		},
-		{
-			field: 'text',
-			title: 'Text',
-			hidden: false,
 			filterable: true,
 			type: 'text',
 		},
@@ -116,5 +102,19 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 			filterable: false,
 			type: 'text',
 		},
+		{
+			field: 'responseOption',
+			title: 'Response option',
+			hidden: false,
+			filterable: false,
+			type: 'text',
+		},
+		{
+			field: 'text',
+			title: 'Text',
+			hidden: false,
+			filterable: true,
+			type: 'text',
+		}
 	];
 }

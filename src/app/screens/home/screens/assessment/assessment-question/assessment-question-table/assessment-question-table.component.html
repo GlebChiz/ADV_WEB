@@ -63,6 +63,8 @@
 		[filterable]="col.filterable"
 		[filter]="col.type"
 		[includeInChooser]="col.includeInChooser || true"
+		[style]="col.style || {}"
+		[headerStyle]="col.headerStyle || {}"
 	>
 		<ng-template *ngIf="col.field === 'templates'" kendoGridCellTemplate let-dataItem>
 			<div (click)="onCellClick(dataItem)">

@@ -27,6 +27,7 @@ import { PermissionsComponent } from './permission/permission.component';
 		DropDownsModule,
 		FormsModule,
 		NgxMaskModule.forRoot(),
+		DateInputsModule,
 	],
 	exports: [
 		CommonModule,
