@@ -26,6 +26,7 @@ import { AddressControlComponent } from './components/address-control/address-co
 		DropDownsModule,
 		FormsModule,
 		NgxMaskModule.forRoot(),
+		DateInputsModule,
 	],
 	exports: [
 		CommonModule,
