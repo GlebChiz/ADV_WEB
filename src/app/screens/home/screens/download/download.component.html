@@ -1,0 +1,3 @@
+<div class="custom-toolbar">
+	<button *ngIf="user$ | async as image" (click)="downloadAvatar(image)">Download</button>
+</div>

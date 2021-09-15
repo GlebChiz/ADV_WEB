@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
 		{ text: 'Unsupervised Services', icon: 'k-i-select-box', path: 'unsupervisedservices' },
 		{ text: 'Groups', icon: 'k-i-select-box', path: 'groups' },
 		{ text: 'Location', icon: 'k-i-select-box', path: 'locations' },
+		{ text: 'Download', icon: 'k-i-select-box', path: 'download' },
 	];
 
 	public constructor(

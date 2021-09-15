@@ -152,6 +152,14 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Location',
 						},
 					},
+					{
+						path: 'download',
+						loadChildren: (): any =>
+							import('./screens/download/download.module').then((m: any) => m.DownloadModule),
+						data: {
+							breadcrumb: 'download',
+						},
+					},
 				],
 			},
 		]),

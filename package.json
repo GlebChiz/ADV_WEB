@@ -54,6 +54,7 @@
     "@progress/kendo-data-query": "^1.5.5",
     "@progress/kendo-date-math": "^1.5.2",
     "@progress/kendo-drawing": "^1.5.12",
+    "@progress/kendo-file-saver": "^1.1.0",
     "@progress/kendo-licensing": "^1.0.2",
     "@progress/kendo-recurrence": "^1.0.2",
     "@progress/kendo-theme-default": "latest",
