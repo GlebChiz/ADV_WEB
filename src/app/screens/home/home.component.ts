@@ -192,8 +192,6 @@ export class HomeComponent implements OnInit {
 		},
 	];
 
-	public copyItems: IItem[] = [...this.items];
-
 	public item!: IItem;
 
 	public constructor(
@@ -237,10 +235,10 @@ export class HomeComponent implements OnInit {
 		const { text } = ev.item;
 		if (!this.item.parent) {
 			this.currentUrl = ev.item.path;
-			this.copyItems.forEach((item: IItem) => {
+			this.items.forEach((item: IItem) => {
 				item.selected = false;
 			});
-			const activePage: IItem | undefined = this.copyItems.find(
+			const activePage: IItem | undefined = this.items.find(
 				(item: IItem) => item.path === this.currentUrl,
 			);
 			if (activePage) activePage.selected = true;
@@ -249,7 +247,7 @@ export class HomeComponent implements OnInit {
 			return;
 		}
 
-		const newItems: IItem[] = [...this.copyItems];
+		const newItems: IItem[] = [...this.items];
 
 		const index: number = newItems.findIndex((i: IItem) => i.text === text);
 
@@ -263,7 +261,7 @@ export class HomeComponent implements OnInit {
 			this.removeChildren(newItems, index, currentItem?.children ?? []);
 		}
 
-		this.copyItems = newItems;
+		this.items = newItems;
 	}
 
 	public addChildren(arr: IItem[], index: number, children: IItem[]): void {
