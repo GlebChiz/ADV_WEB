@@ -42,7 +42,7 @@
 		[filter]="col.type"
 	>
 		<ng-template *ngIf="col.field === 'icon'" kendoGridCellTemplate let-dataItem>
-			<img [src]="dataItem.iconBase64" style="width: 64px; height: 64px" />
+			<img *ngIf="dataItem.iconBase64" [src]="dataItem.iconBase64" style="width: 64px; height: 64px" />
 		</ng-template>
 		<ng-template *ngIf="col.field === 'translated'" kendoGridCellTemplate let-dataItem>
 			<div (click)="openDialog(dataItem)">{{ dataItem.translated ? 'YES' : 'NO' }}</div>

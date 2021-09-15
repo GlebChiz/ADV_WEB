@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
 		{ text: 'Modalities', icon: 'k-i-calendar', path: 'modalities' },
 		{ text: 'Clinicians', icon: 'k-i-plus-outline', path: 'clinicians' },
 		{ text: 'Patients', icon: 'k-i-accessibility', path: 'patients' },
-		{ text: 'Supervisor License', icon: 'k-i-chart-radar-filled', path: 'supercred' },
+		{ text: 'Supervisor Credentials', icon: 'k-i-chart-radar-filled', path: 'supercred' },
 		{ text: 'Public Snipit', icon: 'k-i-chart-doughnut', path: 'snipits' },
 		{ text: 'Series Plans', icon: 'k-i-delicious-box', path: 'seriesplans' },
 		{ text: 'Session Plan', icon: 'k-i-graph', path: 'sessionplans' },

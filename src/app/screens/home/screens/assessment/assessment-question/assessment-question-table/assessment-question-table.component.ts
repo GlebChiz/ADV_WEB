@@ -60,6 +60,8 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 			hidden: false,
 			filterable: false,
 			type: 'text',
+			style: { width: '100px', 'text-align': 'center' },
+			headerStyle: { width: '100px' },
 		},
 		{
 			field: 'text',
