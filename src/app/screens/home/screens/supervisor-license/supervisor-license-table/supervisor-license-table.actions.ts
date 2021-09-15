@@ -4,89 +4,89 @@ import { IFilter } from 'src/app/shared/table/table.model';
 
 export const SupervisorLicenseTableActions = {
 	GetSupervisorLicenseTableDataPending: createAction(
-		'[Supervisor License Table] get table data pending',
+		'[Supervisor Credentials Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 	GetSupervisorLicenseTableDataSuccess: createAction(
-		'[Supervisor License Table] get table data success',
+		'[Supervisor Credentials Table] get table data success',
 		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetSupervisorLicenseTableDataError: createAction(
-		'[Supervisor License Table] get table data error',
+		'[Supervisor Credentials Table] get table data error',
 		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdateSupervisorLicenseTableState: createAction(
-		'[Supervisor License Table] Update',
+		'[Supervisor Credentials Table] Update',
 		props<{ data: any }>(),
 	),
 
 	DeleteSupervisorLicenseIemTablePending: createAction(
-		'[Supervisor License Table] delete table item pending',
+		'[Supervisor Credentials Table] delete table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DeleteSupervisorLicenseIemTableError: createAction(
-		'[Supervisor License Table] delete table item error',
+		'[Supervisor Credentials Table] delete table item error',
 		props<{ error: string }>(),
 	),
 	DeleteSupervisorLicenseIemTableSuccess: createAction(
-		'[Supervisor License Table] delete table item success',
+		'[Supervisor Credentials Table] delete table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
 	DublicateSupervisorLicenseIemTablePending: createAction(
-		'[Supervisor License Table] dublicate table item pending',
+		'[Supervisor Credentials Table] dublicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSupervisorLicenseIemTableError: createAction(
-		'[Supervisor License Table] dublicate table item error',
+		'[Supervisor Credentials Table] dublicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSupervisorLicenseIemTableSuccess: createAction(
-		'[Supervisor License Table] dublicate table item success',
+		'[Supervisor Credentials Table] dublicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
 	CreateSupervisorLicenseIemTablePending: createAction(
-		'[Supervisor License Table] create table item pending',
+		'[Supervisor Credentials Table] create table item pending',
 		props<{ controller: string; item: any }>(),
 	),
 	CreateSupervisorLicenseIemTableError: createAction(
-		'[Supervisor License Table] create table item error',
+		'[Supervisor Credentials Table] create table item error',
 		props<{ controller: string; item: any }>(),
 	),
 	CreateSupervisorLicenseIemTableSuccess: createAction(
-		'[Supervisor License Table] create table item success',
+		'[Supervisor Credentials Table] create table item success',
 		props<{ controller: string; item: any }>(),
 	),
 
 	EditSupervisorLicenseIemTablePending: createAction(
-		'[Supervisor License Table] edit table item pending',
+		'[Supervisor Credentials Table] edit table item pending',
 		props<{ controller: string; item: any }>(),
 	),
 	EditSupervisorLicenseIemTableError: createAction(
-		'[Supervisor License Table] edit table item error',
+		'[Supervisor Credentials Table] edit table item error',
 		props<{ controller: string; item: any }>(),
 	),
 	EditSupervisorLicenseIemTableSuccess: createAction(
-		'[Supervisor License Table] edit table item success',
+		'[Supervisor Credentials Table] edit table item success',
 		props<{ controller: string; item: any }>(),
 	),
 
 	GetCurrentItemPending: createAction(
-		'[Supervisor License Table] get current item pending',
+		'[Supervisor Credentials Table] get current item pending',
 		props<{ controller: string; id: string }>(),
 	),
 	GetCurrentItemSuccess: createAction(
-		'[Supervisor License Table] get current item success',
+		'[Supervisor Credentials Table] get current item success',
 		props<{ controller: string; id: string }>(),
 	),
 	GetCurrentItemError: createAction(
-		'[Supervisor License Table] get current item error',
+		'[Supervisor Credentials Table] get current item error',
 		props<{ controller: string; id: string }>(),
 	),
 	ClearCurrentSupervisorLicense: createAction(
-		'[Supervisor License Table] Clear current SupervisorLicense',
+		'[Supervisor Credentials Table] Clear current SupervisorLicense',
 	),
 
-	ClearSupervisorLicenseTable: createAction('[Supervisor License Table] Clear'),
+	ClearSupervisorLicenseTable: createAction('[Supervisor Credentials Table] Clear'),
 };

@@ -97,5 +97,5 @@ export interface IPersonInfo {
 	address: Address;
 	firstname: string;
 	middlename: string;
-	dob: string;
+	dob: string | null;
 }
