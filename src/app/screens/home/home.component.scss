@@ -157,6 +157,9 @@ kendo-drawer-content {
 	box-shadow: none;
 	border-color: #631ed3;
 }
+::ng-deep .k-drawer-item {
+	padding: 0 16px;
+}
 ::ng-deep .k-button.k-primary {
 	background: #631ed3;
 	border-color: #631ed3;

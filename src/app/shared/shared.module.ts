@@ -18,6 +18,7 @@ import { PhoneComponent } from './components/phone/phone.component';
 import { PatientGeneralInfoComponent } from './components/patient-general-info/patient-general-info.component';
 import { ClinicianGeneralInfoComponent } from './components/clinician-general-info/clinician-general-info.component';
 import { AddressControlComponent } from './components/address-control/address-control.component';
+import { PermissionsComponent } from './permission/permission.component';
 
 @NgModule({
 	imports: [
@@ -49,6 +50,7 @@ import { AddressControlComponent } from './components/address-control/address-co
 		ContactComponent,
 		PhoneComponent,
 		ClinicianGeneralInfoComponent,
+		PermissionsComponent,
 	],
 	declarations: [
 		ButtonSelectorComponent,
@@ -59,6 +61,7 @@ import { AddressControlComponent } from './components/address-control/address-co
 		PatientGeneralInfoComponent,
 		ContactComponent,
 		PhoneComponent,
+		PermissionsComponent,
 	],
 })
 export class SharedModule {}

@@ -82,6 +82,7 @@ import { HomeComponent } from './home.component';
 							import('./screens/session-plan/session-plan.module').then(
 								(m: any) => m.SessionPlanModuleModule,
 							),
+
 						data: {
 							breadcrumb: 'Session Plan',
 						},
