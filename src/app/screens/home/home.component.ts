@@ -28,6 +28,7 @@ export interface IItem {
 })
 export class HomeComponent implements OnInit {
 	public items: IItem[] = [
+
 		{
 			text: 'Patients',
 			icon: 'k-i-accessibility',
