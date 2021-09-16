@@ -5,11 +5,7 @@ import { AuthenticationService } from '../services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-	public constructor(
-		private router: Router,
-
-		private auth: AuthenticationService,
-	) {}
+	public constructor(private router: Router, private auth: AuthenticationService) {}
 
 	public canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 		const token: string | null = this.auth.getToken();
@@ -25,18 +21,6 @@ export class AuthGuard implements CanActivate {
 		}
 		if (this.auth.currentUser?.sharedCallId) {
 			this.router.navigate(['/sharedcall']);
-			return false;
-		}
-		// if (true) {
-		// 	alert('you do not have access to this page');
-		// 	return false;
-		// }
-		return true;
-	}
-
-	public canLoad(): boolean {
-		if (true) {
-			alert('You are not authorised to visit this page');
 			return false;
 		}
 		return true;

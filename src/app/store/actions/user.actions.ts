@@ -38,7 +38,7 @@ export interface IUser {
 	name: string;
 	token: string;
 	success: true;
-	permissions: PermissionType[];
+	permissionTypes: PermissionType[];
 	sharedCallId: Guid | null;
 	roles: number[]; // TODO
 }

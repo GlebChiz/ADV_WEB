@@ -1,13 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './shared/helpers';
+import { PermissionGuard } from './shared/helpers/permission.guard';
 
 const routes: Routes = [
 	{
 		path: '',
 		loadChildren: (): any => import('./screens/home/home.module').then((m: any) => m.HomeModule),
-		canActivate: [AuthGuard],
-		// canLoad: [AuthGuard],
+		canActivate: [AuthGuard, PermissionGuard],
 	},
 	{
 		path: 'login',

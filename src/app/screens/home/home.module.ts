@@ -168,3 +168,21 @@ import { HomeComponent } from './home.component';
 	declarations: [HomeComponent, HomeBreadcrumbComponent],
 })
 export class HomeModule {}
+
+export enum ROUTES {
+	payers = 'payers',
+	clinicians = 'clinicians',
+	patients = 'patients',
+	modalities = 'modalities',
+	supercred = 'supercred',
+	snipits = 'snipits',
+	seriesplans = 'seriesplans',
+	sessionplans = 'sessionplans',
+	assessmentlegend = 'assessmentlegend',
+	assessments = 'assessments',
+	patientdistribution = 'patientdistribution',
+	unsupervisedservices = 'unsupervisedservices',
+	groups = 'groups',
+	locations = 'locations',
+	download = 'download',
+}
