@@ -5,7 +5,7 @@ import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
-import { AuthUserActions, PermissionType } from 'src/app/store/actions/user.actions';
+import { AuthUserActions, PermissionType, RoleType } from 'src/app/store/actions/user.actions';
 
 export interface IItem {
 	text: string;
@@ -13,7 +13,7 @@ export interface IItem {
 	path?: string;
 	selected?: boolean;
 	permission?: PermissionType | PermissionType[];
-	role?: number;
+	role?: RoleType | RoleType[];
 	children?: IItem[];
 	parent?: boolean;
 	expanded?: boolean;
@@ -28,7 +28,6 @@ export interface IItem {
 })
 export class HomeComponent implements OnInit {
 	public items: IItem[] = [
-
 		{
 			text: 'Patients',
 			icon: 'k-i-accessibility',
@@ -228,7 +227,6 @@ export class HomeComponent implements OnInit {
 
 	public onSelect(ev: DrawerSelectEvent): void {
 		this.item = ev.item;
-
 		const { text } = ev.item;
 		if (!this.item.parent) {
 			this.currentUrl = ev.item.path;
@@ -295,6 +293,7 @@ export class HomeComponent implements OnInit {
 			element.selected = false;
 		});
 		arr.splice(index + 1, children.length);
+		console.log(arr);
 	}
 
 	public logout(): void {

@@ -14,7 +14,10 @@
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
-	[sortable]="true"
+	[sortable]="{
+		allowUnsort: true,
+		mode: 'multiple'
+	}"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"
 	[filter]="gridSettings.state.filter!"
