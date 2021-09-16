@@ -8,7 +8,10 @@
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
-	[sortable]="true"
+	[sortable]="{
+		allowUnsort: true,
+		mode: 'multiple'
+	}"
 	[reorderable]="true"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"

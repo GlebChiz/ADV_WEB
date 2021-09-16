@@ -9,7 +9,10 @@
 	[filterable]="true"
 	[data]="gridData"
 	[reorderable]="true"
-	[sortable]="true"
+	[sortable]="{
+		allowUnsort: true,
+		mode: 'multiple'
+	}"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"
 	[filter]="gridSettings.state.filter!"
