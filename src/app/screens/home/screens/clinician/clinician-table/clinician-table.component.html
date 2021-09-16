@@ -1,8 +1,10 @@
 <div class="header-form-style">
 	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Clinicians</div>
-	<div class="new-button">
-		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Clinician</button>
-	</div>
+	<advenium-permission [permissionType]="canCreate">
+		<div class="new-button">
+			<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Clinician</button>
+		</div>
+	</advenium-permission>
 </div>
 
 <kendo-grid

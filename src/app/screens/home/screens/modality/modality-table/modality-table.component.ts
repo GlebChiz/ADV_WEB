@@ -11,6 +11,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { ModalityPopupComponent } from './modality-popup/modality-popup.component';
 
@@ -33,6 +34,12 @@ export class ModalityTableComponent extends CustomTableDirective {
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreateModality;
+
+	public canUpdate: PermissionType = PermissionType.canUpdateModality;
+
+	public canDelete: PermissionType = PermissionType.canDeleteModality;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {

@@ -2,9 +2,11 @@
 	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
 		Supervisor Credentials
 	</div>
-	<div class="new-button">
-		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Credentials</button>
-	</div>
+	<advenium-permission [permissionType]="canCreate">
+		<div class="new-button">
+			<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Credentials</button>
+		</div>
+	</advenium-permission>
 </div>
 
 <div class="new-button"></div>
@@ -91,7 +93,9 @@
 	></kendo-grid-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>
+			<advenium-permission [permissionType]="canUpdate">
+				<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>
+			</advenium-permission>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
@@ -101,11 +105,13 @@
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div
-				(click)="deleteWithPopup(dataItem.id)"
-				class="k-icon k-i-trash k-link"
-				title="Modify"
-			></div>
+			<advenium-permission [permissionType]="canDelete">
+				<div
+					(click)="deleteWithPopup(dataItem.id)"
+					class="k-icon k-i-trash k-link"
+					title="Modify"
+				></div>
+			</advenium-permission>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>

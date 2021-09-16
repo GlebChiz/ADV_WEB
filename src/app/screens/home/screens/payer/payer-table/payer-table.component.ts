@@ -12,6 +12,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { PayerPopupComponent } from './payer-popup/payer-popup.component';
 
 @Component({
@@ -33,6 +34,12 @@ export class PayerTableComponent extends CustomTableDirective {
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreatePayer;
+
+	public canUpdate: PermissionType = PermissionType.canUpdatePayer;
+
+	public canDelete: PermissionType = PermissionType.canDeletePayer;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {

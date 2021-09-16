@@ -1,8 +1,10 @@
 <div class="header-form-style">
 	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">Modalities</div>
-	<div class="new-button">
-		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Modality</button>
-	</div>
+	<advenium-permission [permissionType]="canCreate">
+		<div class="new-button">
+			<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Modality</button>
+		</div>
+	</advenium-permission>
 </div>
 <kendo-grid
 	[filterable]="true"
@@ -78,23 +80,30 @@
 			>
 			</kendo-grid-date-filter-cell> </ng-template
 	></kendo-grid-column>
+
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>
+			<advenium-permission [permissionType]="canUpdate">
+				<div (click)="openDialog(dataItem)" class="k-icon k-i-edit k-link"></div>
+			</advenium-permission>
 		</ng-template>
 	</kendo-grid-command-column>
+
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
 			<div (click)="openDialog(dataItem, true)" class="k-icon k-i-copy k-link"></div>
 		</ng-template>
 	</kendo-grid-command-column>
+
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div
-				(click)="deleteWithPopup(dataItem.id)"
-				class="k-icon k-i-trash k-link"
-				title="Modify"
-			></div>
+			<advenium-permission [permissionType]="canDelete">
+				<div
+					(click)="deleteWithPopup(dataItem.id)"
+					class="k-icon k-i-trash k-link"
+					title="Modify"
+				></div>
+			</advenium-permission>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>

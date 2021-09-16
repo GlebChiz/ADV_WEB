@@ -16,6 +16,7 @@ import { IStore } from 'src/app/store';
 import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { ClinicianPopupComponent } from './clinician-popup/clinician-popup.component';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 
 @Component({
 	providers: [],
@@ -39,6 +40,8 @@ export class ClinicianTableComponent extends CustomTableDirective {
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreateClinician;
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {
 		if (dataItem) {

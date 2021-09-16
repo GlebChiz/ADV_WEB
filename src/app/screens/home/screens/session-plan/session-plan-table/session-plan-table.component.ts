@@ -23,6 +23,7 @@ import { DropdownActions } from '../../../../../store/actions/dropdowns.actions'
 import { SessionPlanPopupComponent } from './session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableActions } from './session-plan-table.actions';
 import { SessionPlanTranslatePopupComponent } from './session-plan-translate-popup/session-plan-translate-popup.component';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 
 @Component({
 	providers: [],
@@ -45,6 +46,12 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreateSeriesPlan;
+
+	public canUpdate: PermissionType = PermissionType.canUpdateSeriesPlan;
+
+	public canDelete: PermissionType = PermissionType.canDeleteSeriesPlan;
 
 	public id: string = '';
 

@@ -91,7 +91,9 @@
 
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link" (click)="openDialog(dataItem)"></div>
+			<advenium-permission [permissionType]="canUpdate">
+				<div class="k-icon k-i-edit k-link" (click)="openDialog(dataItem)"></div>
+			</advenium-permission>
 		</ng-template>
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
@@ -101,11 +103,13 @@
 	</kendo-grid-command-column>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
-			<div
-				class="k-icon k-i-trash k-link"
-				title="Modify"
-				(click)="deleteWithPopup(dataItem.id)"
-			></div>
+			<advenium-permission [permissionType]="canDelete">
+				<div
+					class="k-icon k-i-trash k-link"
+					title="Modify"
+					(click)="deleteWithPopup(dataItem.id)"
+				></div>
+			</advenium-permission>
 		</ng-template>
 	</kendo-grid-command-column>
 </kendo-grid>

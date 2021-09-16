@@ -27,6 +27,7 @@ import { LocationForGroupPopupComponent } from '../therapy-group-popups/location
 import { SeriesPlanForGroupPopupComponent } from '../therapy-group-popups/series-plan-for-group-popup/series-plan-for-group-popup.component';
 import { RoomForGroupPopupComponent } from '../therapy-group-popups/room-for-group-popup/room-for-group-popup.component';
 import { TherapyGroupTableActions } from './therapy-group-table.actions';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 
 @Component({
 	providers: [],
@@ -49,6 +50,10 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canUpdate: PermissionType = PermissionType.canUpdateTherapyGroup;
+
+	public canDelete: PermissionType = PermissionType.canDeleteTherapyGroup;
 
 	public selectedItems: string[] = [];
 
