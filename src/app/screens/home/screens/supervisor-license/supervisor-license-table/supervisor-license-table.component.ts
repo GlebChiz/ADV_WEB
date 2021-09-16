@@ -48,7 +48,7 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 			);
 		}
 		const dialog: DialogRef = this.dialogService.open({
-			title: 'Supervisor License',
+			title: 'Supervisor Credentials',
 			content: SupervisorLicensePopupComponent,
 			width: 600,
 			height: 310,

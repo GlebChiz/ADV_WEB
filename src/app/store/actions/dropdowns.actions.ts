@@ -177,7 +177,7 @@ export const DropdownActions = {
 
 	GetResponseOptionPending: createAction('[Dropdown] Get ResponseOption pending'),
 	GetResponseOptionSuccess: createAction(
-		'[Dropdown] Get CriteriasType success',
+		'[Dropdown] Get ResponseOption success',
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetResponseOptionError: createAction('[Dropdown] Get ResponseOption error'),
@@ -196,7 +196,7 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetLinkedPersonsError: createAction('[Dropdown] Get LinkedPersons error'),
-  
+
 	GetAutoNotePrefillsPending: createAction('[Dropdown] Get AutoNotePrefills pending'),
 	GetAutoNotePrefillsSuccess: createAction(
 		'[Dropdown] Get AutoNotePrefills success',

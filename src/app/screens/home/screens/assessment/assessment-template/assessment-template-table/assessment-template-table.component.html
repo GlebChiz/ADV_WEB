@@ -9,7 +9,7 @@
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
-	[sortable]="true"
+	[sortable]="false"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"
 	[filter]="gridSettings.state.filter!"
@@ -30,6 +30,8 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
+		[style]="col.style || {}"
+		[headerStyle]="col.headerStyle || {}"
 	>
 		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell

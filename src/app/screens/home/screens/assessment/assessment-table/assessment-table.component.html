@@ -2,9 +2,11 @@
 	<div [ngStyle]="{ 'font-size': '23px', 'font-weight': 'bold', margin: '15px 0' }">
 		Assessment Manager
 	</div>
-	<div class="new-button">
-		<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Assessment</button>
-	</div>
+	<advenium-permission [permissionType]="12">
+		<div class="new-button">
+			<button (click)="openDialog()"><img src="/assets/images/player.svg" />New Assessment</button>
+		</div>
+	</advenium-permission>
 </div>
 
 <kendo-grid
