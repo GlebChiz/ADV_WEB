@@ -188,6 +188,12 @@ export class HomeComponent implements OnInit {
 					paddingLeft: 15,
 					permission: PermissionType.canViewPublicSnipitManager,
 				},
+				{
+					text: 'Download',
+					icon: 'k-i-chart-doughnut',
+					path: 'download',
+					paddingLeft: 15,
+				},
 			],
 		},
 	];
