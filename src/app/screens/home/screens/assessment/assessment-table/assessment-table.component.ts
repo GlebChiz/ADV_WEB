@@ -1,3 +1,4 @@
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -38,6 +39,12 @@ export class AssessmentTableComponent extends CustomTableDirective {
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreateAssessment;
+
+	public canUpdate: PermissionType = PermissionType.canUpdateAssessment;
+
+	public canDelete: PermissionType = PermissionType.canDeleteAssessment;
 
 	public columns: IColumn[] = [
 		{

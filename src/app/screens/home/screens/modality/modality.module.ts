@@ -42,7 +42,7 @@ import { ModalityComponent } from './modality.component';
 				component: ModalityComponent,
 			},
 		]),
-		StoreModule.forFeature('modalityTable', modalityReducers),
+		StoreModule.forFeature('modality', modalityReducers),
 		EffectsModule.forFeature([SomeEffect]),
 	],
 	declarations: [ModalityComponent, ModalityTableComponent, ModalityPopupComponent],

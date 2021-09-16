@@ -13,6 +13,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { PublicSnipitPopupComponent } from './public-snipit-popup/public-snipit-popup.component';
 
@@ -37,6 +38,12 @@ export class PublicSnipitTableComponent extends CustomTableDirective {
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreatePublicSnipit;
+
+	public canUpdate: PermissionType = PermissionType.canUpdatePublicSnipit;
+
+	public canDelete: PermissionType = PermissionType.canDeletePublicSnipit;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {

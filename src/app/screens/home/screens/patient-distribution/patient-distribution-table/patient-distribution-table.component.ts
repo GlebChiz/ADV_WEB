@@ -13,6 +13,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { SupervisorForGroupPopupComponent } from '../patient-distribution-group-popups/supervisor-for-group-popup/supervisor-for-group-popup.component';
 import { PatientDistributionPopupComponent } from './patient-distribution-popup/patient-distribution-popup.component';
@@ -37,6 +38,12 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreatePatientDistribution;
+
+	public canUpdate: PermissionType = PermissionType.canUpdatePatientDistribution;
+
+	public canDelete: PermissionType = PermissionType.canDeletePatientDistribution;
 
 	public selectedItems: string[] = [];
 

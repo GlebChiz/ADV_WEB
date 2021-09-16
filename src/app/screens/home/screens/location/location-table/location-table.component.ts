@@ -14,6 +14,7 @@ import {
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { LocationActions } from 'src/app/store/actions/location.actions';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { LocationPopupComponent } from './location-popup/location-popup.component';
 
 @Component({
@@ -36,6 +37,12 @@ export class LocationTableComponent extends CustomTableDirective implements OnIn
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreateLocation;
+
+	public canUpdate: PermissionType = PermissionType.canUpdateLocation;
+
+	public canDelete: PermissionType = PermissionType.canDeleteLocation;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {

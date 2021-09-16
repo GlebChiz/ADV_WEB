@@ -15,6 +15,7 @@ import { IStore } from 'src/app/store';
 import { SeriesPlanPopupComponent } from './series-plan-popup/series-plan-popup.component';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { ISeriesPlan } from 'src/app/shared/interfaces/series-plan.interface';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 
 @Component({
 	providers: [],
@@ -38,6 +39,12 @@ export class SeriesplansTableComponent extends CustomTableDirective {
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreateSeriesPlan;
+
+	public canUpdate: PermissionType = PermissionType.canUpdateSeriesPlan;
+
+	public canDelete: PermissionType = PermissionType.canDeleteSeriesPlan;
 
 	public columns: IColumn[] = [
 		{
@@ -94,6 +101,6 @@ export class SeriesplansTableComponent extends CustomTableDirective {
 	}
 
 	public onCellClick({ dataItem: { id } }: { dataItem: { id: string } }): void {
-		this._router.navigate([id], { relativeTo: this._activatedRoute, });
+		this._router.navigate([id], { relativeTo: this._activatedRoute });
 	}
 }

@@ -11,6 +11,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { SupervisorLicensePopupComponent } from './supervisor-license-popup/supervisor-license-popup.component';
 
@@ -33,6 +34,12 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 	) {
 		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
 	}
+
+	public canCreate: PermissionType = PermissionType.canCreateSupervisorCredentials;
+
+	public canUpdate: PermissionType = PermissionType.canUpdateSupervisorCredentials;
+
+	public canDelete: PermissionType = PermissionType.canDeleteSupervisorCredentials;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {
