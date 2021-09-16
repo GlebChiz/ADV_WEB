@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PermissionGuard } from 'src/app/shared/helpers/permission.guard';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HomeBreadcrumbComponent } from './home-breadcrumb/home-breadcrumb.component';
 import { HomeComponent } from './home.component';
@@ -21,7 +20,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Clinicians',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'patients',
@@ -30,7 +28,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Patients',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'modalities',
@@ -39,7 +36,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Modalities',
 						},
-						canActivate: [PermissionGuard],
 					},
 
 					{
@@ -49,7 +45,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Payers',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'supercred',
@@ -60,7 +55,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Supervisor license',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'snipits',
@@ -71,7 +65,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Public snipit',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'seriesplans',
@@ -82,7 +75,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Series Plan',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'sessionplans',
@@ -94,7 +86,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Session Plan',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'sessionplans',
@@ -105,7 +96,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Session Plan',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'assessmentlegend',
@@ -116,7 +106,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Assessment Legend',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'assessments',
@@ -125,7 +114,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Assessments',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'patientdistribution',
@@ -136,7 +124,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Patient Distribution',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'unsupervisedservices',
@@ -147,7 +134,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Unsupervised Services',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'groups',
@@ -158,7 +144,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Therapy Group',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'locations',
@@ -167,7 +152,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'Location',
 						},
-						canActivate: [PermissionGuard],
 					},
 					{
 						path: 'download',
@@ -176,7 +160,6 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'download',
 						},
-						canActivate: [PermissionGuard],
 					},
 				],
 			},
