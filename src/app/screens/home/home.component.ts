@@ -28,7 +28,6 @@ export interface IItem {
 })
 export class HomeComponent implements OnInit {
 	public items: IItem[] = [
-
 		{
 			text: 'Patients',
 			icon: 'k-i-accessibility',
@@ -188,6 +187,12 @@ export class HomeComponent implements OnInit {
 					path: 'snipits',
 					paddingLeft: 20,
 					permission: PermissionType.canViewPublicSnipitManager,
+				},
+				{
+					text: 'Download',
+					icon: 'k-i-chart-doughnut',
+					path: 'download',
+					paddingLeft: 20,
 				},
 			],
 		},
