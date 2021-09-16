@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
 					text: 'Therapy Groups',
 					icon: 'k-i-select-box',
 					path: 'groups',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewTherapyGroupManager,
 				},
 				// { text: 'Group Services', icon: 'k-i-select-box' },
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
 					text: 'Clinicians',
 					icon: 'k-i-plus-outline',
 					path: 'clinicians',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewClinicianManager,
 				},
 				// { text: 'Users', icon: 'k-i-plus-outline' },
@@ -84,21 +84,21 @@ export class HomeComponent implements OnInit {
 					text: 'Supervisor License',
 					icon: 'k-i-chart-radar-filled',
 					path: 'supercred',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewSupervisorCredentialsManager,
 				},
 				{
 					text: 'Patient Distribution',
 					icon: 'k-i-select-box',
 					path: 'patientdistribution',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewPatientDistributionManager,
 				},
 				{
 					text: 'Unsupervised Services',
 					icon: 'k-i-select-box',
 					path: 'unsupervisedservices',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewUnsupervisedServiceManager,
 				},
 			],
@@ -124,35 +124,35 @@ export class HomeComponent implements OnInit {
 					text: 'Location',
 					icon: 'k-i-select-box',
 					path: 'locations',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewLocationManager,
 				},
 				{
 					text: 'Payers',
 					icon: 'k-i-bell',
 					path: 'payers',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewPayerManager,
 				},
 				{
 					text: 'Modalities',
 					icon: 'k-i-calendar',
 					path: 'modalities',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewModalityManager,
 				},
 				{
 					text: 'Series Plans',
 					icon: 'k-i-delicious-box',
 					path: 'seriesplans',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewSeriesPlanManager,
 				},
 				{
 					text: 'Session Plan',
 					icon: 'k-i-graph',
 					path: 'sessionplans',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewSessionPlanManager,
 				},
 				{
@@ -160,7 +160,7 @@ export class HomeComponent implements OnInit {
 					icon: 'k-i-select-box',
 					parent: true,
 					expanded: false,
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: [
 						PermissionType.canViewAssessmentManager,
 						PermissionType.canViewAssessmentLegendManager,
@@ -170,14 +170,14 @@ export class HomeComponent implements OnInit {
 							text: 'Assessment Manager',
 							icon: 'k-i-select-box',
 							path: 'assessments',
-							paddingLeft: 40,
+							paddingLeft: 35,
 							permission: PermissionType.canViewAssessmentManager,
 						},
 						{
 							text: 'Assessment Legend',
 							icon: 'k-i-brightness-contrast',
 							path: 'assessmentlegend',
-							paddingLeft: 40,
+							paddingLeft: 35,
 							permission: PermissionType.canViewAssessmentLegendManager,
 						},
 					],
@@ -186,7 +186,7 @@ export class HomeComponent implements OnInit {
 					text: 'Public Snipit',
 					icon: 'k-i-chart-doughnut',
 					path: 'snipits',
-					paddingLeft: 20,
+					paddingLeft: 15,
 					permission: PermissionType.canViewPublicSnipitManager,
 				},
 			],
@@ -217,10 +217,6 @@ export class HomeComponent implements OnInit {
 	}
 
 	public setCurrent(): void {
-		const prev: IItem | undefined = this.items.find((item: IItem) => item.selected);
-		if (prev) {
-			prev.selected = false;
-		}
 		const currentItem: IItem | undefined = this.items.find((item: IItem) => {
 			return item.path ? this.router.url.includes(item.path) : false;
 		});
@@ -266,6 +262,10 @@ export class HomeComponent implements OnInit {
 	}
 
 	public addChildren(arr: IItem[], index: number, children: IItem[]): void {
+		const currentItem: IItem | undefined = children.find((item: IItem) => {
+			return item.path ? this.router.url.includes(item.path) : false;
+		});
+		if (currentItem) currentItem.selected = true;
 		const activePage: IItem | undefined = children.find(
 			(item: IItem) => item.path === this.currentUrl,
 		);

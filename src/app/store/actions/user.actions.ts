@@ -122,3 +122,5 @@ export const enum PermissionType {
 	canUpdatePatient = 143,
 	canDeletePatient = 144,
 }
+
+export const enum RoleType {}
