@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
+import { SortDescriptor } from '@progress/kendo-data-query';
 import { Observable, of, throwError } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
@@ -50,6 +51,7 @@ export class TableService {
 		columns: any[],
 		gridId: string,
 	): Observable<T> {
+		console.log(columns);
 		const filter: IGridFilterModel | undefined = this.getFilterModel(state);
 		const gridFilterParams: IGridFilter = this.getGridFilterParams(state);
 		return this.http.post<T>(`${controller}/grid-filter`, {
@@ -59,7 +61,7 @@ export class TableService {
 			},
 			...gridFilterParams,
 			gridId: gridId ?? `${controller}-manager-grid`,
-			sorting: this.getSorting(columns, state),
+			sorting: this.getSorting(state),
 		});
 	}
 
@@ -95,20 +97,13 @@ export class TableService {
 		}, {});
 	}
 
-	private getSorting(columns: any[], state: DataStateChangeEvent): IGridSort[] {
-		const res: any = columns
-			? columns.find(
-					(column: any) => state.sort && state.sort[0] && state.sort[0].field === column.field,
-			  )
-			: null;
-		return res
-			? [
-					{
-						column: res.field,
-						direction: state.sort && state.sort[0] && state.sort[0].dir === 'desc' ? 0 : 1,
-					},
-			  ]
-			: [];
+	private getSorting(state: DataStateChangeEvent): IGridSort[] | undefined {
+		return state.sort?.map((sortItem: SortDescriptor) => {
+			return {
+				column: sortItem.field,
+				direction: sortItem.dir === 'desc' ? 0 : 1,
+			};
+		});
 	}
 
 	public getData<T>(controller: string, filterId: string): Observable<T> {

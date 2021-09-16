@@ -29,17 +29,6 @@ export class PermissionsComponent extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		// if (Array.isArray(this.permissionType)) {
-		// 	this.isShow$ = this.store.select('permissions').pipe(
-		// 		concatAll(),
-		// 		filter(({ permissionType }: any) => {
-		// 			return this.permissionType === permissionType;
-		// 		}),
-		// 		takeUntil(this.unsubscribe$$),
-		// 	);
-		// 	return;
-		// }
-
 		this.isShowByPermission$ = this.store.select('userState', 'user', 'permissionTypes').pipe(
 			map((permissionTypes: PermissionType[]) => {
 				if (this.permissionType) {

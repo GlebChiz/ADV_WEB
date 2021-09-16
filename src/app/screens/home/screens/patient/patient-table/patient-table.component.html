@@ -2,7 +2,6 @@
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"
-	[sortable]="true"
 	[reorderable]="true"
 	[skip]="gridSettings.state.skip"
 	[pageSize]="gridSettings.state.take"
@@ -10,6 +9,10 @@
 	[pageable]="{ pageSizes: [5, 10, 20, 50, 100] }"
 	[height]="710"
 	[loading]="isLoading"
+	[sortable]="{
+		allowUnsort: true,
+		mode: 'multiple'
+	}"
 	[sort]="gridSettings.state.sort!"
 	(cellClick)="onCellClick($event)"
 	(dataStateChange)="dataStateChange($event)"
