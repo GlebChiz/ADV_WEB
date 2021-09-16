@@ -29,8 +29,18 @@
 						align-items: center;
 					"
 				>
-					<div [ngStyle]="{ 'padding-left': item.paddingLeft ? item.paddingLeft + 'px' : '0' }">
-						{{ item.text }}
+					<div
+						[ngStyle]="{
+							display: 'flex',
+							'padding-left': item.paddingLeft ? item.paddingLeft + 'px' : '0'
+						}"
+					>
+						<div>
+							<span [class]="'k-icon' + ' ' + item?.icon"></span>
+						</div>
+						<div [ngStyle]="{ 'padding-left': item.paddingLeft ? item.paddingLeft + 'px' : '0' }">
+							{{ item.text }}
+						</div>
 					</div>
 					<div
 						*ngIf="item.expanded && item['children']"

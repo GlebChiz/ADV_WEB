@@ -3,7 +3,7 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
-import { PermissionType } from 'src/app/store/actions/user.actions';
+import { PermissionType, RoleType } from 'src/app/store/actions/user.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 
 @Component({
@@ -15,9 +15,14 @@ export class PermissionsComponent extends UnSubscriber implements OnInit {
 	public permissionType!: number | number[];
 
 	@Input()
+	public roles!: number | number[];
+
+	@Input()
 	public elseTemplate!: TemplateRef<NgIfContext<any>> | null;
 
-	public isShow$!: Observable<boolean>;
+	public isShowByPermission$!: Observable<boolean>;
+
+	public isShowByRole$!: Observable<boolean>;
 
 	public constructor(private readonly store: Store<any>) {
 		super();
@@ -35,19 +40,38 @@ export class PermissionsComponent extends UnSubscriber implements OnInit {
 		// 	return;
 		// }
 
-		this.isShow$ = this.store.select('userState', 'user', 'permissionTypes').pipe(
+		this.isShowByPermission$ = this.store.select('userState', 'user', 'permissionTypes').pipe(
 			map((permissionTypes: PermissionType[]) => {
-				if (Array.isArray(this.permissionType)) {
-					return (
-						this.permissionType?.filter((item: number) => {
-							return permissionTypes?.find((e: number) => e === item);
-						}).length > 0
+				if (this.permissionType) {
+					if (Array.isArray(this.permissionType)) {
+						return (
+							this.permissionType?.filter((item: number) => {
+								return permissionTypes?.find((e: number) => e === item);
+							}).length > 0
+						);
+					}
+					return !!permissionTypes?.find(
+						(numberPermission: PermissionType) => this.permissionType === numberPermission,
 					);
 				}
+				return true;
+			}),
+			takeUntil(this.unsubscribe$$),
+		);
 
-				return !!permissionTypes?.find(
-					(numberPermission: PermissionType) => this.permissionType === numberPermission,
-				);
+		this.isShowByRole$ = this.store.select('userState', 'user', 'roleTypes').pipe(
+			map((roleTypes: RoleType[]) => {
+				if (this.roles) {
+					if (Array.isArray(this.roles)) {
+						return (
+							this.roles?.filter((item: number) => {
+								return roleTypes?.find((e: number) => e === item);
+							}).length > 0
+						);
+					}
+					return !!roleTypes?.find((numberRole: RoleType) => this.roles === numberRole);
+				}
+				return true;
 			}),
 			takeUntil(this.unsubscribe$$),
 		);
