@@ -299,7 +299,6 @@ export class HomeComponent implements OnInit {
 			element.selected = false;
 		});
 		arr.splice(index + 1, children.length);
-		console.log(arr);
 	}
 
 	public logout(): void {
