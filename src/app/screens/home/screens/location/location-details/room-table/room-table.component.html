@@ -60,6 +60,7 @@
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
+		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 		<kendo-combobox
 			valueField="id"
 			style="width: 200px"
@@ -68,7 +69,6 @@
 			[valuePrimitive]="true"
 		>
 		</kendo-combobox>
-		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
 	<kendo-grid-column
 		*ngFor="let col of columns"

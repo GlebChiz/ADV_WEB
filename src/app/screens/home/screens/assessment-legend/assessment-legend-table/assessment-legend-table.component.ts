@@ -109,9 +109,11 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 			if (translatedColumn) {
 				if (language === '4dc1ef9d-76e3-4b70-8b0d-7109661ec568') {
 					translatedColumn.hidden = true;
+					translatedColumn.includeInChooser = false;
 					return;
 				}
 				super.ngOnInit();
+				translatedColumn.includeInChooser = true;
 				translatedColumn.hidden = !language;
 			}
 		});
