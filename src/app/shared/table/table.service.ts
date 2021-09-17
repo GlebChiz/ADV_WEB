@@ -57,7 +57,7 @@ export class TableService {
 				take: gridSettings.state.take,
 				gridId,
 				filters: gridSettings.state.filter?.filters,
-				columns: [...columns.map((column: any) => column.field)],
+				columns: [...columns.filter((column: any) => !column.hidden).map((c: any) => c.field)],
 				sorting: this.getSorting(gridSettings.state),
 			}),
 		);
