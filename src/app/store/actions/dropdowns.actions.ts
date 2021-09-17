@@ -203,4 +203,14 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetAutoNotePrefillsError: createAction('[Dropdown] Get AutoNotePrefills error'),
+
+	GetGridSettingsPending: createAction(
+		'[Dropdown] Get GridSettings pending',
+		props<{ gridId: string }>(),
+	),
+	GetGridSettingsSuccess: createAction(
+		'[Dropdown] Get GridSettings success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetGridSettingsError: createAction('[Dropdown] Get GridSettings error'),
 };

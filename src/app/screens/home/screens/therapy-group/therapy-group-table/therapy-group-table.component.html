@@ -32,6 +32,14 @@
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
+		<kendo-combobox
+			valueField="id"
+			style="width: 200px"
+			textField="title"
+			[data]="(gridSettings$ | async) || []"
+			[valuePrimitive]="true"
+		>
+		</kendo-combobox>
 		<kendo-grid-column-chooser></kendo-grid-column-chooser>
 	</ng-template>
 	<kendo-grid-checkbox-column [width]="50" [showSelectAll]="true"></kendo-grid-checkbox-column>

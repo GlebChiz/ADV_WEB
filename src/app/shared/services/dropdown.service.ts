@@ -134,4 +134,8 @@ export class DropdownService {
 	public getAutoNotePrefills(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>(`dropdowns/auto-note-prefills`);
 	}
+
+	public getGridSettings(gridId: string): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>(`gridsettings/views/${gridId}`);
+	}
 }

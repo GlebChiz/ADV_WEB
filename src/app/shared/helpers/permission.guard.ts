@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,7 +9,11 @@ import { AuthenticationService } from '../services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class PermissionGuard implements CanActivate {
-	public constructor(public _store: Store<IStore>, private auth: AuthenticationService) {}
+	public constructor(
+		public _store: Store<IStore>,
+		private auth: AuthenticationService,
+		private router: Router,
+	) {}
 
 	public canActivate(
 		_route: ActivatedRouteSnapshot,
@@ -17,81 +21,63 @@ export class PermissionGuard implements CanActivate {
 	): boolean | Observable<boolean> {
 		return this.auth.checkToken().pipe(
 			map((res: IUser) => {
-				return this.checkPermissin(_state?.url?.substring(1), res.permissionTypes);
+				return this.checkPermissin(_state?.url?.substring(1), res.permissionTypes, _state);
 			}),
 		);
 	}
 
-	public checkPermissin(url: string, permissionTypes: number[]): boolean {
+	private checkPermissin(
+		url: string,
+		permissionTypes: number[],
+		state: RouterStateSnapshot,
+	): boolean {
 		switch (url) {
 			case 'payers':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
+				console.log(state, this.router);
+				return this.findPermission(permissionTypes, PermissionType.canViewPayerManager);
 			case 'groups':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
+				return this.findPermission(permissionTypes, PermissionType.canViewTherapyGroupManager);
 			case 'locations':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
+				return this.findPermission(permissionTypes, PermissionType.canViewLocationManager);
 			case 'modalities':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === 123123123;
-				});
+				return this.findPermission(permissionTypes, PermissionType.canViewModalityManager);
 			case 'patientdistribution':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(
+					permissionTypes,
+					PermissionType.canViewPatientDistributionManager,
+				);
 			case 'patients':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(permissionTypes, PermissionType.canViewPatientManager);
 			case 'seriesplans':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(permissionTypes, PermissionType.canViewSeriesPlanManager);
 			case 'sessionplans':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(permissionTypes, PermissionType.canViewSessionPlanManager);
 			case 'snipits':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(permissionTypes, PermissionType.canViewPublicSnipitManager);
 			case 'supercred':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(
+					permissionTypes,
+					PermissionType.canViewSupervisorCredentialsManager,
+				);
 			case 'unsupervisedservices':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(
+					permissionTypes,
+					PermissionType.canViewUnsupervisedServiceManager,
+				);
 			case 'assessmentlegend':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(permissionTypes, PermissionType.canViewAssessmentLegendManager);
 			case 'assessments':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(permissionTypes, PermissionType.canViewAssessmentManager);
 			case 'clinicians':
-				return !!permissionTypes?.find((numberPermission: number) => {
-					return numberPermission === PermissionType.canViewAssessmentLegendManager;
-				});
-
+				return this.findPermission(permissionTypes, PermissionType.canViewClinicianManager);
 			default:
 				return true;
 		}
+	}
+
+	private findPermission(permissionTypes: number[], permissionType: PermissionType): boolean {
+		return !!permissionTypes?.find(
+			(numberPermission: number) => numberPermission === permissionType,
+		);
 	}
 }

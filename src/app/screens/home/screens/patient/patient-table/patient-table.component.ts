@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Router } from '@angular/router';
 import { Component, Inject } from '@angular/core';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';

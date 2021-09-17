@@ -205,5 +205,11 @@ export function dropdownReducers(
 				return { ...state, autoNotePrefills: data, isLoading: false };
 			},
 		),
+		on(
+			DropdownActions.GetGridSettingsSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, gridSettings: data, isLoading: false };
+			},
+		),
 	)(dropdownState, action);
 }

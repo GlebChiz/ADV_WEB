@@ -19,7 +19,7 @@
 		(select)="onSelect($event)"
 	>
 		<ng-template kendoDrawerItemTemplate let-item>
-			<advenium-permission [permissionType]="item?.permission">
+			<advenium-permission [permissionType]="item?.permission" [roles]="item?.role">
 				<div
 					style="
 						width: 220px;

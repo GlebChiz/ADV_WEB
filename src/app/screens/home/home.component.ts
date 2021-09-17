@@ -5,7 +5,12 @@ import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
-import { AuthUserActions, PermissionType, RoleType } from 'src/app/store/actions/user.actions';
+import {
+	AuthUserActions,
+	IUser,
+	PermissionType,
+	RoleType,
+} from 'src/app/store/actions/user.actions';
 
 export interface IItem {
 	text: string;
@@ -39,7 +44,6 @@ export class HomeComponent implements OnInit {
 			icon: 'k-i-accessibility',
 			parent: true,
 			expanded: false,
-			permission: [PermissionType.canViewTherapyGroupManager],
 			children: [
 				{
 					text: 'Therapy Groups',
@@ -56,7 +60,6 @@ export class HomeComponent implements OnInit {
 			icon: 'k-i-accessibility',
 			parent: true,
 			expanded: false,
-			permission: [PermissionType.canViewClinicianManager],
 			children: [
 				{
 					text: 'Clinicians',
@@ -73,11 +76,6 @@ export class HomeComponent implements OnInit {
 			icon: 'k-i-accessibility',
 			parent: true,
 			expanded: false,
-			permission: [
-				PermissionType.canViewSupervisorCredentialsManager,
-				PermissionType.canViewPatientDistributionManager,
-				PermissionType.canViewUnsupervisedServiceManager,
-			],
 			children: [
 				{
 					text: 'Supervisor License',
@@ -107,17 +105,6 @@ export class HomeComponent implements OnInit {
 			icon: 'k-i-accessibility',
 			parent: true,
 			expanded: false,
-			permission: [
-				PermissionType.canViewLocationManager,
-				PermissionType.canViewPayerManager,
-				PermissionType.canViewModalityManager,
-				PermissionType.canViewSeriesPlanManager,
-				PermissionType.canViewSessionPlanManager,
-				PermissionType.canViewModalityManager,
-				PermissionType.canViewAssessmentManager,
-				PermissionType.canViewAssessmentLegendManager,
-				PermissionType.canViewPublicSnipitManager,
-			],
 			children: [
 				{
 					text: 'Location',
@@ -160,10 +147,6 @@ export class HomeComponent implements OnInit {
 					parent: true,
 					expanded: false,
 					paddingLeft: 15,
-					permission: [
-						PermissionType.canViewAssessmentManager,
-						PermissionType.canViewAssessmentLegendManager,
-					],
 					children: [
 						{
 							text: 'Assessment Manager',
@@ -208,9 +191,7 @@ export class HomeComponent implements OnInit {
 
 	public nameUser!: string;
 
-	public user$: Observable<any> = this._store.select('userState', 'user');
-
-	public avatar: any;
+	public user$: Observable<IUser | undefined> = this._store.select('userState', 'user');
 
 	public currentUrl: string = '';
 
@@ -219,6 +200,20 @@ export class HomeComponent implements OnInit {
 		this.router.events
 			.pipe(filter((event: any) => event instanceof NavigationEnd))
 			.subscribe(() => this.setCurrent());
+		// this.items.forEach((paragraph: IItem) => {
+		// 	const childrenParagraph: IItem[] | undefined = paragraph?.children;
+		// 	if (childrenParagraph) {
+		// 		childrenParagraph.forEach((children: IItem) => {
+		// 			paragraph.permission = [...((paragraph?.permission as PermissionType[]) ?? [])];
+		// 			paragraph.role = [...((paragraph?.role as RoleType[]) ?? [])];
+		// 			if (children.permission) {
+		// 				paragraph.permission.push(children.permission as PermissionType);
+		// 			} else if (children.role) {
+		// 				paragraph.role.push(children.role as RoleType);
+		// 			}
+		// 		});
+		// 	}
+		// });
 	}
 
 	public setCurrent(): void {

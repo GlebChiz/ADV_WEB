@@ -457,4 +457,18 @@ export class DropdownEffects {
 			),
 		),
 	);
+
+	public getGridSettings$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetGridSettingsPending),
+			switchMap(({ gridId }: { gridId: string }) =>
+				this.service.getGridSettings(gridId).pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetGridSettingsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetGridSettingsError())),
+				),
+			),
+		),
+	);
 }

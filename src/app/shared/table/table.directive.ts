@@ -5,9 +5,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
 import { GroupDescriptor, process } from '@progress/kendo-data-query';
+import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
+import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { IDropdownData } from '../interfaces/dropdown.interface';
 import {
 	// CREATE_ITEM_TABLE_PENDING,
 	DELETE_ITEM_TABLE_PENDING,
@@ -42,6 +45,11 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public selectedItems: any[] = [];
 
+	public gridSettings$: Observable<IDropdownData[]> = this._store.select(
+		'dropdown' as any,
+		'gridSettings',
+	);
+
 	public gridSettings: { state: DataStateChangeEvent } = {
 		state: {
 			skip: 0, // page number indexed by 0
@@ -73,6 +81,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				columns: this.columns,
 			}),
 		);
+		this._store.dispatch(DropdownActions.GetGridSettingsPending({ gridId: this.gridId }));
+
 		this.selectState();
 	}
 
