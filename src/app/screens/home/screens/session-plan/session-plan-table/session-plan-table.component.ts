@@ -18,12 +18,12 @@ import { tap, filter } from 'rxjs/operators';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { IStore } from 'src/app/store';
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { DropdownActions } from '../../../../../store/actions/dropdowns.actions';
 import { SessionPlanPopupComponent } from './session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableActions } from './session-plan-table.actions';
 import { SessionPlanTranslatePopupComponent } from './session-plan-translate-popup/session-plan-translate-popup.component';
-import { PermissionType } from 'src/app/store/actions/user.actions';
 
 @Component({
 	providers: [],
@@ -91,8 +91,10 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 			if (translatedColumn) {
 				if (language === '4dc1ef9d-76e3-4b70-8b0d-7109661ec568') {
 					translatedColumn.hidden = true;
+					translatedColumn.includeInChooser = false;
 					return;
 				}
+				translatedColumn.includeInChooser = true;
 				translatedColumn.hidden = !language;
 			}
 		});

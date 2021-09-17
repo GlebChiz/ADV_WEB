@@ -35,7 +35,7 @@
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
-		<kendo-grid-column-chooser></kendo-grid-column-chooser>
+		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 	</ng-template>
 	<kendo-grid-command-column *ngIf="id" [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>

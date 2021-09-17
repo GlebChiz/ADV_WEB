@@ -34,13 +34,13 @@
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
-		<kendo-grid-column-chooser></kendo-grid-column-chooser>
+		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 	</ng-template>
 	<kendo-grid-column
 		*ngFor="let col of columns"
 		[title]="col.title"
 		[field]="col.field"
-		[includeInChooser]="col.includeInChooser || true"
+		[includeInChooser]="col.includeInChooser ?? true"
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
