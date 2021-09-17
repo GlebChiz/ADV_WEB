@@ -84,4 +84,10 @@ export const RoomTableActions = {
 	ClearCurrentRoom: createAction('[Room Table] Clear current Room'),
 
 	ClearRoomTable: createAction('[Room Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Room Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Room Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Room Table] save grid settings error'),
 };

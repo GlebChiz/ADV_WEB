@@ -24,6 +24,9 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationComponent } from './location.component';
@@ -137,6 +140,18 @@ import { SomeEffect } from './location-table/location-table.effects';
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: LocationTableActions.ClearCurrentLocation,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: LocationTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: LocationTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: LocationTableActions.SaveGridSettingsSuccess,
 		},
 	],
 })

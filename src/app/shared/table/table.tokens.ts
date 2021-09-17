@@ -72,6 +72,18 @@ export const GET_CURRENT_ITEM_SUCCESS: InjectionToken<string> = new InjectionTok
 	'GET_CURRENT_ITEM_SUCCESS',
 );
 
+export const SAVE_GRID_SETTINGS_PENDING: InjectionToken<string> = new InjectionToken(
+	'SAVE_GRID_SETTINGS_PENDING',
+);
+
+export const SAVE_GRID_SETTINGS_ERROR: InjectionToken<string> = new InjectionToken(
+	'SAVE_GRID_SETTINGS_ERROR',
+);
+
+export const SAVE_GRID_SETTINGS_SUCCESS: InjectionToken<string> = new InjectionToken(
+	'SAVE_GRID_SETTINGS_SUCCESS',
+);
+
 export const UPDATE_TABLE_STATE: InjectionToken<string> = new InjectionToken('UPDATE_TABLE_STATE');
 
 export const CLEAR_CURRENT_ITEM: InjectionToken<string> = new InjectionToken('UPDATE_TABLE_STATE');

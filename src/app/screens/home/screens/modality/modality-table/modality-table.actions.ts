@@ -84,4 +84,10 @@ export const ModalityTableActions = {
 	ClearCurrentModality: createAction('[Modality Table] Clear current modality'),
 
 	ClearModalityTable: createAction('[Modality Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Modality Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Modality Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Modality Table] save grid settings error'),
 };

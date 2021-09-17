@@ -11,6 +11,7 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { IStore } from 'src/app/store';
 import { IColumn } from '../../../../../../shared/interfaces/column.interface';
@@ -33,8 +34,16 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
 	) {
-		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+		super(
+			_store,
+			getTableDataPending,
+			getCurrentItemPending,
+			deleteDataPending,
+			editDataPending,
+			saveGridSettingsPending,
+		);
 	}
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {
@@ -115,6 +124,6 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 			hidden: false,
 			filterable: true,
 			type: 'text',
-		}
+		},
 	];
 }

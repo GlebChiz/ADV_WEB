@@ -24,6 +24,9 @@ import {
 	EDIT_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { PatientTableActions } from './patient-table/patient-table.actions';
@@ -144,6 +147,18 @@ import { PatientComponent } from './patient.component';
 		{
 			provide: DUBLICATE_ITEM_TABLE_ERROR,
 			useValue: PatientTableActions.DublicatePatientIemTableError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: PatientTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: PatientTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: PatientTableActions.SaveGridSettingsSuccess,
 		},
 	],
 })

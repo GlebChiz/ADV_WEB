@@ -24,6 +24,9 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { InsuranceCopyPopupComponent } from './insurance-table/copy-popup/copy-popup.component';
 import { InsurancePopupComponent } from './insurance-table/insurance-popup/insurance-popup.component';
@@ -129,6 +132,18 @@ import { InsuranceComponent } from './insurance.component';
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: InsuranceTableActions.ClearCurrentInsurance,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: InsuranceTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: InsuranceTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: InsuranceTableActions.SaveGridSettingsSuccess,
 		},
 	],
 })

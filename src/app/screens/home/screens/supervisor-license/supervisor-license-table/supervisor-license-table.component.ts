@@ -10,6 +10,7 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { PermissionType } from 'src/app/store/actions/user.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
@@ -31,8 +32,16 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
 	) {
-		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+		super(
+			_store,
+			getTableDataPending,
+			getCurrentItemPending,
+			deleteDataPending,
+			editDataPending,
+			saveGridSettingsPending,
+		);
 	}
 
 	public canCreate: PermissionType = PermissionType.canCreateSupervisorCredentials;

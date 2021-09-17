@@ -28,6 +28,9 @@ import {
 	GET_TABLE_DATA_ERROR,
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_SUCCESS,
 	UPDATE_TABLE_STATE,
 } from './table.tokens';
 
@@ -51,6 +54,9 @@ export class TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) private getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) private getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) private getCurrentItemError: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_SUCCESS) private saveGridSettingsSuccess: any,
+		@Inject(SAVE_GRID_SETTINGS_ERROR) private saveGridSettingsError: any,
 
 		public _tableService: TableService,
 		public _store: Store<any>,
@@ -210,6 +216,37 @@ export class TableEffects {
 					}),
 				);
 			}),
+		);
+	});
+
+	public saveGridSettings$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(this.saveGridSettingsPending),
+			// gridId: this.gridId,
+			// 	gridSettings: this.gridSettings,
+			// 	columns: this.columns,
+			switchMap(
+				({
+					gridId,
+					gridSettings,
+					columns,
+				}: {
+					gridId: string;
+					gridSettings: {
+						state: DataStateChangeEvent;
+					};
+					columns: any[];
+				}) => {
+					return this._tableService.saveGridSettings(gridId, gridSettings, columns).pipe(
+						map(() => {
+							return this.saveGridSettingsSuccess();
+						}),
+						catchError((error: string) => {
+							return of(this.saveGridSettingsError(error));
+						}),
+					);
+				},
+			),
 		);
 	});
 }

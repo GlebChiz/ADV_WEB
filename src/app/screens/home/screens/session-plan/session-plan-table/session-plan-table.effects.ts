@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ITableState } from 'src/app/shared/table/table.reducer';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -23,6 +24,9 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_CURRENT_ITEM_SUCCESS,
 	GET_CURRENT_ITEM_ERROR,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_SETTINGS_ERROR,
 } from 'src/app/shared/table/table.tokens';
 import { SessionPlanTableActions } from './session-plan-table.actions';
 import { SessionPlanTableSerivce } from './session-plan-table.service';
@@ -50,6 +54,9 @@ export class SessionPlansEffects extends TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) getCurrentItemError: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_SUCCESS) saveGridSettingsSuccess: any,
+		@Inject(SAVE_GRID_SETTINGS_ERROR) saveGridSettingsError: any,
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: SessionPlanTableSerivce,
@@ -73,6 +80,9 @@ export class SessionPlansEffects extends TableEffects {
 			getCurrentItemPending,
 			getCurrentItemSuccess,
 			getCurrentItemError,
+			saveGridSettingsPending,
+			saveGridSettingsSuccess,
+			saveGridSettingsError,
 			_tableService,
 			_store,
 			_toasterService,

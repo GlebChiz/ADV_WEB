@@ -24,9 +24,12 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(columnReorder)="columnReorder()"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
+		<button (click)="saveGrid()">Save</button>
 		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 		<kendo-combobox
 			valueField="id"

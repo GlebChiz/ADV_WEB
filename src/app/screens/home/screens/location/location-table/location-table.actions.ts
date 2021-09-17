@@ -90,4 +90,10 @@ export const LocationTableActions = {
 	ClearCurrentLocation: createAction('[Location Table] Clear current Location'),
 
 	ClearLocationTable: createAction('[Location Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Location Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Location Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Location Table] save grid settings error'),
 };

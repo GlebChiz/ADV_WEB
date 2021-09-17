@@ -90,4 +90,10 @@ export const PayerTableActions = {
 	ClearCurrentPayer: createAction('[Payer Table] Clear current payer'),
 
 	ClearPayerTable: createAction('[Payer Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Payer Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Payer Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Payer Table] save grid settings error'),
 };

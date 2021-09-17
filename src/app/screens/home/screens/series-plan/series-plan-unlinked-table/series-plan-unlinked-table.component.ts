@@ -8,6 +8,7 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { IStore } from 'src/app/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
@@ -32,8 +33,16 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
 	) {
-		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+		super(
+			_store,
+			getTableDataPending,
+			getCurrentItemPending,
+			deleteDataPending,
+			editDataPending,
+			saveGridSettingsPending,
+		);
 	}
 
 	@Input() public seriesPlanId = '';

@@ -11,12 +11,13 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { IStore } from 'src/app/store';
+import { PermissionType } from 'src/app/store/actions/user.actions';
 import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { ClinicianPopupComponent } from './clinician-popup/clinician-popup.component';
-import { PermissionType } from 'src/app/store/actions/user.actions';
 
 @Component({
 	providers: [],
@@ -37,8 +38,16 @@ export class ClinicianTableComponent extends CustomTableDirective {
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
 	) {
-		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+		super(
+			_store,
+			getTableDataPending,
+			getCurrentItemPending,
+			deleteDataPending,
+			editDataPending,
+			saveGridSettingsPending,
+		);
 	}
 
 	public canCreate: PermissionType = PermissionType.canCreateClinician;

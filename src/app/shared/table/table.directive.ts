@@ -3,7 +3,11 @@
 import { Directive, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
+import {
+	ColumnVisibilityChangeEvent,
+	DataStateChangeEvent,
+	GridDataResult,
+} from '@progress/kendo-angular-grid';
 import { GroupDescriptor, process } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -17,6 +21,7 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from './table.tokens';
 
 @Directive({
@@ -68,6 +73,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) public editDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveGridSettingsPending: any,
 	) {
 		super();
 	}
@@ -126,6 +132,33 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				controller: this.controller,
 				filter: this.gridSettings.state,
 				gridId: this.gridId,
+			}),
+		);
+	}
+
+	public columnReorder(): void {}
+
+	public columnVisibilityChange(state: ColumnVisibilityChangeEvent): void {
+		let currentColumn: any = this.columns.find(
+			(column: any) => column.title === state.columns[0]?.title,
+		);
+		currentColumn.hidden = state.columns[0]?.hidden;
+		this._store.dispatch(
+			this.getTableDataPending({
+				columns: this.columns,
+				controller: this.controller,
+				filter: this.gridSettings.state,
+				gridId: this.gridId,
+			}),
+		);
+	}
+
+	public saveGrid(): void {
+		this._store.dispatch(
+			this.saveGridSettingsPending({
+				gridId: this.gridId,
+				gridSettings: this.gridSettings,
+				columns: this.columns,
 			}),
 		);
 	}

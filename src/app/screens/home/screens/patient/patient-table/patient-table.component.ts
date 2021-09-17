@@ -8,6 +8,7 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { Store } from '@ngrx/store';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
@@ -25,8 +26,16 @@ export class PatientTableComponent extends CustomTableDirective {
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
 	) {
-		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+		super(
+			_store,
+			getTableDataPending,
+			getCurrentItemPending,
+			deleteDataPending,
+			editDataPending,
+			saveGridSettingsPending,
+		);
 	}
 
 	public columns: IColumn[] = [

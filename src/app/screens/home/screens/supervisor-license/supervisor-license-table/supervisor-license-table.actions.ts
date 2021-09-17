@@ -89,4 +89,12 @@ export const SupervisorLicenseTableActions = {
 	),
 
 	ClearSupervisorLicenseTable: createAction('[Supervisor Credentials Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Supervisor Credentials Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction(
+		'[Supervisor Credentials Table] save grid settings success',
+	),
+	SaveGridSettingsError: createAction('[Supervisor Credentials Table] save grid settings error'),
 };

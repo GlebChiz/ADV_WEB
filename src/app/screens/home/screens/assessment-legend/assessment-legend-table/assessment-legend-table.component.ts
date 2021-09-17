@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -10,6 +11,7 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
@@ -31,8 +33,16 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
 	) {
-		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+		super(
+			_store,
+			getTableDataPending,
+			getCurrentItemPending,
+			deleteDataPending,
+			editDataPending,
+			saveGridSettingsPending,
+		);
 	}
 
 	public languagesDropdown$: Observable<IDropdownData[]> = this._store.select(

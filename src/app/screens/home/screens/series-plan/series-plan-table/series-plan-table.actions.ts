@@ -89,4 +89,10 @@ export const SeriesplansTableActions = {
 
 	ClearSeriesplansTable: createAction('[Seriesplans Table] Clear'),
 	ClearCurrentSeriesPlan: createAction('[Seriesplans Table] Clear current SessionPlan'),
+	SaveGridSettingsPending: createAction(
+		'[Seriesplans Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Seriesplans Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Seriesplans Table] save grid settings error'),
 };

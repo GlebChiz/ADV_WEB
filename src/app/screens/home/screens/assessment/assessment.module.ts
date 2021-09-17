@@ -25,6 +25,9 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { AssessmentComponent } from './assessment.component';
@@ -144,6 +147,18 @@ import { AssessmentPopupComponent } from './assessment-table/assessment-popup/as
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: AssessmentTableActions.ClearCurrentAssessment,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: AssessmentTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: AssessmentTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: AssessmentTableActions.SaveGridSettingsSuccess,
 		},
 	],
 })

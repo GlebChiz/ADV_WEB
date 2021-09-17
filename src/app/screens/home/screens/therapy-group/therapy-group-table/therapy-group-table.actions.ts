@@ -106,4 +106,10 @@ export const TherapyGroupTableActions = {
 	UpdateFiledTherapyGroupSuccess: createAction(
 		'[Therapy Group] Update filed therapy group success',
 	),
+	SaveGridSettingsPending: createAction(
+		'[Therapy Group] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Therapy Group] save grid settings success'),
+	SaveGridSettingsError: createAction('[Therapy Group] save grid settings error'),
 };

@@ -25,6 +25,9 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SupervisorLicensePopupComponent } from './supervisor-license-table/supervisor-license-popup/supervisor-license-popup.component';
 import { SupervisorLicenseComponent } from './supervisor-license.component';
@@ -131,6 +134,18 @@ import { supervisorLicenseReducers } from './supervisor-license-table/supervisor
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: SupervisorLicenseTableActions.ClearCurrentSupervisorLicense,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: SupervisorLicenseTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: SupervisorLicenseTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: SupervisorLicenseTableActions.SaveGridSettingsSuccess,
 		},
 	],
 })

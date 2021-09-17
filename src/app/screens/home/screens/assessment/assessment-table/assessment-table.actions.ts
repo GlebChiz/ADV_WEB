@@ -83,4 +83,10 @@ export const AssessmentTableActions = {
 	),
 	ClearCurrentAssessment: createAction('[Assessment Table] Clear current Assessment'),
 	ClearAssessmentTable: createAction('[Assessment Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Assessment Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Assessment Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Assessment Table] save grid settings error'),
 };

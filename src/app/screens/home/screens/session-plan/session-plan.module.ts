@@ -25,6 +25,9 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { SessionPlanComponent } from './session-plan.component';
@@ -150,6 +153,18 @@ import { EditorModule } from '@progress/kendo-angular-editor';
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: SessionPlanTableActions.ClearCurrentSessionPlan,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: SessionPlanTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: SessionPlanTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: SessionPlanTableActions.SaveGridSettingsSuccess,
 		},
 	],
 })

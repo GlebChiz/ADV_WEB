@@ -105,4 +105,10 @@ export const PatientTableActions = {
 		'[Patient Table] Update patient general info success',
 	),
 	UpdatePatientGeneralInfoError: createAction('[Patient Table] Update patient general info error'),
+	SaveGridSettingsPending: createAction(
+		'[Patient Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Patient Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Patient Table] save grid settings error'),
 };

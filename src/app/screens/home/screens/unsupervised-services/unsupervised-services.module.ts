@@ -25,6 +25,9 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { UnsupervisedServicesTableActions } from './unsupervised-services-table/unsupervised-services-table.actions';
 import { UnsupervisedServicesTableComponent } from './unsupervised-services-table/unsupervised-services-table.component';
@@ -126,6 +129,18 @@ import { UnsupervisedServicesComponent } from './unsupervised-services.component
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: UnsupervisedServicesTableActions.ClearCurrentUnsupervisedServices,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: UnsupervisedServicesTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: UnsupervisedServicesTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: UnsupervisedServicesTableActions.SaveGridSettingsSuccess,
 		},
 	],
 })

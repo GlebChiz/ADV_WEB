@@ -44,6 +44,25 @@ export class TableService {
 		return this.handleError$(this.http.get(`${controller}/${id}`));
 	}
 
+	public saveGridSettings(
+		gridId: string,
+		gridSettings: {
+			state: DataStateChangeEvent;
+		},
+		columns: any[],
+	): Observable<any> {
+		return this.handleError$(
+			this.http.post(`gridsettings/create`, {
+				skip: gridSettings.state.skip,
+				take: gridSettings.state.take,
+				gridId,
+				filters: gridSettings.state.filter?.filters,
+				columns: [...columns.map((column: any) => column.field)],
+				sorting: this.getSorting(gridSettings.state),
+			}),
+		);
+	}
+
 	public saveFilter<T>(
 		controller: string,
 		state: DataStateChangeEvent,
@@ -60,7 +79,7 @@ export class TableService {
 				...filter,
 			},
 			...gridFilterParams,
-			gridId: gridId ?? `${controller}-manager-grid`,
+			gridId,
 			sorting: this.getSorting(state),
 		});
 	}

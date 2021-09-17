@@ -98,4 +98,10 @@ export const PatientDistributionTableActions = {
 	UpdateFiledPatientDistributionSuccess: createAction(
 		'[Patient Distribution] Update filed patient distribution success',
 	),
+	SaveGridSettingsPending: createAction(
+		'[Patient Distribution] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Patient Distribution] save grid settings success'),
+	SaveGridSettingsError: createAction('[Patient Distribution] save grid settings error'),
 };

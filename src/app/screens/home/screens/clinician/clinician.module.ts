@@ -25,6 +25,8 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
 } from 'src/app/shared/table/table.tokens';
 import { ClinicianPopupComponent } from './clinician-table/clinician-popup/clinician-popup.component';
 import { ClinicianTableActions } from './clinician-table/clinician-table.actions';
@@ -139,6 +141,18 @@ import { ClinicianComponent } from './clinician.component';
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: ClinicianTableActions.ClearClinicianTable,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: ClinicianTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: ClinicianTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: ClinicianTableActions.SaveGridSettingsSuccess,
 		},
 	],
 })
