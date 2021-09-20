@@ -27,6 +27,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { InsuranceCopyPopupComponent } from './insurance-table/copy-popup/copy-popup.component';
 import { InsurancePopupComponent } from './insurance-table/insurance-popup/insurance-popup.component';
@@ -144,6 +147,18 @@ import { InsuranceComponent } from './insurance.component';
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: InsuranceTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: InsuranceTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: InsuranceTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: InsuranceTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

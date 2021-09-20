@@ -96,4 +96,10 @@ export const PayerTableActions = {
 	),
 	SaveGridSettingsSuccess: createAction('[Payer Table] save grid settings success'),
 	SaveGridSettingsError: createAction('[Payer Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Payer Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Payer Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Payer Table] save grid chnages error'),
 };

@@ -14,6 +14,7 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
@@ -39,7 +40,8 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
-		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 	) {
 		super(
 			_store,
@@ -47,7 +49,8 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 			getCurrentItemPending,
 			deleteDataPending,
 			editDataPending,
-			saveGridSettingsPending,
+			saveNewGridSettingsPending,
+			saveGridChangesPending,
 		);
 	}
 

@@ -108,4 +108,10 @@ export const InsuranceTableActions = {
 	),
 	SaveGridSettingsSuccess: createAction('[Insurance Table] save grid settings success'),
 	SaveGridSettingsError: createAction('[Insurance Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Insurance Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Insurance Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Insurance Table] save grid chnages error'),
 };

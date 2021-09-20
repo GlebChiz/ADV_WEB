@@ -13,6 +13,7 @@ import {
 	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_CHANGES_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { CellClickEvent, RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -48,7 +49,8 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
-		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 	) {
 		super(
 			_store,
@@ -56,7 +58,8 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 			getCurrentItemPending,
 			deleteDataPending,
 			editDataPending,
-			saveGridSettingsPending,
+			saveNewGridSettingsPending,
+			saveGridChangesPending,
 		);
 	}
 

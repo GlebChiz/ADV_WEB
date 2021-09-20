@@ -95,4 +95,10 @@ export const SeriesplansTableActions = {
 	),
 	SaveGridSettingsSuccess: createAction('[Seriesplans Table] save grid settings success'),
 	SaveGridSettingsError: createAction('[Seriesplans Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Seriesplans Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Seriesplans Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Seriesplans Table] save grid chnages error'),
 };

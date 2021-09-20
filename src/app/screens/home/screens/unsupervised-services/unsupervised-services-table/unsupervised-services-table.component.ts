@@ -9,6 +9,7 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
@@ -27,7 +28,8 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
-		@Inject(SAVE_GRID_SETTINGS_PENDING) saveGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 	) {
 		super(
 			_store,
@@ -35,7 +37,8 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 			getCurrentItemPending,
 			deleteDataPending,
 			editDataPending,
-			saveGridSettingsPending,
+			saveNewGridSettingsPending,
+			saveGridChangesPending,
 		);
 	}
 

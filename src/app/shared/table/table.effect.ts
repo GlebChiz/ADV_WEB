@@ -28,6 +28,9 @@ import {
 	GET_TABLE_DATA_ERROR,
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_SUCCESS,
@@ -54,9 +57,12 @@ export class TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) private getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) private getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) private getCurrentItemError: any,
-		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveGridSettingsPending: any,
-		@Inject(SAVE_GRID_SETTINGS_SUCCESS) private saveGridSettingsSuccess: any,
-		@Inject(SAVE_GRID_SETTINGS_ERROR) private saveGridSettingsError: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_SUCCESS) private saveNewGridSettingsSuccess: any,
+		@Inject(SAVE_GRID_SETTINGS_ERROR) private saveNewGridSettingsError: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) private saveGridChangesPending: any,
+		@Inject(SAVE_GRID_CHANGES_SUCCESS) private saveGridChangesSuccess: any,
+		@Inject(SAVE_GRID_CHANGES_ERROR) private saveGridChangesError: any,
 
 		public _tableService: TableService,
 		public _store: Store<any>,
@@ -219,12 +225,9 @@ export class TableEffects {
 		);
 	});
 
-	public saveGridSettings$ = createEffect(() => {
+	public saveNewGridSettings$ = createEffect(() => {
 		return this.actions$.pipe(
-			ofType(this.saveGridSettingsPending),
-			//  gridId: this.gridId,
-			// 	gridSettings: this.gridSettings,
-			// 	columns: this.columns,
+			ofType(this.saveNewGridSettingsPending),
 			switchMap(
 				({
 					gridId,
@@ -237,14 +240,44 @@ export class TableEffects {
 					};
 					columns: any[];
 				}) => {
-					return this._tableService.saveGridSettings(gridId, gridSettings, columns).pipe(
+					return this._tableService.saveNewGridSettings(gridId, gridSettings, columns).pipe(
 						map(() => {
 							this._toasterService.success('Grid settings has been successfully created');
-							return this.saveGridSettingsSuccess();
+							return this.saveNewGridSettingsSuccess();
 						}),
 						catchError((error: string) => {
 							this._toasterService.error(`create grid settings error: ${error}`);
-							return of(this.saveGridSettingsError(error));
+							return of(this.saveNewGridSettingsError(error));
+						}),
+					);
+				},
+			),
+		);
+	});
+
+	public saveGridChanges$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(this.saveGridChangesPending),
+			switchMap(
+				({
+					gridId,
+					gridSettings,
+					columns,
+				}: {
+					gridId: string;
+					gridSettings: {
+						state: DataStateChangeEvent;
+					};
+					columns: any[];
+				}) => {
+					return this._tableService.saveGridChanges(gridId, gridSettings, columns).pipe(
+						map(() => {
+							this._toasterService.success('Grid settings has been successfully updated');
+							return this.saveGridChangesSuccess();
+						}),
+						catchError((error: string) => {
+							this._toasterService.error(`update grid settings error: ${error}`);
+							return of(this.saveGridChangesError(error));
 						}),
 					);
 				},

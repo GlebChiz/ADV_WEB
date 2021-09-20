@@ -28,6 +28,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { ClinicianDropdownPopupComponent } from './patient-distribution-group-popups/clinician-dropdown-popup/clinician-dropdown-popup.component';
 import { PatientDropdownPopupComponent } from './patient-distribution-group-popups/patient-dropdown-popup/patient-dropdown-popup.component';
@@ -152,6 +155,18 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: PatientDistributionTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: PatientDistributionTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: PatientDistributionTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: PatientDistributionTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

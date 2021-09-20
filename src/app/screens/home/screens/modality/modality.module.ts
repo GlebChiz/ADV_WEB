@@ -28,6 +28,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { ModalityPopupComponent } from './modality-table/modality-popup/modality-popup.component';
 import { ModalityTableActions } from './modality-table/modality-table.actions';
@@ -142,6 +145,18 @@ import { ModalityComponent } from './modality.component';
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: ModalityTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: ModalityTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: ModalityTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: ModalityTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

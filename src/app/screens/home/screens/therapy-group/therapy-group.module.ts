@@ -28,6 +28,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { TherapyGroupTableActions } from './therapy-group-table/therapy-group-table.actions';
 import { TherapyGroupTableComponent } from './therapy-group-table/therapy-group-table.component';
@@ -168,6 +171,18 @@ import { RoomForGroupPopupComponent } from './therapy-group-popups/room-for-grou
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: TherapyGroupTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: TherapyGroupTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: TherapyGroupTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: TherapyGroupTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

@@ -28,6 +28,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { PublicSnipitComponent } from './public-snipit.component';
 import { PublicSnipitTableActions } from './public-snipit-table/public-snipit-table.actions';
@@ -152,6 +155,18 @@ import { PublicSnipitPopupComponent } from './public-snipit-table/public-snipit-
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: PublicSnipitTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: PublicSnipitTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: PublicSnipitTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: PublicSnipitTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })
