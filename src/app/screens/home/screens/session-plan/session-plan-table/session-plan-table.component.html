@@ -50,8 +50,8 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
-	(columnReorder)="columnReorder()"
 	(columnVisibilityChange)="columnVisibilityChange($event)"
+	(columnReorder)="columnReorder($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>

@@ -27,10 +27,10 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
 	[selectable]="{ enabled: true, checkboxOnly: true }"
 	(selectionChange)="selectionChange($event)"
-	(columnReorder)="columnReorder()"
-	(columnVisibilityChange)="columnVisibilityChange($event)"
+	(columnReorder)="columnReorder($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>

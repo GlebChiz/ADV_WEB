@@ -4,6 +4,7 @@ import { Directive, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import {
+	ColumnReorderEvent,
 	ColumnVisibilityChangeEvent,
 	DataStateChangeEvent,
 	GridDataResult,
@@ -136,21 +137,15 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		);
 	}
 
-	public columnReorder(): void {}
+	public columnReorder(state: ColumnReorderEvent): void {
+		this.columns.splice(state.newIndex, 0, this.columns.splice(state.oldIndex, 1)[0]);
+	}
 
 	public columnVisibilityChange(state: ColumnVisibilityChangeEvent): void {
 		let currentColumn: any = this.columns.find(
 			(column: any) => column.title === state.columns[0]?.title,
 		);
 		currentColumn.hidden = state.columns[0]?.hidden;
-		this._store.dispatch(
-			this.getTableDataPending({
-				columns: this.columns,
-				controller: this.controller,
-				filter: this.gridSettings.state,
-				gridId: this.gridId,
-			}),
-		);
 	}
 
 	public saveGrid(): void {
