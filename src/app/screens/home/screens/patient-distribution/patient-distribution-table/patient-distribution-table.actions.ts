@@ -104,4 +104,10 @@ export const PatientDistributionTableActions = {
 	),
 	SaveGridSettingsSuccess: createAction('[Patient Distribution] save grid settings success'),
 	SaveGridSettingsError: createAction('[Patient Distribution] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Patient Distribution] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Patient Distribution] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Patient Distribution] save grid chnages error'),
 };

@@ -97,4 +97,10 @@ export const SupervisorLicenseTableActions = {
 		'[Supervisor Credentials Table] save grid settings success',
 	),
 	SaveGridSettingsError: createAction('[Supervisor Credentials Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Supervisor Credentials Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Supervisor Credentials Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Supervisor Credentials Table] save grid chnages error'),
 };

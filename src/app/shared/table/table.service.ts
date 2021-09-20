@@ -44,7 +44,7 @@ export class TableService {
 		return this.handleError$(this.http.get(`${controller}/${id}`));
 	}
 
-	public saveGridSettings(
+	public saveNewGridSettings(
 		gridId: string,
 		gridSettings: {
 			state: DataStateChangeEvent;
@@ -53,6 +53,25 @@ export class TableService {
 	): Observable<any> {
 		return this.handleError$(
 			this.http.post(`gridsettings/create`, {
+				skip: gridSettings.state.skip,
+				take: gridSettings.state.take,
+				gridId,
+				filters: gridSettings.state.filter?.filters,
+				columns: [...columns.filter((column: any) => !column.hidden).map((c: any) => c.field)],
+				sorting: this.getSorting(gridSettings.state),
+			}),
+		);
+	}
+
+	public saveGridChanges(
+		gridId: string,
+		gridSettings: {
+			state: DataStateChangeEvent;
+		},
+		columns: any[],
+	): Observable<any> {
+		return this.handleError$(
+			this.http.post(`gridsettings/update`, {
 				skip: gridSettings.state.skip,
 				take: gridSettings.state.take,
 				gridId,

@@ -28,6 +28,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { UnsupervisedServicesTableActions } from './unsupervised-services-table/unsupervised-services-table.actions';
 import { UnsupervisedServicesTableComponent } from './unsupervised-services-table/unsupervised-services-table.component';
@@ -141,6 +144,18 @@ import { UnsupervisedServicesComponent } from './unsupervised-services.component
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: UnsupervisedServicesTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: UnsupervisedServicesTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: UnsupervisedServicesTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: UnsupervisedServicesTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

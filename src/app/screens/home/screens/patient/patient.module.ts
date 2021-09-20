@@ -27,6 +27,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { PatientTableActions } from './patient-table/patient-table.actions';
@@ -159,6 +162,18 @@ import { PatientComponent } from './patient.component';
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: PatientTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: PatientTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: PatientTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: PatientTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

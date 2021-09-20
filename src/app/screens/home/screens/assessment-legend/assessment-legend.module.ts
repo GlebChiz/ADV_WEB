@@ -28,6 +28,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { AssessmentTranslatedPopupComponent } from './assessment-legend-table/assessmen-translated-popup/assessment-translated-popup.component';
 import { AssessmentLegendTableActions } from './assessment-legend-table/assessment-legend-table.actions';
@@ -148,6 +151,18 @@ import { AssessmentLegendComponent } from './assessment-legend.component';
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: AssessmentLegendTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: AssessmentLegendTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: AssessmentLegendTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: AssessmentLegendTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

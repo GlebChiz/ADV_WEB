@@ -96,4 +96,10 @@ export const LocationTableActions = {
 	),
 	SaveGridSettingsSuccess: createAction('[Location Table] save grid settings success'),
 	SaveGridSettingsError: createAction('[Location Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Location Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Location Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Location Table] save grid chnages error'),
 };

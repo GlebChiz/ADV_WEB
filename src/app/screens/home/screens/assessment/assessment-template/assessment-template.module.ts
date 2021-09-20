@@ -28,6 +28,9 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { AssessmentTemplateComponent } from './assessment-template.component';
@@ -142,6 +145,18 @@ import { AssessmentTemplateTableActions } from './assessment-template-table/asse
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: AssessmentTemplateTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: AssessmentTemplateTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: AssessmentTemplateTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: AssessmentTemplateTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

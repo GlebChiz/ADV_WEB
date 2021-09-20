@@ -111,4 +111,10 @@ export const PatientTableActions = {
 	),
 	SaveGridSettingsSuccess: createAction('[Patient Table] save grid settings success'),
 	SaveGridSettingsError: createAction('[Patient Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Patient Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Patient Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Patient Table] save grid chnages error'),
 };

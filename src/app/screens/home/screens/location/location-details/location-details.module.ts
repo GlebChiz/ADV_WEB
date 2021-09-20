@@ -23,6 +23,9 @@ import {
 	GET_TABLE_DATA_ERROR,
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_SUCCESS,
@@ -142,6 +145,18 @@ import { RoomPopupComponent } from './room-table/room-popup/room-popup.component
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: RoomTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: RoomTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: RoomTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: RoomTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })

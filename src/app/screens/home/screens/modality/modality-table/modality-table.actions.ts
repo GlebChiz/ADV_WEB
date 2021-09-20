@@ -90,4 +90,10 @@ export const ModalityTableActions = {
 	),
 	SaveGridSettingsSuccess: createAction('[Modality Table] save grid settings success'),
 	SaveGridSettingsError: createAction('[Modality Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Modality Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Modality Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Modality Table] save grid chnages error'),
 };

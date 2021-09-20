@@ -130,9 +130,15 @@ export const AssessmentQuestionTableActions = {
 		'[Assessment Question] Update current translation error',
 	),
 	SaveGridSettingsPending: createAction(
-		'[Assessment QuestionTable] save grid settings pending',
+		'[Assessment Question] save grid settings pending',
 		props<{ controller: string; id: string }>(),
 	),
 	SaveGridSettingsSuccess: createAction('[Assessment Question] save grid settings success'),
 	SaveGridSettingsError: createAction('[Assessment Question] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Assessment Question] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Assessment Question] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Assessment Question] save grid chnages error'),
 };

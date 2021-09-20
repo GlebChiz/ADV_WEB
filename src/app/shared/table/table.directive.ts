@@ -17,11 +17,12 @@ import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from '../interfaces/dropdown.interface';
 import {
-	// CREATE_ITEM_TABLE_PENDING,
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_CHANGES_PENDING,
+	// SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from './table.tokens';
 
@@ -74,7 +75,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) public editDataPending: any,
-		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) private saveGridChangesPending: any,
 	) {
 		super();
 	}
@@ -148,14 +150,46 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		currentColumn.hidden = state.columns[0]?.hidden;
 	}
 
-	public saveGrid(): void {
+	public saveNewGrid(): void {
 		this._store.dispatch(
-			this.saveGridSettingsPending({
+			this.saveNewGridSettingsPending({
 				gridId: this.gridId,
 				gridSettings: this.gridSettings,
 				columns: this.columns,
 			}),
 		);
+	}
+
+	public saveGridChanges(): void {
+		this._store.dispatch(
+			this.saveGridChangesPending({
+				gridId: this.gridId,
+				gridSettings: this.gridSettings,
+				columns: this.columns,
+			}),
+		);
+	}
+
+	public renameGrid(): void {
+		// this._store.dispatch(
+		// 	this.saveNewGridSettingsPending({
+		// 		gridId: this.gridId,
+		// 		gridSettings: this.gridSettings,
+		// 		columns: this.columns,
+		// 	}),
+		// );
+		// /gridsettings/{id}
+		// const dialog: DialogRef = this.dialogService.open({
+		// 	title: 'Rename',
+		// 	content: LanguageForGroupPopupComponent,
+		// 	width: 600,
+		// 	height: 500,
+		// 	minWidth: 250,
+		// });
+		// dialog.result.subscribe((result: any) => {
+		// 	if (!(result instanceof DialogCloseResult)) {
+		// 	}
+		// });
 	}
 
 	public toggle(a: any): void {

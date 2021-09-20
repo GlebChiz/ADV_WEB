@@ -27,6 +27,9 @@ import {
 	CLEAR_CURRENT_ITEM,
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { AssessmentQuestionComponent } from './assessment-question.component';
@@ -160,6 +163,18 @@ import { AssessmentQuestionTranslatePopupComponent } from './assessment-question
 		{
 			provide: SAVE_GRID_SETTINGS_ERROR,
 			useValue: AssessmentQuestionTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: AssessmentQuestionTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: AssessmentQuestionTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: AssessmentQuestionTableActions.SaveGridChnagesSuccess,
 		},
 	],
 })
