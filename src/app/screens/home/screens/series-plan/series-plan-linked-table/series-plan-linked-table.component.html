@@ -26,6 +26,8 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
+	(columnReorder)="columnReorder($event)"
 	[selectable]="{ enabled: true, checkboxOnly: true }"
 	(selectionChange)="selectionChange($event)"
 >

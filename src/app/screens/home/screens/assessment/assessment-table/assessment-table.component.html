@@ -25,6 +25,8 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
+	(columnReorder)="columnReorder($event)"
 	(cellClick)="onCellClick($event)"
 >
 	<ng-template kendoGridToolbarTemplate>

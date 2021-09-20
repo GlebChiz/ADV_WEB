@@ -28,6 +28,8 @@
 	[sort]="gridSettings.state.sort!"
 	(cellClick)="onCellClick($event)"
 	(dataStateChange)="dataStateChange($event)"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
+	(columnReorder)="columnReorder($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
