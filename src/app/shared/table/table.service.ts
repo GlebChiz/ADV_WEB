@@ -68,6 +68,7 @@ export class TableService {
 	}
 
 	public saveGridChanges(
+		id: string,
 		gridId: string,
 		gridSettings: {
 			state: DataStateChangeEvent;
@@ -75,7 +76,8 @@ export class TableService {
 		columns: any[],
 	): Observable<any> {
 		return this.handleError$(
-			this.http.post(`gridsettings/update`, {
+			this.http.put(`gridsettings/update`, {
+				id,
 				skip: gridSettings.state.skip,
 				take: gridSettings.state.take,
 				gridId,

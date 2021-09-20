@@ -87,7 +87,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public ngOnInit(): void {
 		this.gridSettingsControl.valueChanges.subscribe((id: string) => {
-			console.log(id);
 			this._store.dispatch(this.getGridSettingsPending({ id }));
 		});
 		this._store.dispatch(
@@ -170,6 +169,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	public saveGridChanges(): void {
 		this._store.dispatch(
 			this.saveGridChangesPending({
+				id: '',
 				gridId: this.gridId,
 				gridSettings: this.gridSettings,
 				columns: this.columns,

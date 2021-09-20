@@ -110,9 +110,9 @@ export class ClinicianEffect extends TableEffects {
 			ofType(ClinicianTableActions.GetClinicianGeneralInfoPending),
 			switchMap(({ id }: { id: string }) => {
 				return this._service.getClinicianGeneralInfo(id).pipe(
-					map((clinicianInfo: any) =>
-						ClinicianTableActions.GetClinicianGeneralInfoSuccess({ clinicianInfo }),
-					),
+					map((clinicianInfo: any) => {
+						return ClinicianTableActions.GetClinicianGeneralInfoSuccess({ clinicianInfo });
+					}),
 					catchError(() => of(ClinicianTableActions.GetClinicianGeneralInfoError())),
 				);
 			}),

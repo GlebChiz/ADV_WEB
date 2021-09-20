@@ -115,7 +115,7 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 			});
 
 		this._store
-			.select('patient' as any, 'current', 'person', 'id')
+			.select('patientCurrent' as any, 'current', 'person', 'id')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((personId: string) => {
 				this.personId = personId;

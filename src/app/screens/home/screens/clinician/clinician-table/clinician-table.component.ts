@@ -120,7 +120,7 @@ export class ClinicianTableComponent extends CustomTableDirective {
 			title: 'Is Supervisor',
 			hidden: false,
 			filterable: true,
-			type: 'text',
+			type: 'boolean',
 		},
 	];
 }

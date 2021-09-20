@@ -73,7 +73,7 @@ export class TableEffects {
 
 		public _tableService: TableService,
 		public _store: Store<any>,
-		private readonly _toasterService: ToastrService,
+		public readonly _toasterService: ToastrService,
 	) {}
 
 	public getTableData$ = createEffect(() => {
@@ -285,17 +285,19 @@ export class TableEffects {
 			ofType(this.saveGridChangesPending),
 			switchMap(
 				({
+					id,
 					gridId,
 					gridSettings,
 					columns,
 				}: {
+					id: string;
 					gridId: string;
 					gridSettings: {
 						state: DataStateChangeEvent;
 					};
 					columns: any[];
 				}) => {
-					return this._tableService.saveGridChanges(gridId, gridSettings, columns).pipe(
+					return this._tableService.saveGridChanges(id, gridId, gridSettings, columns).pipe(
 						map(() => {
 							this._toasterService.success('Grid settings has been successfully updated');
 							return this.saveGridChangesSuccess();

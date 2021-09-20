@@ -52,7 +52,11 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
-		><ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+	>
+		<ng-template *ngIf="col.field === 'isSupervisor'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.isSupervisor ? 'YES' : '' }}
+		</ng-template>
+		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
 				[showOperators]="true"
@@ -90,13 +94,12 @@
 				<kendo-filter-gt-operator></kendo-filter-gt-operator>
 				<kendo-filter-lt-operator></kendo-filter-lt-operator>
 			</kendo-grid-date-filter-cell>
-			<kendo-grid-date-filter-cell
+			<kendo-grid-boolean-filter-cell
 				*ngIf="col.type === 'boolean'"
-				[showOperators]="true"
 				[column]="column"
 				[filter]="filter"
 			>
-			</kendo-grid-date-filter-cell> </ng-template
+			</kendo-grid-boolean-filter-cell> </ng-template
 	></kendo-grid-column>
 	<!-- <kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>

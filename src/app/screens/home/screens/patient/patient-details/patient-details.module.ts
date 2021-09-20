@@ -13,7 +13,7 @@ import { InsuranceModule } from './insurance/insurance.module';
 @NgModule({
 	imports: [
 		SharedModule,
-		StoreModule.forFeature('patient', patientDetailsReducers),
+		StoreModule.forFeature('patientCurrent', patientDetailsReducers),
 		EffectsModule.forFeature([PatientDetailsEffects]),
 		InsuranceModule,
 		RouterModule.forChild([

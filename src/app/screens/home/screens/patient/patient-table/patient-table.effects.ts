@@ -111,10 +111,12 @@ export class PatientEffect extends TableEffects {
 			ofType(PatientTableActions.GetPatientGeneralInfoPending),
 			switchMap(({ id }: { id: string }) => {
 				return this._service.getPatientGeneralInfo(id).pipe(
-					map((patientInfo: any) =>
-						PatientTableActions.GetPatientGeneralInfoSuccess({ patientInfo }),
-					),
-					catchError(() => of(PatientTableActions.GetPatientGeneralInfoError())),
+					map((patientInfo: any) => {
+						return PatientTableActions.GetPatientGeneralInfoSuccess({ patientInfo });
+					}),
+					catchError(() => {
+						return of(PatientTableActions.GetPatientGeneralInfoError());
+					}),
 				);
 			}),
 		);
@@ -125,8 +127,14 @@ export class PatientEffect extends TableEffects {
 			ofType(PatientTableActions.UpdatePatientGeneralInfoPending),
 			switchMap(({ id, patientInfo }: { id: string; patientInfo: IPatientGeneralInfo }) => {
 				return this._service.updatePatientGeneralInfo(id, patientInfo).pipe(
-					map(() => PatientTableActions.UpdatePatientGeneralInfoSuccess()),
-					catchError(() => of(PatientTableActions.UpdatePatientGeneralInfoError())),
+					map(() => {
+						this._toasterService.success('Patient general info has been successfully updated');
+						return PatientTableActions.UpdatePatientGeneralInfoSuccess();
+					}),
+					catchError((error) => {
+						this._toasterService.error(`update patient general info error: ${error}`);
+						return of(PatientTableActions.UpdatePatientGeneralInfoError());
+					}),
 				);
 			}),
 		);
