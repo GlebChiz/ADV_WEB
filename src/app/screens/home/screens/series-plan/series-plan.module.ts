@@ -31,6 +31,9 @@ import {
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SeriesPlanPopupComponent } from './series-plan-table/series-plan-popup/series-plan-popup.component';
 import { SeriesplansTableActions } from './series-plan-table/series-plan-table.actions';
@@ -177,6 +180,18 @@ import { SeriesplansComponent } from './series-plan.component';
 		{
 			provide: SAVE_GRID_CHANGES_SUCCESS,
 			useValue: SeriesplansTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: SeriesplansTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: SeriesplansTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: SeriesplansTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

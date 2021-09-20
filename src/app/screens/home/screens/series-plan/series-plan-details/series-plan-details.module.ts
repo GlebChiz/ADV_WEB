@@ -20,6 +20,9 @@ import {
 	GET_CURRENT_ITEM_ERROR,
 	GET_CURRENT_ITEM_PENDING,
 	GET_CURRENT_ITEM_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 	GET_TABLE_DATA_ERROR,
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
@@ -158,6 +161,18 @@ import { SeriesPlanDetailsComponent } from './series-plan-details.component';
 		{
 			provide: SAVE_GRID_CHANGES_SUCCESS,
 			useValue: SessionPlanTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: SessionPlanTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: SessionPlanTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: SessionPlanTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

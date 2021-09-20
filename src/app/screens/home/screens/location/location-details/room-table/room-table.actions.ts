@@ -96,4 +96,10 @@ export const RoomTableActions = {
 	),
 	SaveGridChnagesSuccess: createAction('[Room Table] save grid chnages success'),
 	SaveGridChnagesError: createAction('[Room Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Room Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Room Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Room Table] get grid settings success'),
 };

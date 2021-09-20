@@ -118,4 +118,10 @@ export const AssessmentLegendTableActions = {
 	),
 	SaveGridChnagesSuccess: createAction('[Assessment Legend Translated] save grid chnages success'),
 	SaveGridChnagesError: createAction('[Assessment Legend Translated] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Assessment Legend Translated] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Assessment Legend Translated] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Assessment Legend Translated] get grid settings success'),
 };

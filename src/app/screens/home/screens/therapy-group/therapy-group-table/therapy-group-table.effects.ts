@@ -35,6 +35,9 @@ import {
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { ITherapyGroupCurrent } from './therapy-group-popup/therapy-group-popup.component';
 import { TherapyGroupTableActions } from './therapy-group-table.actions';
@@ -66,6 +69,9 @@ export class TherapyGroupEffects extends TableEffects {
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(SAVE_GRID_CHANGES_SUCCESS) saveGridChangesSuccess: any,
 		@Inject(SAVE_GRID_CHANGES_ERROR) saveGridChangesError: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(GET_GRID_SETTINGS_SUCCESS) getGridSettingsSuccess: any,
+		@Inject(GET_GRID_SETTINGS_ERROR) getGridSettingsError: any,
 		_tableService: TableService,
 		_store: Store<any>,
 		_toasterService: ToastrService,
@@ -95,6 +101,9 @@ export class TherapyGroupEffects extends TableEffects {
 			saveGridChangesPending,
 			saveGridChangesSuccess,
 			saveGridChangesError,
+			getGridSettingsPending,
+			getGridSettingsSuccess,
+			getGridSettingsError,
 			_tableService,
 			_store,
 			_toasterService,

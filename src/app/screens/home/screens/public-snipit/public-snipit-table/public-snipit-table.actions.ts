@@ -103,4 +103,10 @@ export const PublicSnipitTableActions = {
 	),
 	SaveGridChnagesSuccess: createAction('[Public Snipit Table] save grid chnages success'),
 	SaveGridChnagesError: createAction('[Public Snipit Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Public Snipit Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Public Snipit Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Public Snipit Table] get grid settings success'),
 };

@@ -20,6 +20,7 @@ import {
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
+	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	// SAVE_GRID_CHANGES_PENDING,
@@ -57,6 +58,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		'gridSettings',
 	);
 
+	public gridSettingsControl: FormControl = new FormControl();
+
 	public gridSettings: { state: DataStateChangeEvent } = {
 		state: {
 			skip: 0, // page number indexed by 0
@@ -77,11 +80,16 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		@Inject(EDIT_ITEM_TABLE_PENDING) public editDataPending: any,
 		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) private saveGridChangesPending: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) private getGridSettingsPending: any,
 	) {
 		super();
 	}
 
 	public ngOnInit(): void {
+		this.gridSettingsControl.valueChanges.subscribe((id: string) => {
+			console.log(id);
+			this._store.dispatch(this.getGridSettingsPending({ id }));
+		});
 		this._store.dispatch(
 			this.getTableDataPending({
 				controller: this.controller,
@@ -91,7 +99,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			}),
 		);
 		this._store.dispatch(DropdownActions.GetGridSettingsPending({ gridId: this.gridId }));
-
 		this.selectState();
 	}
 

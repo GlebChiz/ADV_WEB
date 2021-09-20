@@ -30,15 +30,16 @@
 		<button (click)="saveNewGrid()">Save as New</button>
 		<button (click)="saveGridChanges()">Save</button>
 		<button (click)="renameGrid()">Rename</button>
-		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 		<kendo-combobox
 			valueField="id"
 			style="width: 200px"
 			textField="title"
 			[data]="(gridSettings$ | async) || []"
+			[formControl]="gridSettingsControl"
 			[valuePrimitive]="true"
 		>
 		</kendo-combobox>
+		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 	</ng-template>
 	<kendo-grid-column
 		*ngFor="let col of columns"

@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import { LocationActions } from 'src/app/store/actions/location.actions';
+import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { TableService } from './table.service';
 import {
 	CREATE_ITEM_TABLE_ERROR,
@@ -25,6 +26,9 @@ import {
 	GET_CURRENT_ITEM_ERROR,
 	GET_CURRENT_ITEM_PENDING,
 	GET_CURRENT_ITEM_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 	GET_TABLE_DATA_ERROR,
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
@@ -63,6 +67,9 @@ export class TableEffects {
 		@Inject(SAVE_GRID_CHANGES_PENDING) private saveGridChangesPending: any,
 		@Inject(SAVE_GRID_CHANGES_SUCCESS) private saveGridChangesSuccess: any,
 		@Inject(SAVE_GRID_CHANGES_ERROR) private saveGridChangesError: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) private getGridSettingsPending: any,
+		@Inject(GET_GRID_SETTINGS_SUCCESS) private getGridSettingsSuccess: any,
+		@Inject(GET_GRID_SETTINGS_ERROR) private getGridSettingsError: any,
 
 		public _tableService: TableService,
 		public _store: Store<any>,
@@ -198,7 +205,6 @@ export class TableEffects {
 							}),
 							catchError((error: string) => {
 								console.log(error);
-
 								this._toasterService.error(`update item error: ${error}`);
 								return of(this.editItemTableError(error));
 							}),
@@ -225,6 +231,22 @@ export class TableEffects {
 		);
 	});
 
+	public getGridSettings$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(this.getGridSettingsPending),
+			switchMap(({ id }: { id: string }) => {
+				return this._tableService.getGridSettings(id).pipe(
+					map((gridSettings: any) => {
+						return this.getGridSettingsSuccess({ gridSettings });
+					}),
+					catchError((error: string) => {
+						return of(this.getGridSettingsError(error));
+					}),
+				);
+			}),
+		);
+	});
+
 	public saveNewGridSettings$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(this.saveNewGridSettingsPending),
@@ -241,9 +263,12 @@ export class TableEffects {
 					columns: any[];
 				}) => {
 					return this._tableService.saveNewGridSettings(gridId, gridSettings, columns).pipe(
-						map(() => {
+						mergeMap(() => {
 							this._toasterService.success('Grid settings has been successfully created');
-							return this.saveNewGridSettingsSuccess();
+							return [
+								this.saveNewGridSettingsSuccess(),
+								DropdownActions.GetGridSettingsPending({ gridId }),
+							];
 						}),
 						catchError((error: string) => {
 							this._toasterService.error(`create grid settings error: ${error}`);

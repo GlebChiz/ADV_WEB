@@ -101,4 +101,10 @@ export const UnsupervisedServicesTableActions = {
 	),
 	SaveGridChnagesSuccess: createAction('[Unsupervised Services Table] save grid chnages success'),
 	SaveGridChnagesError: createAction('[Unsupervised Services Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Unsupervised Services Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Unsupervised Services Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Unsupervised Services Table] get grid settings success'),
 };

@@ -95,6 +95,18 @@ export const SAVE_GRID_CHANGES_SUCCESS: InjectionToken<string> = new InjectionTo
 	'SAVE_GRID_CHANGES_SUCCESS',
 );
 
+export const GET_GRID_SETTINGS_PENDING: InjectionToken<string> = new InjectionToken(
+	'GET_GRID_SETTINGS_PENDING',
+);
+
+export const GET_GRID_SETTINGS_ERROR: InjectionToken<string> = new InjectionToken(
+	'GET_GRID_SETTINGS_ERROR',
+);
+
+export const GET_GRID_SETTINGS_SUCCESS: InjectionToken<string> = new InjectionToken(
+	'GET_GRID_SETTINGS_SUCCESS',
+);
+
 export const UPDATE_TABLE_STATE: InjectionToken<string> = new InjectionToken('UPDATE_TABLE_STATE');
 
 export const CLEAR_CURRENT_ITEM: InjectionToken<string> = new InjectionToken('UPDATE_TABLE_STATE');

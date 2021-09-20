@@ -31,6 +31,9 @@ import {
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { ToastrService } from 'ngx-toastr';
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
@@ -63,6 +66,9 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(SAVE_GRID_CHANGES_SUCCESS) saveGridChangesSuccess: any,
 		@Inject(SAVE_GRID_CHANGES_ERROR) saveGridChangesError: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(GET_GRID_SETTINGS_SUCCESS) getGridSettingsSuccess: any,
+		@Inject(GET_GRID_SETTINGS_ERROR) getGridSettingsError: any,
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: AssessmentQuestionTableSerivce,
@@ -92,6 +98,9 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 			saveGridChangesPending,
 			saveGridChangesSuccess,
 			saveGridChangesError,
+			getGridSettingsPending,
+			getGridSettingsSuccess,
+			getGridSettingsError,
 			_tableService,
 			_store,
 			_toasterService,

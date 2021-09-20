@@ -17,6 +17,7 @@ import {
 	CLEAR_CURRENT_ITEM,
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
+	GET_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { IColumn } from '../../../../../../shared/interfaces/column.interface';
@@ -44,6 +45,7 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 	) {
 		super(
 			_store,
@@ -53,6 +55,7 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 			editDataPending,
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
+			getGridSettingsPending,
 		);
 	}
 

@@ -101,4 +101,10 @@ export const AssessmentTemplateTableActions = {
 	),
 	SaveGridChnagesSuccess: createAction('[Assessment Template Table] save grid chnages success'),
 	SaveGridChnagesError: createAction('[Assessment Template Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Assessment Template Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Assessment Template Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Assessment Template Table] get grid settings success'),
 };

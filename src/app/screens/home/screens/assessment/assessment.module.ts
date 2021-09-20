@@ -31,6 +31,9 @@ import {
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { AssessmentComponent } from './assessment.component';
@@ -174,6 +177,18 @@ import { AssessmentPopupComponent } from './assessment-table/assessment-popup/as
 		{
 			provide: SAVE_GRID_CHANGES_SUCCESS,
 			useValue: AssessmentTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: AssessmentTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: AssessmentTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: AssessmentTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

@@ -31,6 +31,9 @@ import {
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SupervisorLicensePopupComponent } from './supervisor-license-table/supervisor-license-popup/supervisor-license-popup.component';
 import { SupervisorLicenseComponent } from './supervisor-license.component';
@@ -161,6 +164,18 @@ import { supervisorLicenseReducers } from './supervisor-license-table/supervisor
 		{
 			provide: SAVE_GRID_CHANGES_SUCCESS,
 			useValue: SupervisorLicenseTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: SupervisorLicenseTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: SupervisorLicenseTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: SupervisorLicenseTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

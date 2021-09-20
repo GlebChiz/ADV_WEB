@@ -44,6 +44,10 @@ export class TableService {
 		return this.handleError$(this.http.get(`${controller}/${id}`));
 	}
 
+	public getGridSettings(id: string): Observable<any> {
+		return this.handleError$(this.http.get(`gridsettings/${id}`));
+	}
+
 	public saveNewGridSettings(
 		gridId: string,
 		gridSettings: {

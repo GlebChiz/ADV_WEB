@@ -30,6 +30,9 @@ import {
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationComponent } from './location.component';
@@ -167,6 +170,18 @@ import { SomeEffect } from './location-table/location-table.effects';
 		{
 			provide: SAVE_GRID_CHANGES_SUCCESS,
 			useValue: LocationTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: LocationTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: LocationTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: LocationTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

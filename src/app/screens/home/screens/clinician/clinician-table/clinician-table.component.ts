@@ -13,6 +13,7 @@ import {
 	CREATE_ITEM_TABLE_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
+	GET_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { IStore } from 'src/app/store';
 import { PermissionType } from 'src/app/store/actions/user.actions';
@@ -41,6 +42,7 @@ export class ClinicianTableComponent extends CustomTableDirective {
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 	) {
 		super(
 			_store,
@@ -50,6 +52,7 @@ export class ClinicianTableComponent extends CustomTableDirective {
 			editDataPending,
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
+			getGridSettingsPending,
 		);
 	}
 

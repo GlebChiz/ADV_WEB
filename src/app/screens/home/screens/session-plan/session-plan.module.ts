@@ -31,6 +31,9 @@ import {
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { SessionPlanComponent } from './session-plan.component';
@@ -180,6 +183,18 @@ import { EditorModule } from '@progress/kendo-angular-editor';
 		{
 			provide: SAVE_GRID_CHANGES_SUCCESS,
 			useValue: SessionPlanTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: SessionPlanTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: SessionPlanTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: SessionPlanTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

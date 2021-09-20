@@ -8,6 +8,7 @@ import {
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
+	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
@@ -30,6 +31,7 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 	) {
 		super(
 			_store,
@@ -39,6 +41,7 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 			editDataPending,
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
+			getGridSettingsPending,
 		);
 	}
 

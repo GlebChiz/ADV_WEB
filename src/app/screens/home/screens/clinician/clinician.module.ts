@@ -30,6 +30,10 @@ import {
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { ClinicianPopupComponent } from './clinician-table/clinician-popup/clinician-popup.component';
 import { ClinicianTableActions } from './clinician-table/clinician-table.actions';
@@ -154,7 +158,7 @@ import { ClinicianComponent } from './clinician.component';
 			useValue: ClinicianTableActions.SaveGridSettingsError,
 		},
 		{
-			provide: SAVE_GRID_SETTINGS_ERROR,
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: ClinicianTableActions.SaveGridSettingsSuccess,
 		},
 		{
@@ -168,6 +172,18 @@ import { ClinicianComponent } from './clinician.component';
 		{
 			provide: SAVE_GRID_CHANGES_SUCCESS,
 			useValue: ClinicianTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: ClinicianTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: ClinicianTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: ClinicianTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

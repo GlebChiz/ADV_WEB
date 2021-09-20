@@ -154,4 +154,10 @@ export const SessionPlanTableActions = {
 	),
 	SaveGridChnagesSuccess: createAction('[Session Plan] save grid chnages success'),
 	SaveGridChnagesError: createAction('[Session Plan] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Session Plan] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Session Plan] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Session Plan] get grid settings success'),
 };

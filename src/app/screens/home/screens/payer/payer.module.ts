@@ -31,6 +31,9 @@ import {
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PayerTableActions } from './payer-table/payer-table.actions';
@@ -157,6 +160,18 @@ import { PayerComponent } from './payer.component';
 		{
 			provide: SAVE_GRID_CHANGES_SUCCESS,
 			useValue: PayerTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: PayerTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: PayerTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: PayerTableActions.GetGridSettingsSuccess,
 		},
 	],
 })
