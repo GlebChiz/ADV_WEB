@@ -193,7 +193,7 @@ export class TableEffects {
 							catchError((error: string) => {
 								console.log(error);
 
-								this._toasterService.success(`update item error: ${error}`);
+								this._toasterService.error(`update item error: ${error}`);
 								return of(this.editItemTableError(error));
 							}),
 						);
@@ -222,7 +222,7 @@ export class TableEffects {
 	public saveGridSettings$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(this.saveGridSettingsPending),
-			// gridId: this.gridId,
+			//  gridId: this.gridId,
 			// 	gridSettings: this.gridSettings,
 			// 	columns: this.columns,
 			switchMap(
@@ -239,9 +239,11 @@ export class TableEffects {
 				}) => {
 					return this._tableService.saveGridSettings(gridId, gridSettings, columns).pipe(
 						map(() => {
+							this._toasterService.success('Grid settings has been successfully created');
 							return this.saveGridSettingsSuccess();
 						}),
 						catchError((error: string) => {
+							this._toasterService.error(`create grid settings error: ${error}`);
 							return of(this.saveGridSettingsError(error));
 						}),
 					);

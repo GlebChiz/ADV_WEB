@@ -138,11 +138,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public columnReorder(state: ColumnReorderEvent): void {
-		const moveItem: any = this.columns.splice(state.oldIndex, 1)[0];
-		const leftPathArray: any[] = this.columns.slice(0, state.newIndex);
-		const rightPathArray: any[] = this.columns.slice(state.newIndex, this.columns.length);
-		leftPathArray.push(moveItem);
-		this.columns = leftPathArray.concat(rightPathArray);
+		this.columns.splice(state.newIndex, 0, this.columns.splice(state.oldIndex, 1)[0]);
 	}
 
 	public columnVisibilityChange(state: ColumnVisibilityChangeEvent): void {
