@@ -89,4 +89,22 @@ export const UnsupervisedServicesTableActions = {
 	),
 
 	ClearUnsupervisedServicesTable: createAction('[Unsupervised Services Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Unsupervised Services Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Unsupervised Services Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Unsupervised Services Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Unsupervised Services Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Unsupervised Services Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Unsupervised Services Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Unsupervised Services Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Unsupervised Services Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Unsupervised Services Table] get grid settings success'),
 };

@@ -91,4 +91,22 @@ export const PublicSnipitTableActions = {
 	),
 
 	ClearPublicSnipitTable: createAction('[Public Snipit Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Public Snipit Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Public Snipit Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Public Snipit Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Public Snipit Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Public Snipit Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Public Snipit Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Public Snipit Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Public Snipit Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Public Snipit Table] get grid settings success'),
 };

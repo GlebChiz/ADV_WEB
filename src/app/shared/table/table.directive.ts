@@ -3,7 +3,12 @@
 import { Directive, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { DataStateChangeEvent, GridDataResult } from '@progress/kendo-angular-grid';
+import {
+	ColumnReorderEvent,
+	ColumnVisibilityChangeEvent,
+	DataStateChangeEvent,
+	GridDataResult,
+} from '@progress/kendo-angular-grid';
 import { GroupDescriptor, process } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -12,11 +17,14 @@ import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from '../interfaces/dropdown.interface';
 import {
-	// CREATE_ITEM_TABLE_PENDING,
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
+	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_CHANGES_PENDING,
+	// SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from './table.tokens';
 
 @Directive({
@@ -50,6 +58,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		'gridSettings',
 	);
 
+	public gridSettingsControl: FormControl = new FormControl();
+
 	public gridSettings: { state: DataStateChangeEvent } = {
 		state: {
 			skip: 0, // page number indexed by 0
@@ -68,11 +78,17 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) public editDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) private saveGridChangesPending: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) private getGridSettingsPending: any,
 	) {
 		super();
 	}
 
 	public ngOnInit(): void {
+		this.gridSettingsControl.valueChanges.subscribe((id: string) => {
+			this._store.dispatch(this.getGridSettingsPending({ id }));
+		});
 		this._store.dispatch(
 			this.getTableDataPending({
 				controller: this.controller,
@@ -82,7 +98,6 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			}),
 		);
 		this._store.dispatch(DropdownActions.GetGridSettingsPending({ gridId: this.gridId }));
-
 		this.selectState();
 	}
 
@@ -130,6 +145,60 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		);
 	}
 
+	public columnReorder(state: ColumnReorderEvent): void {
+		this.columns.splice(state.newIndex, 0, this.columns.splice(state.oldIndex, 1)[0]);
+	}
+
+	public columnVisibilityChange(state: ColumnVisibilityChangeEvent): void {
+		let currentColumn: any = this.columns.find(
+			(column: any) => column.title === state.columns[0]?.title,
+		);
+		currentColumn.hidden = state.columns[0]?.hidden;
+	}
+
+	public saveNewGrid(): void {
+		this._store.dispatch(
+			this.saveNewGridSettingsPending({
+				gridId: this.gridId,
+				gridSettings: this.gridSettings,
+				columns: this.columns,
+			}),
+		);
+	}
+
+	public saveGridChanges(): void {
+		this._store.dispatch(
+			this.saveGridChangesPending({
+				id: '',
+				gridId: this.gridId,
+				gridSettings: this.gridSettings,
+				columns: this.columns,
+			}),
+		);
+	}
+
+	public renameGrid(): void {
+		// this._store.dispatch(
+		// 	this.saveNewGridSettingsPending({
+		// 		gridId: this.gridId,
+		// 		gridSettings: this.gridSettings,
+		// 		columns: this.columns,
+		// 	}),
+		// );
+		// /gridsettings/{id}
+		// const dialog: DialogRef = this.dialogService.open({
+		// 	title: 'Rename',
+		// 	content: LanguageForGroupPopupComponent,
+		// 	width: 600,
+		// 	height: 500,
+		// 	minWidth: 250,
+		// });
+		// dialog.result.subscribe((result: any) => {
+		// 	if (!(result instanceof DialogCloseResult)) {
+		// 	}
+		// });
+	}
+
 	public toggle(a: any): void {
 		const selectedItem: number = this.selectedItems.findIndex((item: any) => {
 			return item === a;
@@ -138,6 +207,40 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			this.selectedItems.splice(selectedItem, 1);
 		} else {
 			this.selectedItems.push(a);
+		}
+	}
+
+	public actions(): { title: string; cmd: string }[] {
+		const list: { title: string; cmd: string }[] = [
+			{
+				title: 'Save',
+				cmd: 'save',
+			},
+			{
+				title: 'Save as New',
+				cmd: 'create',
+			},
+			{
+				title: 'Rename',
+				cmd: 'rename',
+			},
+		];
+		return list;
+	}
+
+	public onAction(e: any): void {
+		switch (e.cmd) {
+			case 'save':
+				this.saveGridChanges();
+				break;
+			case 'create':
+				this.saveNewGrid();
+				break;
+			case 'rename':
+				this.renameGrid();
+				break;
+			default:
+				break;
 		}
 	}
 }

@@ -142,4 +142,22 @@ export const SessionPlanTableActions = {
 	SetTranslationSessionPlanSuccess: createAction('[Session Plan] set current item success'),
 	SetTranslationSessionPlanError: createAction('[Session Plan] set current item error'),
 	СlearTranslation: createAction('[Session Plan] set current item error'),
+	SaveGridSettingsPending: createAction(
+		'[Session Plan] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Session Plan] save grid settings success'),
+	SaveGridSettingsError: createAction('[Session Plan] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Session Plan] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Session Plan] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Session Plan] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Session Plan] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Session Plan] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Session Plan] get grid settings success'),
 };

@@ -105,4 +105,22 @@ export const PatientTableActions = {
 		'[Patient Table] Update patient general info success',
 	),
 	UpdatePatientGeneralInfoError: createAction('[Patient Table] Update patient general info error'),
+	SaveGridSettingsPending: createAction(
+		'[Patient Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Patient Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Patient Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Patient Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Patient Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Patient Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Patient Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Patient Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Patient Table] get grid settings success'),
 };

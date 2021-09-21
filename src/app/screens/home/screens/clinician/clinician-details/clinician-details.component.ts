@@ -27,7 +27,7 @@ export class ClinicianDetailsComponent extends UnSubscriber implements OnInit {
 	public tabs: string[] = ['General', 'Demographic', 'Contacts'];
 
 	public personId$: Observable<string> = this.store
-		.select('clinician' as any, 'current', 'person', 'id')
+		.select('clinicianCurrent' as any, 'current', 'person', 'id')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public clinicianId: string = this.activatedRoute.snapshot.params.id;

@@ -85,21 +85,39 @@ export const InsuranceTableActions = {
 
 	ClearInsuranceTable: createAction('[Modality Table] Clear'),
 	GetCurrentInsurancePending: createAction(
-		'[Patient Table] Get current insurance pending',
+		'[Insurance Table] Get current insurance pending',
 		props<{ id: string }>(),
 	),
 	GetCurrentInsuranceSuccess: createAction(
-		'[Patient Table] Get current insurance success',
+		'[Insurance Table] Get current insurance success',
 		props<{ insurance: any }>(),
 	),
-	GetCurrentInsuranceError: createAction('[Patient Table] Get current insurance error'),
+	GetCurrentInsuranceError: createAction('[Insurance Table] Get current insurance error'),
 	GetOtherInsurancePending: createAction(
-		'[Patient Table] Get Other insurance pending',
+		'[Insurance Table] Get Other insurance pending',
 		props<{ id: string }>(),
 	),
 	GetOtherInsuranceSuccess: createAction(
-		'[Patient Table] Get Other insurance success',
+		'[Insurance Table] Get Other insurance success',
 		props<{ insurance: any }>(),
 	),
-	GetOtherInsuranceError: createAction('[Patient Table] Get Other insurance error'),
+	GetOtherInsuranceError: createAction('[Insurance Table] Get Other insurance error'),
+	SaveGridSettingsPending: createAction(
+		'[Insurance Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Insurance Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Insurance Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Insurance Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Insurance Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Insurance Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Insurance Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Insurance Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Insurance Table] get grid settings success'),
 };

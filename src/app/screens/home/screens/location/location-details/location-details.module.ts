@@ -20,9 +20,18 @@ import {
 	GET_CURRENT_ITEM_ERROR,
 	GET_CURRENT_ITEM_PENDING,
 	GET_CURRENT_ITEM_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 	GET_TABLE_DATA_ERROR,
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_SUCCESS,
 	UPDATE_TABLE_STATE,
 } from 'src/app/shared/table/table.tokens';
 
@@ -127,6 +136,42 @@ import { RoomPopupComponent } from './room-table/room-popup/room-popup.component
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: RoomTableActions.ClearCurrentRoom,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: RoomTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: RoomTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: RoomTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: RoomTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: RoomTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: RoomTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: RoomTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: RoomTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: RoomTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

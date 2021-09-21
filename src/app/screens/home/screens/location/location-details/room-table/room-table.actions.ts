@@ -84,4 +84,22 @@ export const RoomTableActions = {
 	ClearCurrentRoom: createAction('[Room Table] Clear current Room'),
 
 	ClearRoomTable: createAction('[Room Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Room Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Room Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Room Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Room Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Room Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Room Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Room Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Room Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Room Table] get grid settings success'),
 };

@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { Injectable, OnInit } from '@angular/core';
 import { IUser } from 'src/app/store/actions/user.actions';
-// import { AuthUserActions } from 'src/app/core/store/user/user.actions';
 
 @Injectable({
 	providedIn: 'root',

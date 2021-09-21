@@ -1,7 +1,7 @@
 import { Component, forwardRef, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { IDropdownData } from '../../interfaces/dropdown.interface';
@@ -27,8 +27,6 @@ export class PhoneComponent implements OnInit, ControlValueAccessor {
 
 	public myPhoneForm!: FormGroup;
 
-	public subscriptions: Subscription[] = [];
-
 	public phoneType$: Observable<IDropdownData[]> = this._store.select(
 		'dropdown',
 		'phoneType' as any,
@@ -42,11 +40,9 @@ export class PhoneComponent implements OnInit, ControlValueAccessor {
 			noText: new FormControl(this.phone?.noText),
 			typeId: new FormControl(this.phone?.typeId || ''),
 		});
-		this.subscriptions.push(
-			this.myPhoneForm.valueChanges.subscribe((value: IPhone) => {
-				this.change(value);
-			}),
-		);
+		this.myPhoneForm.valueChanges.subscribe((value: IPhone) => {
+			this.change(value);
+		});
 	}
 
 	public ngOnInit(): void {

@@ -89,4 +89,22 @@ export const AssessmentTemplateTableActions = {
 	),
 
 	ClearAssessmentTemplateTable: createAction('[Assessment Template Table] Clear'),
+	SaveGridSettingsPending: createAction(
+		'[Assessment Template Table] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction('[Assessment Template Table] save grid settings success'),
+	SaveGridSettingsError: createAction('[Assessment Template Table] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Assessment Template Table] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Assessment Template Table] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Assessment Template Table] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Assessment Template Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Assessment Template Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Assessment Template Table] get grid settings success'),
 };

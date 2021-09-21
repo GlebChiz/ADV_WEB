@@ -24,6 +24,15 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_CURRENT_ITEM_SUCCESS,
 	GET_CURRENT_ITEM_ERROR,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { ClinicianTableActions } from './clinician-table.actions';
 import { IClinicianGeneralInfo } from './clinician-table.component';
@@ -49,6 +58,15 @@ export class ClinicianEffect extends TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) getCurrentItemError: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_SUCCESS) saveNewGridSettingsSuccess: any,
+		@Inject(SAVE_GRID_SETTINGS_ERROR) saveNewGridSettingsError: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
+		@Inject(SAVE_GRID_CHANGES_SUCCESS) saveGridChangesSuccess: any,
+		@Inject(SAVE_GRID_CHANGES_ERROR) saveGridChangesError: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(GET_GRID_SETTINGS_SUCCESS) getGridSettingsSuccess: any,
+		@Inject(GET_GRID_SETTINGS_ERROR) getGridSettingsError: any,
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: ClinicianService,
@@ -72,6 +90,15 @@ export class ClinicianEffect extends TableEffects {
 			getCurrentItemPending,
 			getCurrentItemSuccess,
 			getCurrentItemError,
+			saveNewGridSettingsPending,
+			saveNewGridSettingsSuccess,
+			saveNewGridSettingsError,
+			saveGridChangesPending,
+			saveGridChangesSuccess,
+			saveGridChangesError,
+			getGridSettingsPending,
+			getGridSettingsSuccess,
+			getGridSettingsError,
 			_tableService,
 			_store,
 			_toasterService,
@@ -83,9 +110,9 @@ export class ClinicianEffect extends TableEffects {
 			ofType(ClinicianTableActions.GetClinicianGeneralInfoPending),
 			switchMap(({ id }: { id: string }) => {
 				return this._service.getClinicianGeneralInfo(id).pipe(
-					map((clinicianInfo: any) =>
-						ClinicianTableActions.GetClinicianGeneralInfoSuccess({ clinicianInfo }),
-					),
+					map((clinicianInfo: any) => {
+						return ClinicianTableActions.GetClinicianGeneralInfoSuccess({ clinicianInfo });
+					}),
 					catchError(() => of(ClinicianTableActions.GetClinicianGeneralInfoError())),
 				);
 			}),

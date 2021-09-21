@@ -26,6 +26,15 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_CURRENT_ITEM_SUCCESS,
 	GET_CURRENT_ITEM_ERROR,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { PatientTableActions } from './patient-table.actions';
 import { PatientService } from './patient-table.service';
@@ -50,6 +59,15 @@ export class PatientEffect extends TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) getCurrentItemError: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_SUCCESS) saveNewGridSettingsSuccess: any,
+		@Inject(SAVE_GRID_SETTINGS_ERROR) saveNewGridSettingsError: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
+		@Inject(SAVE_GRID_CHANGES_SUCCESS) saveGridChangesSuccess: any,
+		@Inject(SAVE_GRID_CHANGES_ERROR) saveGridChangesError: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(GET_GRID_SETTINGS_SUCCESS) getGridSettingsSuccess: any,
+		@Inject(GET_GRID_SETTINGS_ERROR) getGridSettingsError: any,
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: PatientService,
@@ -73,6 +91,15 @@ export class PatientEffect extends TableEffects {
 			getCurrentItemPending,
 			getCurrentItemSuccess,
 			getCurrentItemError,
+			saveNewGridSettingsPending,
+			saveNewGridSettingsSuccess,
+			saveNewGridSettingsError,
+			saveGridChangesPending,
+			saveGridChangesSuccess,
+			saveGridChangesError,
+			getGridSettingsPending,
+			getGridSettingsSuccess,
+			getGridSettingsError,
 			_tableService,
 			_store,
 			_toasterService,
@@ -84,10 +111,12 @@ export class PatientEffect extends TableEffects {
 			ofType(PatientTableActions.GetPatientGeneralInfoPending),
 			switchMap(({ id }: { id: string }) => {
 				return this._service.getPatientGeneralInfo(id).pipe(
-					map((patientInfo: any) =>
-						PatientTableActions.GetPatientGeneralInfoSuccess({ patientInfo }),
-					),
-					catchError(() => of(PatientTableActions.GetPatientGeneralInfoError())),
+					map((patientInfo: any) => {
+						return PatientTableActions.GetPatientGeneralInfoSuccess({ patientInfo });
+					}),
+					catchError(() => {
+						return of(PatientTableActions.GetPatientGeneralInfoError());
+					}),
 				);
 			}),
 		);
@@ -98,8 +127,14 @@ export class PatientEffect extends TableEffects {
 			ofType(PatientTableActions.UpdatePatientGeneralInfoPending),
 			switchMap(({ id, patientInfo }: { id: string; patientInfo: IPatientGeneralInfo }) => {
 				return this._service.updatePatientGeneralInfo(id, patientInfo).pipe(
-					map(() => PatientTableActions.UpdatePatientGeneralInfoSuccess()),
-					catchError(() => of(PatientTableActions.UpdatePatientGeneralInfoError())),
+					map(() => {
+						this._toasterService.success('Patient general info has been successfully updated');
+						return PatientTableActions.UpdatePatientGeneralInfoSuccess();
+					}),
+					catchError((error) => {
+						this._toasterService.error(`update patient general info error: ${error}`);
+						return of(PatientTableActions.UpdatePatientGeneralInfoError());
+					}),
 				);
 			}),
 		);

@@ -35,7 +35,6 @@ export class AddressControlComponent implements ControlValueAccessor, OnInit {
 
 	public ngOnInit(): void {
 		this.form = this.formBuilder.group({
-			id: [],
 			address1: [],
 			address2: [],
 			city: [],
@@ -46,6 +45,10 @@ export class AddressControlComponent implements ControlValueAccessor, OnInit {
 			mapAddress: [],
 		});
 		this._store.dispatch(DropdownActions.GetUsStatePending());
+		this.form.valueChanges.subscribe((value: Address) => {
+			this.onChange(value);
+			this.onTouched();
+		});
 	}
 
 	@Input() public isHeader: boolean = true;

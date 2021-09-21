@@ -53,7 +53,7 @@ import { HomeComponent } from './home.component';
 								(m: any) => m.SupervisorLicenseModule,
 							),
 						data: {
-							breadcrumb: 'Supervisor license',
+							breadcrumb: 'Supervisor credentials',
 						},
 					},
 					{

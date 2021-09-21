@@ -104,4 +104,24 @@ export const AssessmentLegendTableActions = {
 	SetTranslationSuccess: createAction('[Assessment Legend Translated] set current item success'),
 	SetTranslationError: createAction('[Assessment Legend Translated] set current item error'),
 	СlearTranslation: createAction('[Assessment Legend Translated] set current item error'),
+	SaveGridSettingsPending: createAction(
+		'[Assessment Legend Translated] save grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridSettingsSuccess: createAction(
+		'[Assessment Legend Translated] save grid settings success',
+	),
+	SaveGridSettingsError: createAction('[Assessment Legend Translated] save grid settings error'),
+	SaveGridChnagesPending: createAction(
+		'[Assessment Legend Translated] save grid chnages pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChnagesSuccess: createAction('[Assessment Legend Translated] save grid chnages success'),
+	SaveGridChnagesError: createAction('[Assessment Legend Translated] save grid chnages error'),
+	GetGridSettingsPending: createAction(
+		'[Assessment Legend Translated] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[Assessment Legend Translated] get grid settings error'),
+	GetGridSettingsSuccess: createAction('[Assessment Legend Translated] get grid settings success'),
 };
