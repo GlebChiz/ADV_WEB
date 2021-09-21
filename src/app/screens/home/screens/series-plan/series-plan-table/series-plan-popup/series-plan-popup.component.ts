@@ -9,7 +9,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { Observable } from 'rxjs';
-import { ITableState } from '../../../../../../shared/table/table.reducer';
+import { ITable } from '../../../../../../shared/table/table.reducer';
 
 export interface ISeriesPlanCurrent {
 	id: string;
@@ -60,7 +60,7 @@ export class SeriesPlanPopupComponent extends UnSubscriber implements OnInit {
 			.select('seriesplan', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((seriesPlanTable: unknown) => {
-				this.seriesPlan = (seriesPlanTable as ITableState<ISeriesPlan, ISeriesPlanCurrent>).current;
+				this.seriesPlan = (seriesPlanTable as ITable<ISeriesPlan, ISeriesPlanCurrent>).current;
 				this.initForm();
 			});
 	}

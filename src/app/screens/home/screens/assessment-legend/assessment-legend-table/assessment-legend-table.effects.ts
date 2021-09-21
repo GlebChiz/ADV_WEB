@@ -25,7 +25,7 @@ import {
 	GET_CURRENT_ITEM_ERROR,
 } from 'src/app/shared/table/table.tokens';
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
-import { ITableState } from 'src/app/shared/table/table.reducer';
+import { ITable } from 'src/app/shared/table/table.reducer';
 import { ToastrService } from 'ngx-toastr';
 import { ISessionPlanCurrent } from '../../session-plan/session-plan-table/session-plan-popup/session-plan-popup.component';
 import { AssessmentLegendTableActions } from './assessment-legend-table.actions';
@@ -100,7 +100,7 @@ export class AssessmentLegendEffect extends TableEffects {
 			switchMap(({ type, controller, ...data }: { type: string; controller: string }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(controller)),
-					switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
+					switchMap(([, latest]: [number, ITable<ISessionPlan, ISessionPlanCurrent>]) => {
 						return this._service.setAssessmentLegend(data).pipe(
 							mergeMap(() => {
 								return [

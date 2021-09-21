@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
-import { ITableState } from '../../../../../../shared/table/table.reducer';
+import { ITable } from '../../../../../../shared/table/table.reducer';
 
 export interface ISessionPlanCurrent {
 	id: string;
@@ -75,9 +75,7 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, A
 			.select('sessionPlan', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((sessionPlanTable: unknown) => {
-				this.sessionPlan = (
-					sessionPlanTable as ITableState<ISessionPlan, ISessionPlanCurrent>
-				).current;
+				this.sessionPlan = (sessionPlanTable as ITable<ISessionPlan, ISessionPlanCurrent>).current;
 				this.initForm();
 			});
 	}

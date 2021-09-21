@@ -1,4 +1,4 @@
-import { ITableState } from 'src/app/shared/table/table.reducer';
+import { ITable } from 'src/app/shared/table/table.reducer';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
@@ -104,7 +104,7 @@ export class TableEffects {
 			switchMap(({ id, controller }: { controller: string; id: string }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}`, 'table')),
-					switchMap(([, latest]: [number, ITableState<any, any>]) => {
+					switchMap(([, latest]: [number, ITable<any, any>]) => {
 						return this._tableService.delete(controller, id).pipe(
 							mergeMap(() => {
 								this._toasterService.success('Item has been successfully deleted');
@@ -134,7 +134,7 @@ export class TableEffects {
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
-					switchMap(([, latest]: [number, ITableState<any, any>]) => {
+					switchMap(([, latest]: [number, ITable<any, any>]) => {
 						return this._tableService.create(controller, item).pipe(
 							mergeMap(() => {
 								this._toasterService.success('Item has been successfully created');
@@ -164,7 +164,7 @@ export class TableEffects {
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
-					switchMap(([, latest]: [number, ITableState<any, any>]) => {
+					switchMap(([, latest]: [number, ITable<any, any>]) => {
 						return this._tableService.update(controller, item).pipe(
 							mergeMap(() => {
 								if (controller === 'location') {

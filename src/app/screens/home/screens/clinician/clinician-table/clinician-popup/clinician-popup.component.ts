@@ -8,13 +8,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
-import { ITableState } from '../../../../../../shared/table/table.reducer';
-
-export interface ISeriesPlanCurrent {
-	id: string;
-	modalityId: string;
-	name: string;
-}
+import { ITable } from '../../../../../../shared/table/table.reducer';
 
 @Component({
 	selector: 'advenium-clinician-popup',
@@ -78,7 +72,7 @@ export class ClinicianPopupComponent extends UnSubscriber implements OnInit {
 			.select('clinician', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((cliniciansTable: unknown) => {
-				this.clinician = (cliniciansTable as ITableState<any, any>).current;
+				this.clinician = (cliniciansTable as ITable<any, any>).current;
 				this.initForm();
 			});
 	}

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Action, createReducer, on } from '@ngrx/store';
-import { tableReducersFactory } from 'src/app/shared/table/table.reducer';
+import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
+import { ITable, ITableState, tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
 import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
@@ -13,7 +14,10 @@ const tableReducers: any = tableReducersFactory(
 	AssessmentQuestionTableActions.ClearCurrentAssessmentQuestion,
 );
 
-export function assessmentQuestionTableReducers(state: any | undefined, action: Action): any {
+export function assessmentQuestionTableReducers(
+	state: ITable<IAssessmentQuestion, IAssessmentQuestion>,
+	action: Action,
+): ITable<IAssessmentQuestion, IAssessmentQuestion> {
 	return tableReducers(state, action);
 }
 
@@ -36,7 +40,11 @@ export function assessmentQuestionTranslateReducers(
 	)(patientInfoState, action);
 }
 
-export const assessmentQuestionReducers: any = {
-	table: assessmentQuestionTableReducers,
-	assessmentQuestionTranslate: assessmentQuestionTranslateReducers,
+export const assessmentQuestionReducers: ITableState<
+	IAssessmentQuestion,
+	IAssessmentQuestion,
+	any
+> = {
+	table: assessmentQuestionTableReducers as any,
+	additional: assessmentQuestionTranslateReducers,
 };

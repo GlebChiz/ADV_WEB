@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { switchMap, withLatestFrom, mergeMap, catchError, map } from 'rxjs/operators';
 import { TableEffects } from 'src/app/shared/table/table.effect';
-import { ITableState } from 'src/app/shared/table/table.reducer';
+import { ITable } from 'src/app/shared/table/table.reducer';
 import { TableService } from 'src/app/shared/table/table.service';
 import {
 	GET_TABLE_DATA_PENDING,
@@ -51,7 +51,7 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 		@Inject(GET_CURRENT_ITEM_SUCCESS) getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) getCurrentItemError: any,
 		_tableService: TableService,
-		_store: Store<any>,
+		_store: Store<ITable<IAssessmentQuestion, IAssessmentQuestion>>,
 		private _service: AssessmentQuestionTableSerivce,
 		_toasterService: ToastrService,
 	) {
@@ -96,25 +96,23 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 				}) => {
 					return of(1).pipe(
 						withLatestFrom(this._store.select(`${controller}Table`)),
-						switchMap(
-							([, latest]: [number, ITableState<IAssessmentQuestion, IAssessmentQuestion>]) => {
-								return this._service.reorder(controller, { index, questionId, assessmentId }).pipe(
-									mergeMap(() => {
-										return [
-											AssessmentQuestionTableActions.ReorderAssessmentQuestionSuccess(),
-											this.getTableDataPending({
-												controller,
-												filter: latest.filter,
-												columns: latest.columns,
-											}),
-										];
-									}),
-									catchError(() => {
-										return of(AssessmentQuestionTableActions.ReorderAssessmentQuestionError());
-									}),
-								);
-							},
-						),
+						switchMap(([, latest]: [number, ITable<IAssessmentQuestion, IAssessmentQuestion>]) => {
+							return this._service.reorder(controller, { index, questionId, assessmentId }).pipe(
+								mergeMap(() => {
+									return [
+										AssessmentQuestionTableActions.ReorderAssessmentQuestionSuccess(),
+										this.getTableDataPending({
+											controller,
+											filter: latest.filter,
+											columns: latest.columns,
+										}),
+									];
+								}),
+								catchError(() => {
+									return of(AssessmentQuestionTableActions.ReorderAssessmentQuestionError());
+								}),
+							);
+						}),
 					);
 				},
 			),
@@ -158,29 +156,27 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 				}) => {
 					return of(1).pipe(
 						withLatestFrom(this._store.select(`${controller}Table`)),
-						switchMap(
-							([, latest]: [number, ITableState<IAssessmentQuestion, IAssessmentQuestion>]) => {
-								return this._service
-									.updateCurrentTransletion(questionId, languageId, currentTranslation)
-									.pipe(
-										mergeMap(() => {
-											return [
-												AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionSuccess(),
-												this.getTableDataPending({
-													controller,
-													filter: latest.filter,
-													columns: latest.columns,
-												}),
-											];
-										}),
-										catchError(() => {
-											return of(
-												AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionError(),
-											);
-										}),
-									);
-							},
-						),
+						switchMap(([, latest]: [number, ITable<IAssessmentQuestion, IAssessmentQuestion>]) => {
+							return this._service
+								.updateCurrentTransletion(questionId, languageId, currentTranslation)
+								.pipe(
+									mergeMap(() => {
+										return [
+											AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionSuccess(),
+											this.getTableDataPending({
+												controller,
+												filter: latest.filter,
+												columns: latest.columns,
+											}),
+										];
+									}),
+									catchError(() => {
+										return of(
+											AssessmentQuestionTableActions.UpdateCurrentTranslationAssessmentQuestionError(),
+										);
+									}),
+								);
+						}),
 					);
 				},
 			),

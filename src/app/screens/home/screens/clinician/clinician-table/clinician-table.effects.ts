@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
-import { IClinicianGeneralInfo } from 'src/app/shared/components/clinician-general-info/clinician-general-info.component';
 import { TableEffects } from 'src/app/shared/table/table.effect';
 import { TableService } from 'src/app/shared/table/table.service';
 import {
@@ -27,6 +26,7 @@ import {
 	GET_CURRENT_ITEM_ERROR,
 } from 'src/app/shared/table/table.tokens';
 import { ClinicianTableActions } from './clinician-table.actions';
+import { IClinicianGeneralInfo } from './clinician-table.component';
 import { ClinicianService } from './clinician-table.service';
 
 @Injectable()

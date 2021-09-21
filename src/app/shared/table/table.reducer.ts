@@ -4,7 +4,7 @@ import { createReducer, on } from '@ngrx/store';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { IColumn } from '../interfaces/column.interface';
 
-export const initialState: any = [];
+export const initialState: ITableState<any, any, any> = {};
 
 export function tableReducersFactory(
 	updateTableState: any,
@@ -43,22 +43,37 @@ export function tableReducersFactory(
 	);
 }
 
-export interface ITableState<T, R> {
+// export interface ITableState<T, R> {
+// 	isLoading: boolean;
+// 	controller: string;
+// 	filter: CompositeFilterDescriptor;
+// 	columns: IColumn[];
+// 	current?: R;
+// 	data: T[];
+// 	totla: number;
+// }
+
+export interface ITableState<T, R, A> {
+	table?: ITable<T, R>;
+	additional?: A;
+}
+
+export interface ITable<T, R> {
 	isLoading: boolean;
 	controller: string;
 	filter: CompositeFilterDescriptor;
 	columns: IColumn[];
 	current?: R;
 	data: T[];
-	totla: number;
+	total: number;
 }
-
-export interface ITableGroupState<T, R> {
-	table: ITableState<T, R>;
-	rooms: {
-		isLoading: boolean;
-		current: any;
-		data: any[];
-		total: number;
-	};
-}
+// isLoading, controller, filter, columns
+// export interface ITableGroupState<T, R> {
+// 	table: ITableState<T, R>;
+// 	rooms: {
+// 		isLoading: boolean;
+// 		current: any;
+// 		data: any[];
+// 		total: number;
+// 	};
+// }

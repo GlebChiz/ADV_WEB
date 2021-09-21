@@ -5,7 +5,10 @@ export interface IDropdownData {
 	parentId?: string;
 }
 
-export interface IDropDownState {
-	data: IDropdownData[];
+export interface IDropDownState extends IDropDownItem {
+	[key: string]: any;
+}
+
+interface IDropDownItem {
 	isLoading: boolean;
 }

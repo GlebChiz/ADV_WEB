@@ -8,7 +8,7 @@ import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { ITherapyGroup } from 'src/app/shared/interfaces/therapy-group.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
-import { ITableState } from '../../../../../../shared/table/table.reducer';
+import { ITable } from '../../../../../../shared/table/table.reducer';
 import { TherapyGroupTableActions } from '../therapy-group-table.actions';
 
 @Component({
@@ -121,7 +121,7 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((therapyGroupTable: unknown) => {
 				this.therapyGroup = (
-					therapyGroupTable as ITableState<ITherapyGroup, ITherapyGroupCurrent>
+					therapyGroupTable as ITable<ITherapyGroup, ITherapyGroupCurrent>
 				).current;
 
 				this.initForm();

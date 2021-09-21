@@ -115,6 +115,6 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 			hidden: false,
 			filterable: true,
 			type: 'text',
-		}
+		},
 	];
 }

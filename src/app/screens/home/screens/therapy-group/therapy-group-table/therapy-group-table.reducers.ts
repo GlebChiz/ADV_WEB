@@ -14,7 +14,7 @@ const tableReducers: any = tableReducersFactory(
 );
 
 export function therapyGroupTableReducers(
-	state: ITableState<any, any> | undefined,
+	state: ITableState<any, any, any> | undefined,
 	action: Action,
 ): any {
 	return tableReducers(state, action);
