@@ -8,9 +8,7 @@ import { Guid } from 'guid-typescript';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { ITherapyGroup } from 'src/app/shared/interfaces/therapy-group.interface';
 import { TableEffects } from 'src/app/shared/table/table.effect';
-import { ITableGroupState } from 'src/app/shared/table/table.reducer';
 import { TableService } from 'src/app/shared/table/table.service';
 import {
 	GET_TABLE_DATA_PENDING,
@@ -39,7 +37,6 @@ import {
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
-import { ITherapyGroupCurrent } from './therapy-group-popup/therapy-group-popup.component';
 import { TherapyGroupTableActions } from './therapy-group-table.actions';
 import { TherapyGroupService } from './therapy-group-table.service';
 
@@ -165,23 +162,21 @@ export class TherapyGroupEffects extends TableEffects {
 				}) => {
 					return of(1).pipe(
 						withLatestFrom(this._store.select(`${controller}Table`)),
-						switchMap(
-							([, latest]: [number, ITableGroupState<ITherapyGroup, ITherapyGroupCurrent>]) => {
-								return this._service.updateFieldTherapyGroup(ids, value, entity).pipe(
-									mergeMap(() => {
-										return [
-											TherapyGroupTableActions.UpdateFiledTherapyGroupSuccess(),
-											this.getTableDataPending({
-												controller,
-												filter: latest.table.filter,
-												columns: latest.table.columns,
-											}),
-										];
-									}),
-									catchError(() => of(TherapyGroupTableActions.UpdateFiledTherapyGroupError())),
-								);
-							},
-						),
+						switchMap(([, latest]: [number, any]) => {
+							return this._service.updateFieldTherapyGroup(ids, value, entity).pipe(
+								mergeMap(() => {
+									return [
+										TherapyGroupTableActions.UpdateFiledTherapyGroupSuccess(),
+										this.getTableDataPending({
+											controller,
+											filter: latest.table.filter,
+											columns: latest.table.columns,
+										}),
+									];
+								}),
+								catchError(() => of(TherapyGroupTableActions.UpdateFiledTherapyGroupError())),
+							);
+						}),
 					);
 				},
 			),

@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { IClinicianGeneralInfo } from 'src/app/shared/components/clinician-general-info/clinician-general-info.component';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
+import { IClinicianGeneralInfo } from './clinician-table.component';
 
 export const ClinicianTableActions = {
 	GetClinicianTableDataPending: createAction(

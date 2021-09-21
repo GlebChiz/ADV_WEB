@@ -6,9 +6,7 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 import { catchError, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { IPatientDistribution } from 'src/app/shared/interfaces/patient-distribution.interface';
 import { TableEffects } from 'src/app/shared/table/table.effect';
-import { ITableGroupState } from 'src/app/shared/table/table.reducer';
 import { TableService } from 'src/app/shared/table/table.service';
 import {
 	CREATE_ITEM_TABLE_ERROR,
@@ -37,7 +35,6 @@ import {
 	SAVE_GRID_SETTINGS_SUCCESS,
 	UPDATE_TABLE_STATE,
 } from 'src/app/shared/table/table.tokens';
-import { IPatientDistributionCurrent } from './patient-distribution-popup/patient-distribution-popup.component';
 import { PatientDistributionTableActions } from './patient-distribution-table.actions';
 import { PatientDistributionService } from './patient-distribution-table.service';
 
@@ -125,30 +122,25 @@ export class PatientDistributionEffects extends TableEffects {
 				}) => {
 					return of(1).pipe(
 						withLatestFrom(this._store.select(`${controller}Table`)),
-						switchMap(
-							([, latest]: [
-								number,
-								ITableGroupState<IPatientDistribution, IPatientDistributionCurrent>,
-							]) => {
-								return this._service
-									.updateFieldPatientDistribution(patientIds, supervisorId, start)
-									.pipe(
-										mergeMap(() => {
-											return [
-												PatientDistributionTableActions.UpdateFiledPatientDistributionSuccess(),
-												this.getTableDataPending({
-													controller,
-													filter: latest.table.filter,
-													columns: latest.table.columns,
-												}),
-											];
-										}),
-										catchError(() =>
-											of(PatientDistributionTableActions.UpdateFiledPatientDistributionError()),
-										),
-									);
-							},
-						),
+						switchMap(([, latest]: [number, any]) => {
+							return this._service
+								.updateFieldPatientDistribution(patientIds, supervisorId, start)
+								.pipe(
+									mergeMap(() => {
+										return [
+											PatientDistributionTableActions.UpdateFiledPatientDistributionSuccess(),
+											this.getTableDataPending({
+												controller,
+												filter: latest.table.filter,
+												columns: latest.table.columns,
+											}),
+										];
+									}),
+									catchError(() =>
+										of(PatientDistributionTableActions.UpdateFiledPatientDistributionError()),
+									),
+								);
+						}),
 					);
 				},
 			),

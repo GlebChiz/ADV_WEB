@@ -1,15 +1,15 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
-import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
+import { IDropdownData, IDropDownState } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
-import { ITableState } from '../../../../../../../shared/table/table.reducer';
+import { ITable } from 'src/app/shared/table/table.reducer';
 
 @Component({
 	selector: 'advenium-assessment-question-popup',
@@ -18,8 +18,10 @@ import { ITableState } from '../../../../../../../shared/table/table.reducer';
 export class AssessmentQuestionPopupComponent extends UnSubscriber implements OnInit {
 	public constructor(
 		private _dialogService: DialogRef,
-		private _store: Store<any>,
+		private _store: Store<ITable<IAssessmentQuestion, IAssessmentQuestion>>,
+		private _storeDd: Store<IDropDownState>,
 		private _activatedRoute: ActivatedRoute,
+		private _formBuilder: FormBuilder,
 	) {
 		super();
 	}
@@ -30,9 +32,12 @@ export class AssessmentQuestionPopupComponent extends UnSubscriber implements On
 
 	public assessment!: IAssessmentQuestion | undefined;
 
-	public assessmentForm!: FormGroup;
+	public assessmentForm: FormGroup = this._formBuilder.group({
+		text: [''],
+		legends: [[]],
+	});
 
-	public legends$: Observable<IDropdownData[]> = this._store
+	public legends$: Observable<IDropdownData[]> = this._storeDd
 		.select('dropdown', 'legends')
 		.pipe(takeUntil(this.unsubscribe$$));
 
@@ -51,23 +56,17 @@ export class AssessmentQuestionPopupComponent extends UnSubscriber implements On
 		this._dialogService.close(obj);
 	}
 
-	public initForm(): void {
-		this._store.dispatch(DropdownActions.GetLegendsPending());
-		this.assessmentForm = new FormGroup({
-			text: new FormControl(this.assessment?.text || ''),
-			legends: new FormControl(this.assessment?.legends || []),
-		});
-	}
-
 	public ngOnInit(): void {
+		this._store.dispatch(DropdownActions.GetLegendsPending());
 		this._store
-			.select('assessmentquestion', 'table')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((assessmentQuestionTable: unknown) => {
-				this.assessment = (
-					assessmentQuestionTable as ITableState<IAssessmentQuestion, IAssessmentQuestion>
-				).current;
-				this.initForm();
+			.select('assessmentquestion' as any, 'table', 'current')
+			.pipe(takeUntil(this.unsubscribe$$))
+			.subscribe((current: IAssessmentQuestion) => {
+				this.assessment = current;
+				this.assessmentForm.patchValue({
+					text: current?.text ?? '',
+					legends: current?.legends ?? [],
+				});
 			});
 	}
 }

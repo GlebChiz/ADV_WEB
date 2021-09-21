@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { ITableState } from 'src/app/shared/table/table.reducer';
+import { ITable } from 'src/app/shared/table/table.reducer';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -126,7 +125,7 @@ export class SessionPlansEffects extends TableEffects {
 				}) => {
 					return of(1).pipe(
 						withLatestFrom(this._store.select(storePath)),
-						switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
+						switchMap(([, latest]: [number, ITable<ISessionPlan, ISessionPlanCurrent>]) => {
 							return this._service.reorder(controller, { seriesPlanId, sessionPlanId, index }).pipe(
 								mergeMap(() => {
 									return [
@@ -168,7 +167,7 @@ export class SessionPlansEffects extends TableEffects {
 				}) => {
 					return of(1).pipe(
 						withLatestFrom(this._store.select(storePath)),
-						switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
+						switchMap(([, latest]: [number, ITable<ISessionPlan, ISessionPlanCurrent>]) => {
 							return this._service.link(ids, seriesPlanId, link).pipe(
 								mergeMap(() => {
 									return [
@@ -215,7 +214,7 @@ export class SessionPlansEffects extends TableEffects {
 			switchMap(({ controller, ...item }: { controller: string }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(controller, 'table')),
-					switchMap(([, latest]: [number, ITableState<ISessionPlan, ISessionPlanCurrent>]) => {
+					switchMap(([, latest]: [number, ITable<ISessionPlan, ISessionPlanCurrent>]) => {
 						return this._service.updateCurrentTransletionSessionPlan(item).pipe(
 							mergeMap(() => {
 								return [

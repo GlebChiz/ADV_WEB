@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Action, createReducer, on } from '@ngrx/store';
-import { ITableState, tableReducersFactory } from 'src/app/shared/table/table.reducer';
+import { ITable, tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { SessionPlanTableActions } from './session-plan-table.actions';
 
 const tableReducers: any = tableReducersFactory(
@@ -12,10 +12,7 @@ const tableReducers: any = tableReducersFactory(
 	SessionPlanTableActions.ClearCurrentSessionPlan,
 );
 
-export function sessionPlanTableReducers(
-	state: ITableState<any, any> | undefined,
-	action: Action,
-): any {
+export function sessionPlanTableReducers(state: ITable<any, any> | undefined, action: Action): any {
 	return tableReducers(state, action);
 }
 

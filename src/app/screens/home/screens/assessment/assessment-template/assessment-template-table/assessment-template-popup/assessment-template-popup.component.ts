@@ -6,7 +6,7 @@ import { DialogRef } from '@progress/kendo-angular-dialog';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
-import { ITableState } from 'src/app/shared/table/table.reducer';
+import { ITable } from 'src/app/shared/table/table.reducer';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 
@@ -72,7 +72,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 			.select('assessmentnotetemplate', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((assessmentTemplateTable: unknown) => {
-				this.assessmentTemplate = (assessmentTemplateTable as ITableState<any, any>).current;
+				this.assessmentTemplate = (assessmentTemplateTable as ITable<any, any>).current;
 				this.initForm();
 			});
 	}
