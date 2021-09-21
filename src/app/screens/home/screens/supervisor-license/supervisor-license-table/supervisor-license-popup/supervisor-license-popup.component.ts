@@ -8,6 +8,7 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { Observable } from 'rxjs/internal/Observable';
+import { removeTimezone } from 'src/app/utils/timezone';
 
 export interface ISupervisorInterface {
 	id: string;
@@ -51,10 +52,14 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 			clinicianId: new FormControl(this.supervisorLicense?.supervisor || ''),
 			payerId: new FormControl(this.supervisorLicense?.payer || ''),
 			startDate: new FormControl(
-				this.supervisorLicense?.start ? new Date(Date.parse(this.supervisorLicense?.start)) : '',
+				this.supervisorLicense?.start
+					? removeTimezone(new Date(this.supervisorLicense?.start))
+					: '',
 			),
 			endDate: new FormControl(
-				this.supervisorLicense?.end ? new Date(Date.parse(this.supervisorLicense?.end)) : '',
+				this.supervisorLicense?.start
+					? removeTimezone(new Date(this.supervisorLicense?.start))
+					: '',
 			),
 			providerId: new FormControl(this.supervisorLicense?.providerId || ''),
 		});

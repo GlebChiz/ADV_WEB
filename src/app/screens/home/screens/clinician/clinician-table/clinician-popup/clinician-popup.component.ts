@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
+import { removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { ITableState } from '../../../../../../shared/table/table.reducer';
 
@@ -61,7 +62,7 @@ export class ClinicianPopupComponent extends UnSubscriber implements OnInit {
 				address: new FormControl(this.clinician?.address || ''),
 				firstname: new FormControl(this.clinician?.firstname || ''),
 				lastname: new FormControl(this.clinician?.lastname || ''),
-				dob: new FormControl(this.clinician?.dob || ''),
+				dob: new FormControl(removeTimezone(new Date(this.clinician?.dob)) || ''),
 				middlename: new FormControl(this.clinician?.middlename || ''),
 			}),
 		});
