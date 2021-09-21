@@ -48,7 +48,6 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 
 	public initForm(): void {
 		this.myClinicianInfoForm = new FormGroup({
-			personId: new FormControl(this.clinicianInfo?.personId || ''),
 			typeId: new FormControl(this.clinicianInfo?.typeId || ''),
 			npi: new FormControl(this.clinicianInfo?.npi || ''),
 			billingCode: new FormControl(this.clinicianInfo?.billingCode || ''),
@@ -87,7 +86,6 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 }
 
 export interface IClinicianGeneralInfo {
-	personId: string;
 	typeId: string | null;
 	npi: string;
 	billingCode: string;

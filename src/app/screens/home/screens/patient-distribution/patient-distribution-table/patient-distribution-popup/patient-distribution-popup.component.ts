@@ -9,6 +9,18 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { ClinicianDropdownPopupComponent } from '../../patient-distribution-group-popups/clinician-dropdown-popup/clinician-dropdown-popup.component';
 import { PatientDropdownPopupComponent } from '../../patient-distribution-group-popups/patient-dropdown-popup/patient-dropdown-popup.component';
 
+export function removeTimezone(value: Date): Date {
+	const date: Date = new Date(value);
+	date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+	return date;
+}
+
+export function addTimezone(value: Date): Date {
+	const date: Date = new Date(value);
+	date.setMinutes(date.getMinutes() + new Date().getTimezoneOffset());
+	return date;
+}
+
 @Component({
 	selector: 'advenium-patient-distribution-popup',
 	templateUrl: './patient-distribution-popup.component.html',
@@ -47,13 +59,14 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 		this.myPatientDistributionForm = new FormGroup({
 			clinicianName: new FormControl(this.patientDistribution?.clinicianName || ''),
 			patientName: new FormControl(this.patientDistribution?.patientName || ''),
-			patientId: new FormControl(this.patientDistribution?.patientId || ''),
+			// startDate: new FormControl(
+			// 	removeTimezone(new Date(this.patientDistribution?.startDate)) || '',
+			// ),
 			startDate: new FormControl(
 				this.patientDistribution?.startDate
 					? new Date(Date.parse(this.patientDistribution?.startDate))
 					: new Date(),
 			),
-			clinicianId: new FormControl(this.patientDistribution?.clinicianId || ''),
 		});
 	}
 

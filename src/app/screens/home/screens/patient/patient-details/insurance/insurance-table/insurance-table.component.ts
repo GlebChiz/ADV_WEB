@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, Inject, Input, OnChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
@@ -27,7 +27,7 @@ import { InsuranceTableActions } from './insurance-table.actions';
 	templateUrl: './insurance-table.component.html',
 	styleUrls: ['../../../../../home.component.scss'],
 })
-export class InsuranceTableComponent extends CustomTableDirective implements OnChanges {
+export class InsuranceTableComponent extends CustomTableDirective implements OnChanges, OnInit {
 	public constructor(
 		private dialogService: DialogService,
 		_store: Store<IStore>,
@@ -84,6 +84,17 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 			}
 			this._store.dispatch(InsuranceTableActions.GetCurrentInsurancePending({ id: this.personId }));
 		}
+		super.ngOnInit();
+	}
+
+	public ngOnInit(): void {
+		this._store.select('insurance' as any, 'table').subscribe(() => {
+			if (this.personId) {
+				this._store.dispatch(
+					InsuranceTableActions.GetCurrentInsurancePending({ id: this.personId }),
+				);
+			}
+		});
 		super.ngOnInit();
 	}
 

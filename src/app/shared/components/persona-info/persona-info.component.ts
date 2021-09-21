@@ -39,7 +39,6 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 
 	public initForm(): void {
 		this.myPersonaInfoForm = new FormGroup({
-			id: new FormControl(this.personInfo?.id || ''),
 			firstname: new FormControl(this.personInfo?.firstname || ''),
 			middlename: new FormControl(this.personInfo?.middlename || ''),
 			lastname: new FormControl(this.personInfo?.lastname || ''),

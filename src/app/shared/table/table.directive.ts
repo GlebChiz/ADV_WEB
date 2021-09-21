@@ -209,4 +209,38 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			this.selectedItems.push(a);
 		}
 	}
+
+	public actions(): { title: string; cmd: string }[] {
+		const list: { title: string; cmd: string }[] = [
+			{
+				title: 'Save',
+				cmd: 'save',
+			},
+			{
+				title: 'Save as New',
+				cmd: 'create',
+			},
+			{
+				title: 'Rename',
+				cmd: 'rename',
+			},
+		];
+		return list;
+	}
+
+	public onAction(e: any): void {
+		switch (e.cmd) {
+			case 'save':
+				this.saveGridChanges();
+				break;
+			case 'create':
+				this.saveNewGrid();
+				break;
+			case 'rename':
+				this.renameGrid();
+				break;
+			default:
+				break;
+		}
+	}
 }

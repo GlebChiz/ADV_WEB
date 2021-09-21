@@ -62,9 +62,16 @@
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
-		<button (click)="saveNewGrid()">Save as New</button>
-		<button (click)="saveGridChanges()">Save</button>
-		<button (click)="renameGrid()">Rename</button>
+		<div>
+			<kendo-dropdownbutton
+				(itemClick)="onAction($event)"
+				[data]="this.actions()"
+				class="adv-button w-100"
+				textField="title"
+			>
+				<span class="fa fa-ellipsis-v"></span>
+			</kendo-dropdownbutton>
+		</div>
 		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 		<kendo-combobox
 			valueField="id"
