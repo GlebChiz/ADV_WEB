@@ -18,7 +18,7 @@ import { PhoneComponent } from './components/phone/phone.component';
 import { PatientGeneralInfoComponent } from './components/patient-general-info/patient-general-info.component';
 import { ClinicianGeneralInfoComponent } from './components/clinician-general-info/clinician-general-info.component';
 import { AddressControlComponent } from './components/address-control/address-control.component';
-import { PermissionsComponent } from './permission/permission.component';
+import { PermissionsComponent } from './components/permission/permission.component';
 
 @NgModule({
 	imports: [

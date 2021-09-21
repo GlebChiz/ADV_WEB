@@ -6,6 +6,7 @@ import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { PersonActions } from 'src/app/store/actions/person.actions';
+import { removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { Address } from '../../interfaces/address.intarface';
 
@@ -42,7 +43,9 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 			firstname: new FormControl(this.personInfo?.firstname || ''),
 			middlename: new FormControl(this.personInfo?.middlename || ''),
 			lastname: new FormControl(this.personInfo?.lastname || ''),
-			dob: new FormControl(new Date() || ''),
+			dob: new FormControl(
+				this.personInfo?.dob ? removeTimezone(new Date(this.personInfo.dob)) : '',
+			),
 			address: new FormControl(this.personInfo?.address || ''),
 		});
 
