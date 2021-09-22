@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
 import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
@@ -146,5 +147,8 @@ export const AssessmentQuestionTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Assessment Question] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Assessment Question] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Assessment Question] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

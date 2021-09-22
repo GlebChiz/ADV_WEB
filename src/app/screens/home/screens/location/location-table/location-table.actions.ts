@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const LocationTableActions = {
@@ -107,5 +108,8 @@ export const LocationTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Location Table] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Location Table] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Location Table] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

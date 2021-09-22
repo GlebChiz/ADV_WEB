@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const AssessmentLegendTableActions = {
@@ -123,5 +124,8 @@ export const AssessmentLegendTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Assessment Legend Translated] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Assessment Legend Translated] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Assessment Legend Translated] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

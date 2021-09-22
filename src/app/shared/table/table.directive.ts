@@ -15,6 +15,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { IColumn } from '../interfaces/column.interface';
 import { IDropdownData } from '../interfaces/dropdown.interface';
 import {
 	DELETE_ITEM_TABLE_PENDING,
@@ -23,7 +24,6 @@ import {
 	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
-	// SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from './table.tokens';
 
@@ -86,9 +86,17 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.gridSettingsControl.valueChanges.subscribe((id: string) => {
-			this._store.dispatch(this.getGridSettingsPending({ id }));
-		});
+		this.gridSettingsControl.valueChanges
+			.pipe(filter<string>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((id: string) => {
+				this._store.dispatch(this.getGridSettingsPending({ id, controller: this.controller }));
+			});
+		this._store
+			.select(this.storePath as any, 'table', 'columns')
+			.pipe(filter<IColumn[]>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((column: IColumn[]) => {
+				this.columns = column;
+			});
 		this._store.dispatch(
 			this.getTableDataPending({
 				controller: this.controller,
@@ -150,7 +158,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public columnVisibilityChange(state: ColumnVisibilityChangeEvent): void {
-		let currentColumn: any = this.columns.find(
+		const currentColumn: any = this.columns.find(
 			(column: any) => column.title === state.columns[0]?.title,
 		);
 		currentColumn.hidden = state.columns[0]?.hidden;

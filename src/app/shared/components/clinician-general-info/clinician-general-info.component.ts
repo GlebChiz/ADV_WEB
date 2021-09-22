@@ -6,7 +6,6 @@ import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ClinicianTableActions } from 'src/app/screens/home/screens/clinician/clinician-table/clinician-table.actions';
-import { IClinicianGeneralInfo } from 'src/app/screens/home/screens/clinician/clinician-table/clinician-table.component';
 
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
@@ -95,4 +94,3 @@ export interface IClinicianGeneralInfo {
 	areaIds: string[];
 	serviceTypeIds: string[];
 }
-

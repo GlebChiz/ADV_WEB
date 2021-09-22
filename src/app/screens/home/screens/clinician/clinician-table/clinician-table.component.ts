@@ -124,14 +124,3 @@ export class ClinicianTableComponent extends CustomTableDirective {
 		},
 	];
 }
-
-export interface IClinicianGeneralInfo {
-	personId: string;
-	typeId: string | null;
-	npi: string;
-	billingCode: string;
-	isSupervisor: boolean;
-	title: string;
-	areaIds: string[];
-	serviceTypeIds: string[];
-}
