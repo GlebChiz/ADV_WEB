@@ -40,6 +40,8 @@ import {
 	SAVE_GRID_SETTINGS_SUCCESS,
 	UPDATE_TABLE_STATE,
 } from './table.tokens';
+import { IGridSettings } from '../interfaces/grid-settings.intarface';
+import { IGridSort } from '../interfaces/sort.interface';
 
 @Injectable()
 export class TableEffects {
@@ -234,13 +236,48 @@ export class TableEffects {
 	public getGridSettings$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(this.getGridSettingsPending),
-			switchMap(({ id }: { id: string }) => {
-				return this._tableService.getGridSettings(id).pipe(
-					map((gridSettings: any) => {
-						return this.getGridSettingsSuccess({ gridSettings });
-					}),
-					catchError((error: string) => {
-						return of(this.getGridSettingsError(error));
+			switchMap(({ id, controller }: { id: string; controller: string }) => {
+				return of(1).pipe(
+					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
+					switchMap(([, latest]: [number, ITable<any, any>]) => {
+						return this._tableService.getGridSettings(id).pipe(
+							mergeMap((gridSettings: IGridSettings) => {
+								return [
+									this.getTableDataPending({
+										controller,
+										filter: {
+											skip: gridSettings.skip,
+											take: gridSettings.take,
+											sort: [
+												...gridSettings.sorting.map((sort: IGridSort) => ({
+													field: sort.column,
+													dir: sort.direction,
+												})),
+											],
+											filter: { logic: 'and', filters: [...gridSettings.filters] },
+										},
+										columns: [
+											...gridSettings.columns.map((columnName: string) => {
+												const numberColumn: number | undefined = latest.columns.findIndex(
+													(column: IColumn) => column.field === columnName,
+												);
+												const res: IColumn = {
+													...latest.columns[numberColumn],
+													hidden: false,
+												} as IColumn;
+												latest.columns.splice(numberColumn, 1);
+												return res;
+											}),
+											...latest.columns.map((column: IColumn) => ({ ...column, hidden: true })),
+										],
+									}),
+									this.getGridSettingsSuccess(),
+								];
+							}),
+							catchError((error: string) => {
+								return of(this.getGridSettingsError(error));
+							}),
+						);
 					}),
 				);
 			}),

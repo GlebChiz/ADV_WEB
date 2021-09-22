@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const InsuranceTableActions = {
@@ -119,5 +120,8 @@ export const InsuranceTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Insurance Table] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Insurance Table] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Insurance Table] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };
