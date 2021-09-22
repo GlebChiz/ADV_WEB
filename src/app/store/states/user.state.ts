@@ -4,7 +4,7 @@ export interface IUserState {
 	user: IUser | undefined;
 	permissions: PermissionType[];
 	editing: IUser | undefined;
-	urlAvatar: any;
+	urlAvatar: string | null;
 }
 
 export const initialUserState: IUserState = {
