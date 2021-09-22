@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
 import { Injectable, Inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -24,10 +25,19 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_CURRENT_ITEM_SUCCESS,
 	GET_CURRENT_ITEM_ERROR,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
+import { ToastrService } from 'ngx-toastr';
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
 import { AssessmentQuestionTableSerivce } from './assessment-question-table.service';
-import { ToastrService } from 'ngx-toastr';
 import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 @Injectable()
@@ -50,6 +60,15 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(GET_CURRENT_ITEM_SUCCESS) getCurrentItemSuccess: any,
 		@Inject(GET_CURRENT_ITEM_ERROR) getCurrentItemError: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_SETTINGS_SUCCESS) saveNewGridSettingsSuccess: any,
+		@Inject(SAVE_GRID_SETTINGS_ERROR) saveNewGridSettingsError: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
+		@Inject(SAVE_GRID_CHANGES_SUCCESS) saveGridChangesSuccess: any,
+		@Inject(SAVE_GRID_CHANGES_ERROR) saveGridChangesError: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(GET_GRID_SETTINGS_SUCCESS) getGridSettingsSuccess: any,
+		@Inject(GET_GRID_SETTINGS_ERROR) getGridSettingsError: any,
 		_tableService: TableService,
 		_store: Store<ITable<IAssessmentQuestion, IAssessmentQuestion>>,
 		private _service: AssessmentQuestionTableSerivce,
@@ -73,6 +92,15 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 			getCurrentItemPending,
 			getCurrentItemSuccess,
 			getCurrentItemError,
+			saveNewGridSettingsPending,
+			saveNewGridSettingsSuccess,
+			saveNewGridSettingsError,
+			saveGridChangesPending,
+			saveGridChangesSuccess,
+			saveGridChangesError,
+			getGridSettingsPending,
+			getGridSettingsSuccess,
+			getGridSettingsError,
 			_tableService,
 			_store,
 			_toasterService,

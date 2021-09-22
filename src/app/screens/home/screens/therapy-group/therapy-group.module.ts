@@ -25,6 +25,15 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { TherapyGroupTableActions } from './therapy-group-table/therapy-group-table.actions';
 import { TherapyGroupTableComponent } from './therapy-group-table/therapy-group-table.component';
@@ -153,6 +162,42 @@ import { RoomForGroupPopupComponent } from './therapy-group-popups/room-for-grou
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: TherapyGroupTableActions.ClearCurrentTherapyGroup,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: TherapyGroupTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: TherapyGroupTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: TherapyGroupTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: TherapyGroupTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: TherapyGroupTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: TherapyGroupTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: TherapyGroupTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: TherapyGroupTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: TherapyGroupTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

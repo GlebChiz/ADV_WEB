@@ -24,9 +24,23 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
+	(columnReorder)="columnReorder($event)"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
+		<div>
+			<kendo-dropdownbutton
+				(itemClick)="onAction($event)"
+				[data]="this.actions()"
+				class="adv-button w-100"
+				textField="title"
+			>
+				<span class="fa fa-ellipsis-v"></span>
+			</kendo-dropdownbutton>
+		</div>
+		<button (click)="saveNewGrid()">Save</button>
 		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 		<kendo-combobox
 			valueField="id"
@@ -45,7 +59,11 @@
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
 		[filter]="col.type"
-		><ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+	>
+		<ng-template *ngIf="col.field === 'isSupervisor'" kendoGridCellTemplate let-dataItem>
+			{{ dataItem.isSupervisor ? 'YES' : '' }}
+		</ng-template>
+		<ng-template kendoGridFilterCellTemplate let-filter let-column="column">
 			<kendo-grid-string-filter-cell
 				*ngIf="col.type === 'text'"
 				[showOperators]="true"
@@ -83,13 +101,12 @@
 				<kendo-filter-gt-operator></kendo-filter-gt-operator>
 				<kendo-filter-lt-operator></kendo-filter-lt-operator>
 			</kendo-grid-date-filter-cell>
-			<kendo-grid-date-filter-cell
+			<kendo-grid-boolean-filter-cell
 				*ngIf="col.type === 'boolean'"
-				[showOperators]="true"
 				[column]="column"
 				[filter]="filter"
 			>
-			</kendo-grid-date-filter-cell> </ng-template
+			</kendo-grid-boolean-filter-cell> </ng-template
 	></kendo-grid-column>
 	<!-- <kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>

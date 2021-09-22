@@ -25,6 +25,15 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { UnsupervisedServicesTableActions } from './unsupervised-services-table/unsupervised-services-table.actions';
 import { UnsupervisedServicesTableComponent } from './unsupervised-services-table/unsupervised-services-table.component';
@@ -126,6 +135,42 @@ import { UnsupervisedServicesComponent } from './unsupervised-services.component
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: UnsupervisedServicesTableActions.ClearCurrentUnsupervisedServices,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: UnsupervisedServicesTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: UnsupervisedServicesTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: UnsupervisedServicesTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: UnsupervisedServicesTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: UnsupervisedServicesTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: UnsupervisedServicesTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: UnsupervisedServicesTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: UnsupervisedServicesTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: UnsupervisedServicesTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

@@ -25,6 +25,15 @@ import {
 	DUBLICATE_ITEM_TABLE_ERROR,
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PayerTableActions } from './payer-table/payer-table.actions';
@@ -127,6 +136,42 @@ import { PayerComponent } from './payer.component';
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: PayerTableActions.ClearCurrentPayer,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: PayerTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: PayerTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: PayerTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: PayerTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: PayerTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: PayerTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: PayerTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: PayerTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: PayerTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

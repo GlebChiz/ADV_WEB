@@ -12,6 +12,9 @@ import {
 	EDIT_ITEM_TABLE_PENDING,
 	CLEAR_CURRENT_ITEM,
 	CREATE_ITEM_TABLE_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_CHANGES_PENDING,
+	GET_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { CellClickEvent, RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,8 +50,20 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 	) {
-		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+		super(
+			_store,
+			getTableDataPending,
+			getCurrentItemPending,
+			deleteDataPending,
+			editDataPending,
+			saveNewGridSettingsPending,
+			saveGridChangesPending,
+			getGridSettingsPending,
+		);
 	}
 
 	public canUpdate: PermissionType = PermissionType.canUpdateTherapyGroup;

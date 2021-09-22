@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
 			expanded: false,
 			children: [
 				{
-					text: 'Supervisor License',
+					text: 'Supervisor Credentials',
 					icon: 'k-i-chart-radar-filled',
 					path: 'supercred',
 					paddingLeft: 15,

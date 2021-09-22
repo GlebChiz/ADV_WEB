@@ -12,7 +12,10 @@ import {
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
+	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { tap, filter } from 'rxjs/operators';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
@@ -43,8 +46,20 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		@Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
+		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
+		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
+		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 	) {
-		super(_store, getTableDataPending, getCurrentItemPending, deleteDataPending, editDataPending);
+		super(
+			_store,
+			getTableDataPending,
+			getCurrentItemPending,
+			deleteDataPending,
+			editDataPending,
+			saveNewGridSettingsPending,
+			saveGridChangesPending,
+			getGridSettingsPending,
+		);
 	}
 
 	public canCreate: PermissionType = PermissionType.canCreateSeriesPlan;
@@ -96,6 +111,7 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 				}
 				translatedColumn.includeInChooser = true;
 				translatedColumn.hidden = !language;
+				super.ngOnInit();
 			}
 		});
 		this._activatedRoute.queryParams.subscribe((query: Params) => {

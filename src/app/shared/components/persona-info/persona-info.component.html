@@ -3,15 +3,6 @@
 	<div class="clearfix w-100">
 		<div class="column w-100">
 			<div class="w-100 form-style first-form">
-				<input
-					name="id"
-					formControlName="id"
-					hidden
-					kendoTextBox
-					class="k-textbox"
-					style="width: 100%"
-					maxlength="250"
-				/>
 				<label>Firstname</label>
 				<input
 					name="firstname"
@@ -58,11 +49,7 @@
 		<div class="column w-100">
 			<div class="w-100 form-style">
 				<label>Date of birth</label>
-				<kendo-datepicker
-					format="MM.dd.y"
-					formatPlaceholder="wide"
-					formControlName="dob"
-				></kendo-datepicker>
+				<kendo-datepicker formControlName="dob" format="MM/dd/yyyy" kendoTextBox></kendo-datepicker>
 			</div>
 		</div>
 	</div>

@@ -47,7 +47,6 @@ export class PatientGeneralInfoComponent extends UnSubscriber implements OnInit 
 
 	public initForm(): void {
 		this.myPatientInfoForm = new FormGroup({
-			personId: new FormControl(this.patientInfo?.personId || ''),
 			areaId: new FormControl(this.patientInfo?.areaId || ''),
 			statusId: new FormControl(this.patientInfo?.statusId || ''),
 		});
@@ -79,7 +78,6 @@ export class PatientGeneralInfoComponent extends UnSubscriber implements OnInit 
 }
 
 export interface IPatientGeneralInfo {
-	personId: string;
 	areaId: string | null;
 	statusId: string | null;
 }

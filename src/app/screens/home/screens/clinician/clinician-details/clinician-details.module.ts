@@ -11,7 +11,7 @@ import { ClinicianDetailsEffects } from './store/effects/clinician-details.effec
 @NgModule({
 	imports: [
 		SharedModule,
-		StoreModule.forFeature('clinician', clinicianDetailsReducers),
+		StoreModule.forFeature('clinicianCurrent', clinicianDetailsReducers),
 		EffectsModule.forFeature([ClinicianDetailsEffects]),
 		RouterModule.forChild([
 			{

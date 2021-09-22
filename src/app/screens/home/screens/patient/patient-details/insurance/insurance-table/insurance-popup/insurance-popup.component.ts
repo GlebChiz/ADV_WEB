@@ -9,6 +9,7 @@ import { IButtonSelector } from 'src/app/shared/components/button-selector/butto
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
+import { removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { InsuranceCopyPopupComponent } from '../copy-popup/copy-popup.component';
 import { InsuranceTableActions } from '../insurance-table.actions';
@@ -63,13 +64,9 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 	public initForm(): void {
 		this.myInsuranceForm = new FormGroup({
 			payerId: new FormControl(this.insurance?.payerId || ''),
-			effectiveDate: new FormControl(
-				this.insurance?.effectiveDate
-					? new Date(Date.parse(this.insurance?.effectiveDate))
-					: new Date(),
-			),
+			effectiveDate: new FormControl(removeTimezone(new Date(this.insurance?.effectiveDate)) || ''),
 			closedDate: new FormControl(
-				this.insurance?.closedDate ? new Date(Date.parse(this.insurance?.closedDate)) : new Date(),
+				this.insurance?.closedDate ? removeTimezone(new Date(this.insurance.closedDate)) : '',
 			),
 			orderType: new FormControl(this.insurance?.orderType || 1),
 			copay: new FormControl(this.insurance?.copay || ''),
@@ -79,7 +76,11 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 			planName: new FormControl(this.insurance?.planName || ''),
 			policyGroup: new FormControl(this.insurance?.policyGroup || ''),
 			isVerified: new FormControl(this.insurance?.isVerified),
-			verificationDate: new FormControl(this.insurance?.verificationDate || ''),
+			verificationDate: new FormControl(
+				this.insurance?.verificationDate
+					? removeTimezone(new Date(this.insurance?.verificationDate))
+					: '',
+			),
 			id: new FormControl(this.insurance?.id || ''),
 			insuranceHolderId: new FormControl(this.insurance?.insuranceHolderId || ''),
 			insuredParty: new FormControl(this.insurance?.insuredParty || ''),
@@ -115,7 +116,7 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 			});
 
 		this._store
-			.select('patient' as any, 'current', 'person', 'id')
+			.select('patientCurrent' as any, 'current', 'person', 'id')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((personId: string) => {
 				this.personId = personId;

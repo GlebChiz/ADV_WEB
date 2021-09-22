@@ -25,6 +25,15 @@ import {
 	DUBLICATE_ITEM_TABLE_SUCCESS,
 	DUBLICATE_ITEM_TABLE_ERROR,
 	CLEAR_CURRENT_ITEM,
+	SAVE_GRID_SETTINGS_PENDING,
+	SAVE_GRID_SETTINGS_ERROR,
+	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	GET_GRID_SETTINGS_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SeriesPlanPopupComponent } from './series-plan-table/series-plan-popup/series-plan-popup.component';
 import { SeriesplansTableActions } from './series-plan-table/series-plan-table.actions';
@@ -147,6 +156,42 @@ import { SeriesplansComponent } from './series-plan.component';
 		{
 			provide: CLEAR_CURRENT_ITEM,
 			useValue: SeriesplansTableActions.ClearCurrentSeriesPlan,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_PENDING,
+			useValue: SeriesplansTableActions.SaveGridSettingsPending,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_ERROR,
+			useValue: SeriesplansTableActions.SaveGridSettingsError,
+		},
+		{
+			provide: SAVE_GRID_SETTINGS_SUCCESS,
+			useValue: SeriesplansTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: SeriesplansTableActions.SaveGridChnagesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: SeriesplansTableActions.SaveGridChnagesError,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: SeriesplansTableActions.SaveGridChnagesSuccess,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: SeriesplansTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: SeriesplansTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: SeriesplansTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

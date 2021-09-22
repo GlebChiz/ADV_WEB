@@ -5,6 +5,7 @@ import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-ang
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
+import { removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { ClinicianDropdownPopupComponent } from '../../patient-distribution-group-popups/clinician-dropdown-popup/clinician-dropdown-popup.component';
 import { PatientDropdownPopupComponent } from '../../patient-distribution-group-popups/patient-dropdown-popup/patient-dropdown-popup.component';
@@ -47,13 +48,9 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 		this.myPatientDistributionForm = new FormGroup({
 			clinicianName: new FormControl(this.patientDistribution?.clinicianName || ''),
 			patientName: new FormControl(this.patientDistribution?.patientName || ''),
-			patientId: new FormControl(this.patientDistribution?.patientId || ''),
 			startDate: new FormControl(
-				this.patientDistribution?.startDate
-					? new Date(Date.parse(this.patientDistribution?.startDate))
-					: new Date(),
+				removeTimezone(new Date(this.patientDistribution?.startDate)) || '',
 			),
-			clinicianId: new FormControl(this.patientDistribution?.clinicianId || ''),
 		});
 	}
 

@@ -27,12 +27,22 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
+	(columnReorder)="columnReorder($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
-
+		<div>
+			<kendo-dropdownbutton
+				(itemClick)="onAction($event)"
+				[data]="this.actions()"
+				class="adv-button w-100"
+				textField="title"
+			>
+				<span class="fa fa-ellipsis-v"></span>
+			</kendo-dropdownbutton>
+		</div>
 		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
-
 		<kendo-combobox
 			valueField="id"
 			style="width: 200px"
@@ -41,7 +51,6 @@
 			[valuePrimitive]="true"
 		>
 		</kendo-combobox>
-
 	</ng-template>
 	<kendo-grid-command-column [width]="35">
 		<ng-template kendoGridCellTemplate let-dataItem>
@@ -112,23 +121,4 @@
 			>
 			</kendo-grid-date-filter-cell> </ng-template
 	></kendo-grid-column>
-
-	<!-- <kendo-grid-command-column [width]="35">
-		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-edit k-link"></div>
-			(click)="openDialog(dataItem)"
-		</ng-template>
-	</kendo-grid-command-column>
-	<kendo-grid-command-column [width]="35">
-		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-copy k-link"></div>
-			(click)="openDialog(dataItem, true)"
-		</ng-template>
-	</kendo-grid-command-column>
-	<kendo-grid-command-column [width]="35">
-		<ng-template kendoGridCellTemplate let-dataItem>
-			<div class="k-icon k-i-trash k-link" title="Modify"></div>
-			(click)="deleteWithPopup(dataItem.id)"
-		</ng-template>
-	</kendo-grid-command-column> -->
 </kendo-grid>

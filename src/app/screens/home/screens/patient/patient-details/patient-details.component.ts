@@ -24,7 +24,7 @@ export class PatientDetailsComponent extends UnSubscriber implements OnInit {
 	}
 
 	public personId$: Observable<string> = this.store
-		.select('patient' as any, 'current', 'person', 'id')
+		.select('patientCurrent' as any, 'current', 'person', 'id')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public currentFragment!: string;

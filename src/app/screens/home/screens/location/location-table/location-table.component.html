@@ -23,9 +23,21 @@
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
+	(columnVisibilityChange)="columnVisibilityChange($event)"
+	(columnReorder)="columnReorder($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
+		<div>
+			<kendo-dropdownbutton
+				(itemClick)="onAction($event)"
+				[data]="this.actions()"
+				class="adv-button w-100"
+				textField="title"
+			>
+				<span class="fa fa-ellipsis-v"></span>
+			</kendo-dropdownbutton>
+		</div>
 		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
 		<kendo-combobox
 			valueField="id"

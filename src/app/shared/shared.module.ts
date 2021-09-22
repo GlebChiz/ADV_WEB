@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from '@progress/kendo-angular-buttons';
+import { ButtonModule, DropDownButtonModule } from '@progress/kendo-angular-buttons';
 import { DialogModule } from '@progress/kendo-angular-dialog';
 import { ComboBoxModule, DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { GridModule } from '@progress/kendo-angular-grid';
@@ -18,7 +18,7 @@ import { PhoneComponent } from './components/phone/phone.component';
 import { PatientGeneralInfoComponent } from './components/patient-general-info/patient-general-info.component';
 import { ClinicianGeneralInfoComponent } from './components/clinician-general-info/clinician-general-info.component';
 import { AddressControlComponent } from './components/address-control/address-control.component';
-import { PermissionsComponent } from './permission/permission.component';
+import { PermissionsComponent } from './components/permission/permission.component';
 
 @NgModule({
 	imports: [
@@ -39,6 +39,7 @@ import { PermissionsComponent } from './permission/permission.component';
 		DialogModule,
 		ComboBoxModule,
 		DateInputsModule,
+		DropDownButtonModule,
 		CheckBoxModule,
 		ButtonModule,
 		DropDownsModule,
