@@ -10,13 +10,14 @@ import {
 	GridDataResult,
 } from '@progress/kendo-angular-grid';
 import { GroupDescriptor, process } from '@progress/kendo-data-query';
+
 import { Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IColumn } from '../interfaces/column.interface';
-import { IDropdownData } from '../interfaces/dropdown.interface';
+import { IDropDownGridSettings } from '../interfaces/dropdown.interface';
 import {
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
@@ -53,12 +54,16 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public selectedItems: any[] = [];
 
-	public gridSettings$: Observable<IDropdownData[]> = this._store.select(
+	public gridSettings$: Observable<IDropDownGridSettings[]> = this._store.select(
 		'dropdown' as any,
 		'gridSettings',
 	);
 
 	public gridSettingsControl: FormControl = new FormControl();
+
+	public idGridSettings: string = '';
+
+	public dropdownnGridSettings: IDropDownGridSettings | undefined;
 
 	public gridSettings: { state: DataStateChangeEvent } = {
 		state: {
@@ -86,9 +91,22 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
+		this.gridSettings$
+			.pipe(
+				filter<IDropDownGridSettings[]>(Boolean),
+				map((item: IDropDownGridSettings[]) => {
+					return item.find((dr: IDropDownGridSettings) => dr.isDefault);
+				}),
+				takeUntil(this.unsubscribe$$),
+			)
+			.subscribe((data: IDropDownGridSettings | undefined) => {
+				this.dropdownnGridSettings = data;
+				this.gridSettingsControl.setValue(data?.id);
+			});
 		this.gridSettingsControl.valueChanges
 			.pipe(filter<string>(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((id: string) => {
+				this.idGridSettings = id;
 				this._store.dispatch(this.getGridSettingsPending({ id, controller: this.controller }));
 			});
 		this._store
@@ -97,14 +115,17 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			.subscribe((column: IColumn[]) => {
 				this.columns = column;
 			});
-		this._store.dispatch(
-			this.getTableDataPending({
-				controller: this.controller,
-				filter: this.gridSettings.state,
-				gridId: this.gridId,
-				columns: this.columns,
-			}),
-		);
+		if (!this.idGridSettings) {
+			this._store.dispatch(
+				this.getTableDataPending({
+					controller: this.controller,
+					filter: this.gridSettings.state,
+					gridId: this.gridId,
+					columns: this.columns,
+				}),
+			);
+		}
+
 		this._store.dispatch(DropdownActions.GetGridSettingsPending({ gridId: this.gridId }));
 		this.selectState();
 	}
@@ -177,7 +198,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	public saveGridChanges(): void {
 		this._store.dispatch(
 			this.saveGridChangesPending({
-				id: '',
+				id: this.idGridSettings,
 				gridId: this.gridId,
 				gridSettings: this.gridSettings,
 				columns: this.columns,
@@ -219,20 +240,40 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public actions(): { title: string; cmd: string }[] {
-		const list: { title: string; cmd: string }[] = [
-			{
-				title: 'Save',
-				cmd: 'save',
-			},
-			{
-				title: 'Save as New',
-				cmd: 'create',
-			},
-			{
-				title: 'Rename',
-				cmd: 'rename',
-			},
-		];
+		let list: { title: string; cmd: string }[] = [];
+		if (this.idGridSettings) {
+			list = [
+				{
+					title: 'Rename',
+					cmd: 'rename',
+				},
+				{
+					title: 'Save',
+					cmd: 'save',
+				},
+				{
+					title: 'Save as New',
+					cmd: 'create',
+				},
+				{
+					title: 'Copy Link',
+					cmd: 'copyLink',
+				},
+			];
+			if (this.idGridSettings !== this.dropdownnGridSettings?.id) {
+				list.push({
+					title: 'Make Default',
+					cmd: 'default',
+				});
+			}
+		} else {
+			list = [
+				{
+					title: 'Save as Default',
+					cmd: 'create',
+				},
+			];
+		}
 		return list;
 	}
 
@@ -246,6 +287,12 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				break;
 			case 'rename':
 				this.renameGrid();
+				break;
+			case 'default':
+				// this.renameGrid();
+				break;
+			case 'copyLink':
+				// this.renameGrid();
 				break;
 			default:
 				break;

@@ -257,6 +257,7 @@ export class TableEffects {
 											filter: { logic: 'and', filters: [...gridSettings.filters] },
 										},
 										columns: [
+											// ...latest.columns,
 											...gridSettings.columns.map((columnName: string) => {
 												const numberColumn: number | undefined = latest.columns.findIndex(
 													(column: IColumn) => column.field === columnName,
