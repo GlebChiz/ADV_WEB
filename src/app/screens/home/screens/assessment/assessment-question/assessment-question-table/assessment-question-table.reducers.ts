@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
-import { ITable, ITableState, tableReducersFactory } from 'src/app/shared/table/table.reducer';
+import { ITableState, tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
 import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
-const tableReducers: any = tableReducersFactory(
+const tableReducers: ActionReducer<ITableState<any, any, any>> = tableReducersFactory(
 	AssessmentQuestionTableActions.UpdateAssessmentQuestionTableState,
 	AssessmentQuestionTableActions.GetAssessmentQuestionTableDataPending,
 	AssessmentQuestionTableActions.GetCurrentItemSuccess,
@@ -15,9 +15,9 @@ const tableReducers: any = tableReducersFactory(
 );
 
 export function assessmentQuestionTableReducers(
-	state: ITable<IAssessmentQuestion, IAssessmentQuestion>,
+	state: ITableState<IAssessmentQuestion, IAssessmentQuestion, any>,
 	action: Action,
-): ITable<IAssessmentQuestion, IAssessmentQuestion> {
+): ITableState<IAssessmentQuestion, IAssessmentQuestion, any> {
 	return tableReducers(state, action);
 }
 
@@ -39,6 +39,10 @@ export function assessmentQuestionTranslateReducers(
 		),
 	)(patientInfoState, action);
 }
+
+// export const appReducers: ActionReducerMap<IStore> = {
+// 	tableReducers: tableReducers,
+// };
 
 export const assessmentQuestionReducers: ITableState<
 	IAssessmentQuestion,
