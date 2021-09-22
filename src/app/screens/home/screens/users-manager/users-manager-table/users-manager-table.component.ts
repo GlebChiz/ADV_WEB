@@ -50,11 +50,11 @@ export class UsersManagerTableComponent extends CustomTableDirective {
 		);
 	}
 
-	public canCreate: PermissionType = PermissionType.canCreateModality;
+	public canCreate: PermissionType = PermissionType.canCreateUser;
 
-	public canUpdate: PermissionType = PermissionType.canUpdateModality;
+	public canUpdate: PermissionType = PermissionType.canUpdateUser;
 
-	public canDelete: PermissionType = PermissionType.canDeleteModality;
+	public canDelete: PermissionType = PermissionType.canDeleteUser;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {

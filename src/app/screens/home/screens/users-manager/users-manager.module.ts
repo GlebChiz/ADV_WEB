@@ -28,6 +28,12 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_SETTINGS_ERROR,
 	SAVE_GRID_SETTINGS_SUCCESS,
+	SAVE_GRID_CHANGES_PENDING,
+	SAVE_GRID_CHANGES_SUCCESS,
+	SAVE_GRID_CHANGES_ERROR,
+	GET_GRID_SETTINGS_PENDING,
+	GET_GRID_SETTINGS_SUCCESS,
+	GET_GRID_SETTINGS_ERROR
 } from 'src/app/shared/table/table.tokens';
 import { UsersManagerPopupComponent } from './users-manager-table/users-manager-popup/users-manager-popup.component';
 import { UsersManagerTableActions } from './users-manager-table/users-manager-table.actions';
@@ -142,6 +148,30 @@ import { UsersManagerComponent } from './users-manager.component';
 		{
 			provide: SAVE_GRID_SETTINGS_SUCCESS,
 			useValue: UsersManagerTableActions.SaveGridSettingsSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_PENDING,
+			useValue: UsersManagerTableActions.SaveGridChangesPending,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_SUCCESS,
+			useValue: UsersManagerTableActions.SaveGridChangesSuccess,
+		},
+		{
+			provide: SAVE_GRID_CHANGES_ERROR,
+			useValue: UsersManagerTableActions.SaveGridChangesError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_PENDING,
+			useValue: UsersManagerTableActions.GetGridSettingsPending,
+		},
+		{
+			provide: GET_GRID_SETTINGS_ERROR,
+			useValue: UsersManagerTableActions.GetGridSettingsError,
+		},
+		{
+			provide: GET_GRID_SETTINGS_SUCCESS,
+			useValue: UsersManagerTableActions.GetGridSettingsSuccess,
 		},
 	],
 })

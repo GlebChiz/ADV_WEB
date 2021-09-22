@@ -36,17 +36,17 @@ export class UsersManagerPopupComponent extends UnSubscriber implements OnInit, 
 	public initForm(): void {
 		this.usersManagerForm = new FormGroup({
 			name: new FormControl(this.user?.name || ''),
-			description: new FormControl(this.user?.description || ''),
-			url: new FormControl(this.user?.url),
+			userName: new FormControl(this.user?.userName || ''),
+			
 		});
 	}
 
 	public ngOnInit(): void {
 		this._store
-			.select('modality' as any, 'table')
+			.select('user' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((modalityTable: any) => {
-				this.user = modalityTable.current;
+			.subscribe((userTable: any) => {
+				this.user = userTable.current;
 				this.initForm();
 			});
 		this.initForm();
