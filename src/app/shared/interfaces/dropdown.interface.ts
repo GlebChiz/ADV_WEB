@@ -3,6 +3,7 @@ export interface IDropdownData {
 	name: string;
 	isDisabled: boolean;
 	parentId?: string;
+	isLoading: boolean;
 }
 
 export interface IDropDownState extends IDropDownItem {

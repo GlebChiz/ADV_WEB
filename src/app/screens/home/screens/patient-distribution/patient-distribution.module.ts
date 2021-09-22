@@ -185,4 +185,6 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 		},
 	],
 })
-export class PatientDistributionModule {}
+export class PatientDistributionModule {
+	PatientDistributionModule: any;
+}

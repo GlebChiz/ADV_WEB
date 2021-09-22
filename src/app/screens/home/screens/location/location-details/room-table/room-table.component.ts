@@ -3,9 +3,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
-import { Address } from 'src/app/shared/interfaces/address.intarface';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
-import { IInitiativeId } from 'src/app/shared/interfaces/location.interface';
+import { IInitiativeId, ILocation } from 'src/app/shared/interfaces/location.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	CLEAR_CURRENT_ITEM,
@@ -57,7 +56,7 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		);
 	}
 
-	public infoLocation!: ILocationCurrent;
+	public infoLocation!: ILocation | undefined;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {
@@ -84,25 +83,27 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		this._store.dispatch(
 			LocationActions.GetSelectedLocationPending({ id: this._activatedRoute.snapshot.params.id }),
 		);
-		this._store.select('location', 'selectedLocation').subscribe((location: ILocationCurrent) => {
-			this.infoLocation = location;
-			this._store
-				.select('dropdown' as any, 'locationInitiativeIds') // TODO BAD
-				.subscribe((locationInitiativeIds: IInitiativeId[]) => {
-					this.initiativeIds = [];
-					this.infoLocation?.initiativeIds?.forEach((item: string | undefined) => {
-						this.initiativeIds.push();
-						const res: string | undefined = locationInitiativeIds?.find(
-							(initiativeId: IInitiativeId) => {
-								return initiativeId.id === item;
-							},
-						)?.name;
-						if (res) {
-							this.initiativeIds.push(res);
-						}
+		this._store
+			.select('location', 'selectedLocation')
+			.subscribe((location: ILocation | undefined) => {
+				this.infoLocation = location;
+				this._store
+					.select('dropdown', 'locationInitiativeIds') // TODO BAD
+					.subscribe((locationInitiativeIds: IInitiativeId[]) => {
+						this.initiativeIds = [];
+						this.infoLocation?.initiativeIds?.forEach((item: string | undefined) => {
+							this.initiativeIds.push();
+							const res: string | undefined = locationInitiativeIds?.find(
+								(initiativeId: IInitiativeId) => {
+									return initiativeId.id === item;
+								},
+							)?.name;
+							if (res) {
+								this.initiativeIds.push(res);
+							}
+						});
 					});
-				});
-		});
+			});
 
 		super.ngOnInit();
 	}
@@ -192,15 +193,4 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	public back(): void {
 		this.router.navigate(['/locations']);
 	}
-}
-
-export interface ILocationCurrent {
-	address: Address;
-	billingCode: string;
-	code: string;
-	id: string;
-	initiativeIds: string[];
-	isSchool: boolean;
-	name: string;
-	roomCount: number;
 }

@@ -29,7 +29,7 @@ export class AddressControlComponent implements ControlValueAccessor, OnInit {
 		this.form.setValue(value);
 	}
 
-	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'usState' as any);
+	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'usState');
 
 	public constructor(private formBuilder: FormBuilder, private _store: Store<IStore>) {}
 
@@ -53,7 +53,7 @@ export class AddressControlComponent implements ControlValueAccessor, OnInit {
 
 	@Input() public isHeader: boolean = true;
 
-	public writeValue(obj: any): void {
+	public writeValue(obj: Address): void {
 		if (obj) {
 			this.value = obj;
 		}
@@ -62,11 +62,11 @@ export class AddressControlComponent implements ControlValueAccessor, OnInit {
 		}
 	}
 
-	public registerOnChange(fn: any): void {
+	public registerOnChange(fn: string): void {
 		this.onChange = fn;
 	}
 
-	public registerOnTouched(fn: any): void {
+	public registerOnTouched(fn: string): void {
 		this.onTouched = fn;
 	}
 

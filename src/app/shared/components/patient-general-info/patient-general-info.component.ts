@@ -31,12 +31,9 @@ export class PatientGeneralInfoComponent extends UnSubscriber implements OnInit 
 
 	public patientInfo!: IPatientGeneralInfo;
 
-	public status$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown',
-		'patientStatus' as any,
-	);
+	public status$: Observable<IDropdownData[]> = this._store.select('dropdown', 'patientStatus');
 
-	public area$: Observable<IDropdownData[]> = this._store.select('dropdown', 'areas' as any);
+	public area$: Observable<IDropdownData[]> = this._store.select('dropdown', 'areas');
 
 	public myPatientInfoForm!: FormGroup;
 

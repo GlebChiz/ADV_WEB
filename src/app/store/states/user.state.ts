@@ -4,12 +4,10 @@ export interface IUserState {
 	user: IUser | undefined;
 	permissions: PermissionType[];
 	editing: IUser | undefined;
-	urlAvatar: string | null;
 }
 
 export const initialUserState: IUserState = {
 	user: undefined,
 	permissions: [],
 	editing: undefined,
-	urlAvatar: null,
 };

@@ -1,3 +1,4 @@
+import { IPayerType } from 'src/app/shared/interfaces/payer.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -6,8 +7,7 @@ import { Injectable } from '@angular/core';
 export class PayerService {
 	public constructor(private http: HttpClient) {}
 
-	public getTypes(): Observable<any> {
-		return this.http.get('dropdowns/PayerType');
-		// return this.http.post('create', user);
+	public getTypes(): Observable<IPayerType[]> {
+		return this.http.get<IPayerType[]>('dropdowns/PayerType');
 	}
 }

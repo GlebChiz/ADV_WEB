@@ -6,6 +6,6 @@ export interface IColumn {
 	sortable?: boolean;
 	filterable: boolean;
 	type: 'boolean' | 'text' | 'numeric' | 'date';
-	style?: { [klass: string]: any };
-	headerStyle?: { [klass: string]: any };
+	style?: { [klass: string]: string };
+	headerStyle?: { [klass: string]: string };
 }
