@@ -12,7 +12,7 @@ export class LocationEffects {
 	public getLocation$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(LocationActions.GetSelectedLocationPending),
-			mergeMap(({ id }) =>
+			mergeMap(({ id }: { id: string }) =>
 				this.service.getLocation(id).pipe(
 					map((selectedLocation: any) => {
 						return LocationActions.GetSelectedLocationSuccess({ selectedLocation });

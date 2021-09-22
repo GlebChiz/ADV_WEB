@@ -85,14 +85,3 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 		this.initForm();
 	}
 }
-
-export interface IClinicianGeneralInfo {
-	typeId: string | null;
-	npi: string;
-	billingCode: string;
-	isSupervisor: boolean;
-	title: string;
-	areaIds: string[];
-	serviceTypeIds: string[];
-}
-

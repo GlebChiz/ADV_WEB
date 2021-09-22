@@ -111,7 +111,7 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Location',
 			content: LocationPopupComponent,
-			width: 600,
+			width: 700,
 			height: 550,
 			minWidth: 250,
 		});
@@ -135,7 +135,7 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Room',
 			content: RoomPopupComponent,
-			width: 600,
+			width: 700,
 			height: 550,
 			minWidth: 250,
 		});
