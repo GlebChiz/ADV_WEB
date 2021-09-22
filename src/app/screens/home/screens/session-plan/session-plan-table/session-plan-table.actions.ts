@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
 import { ISessionPlanTranslate } from './session-plan-translate-popup/session-plan-translate-popup.component';
 
@@ -159,5 +160,8 @@ export const SessionPlanTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Session Plan] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Session Plan] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Session Plan] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

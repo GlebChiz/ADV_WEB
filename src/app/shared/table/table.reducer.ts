@@ -67,13 +67,3 @@ export interface ITable<T, R> {
 	data: T[];
 	total: number;
 }
-// isLoading, controller, filter, columns
-// export interface ITableGroupState<T, R> {
-// 	table: ITableState<T, R>;
-// 	rooms: {
-// 		isLoading: boolean;
-// 		current: any;
-// 		data: any[];
-// 		total: number;
-// 	};
-// }
