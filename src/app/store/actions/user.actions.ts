@@ -121,6 +121,11 @@ export const enum PermissionType {
 	canCreatePatient = 142,
 	canUpdatePatient = 143,
 	canDeletePatient = 144,
+	canViewUserManager = 145,
+	canReadUser = 146,
+	canCreateUser= 147,
+	canUpdateUser = 148,
+	canDeleteUser = 149,
 }
 
 export const enum RoleType {}
