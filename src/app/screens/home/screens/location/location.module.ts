@@ -46,7 +46,8 @@ import { locationReducers } from './location-table/location-table.reducers';
 import { LocationPopupComponent } from './location-table/location-popup/location-popup.component';
 import { LocationTableComponent } from './location-table/location-table.component';
 import { LocationTableActions } from './location-table/location-table.actions';
-import { SomeEffect } from './location-table/location-table.effects';
+import { LocationEffects } from './location-table/location-table.effects';
+import { LocationService } from './location-table/location-table.service';
 
 @NgModule({
 	imports: [
@@ -68,11 +69,12 @@ import { SomeEffect } from './location-table/location-table.effects';
 			},
 		]),
 		StoreModule.forFeature('location', locationReducers),
-		EffectsModule.forFeature([SomeEffect]),
+		EffectsModule.forFeature([LocationEffects]),
 	],
 	declarations: [LocationComponent, LocationTableComponent, LocationPopupComponent],
 	entryComponents: [],
 	providers: [
+		LocationService,
 		{
 			provide: GET_TABLE_DATA_PENDING,
 			useValue: LocationTableActions.GetLocationTableDataPending,

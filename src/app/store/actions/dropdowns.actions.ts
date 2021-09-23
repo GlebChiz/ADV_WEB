@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
+import { IPayerType } from 'src/app/shared/interfaces/payer.interface';
 
 export const DropdownActions = {
 	GetSeriesPlansPending: createAction('[Dropdown] Get series plans pending'),
@@ -227,4 +228,7 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetPermissionTypesError: createAction('[Dropdown] Get PermissionTypes error'),
+	GetTypesPending: createAction('[Dropdown] Get types pending'),
+	GetTypesError: createAction('[Dropdown] Get types error'),
+	GetTypesSuccess: createAction('[Dropdown] Get types success', props<{ data: IPayerType[] }>()),
 };

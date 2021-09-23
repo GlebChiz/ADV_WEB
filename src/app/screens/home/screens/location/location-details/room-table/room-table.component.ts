@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IInitiativeId, ILocation } from 'src/app/shared/interfaces/location.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -22,8 +24,8 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
-import { LocationActions } from 'src/app/store/actions/location.actions';
 import { LocationPopupComponent } from '../../location-table/location-popup/location-popup.component';
+import { LocationTableActions } from '../../location-table/location-table.actions';
 import { RoomPopupComponent } from './room-popup/room-popup.component';
 
 @Component({
@@ -82,6 +84,10 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 
 	public initiativeIds: string[] = [];
 
+	public locationInitiativeIds$: Observable<IInitiativeId[]> = this._store
+		.select('dropdown', 'locationInitiativeIds')
+		.pipe(takeUntil(this.unsubscribe$$));
+
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetLocationInitiativeIdsPending());
 		if (this.gridSettings.state.filter) {
@@ -96,30 +102,32 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		}
 
 		this._store.dispatch(
-			LocationActions.GetSelectedLocationPending({ id: this._activatedRoute.snapshot.params.id }),
+			LocationTableActions.GetSelectedLocationPending({
+				id: this._activatedRoute.snapshot.params.id,
+			}),
 		);
 		this._store
-			.select('location', 'selectedLocation')
-			.subscribe((location: ILocation | undefined) => {
-				this.infoLocation = location;
-				this._store
-					.select('dropdown', 'locationInitiativeIds') // TODO BAD
-					.subscribe((locationInitiativeIds: IInitiativeId[]) => {
-						this.initiativeIds = [];
-						this.infoLocation?.initiativeIds?.forEach((item: string | undefined) => {
-							this.initiativeIds.push();
-							const res: string | undefined = locationInitiativeIds?.find(
-								(initiativeId: IInitiativeId) => {
-									return initiativeId.id === item;
-								},
-							)?.name;
-							if (res) {
-								this.initiativeIds.push(res);
-							}
-						});
-					});
+			.select('location' as any, 'locationInfo', 'selectedLocation')
+			.pipe(
+				filter<ILocation>(Boolean),
+				takeUntil(this.unsubscribe$$),
+				switchMap((location: ILocation) => {
+					this.infoLocation = location;
+					return this.locationInitiativeIds$.pipe(
+						map<IInitiativeId[], string[]>((initiativeIds: IInitiativeId[]) => {
+							return initiativeIds?.reduce((prev: string[], curr: IInitiativeId) => {
+								if (location.initiativeIds?.includes(curr.id)) {
+									prev.push(curr.name);
+								}
+								return prev;
+							}, []);
+						}),
+					);
+				}),
+			)
+			.subscribe((res: string[]) => {
+				this.initiativeIds = res;
 			});
-
 		super.ngOnInit();
 	}
 

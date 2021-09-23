@@ -20,9 +20,9 @@ import {
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
-import { LocationActions } from 'src/app/store/actions/location.actions';
 import { PermissionType } from 'src/app/store/actions/user.actions';
 import { LocationPopupComponent } from './location-popup/location-popup.component';
+import { LocationTableActions } from './location-table.actions';
 
 @Component({
 	providers: [],
@@ -83,7 +83,7 @@ export class LocationTableComponent extends CustomTableDirective implements OnIn
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {
 		this._store.dispatch(this.clearCurrentItem());
-		this._store.dispatch(LocationActions.ClearSelectedLocation());
+		this._store.dispatch(LocationTableActions.ClearSelectedLocation());
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),

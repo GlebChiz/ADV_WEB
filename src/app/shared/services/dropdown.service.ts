@@ -2,6 +2,7 @@ import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { IPayerType } from '../interfaces/payer.interface';
 
 @Injectable({ providedIn: 'root' })
 export class DropdownService {
@@ -145,5 +146,9 @@ export class DropdownService {
 
 	public getPermissionTypes(): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>(`dropdowns/permission-types`);
+	}
+
+	public getTypes(): Observable<IPayerType[]> {
+		return this.http.get<IPayerType[]>('dropdowns/PayerType');
 	}
 }

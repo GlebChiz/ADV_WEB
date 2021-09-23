@@ -7,7 +7,7 @@ import { groupBy, GroupResult } from '@progress/kendo-data-query';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
-import { PayerActions } from 'src/app/store/actions/payer.actions';
+import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 
 @Component({
@@ -50,7 +50,7 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 	}
 
 	public ngOnInit(): void {
-		this._store.dispatch(PayerActions.GetTypesPending());
+		this._store.dispatch(DropdownActions.GetTypesPending());
 		this._store
 			.select('payer' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
@@ -59,19 +59,19 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 				this.initForm();
 			});
 		this._store
-			.select('payerState')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((payerTypes: any) => {
-				payerTypes.types?.forEach((k: any) => {
-					const found: any = payerTypes.types.find((x: any) => x.id === k.parentId);
+			.select('dropdown', 'types')
+			.pipe(filter<IDropdownData[]>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((payerTypes: IDropdownData[]) => {
+				payerTypes.forEach((k: IDropdownData) => {
+					const found: IDropdownData | undefined = payerTypes.find(
+						(x: IDropdownData) => x.id === k.parentId,
+					);
 					k.parentName = found?.name ?? '';
 				});
-				if (payerTypes.types) {
-					this.payerTypes = groupBy(
-						payerTypes.types?.filter((y: any) => y.parentId != null),
-						[{ field: 'parentName' }],
-					);
-				}
+				this.payerTypes = groupBy(
+					payerTypes?.filter((y: IDropdownData) => y.parentId != null),
+					[{ field: 'parentName' }],
+				);
 			});
 		this.initForm();
 	}
