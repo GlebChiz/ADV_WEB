@@ -4,6 +4,20 @@ import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const LocationTableActions = {
+	GetSelectedLocationPending: createAction(
+		'[Location Table] Get selected location pending',
+		props<{ id: string }>(),
+	),
+
+	GetSelectedLocationSuccess: createAction(
+		'[Location Table] Get selected location success',
+		props<{ selectedLocation: any }>(),
+	),
+
+	GetSelectedLocationError: createAction('[Location Table] Get selected location error'),
+
+	ClearSelectedLocation: createAction('[Location Table] Clear selected location'),
+
 	GetLocationTableDataPending: createAction(
 		'[Location Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),

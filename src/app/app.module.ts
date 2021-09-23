@@ -12,11 +12,8 @@ import { AuthUserActions } from './store/actions/user.actions';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { appReducers } from './store';
 import { UserEffects } from './store/effects/user.effects';
-import { PayerEffects } from './store/effects/payer.effects';
 import { DropdownEffects } from './store/effects/dropdown.effects';
-import { LocationEffects } from './store/effects/location.effects';
 import { PersonEffects } from './store/effects/person.eefects';
-// import { DownloadFileEffects } from './store/effects/download.effects';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function initApp(store: Store<any>): any {
@@ -40,14 +37,7 @@ export function initApp(store: Store<any>): any {
 			positionClass: 'custom-toast-top-center',
 		}),
 		StoreDevtoolsModule.instrument(),
-		EffectsModule.forRoot([
-			UserEffects,
-			PayerEffects,
-			DropdownEffects,
-			LocationEffects,
-			PersonEffects,
-			// DownloadFileEffects,
-		]),
+		EffectsModule.forRoot([UserEffects, DropdownEffects, PersonEffects]),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

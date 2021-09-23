@@ -10,7 +10,6 @@ import { Guid } from 'guid-typescript';
 import { of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import { LocationActions } from 'src/app/store/actions/location.actions';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { TableService } from './table.service';
 import {
@@ -48,6 +47,7 @@ import {
 } from './table.tokens';
 import { IGridSettings } from '../interfaces/grid-settings.intarface';
 import { IGridSort } from '../interfaces/sort.interface';
+import { LocationTableActions } from 'src/app/screens/home/screens/location/location-table/location-table.actions';
 
 @Injectable()
 export class TableEffects {
@@ -202,7 +202,7 @@ export class TableEffects {
 							mergeMap(() => {
 								if (controller === 'location') {
 									this._store.dispatch(
-										LocationActions.GetSelectedLocationPending({
+										LocationTableActions.GetSelectedLocationPending({
 											id: item.id,
 										}),
 									);

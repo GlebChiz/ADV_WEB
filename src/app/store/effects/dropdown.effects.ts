@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { DropdownService } from 'src/app/shared/services/dropdown.service';
 import { DropdownActions } from '../actions/dropdowns.actions';
+import { IPayerType } from 'src/app/shared/interfaces/payer.interface';
 
 @Injectable()
 export class DropdownEffects {
@@ -509,6 +510,20 @@ export class DropdownEffects {
 						return DropdownActions.GetPermissionTypesSuccess({ data });
 					}),
 					catchError(() => of(DropdownActions.GetPermissionTypesError())),
+				),
+			),
+		),
+	);
+
+	public getTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetTypesPending),
+			switchMap(() =>
+				this.service.getTypes().pipe(
+					map((data: IPayerType[]) => {
+						return DropdownActions.GetTypesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetTypesError())),
 				),
 			),
 		),

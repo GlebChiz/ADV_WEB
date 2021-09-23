@@ -1,7 +1,7 @@
 import { Address } from 'src/app/shared/interfaces/address.intarface';
 
 export interface ILocationState {
-	selectedLocation: ILocation | undefined;
+	selectedLocation: ILocation | null;
 }
 export interface ILocation {
 	address: Address;
