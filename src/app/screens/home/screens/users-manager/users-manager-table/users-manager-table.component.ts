@@ -40,7 +40,6 @@ export class UsersManagerTableComponent extends CustomTableDirective {
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
-
 		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
@@ -58,11 +57,11 @@ export class UsersManagerTableComponent extends CustomTableDirective {
 		);
 	}
 
-	public canCreate: PermissionType = PermissionType.canCreateModality;
+	public canCreate: PermissionType = PermissionType.canCreateUser;
 
-	public canUpdate: PermissionType = PermissionType.canUpdateModality;
+	public canUpdate: PermissionType = PermissionType.canUpdateUser;
 
-	public canDelete: PermissionType = PermissionType.canDeleteModality;
+	public canDelete: PermissionType = PermissionType.canDeleteUser;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {

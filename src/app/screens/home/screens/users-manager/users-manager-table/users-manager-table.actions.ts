@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IFilter } from 'src/app/shared/table/table.model';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 
 export const UsersManagerTableActions = {
 	GetUserTableDataPending: createAction(
@@ -90,4 +91,19 @@ export const UsersManagerTableActions = {
 	),
 	SaveGridSettingsSuccess: createAction('[User Table] save grid settings success'),
 	SaveGridSettingsError: createAction('[User Table] save grid settings error'),
+	SaveGridChangesPending: createAction(
+		'[User Table] save grid changes pending',
+		props<{ controller: string; id: string }>(),
+	),
+	SaveGridChangesSuccess: createAction('[User Table] save grid changes success'),
+	SaveGridChangesError: createAction('[User Table] save grid changes error'),
+	GetGridSettingsPending: createAction(
+		'[User Table] get grid settings pending',
+		props<{ controller: string; id: string }>(),
+	),
+	GetGridSettingsError: createAction('[User Table] get grid settings error'),
+	GetGridSettingsSuccess: createAction(
+		'[User Table] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };
