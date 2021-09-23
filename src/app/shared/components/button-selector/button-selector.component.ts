@@ -32,15 +32,15 @@ export class ButtonSelectorComponent implements ControlValueAccessor {
 		this.onChange(this.value);
 	}
 
-	public writeValue(obj: any): void {
+	public writeValue(obj: string): void {
 		this.value = obj;
 	}
 
-	public registerOnChange(fn: any): void {
+	public registerOnChange(fn: string): void {
 		this.onChange = fn;
 	}
 
-	public registerOnTouched(fn: any): void {
+	public registerOnTouched(fn: string): void {
 		this.onTouched = fn;
 	}
 

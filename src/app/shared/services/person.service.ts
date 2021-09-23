@@ -11,27 +11,30 @@ import { IPersonContactInfo } from '../components/contact/contact.component';
 export class PersonService {
 	public constructor(private http: HttpClient) {}
 
-	public getPersonDemographicInfo(id: string): Observable<any> {
-		return this.http.get(`person/${id}/demographic`);
+	public getPersonDemographicInfo(id: string): Observable<IPersonDemographicInfo> {
+		return this.http.get<IPersonDemographicInfo>(`person/${id}/demographic`);
 	}
 
-	public updatePersonDemographicInfo(id: string, body: IPersonDemographicInfo): Observable<any> {
-		return this.http.put(`person/${id}/demographic`, body);
+	public updatePersonDemographicInfo(
+		id: string,
+		body: IPersonDemographicInfo,
+	): Observable<boolean> {
+		return this.http.put<boolean>(`person/${id}/demographic`, body);
 	}
 
-	public getPersonInfo(id: string): Observable<any> {
-		return this.http.get(`person/${id}/general`);
+	public getPersonInfo(id: string): Observable<IPersonInfo> {
+		return this.http.get<IPersonInfo>(`person/${id}/general`);
 	}
 
-	public updatePersonInfo(id: string, body: IPersonInfo): Observable<any> {
-		return this.http.put(`person/${id}/general`, body);
+	public updatePersonInfo(id: string, body: IPersonInfo): Observable<boolean> {
+		return this.http.put<boolean>(`person/${id}/general`, body);
 	}
 
-	public getPersonContactInfo(id: string): Observable<any> {
-		return this.http.get(`person/${id}/contacts`);
+	public getPersonContactInfo(id: string): Observable<IPersonContactInfo> {
+		return this.http.get<IPersonContactInfo>(`person/${id}/contacts`);
 	}
 
-	public updatePersonContactInfo(id: string, body: IPersonContactInfo): Observable<any> {
-		return this.http.put(`person/${id}/contacts`, body);
+	public updatePersonContactInfo(id: string, body: IPersonContactInfo): Observable<boolean> {
+		return this.http.put<boolean>(`person/${id}/contacts`, body);
 	}
 }

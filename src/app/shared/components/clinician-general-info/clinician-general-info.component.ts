@@ -32,12 +32,9 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 
 	public clinicianInfo!: IClinicianGeneralInfo;
 
-	public type$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown',
-		'clinicianType' as any,
-	);
+	public type$: Observable<IDropdownData[]> = this._store.select('dropdown', 'clinicianType');
 
-	public area$: Observable<IDropdownData[]> = this._store.select('dropdown', 'areas' as any);
+	public area$: Observable<IDropdownData[]> = this._store.select('dropdown', 'areas');
 
 	public myClinicianInfoForm!: FormGroup;
 

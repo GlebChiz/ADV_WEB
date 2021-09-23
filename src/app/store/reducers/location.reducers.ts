@@ -1,8 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { ILocationState } from 'src/app/shared/interfaces/location.interface';
+import { ILocation, ILocationState } from 'src/app/shared/interfaces/location.interface';
 import { LocationActions } from '../actions/location.actions';
 
-const initialLocationState: ILocationState = { selectedLocation: {} };
+const initialLocationState: ILocationState = { selectedLocation: {} as ILocation };
 
 export function locationReducers(
 	locationState: ILocationState | undefined,
@@ -12,7 +12,7 @@ export function locationReducers(
 		initialLocationState,
 		on(
 			LocationActions.GetSelectedLocationSuccess,
-			(state: ILocationState, { selectedLocation }: { selectedLocation: any }) => {
+			(state: ILocationState, { selectedLocation }: { selectedLocation: ILocation }) => {
 				return { ...state, selectedLocation };
 			},
 		),

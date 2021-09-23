@@ -108,7 +108,7 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 	public ngOnInit(): void {
 		this._store.dispatch(PersonActions.GetPersonContactInfoPending({ id: this.personId }));
 		this._store
-			.select('person' as any, 'personContactInfo')
+			.select('person', 'personContactInfo')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((personContactInfo: { [key: string]: IPersonContactInfo }[]) => {
 				const currentPersonContact: { [key: string]: IPersonContactInfo } =
@@ -124,7 +124,7 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 			});
 		this._store.dispatch(DropdownActions.GetPreferredContactPending());
 		this._store
-			.select('dropdown', 'preferredContact' as any)
+			.select('dropdown', 'preferredContact')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((preferredContact: IDropdownData[]) => {
 				this.preferredContact = preferredContact?.map((item: IDropdownData) => {

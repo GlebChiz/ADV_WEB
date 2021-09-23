@@ -5,7 +5,7 @@ import { initialPayerState, IPayerState } from '../states/payer.state';
 export function payerReducers(payerState: IPayerState | undefined, action: Action): IPayerState {
 	return createReducer(
 		initialPayerState,
-		on(PayerActions.GetTypesSuccess, (state, payload) => {
+		on(PayerActions.GetTypesSuccess, (state: IPayerState, payload: IPayerState) => {
 			return { ...state, types: payload.types };
 		}),
 	)(payerState, action);
