@@ -147,7 +147,7 @@ export interface IPersonDemographicInfo {
 }
 
 export interface IPersonInfo {
-	id: string | null;
+	id: string;
 	lastname: string | null;
 	address: Address;
 	firstname: string | null;

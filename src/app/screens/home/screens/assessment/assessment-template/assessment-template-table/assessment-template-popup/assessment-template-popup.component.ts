@@ -97,7 +97,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 }
 
 export interface IAssessmentTemplateInterface {
-	id: string | null;
+	id: string;
 	criteria: string;
 	responseOption: number;
 	text: string;

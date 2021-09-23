@@ -11,7 +11,7 @@ export interface IAssessmentQuestion extends ITranslated {
 
 export interface ILegend {
 	abbreviation?: null;
-	id: string | null;
+	id: string;
 	isDisabled: boolean;
 	name: string;
 	orderNumber: number;

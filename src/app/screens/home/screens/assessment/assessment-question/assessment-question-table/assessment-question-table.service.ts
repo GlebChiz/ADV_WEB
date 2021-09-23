@@ -8,8 +8,8 @@ import { IAssessmentTranslate } from './assessment-question-translate-popup/asse
 export class AssessmentQuestionTableSerivce {
 	public constructor(private http: HttpClient) {}
 
-	public reorder(controller: string, body: any): Observable<string> {
-		return this.http.post<string>(`${controller}/reorder`, body);
+	public reorder(controller: string, body: any): Observable<any> {
+		return this.http.post<any>(`${controller}/reorder`, body);
 	}
 
 	public getCurrentTransletion(questionId: string, languageId: string): Observable<string> {
