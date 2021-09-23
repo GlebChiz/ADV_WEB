@@ -18,6 +18,8 @@ import {
 } from 'src/app/shared/table/table.tokens';
 import { Store } from '@ngrx/store';
 import { IStore } from 'src/app/store';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { ISeriesPlan } from 'src/app/shared/interfaces/series-plan.interface';
 import { PermissionType } from 'src/app/store/actions/user.actions';
 import { SeriesPlanPopupComponent } from './series-plan-popup/series-plan-popup.component';
@@ -31,10 +33,12 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 })
 export class SeriesplansTableComponent extends CustomTableDirective {
 	public constructor(
-		private _router: Router,
+		_router: Router,
 		_store: Store<IStore>,
 		private _activatedRoute: ActivatedRoute,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -51,6 +55,9 @@ export class SeriesplansTableComponent extends CustomTableDirective {
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

@@ -24,6 +24,8 @@ import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-ang
 import { IStore } from 'src/app/store';
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
 import { PermissionType } from 'src/app/store/actions/user.actions';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { DropdownActions } from '../../../../../store/actions/dropdowns.actions';
 import { SessionPlanPopupComponent } from './session-plan-popup/session-plan-popup.component';
@@ -38,10 +40,12 @@ import { SessionPlanTranslatePopupComponent } from './session-plan-translate-pop
 })
 export class SessionPlanTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
-		private _router: Router,
+		_router: Router,
 		private _activatedRoute: ActivatedRoute,
 		_store: Store<IStore>,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
@@ -58,6 +62,9 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

@@ -20,6 +20,8 @@ import {
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { AssessmentPopupComponent } from './assessment-popup/assessment-popup.component';
 
@@ -31,10 +33,12 @@ import { AssessmentPopupComponent } from './assessment-popup/assessment-popup.co
 })
 export class AssessmentTableComponent extends CustomTableDirective {
 	public constructor(
-		private _router: Router,
+		_router: Router,
 		private _activatedRoute: ActivatedRoute,
 		dialogService: DialogService,
 		_store: Store<any>,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -51,6 +55,9 @@ export class AssessmentTableComponent extends CustomTableDirective {
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

@@ -3,6 +3,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/shared/interfaces/address.intarface';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IInitiativeId } from 'src/app/shared/interfaces/location.interface';
@@ -34,9 +36,11 @@ import { RoomPopupComponent } from './room-popup/room-popup.component';
 export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		private _activatedRoute: ActivatedRoute,
-		private router: Router,
+		_router: Router,
 		_store: Store<any>,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -53,6 +57,9 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -198,7 +205,7 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	];
 
 	public back(): void {
-		this.router.navigate(['/locations']);
+		this._router.navigate(['/locations']);
 	}
 }
 

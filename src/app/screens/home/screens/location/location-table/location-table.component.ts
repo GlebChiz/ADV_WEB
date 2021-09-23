@@ -3,6 +3,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
@@ -31,8 +33,10 @@ import { LocationPopupComponent } from './location-popup/location-popup.componen
 export class LocationTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		_store: Store<any>,
-		private _router: Router,
+		_router: Router,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -49,6 +53,9 @@ export class LocationTableComponent extends CustomTableDirective implements OnIn
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

@@ -4,6 +4,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	DELETE_ITEM_TABLE_PENDING,
@@ -25,9 +27,11 @@ import { IColumn } from '../../../../../shared/interfaces/column.interface';
 })
 export class UnsupervisedServicesTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
-		private _router: Router,
+		_router: Router,
 		_store: Store<any>,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -42,6 +46,9 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
