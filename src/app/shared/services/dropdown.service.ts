@@ -138,4 +138,12 @@ export class DropdownService {
 	public getGridSettings(gridId: string): Observable<IDropdownData[]> {
 		return this.http.get<IDropdownData[]>(`gridsettings/views/${gridId}`);
 	}
+
+	public getRolesTypes(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>(`dropdowns/role-types`);
+	}
+
+	public getPermissionTypes(): Observable<IDropdownData[]> {
+		return this.http.get<IDropdownData[]>(`dropdowns/permission-types`);
+	}
 }

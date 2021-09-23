@@ -211,5 +211,17 @@ export function dropdownReducers(
 				return { ...state, gridSettings: data, isLoading: false };
 			},
 		),
+		on(
+			DropdownActions.GetRoleTypesSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, roleTypes: data, isLoading: false };
+			},
+		),
+		on(
+			DropdownActions.GetPermissionTypesSuccess,
+			(state: IDropDownState, { data }: { data: IDropdownData[] }) => {
+				return { ...state, permissionTypes: data, isLoading: false };
+			},
+		),
 	)(dropdownState, action);
 }

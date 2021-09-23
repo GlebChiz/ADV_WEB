@@ -33,6 +33,14 @@
 			</div>
 		</div>
 	</div>
+	<div>Roles</div>
+	<div *ngFor="let roleType of this.roleTypes; let i = index">
+		<input type="checkbox"  name={{roleType.id}}/> {{roleType.name}}
+	</div>
+	<div>Permissions></div>
+	<div *ngFor="let roleType of this.permissionTypes; let i = index">
+		<input type="checkbox"  name={{roleType.id}}/> {{roleType.name}}
+	</div>	
 </form>
 <kendo-dialog-actions>
 	<button kendoButton (click)="onCancelAction()">Cancel</button>

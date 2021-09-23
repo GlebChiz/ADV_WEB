@@ -213,4 +213,18 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetGridSettingsError: createAction('[Dropdown] Get GridSettings error'),
+
+	GetRoleTypesPending: createAction('[Dropdown] Get RolesTypes pending'),
+	GetRoleTypesSuccess: createAction(
+		'[Dropdown] Get RolesTypes success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetRoleTypesError: createAction('[Dropdown] Get RolesTypes error'),
+
+	GetPermissionTypesPending: createAction('[Dropdown] Get PermissionTypes pending'),
+	GetPermissionTypesSuccess: createAction(
+		'[Dropdown] Get PermissionTypes success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetPermissionTypesError: createAction('[Dropdown] Get PermissionTypes error'),
 };

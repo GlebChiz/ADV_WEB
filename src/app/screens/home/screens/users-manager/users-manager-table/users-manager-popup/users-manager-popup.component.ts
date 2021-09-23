@@ -6,6 +6,8 @@ import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
+import { IDropdownData } from '../../../../../../shared/interfaces/dropdown.interface';
+import { DropdownActions } from '../../../../../../store/actions/dropdowns.actions';
 
 @Component({
 	selector: 'advenium-users-manager-popup',
@@ -17,6 +19,8 @@ export class UsersManagerPopupComponent extends UnSubscriber implements OnInit, 
 	}
 
 	public user: any;
+	public roleTypes: any;
+	public permissionTypes: any;
 
 	public usersManagerForm!: FormGroup;
 
@@ -42,6 +46,22 @@ export class UsersManagerPopupComponent extends UnSubscriber implements OnInit, 
 	}
 
 	public ngOnInit(): void {
+		this._store.dispatch(DropdownActions.GetRoleTypesPending());
+
+		this._store.dispatch(DropdownActions.GetPermissionTypesPending());
+
+		this._store.select('dropdown' as any, 'roleTypes').subscribe((data: IDropdownData[]) => {
+			if (data) {
+				this.roleTypes = data;
+			}
+		});
+
+		this._store.select('dropdown' as any, 'permissionTypes').subscribe((data: IDropdownData[]) => {
+			if (data) {
+				this.permissionTypes = data;
+			}
+		});
+		
 		this._store
 			.select('user' as any, 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
