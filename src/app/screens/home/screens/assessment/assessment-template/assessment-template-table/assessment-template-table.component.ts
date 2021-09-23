@@ -52,12 +52,13 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 		);
 	}
 
-	public openDialog(dataItem?: any, isDublicate?: boolean): void {
+	public openDialog(dataItem?: { id: string }, isDublicate?: boolean): void {
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
 			);
 		}
+
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Assesment-template',
 			content: AssessmentTemplatePopupComponent,

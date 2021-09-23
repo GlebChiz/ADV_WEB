@@ -1,3 +1,4 @@
+import { ILocation } from './../../shared/interfaces/location.interface';
 import { createAction, props } from '@ngrx/store';
 
 export const LocationActions = {
@@ -7,7 +8,7 @@ export const LocationActions = {
 	),
 	GetSelectedLocationSuccess: createAction(
 		'[Selected Location] Get selected location success',
-		props<{ selectedLocation: any }>(),
+		props<{ selectedLocation: ILocation }>(),
 	),
 	GetSelectedLocationError: createAction('[Selected Location] Get selected location error'),
 	ClearSelectedLocation: createAction('[Selected Location] Clear selected location'),

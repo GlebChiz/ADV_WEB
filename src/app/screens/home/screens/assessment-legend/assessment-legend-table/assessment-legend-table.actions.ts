@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
+import { ITranslated } from './assessment-legend-table.component';
 
 export const AssessmentLegendTableActions = {
 	GetAssessmentLegendTableDataPending: createAction(
@@ -95,7 +96,7 @@ export const AssessmentLegendTableActions = {
 	),
 	GetTranslationSuccess: createAction(
 		'[Assessment Legend Translated] get current item success',
-		props<{ tranlsated: any }>(),
+		props<{ tranlsated: ITranslated }>(),
 	),
 	GetTranslationError: createAction('[Assessment Legend Translated] get current item error'),
 	SetTranslationPending: createAction(

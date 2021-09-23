@@ -20,7 +20,7 @@ export class AssessmentQuestionDetailsEffects {
 					map((current: any) =>
 						AssessmentQuestionDetailsActions.GetAssessmentQuestiondetailsSuccess({ current }),
 					),
-					catchError((error: any) => {
+					catchError((error: string) => {
 						console.log(error);
 						return of(AssessmentQuestionDetailsActions.GetAssessmentQuestiondetailsError());
 					}),

@@ -110,7 +110,7 @@ export class TableEffects {
 									}),
 								);
 							}),
-							catchError((error: any) => {
+							catchError((error: string) => {
 								return of(this.getTableDataError(error));
 							}),
 						);

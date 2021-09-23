@@ -36,9 +36,11 @@ import {
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
 import { ITable } from 'src/app/shared/table/table.reducer';
 import { ToastrService } from 'ngx-toastr';
+import { ILegend } from 'src/app/shared/interfaces/assessment-question.interface';
 import { ISessionPlanCurrent } from '../../session-plan/session-plan-table/session-plan-popup/session-plan-popup.component';
 import { AssessmentLegendTableActions } from './assessment-legend-table.actions';
 import { AssessmentLegendService } from './assessment-legend-table.service';
+import { ITranslated } from './assessment-legend-table.component';
 
 @Injectable()
 export class AssessmentLegendEffect extends TableEffects {
@@ -70,7 +72,7 @@ export class AssessmentLegendEffect extends TableEffects {
 		@Inject(GET_GRID_SETTINGS_SUCCESS) getGridSettingsSuccess: any,
 		@Inject(GET_GRID_SETTINGS_ERROR) getGridSettingsError: any,
 		_tableService: TableService,
-		_store: Store<any>,
+		_store: Store<ILegend>,
 		private _service: AssessmentLegendService,
 		_toasterService: ToastrService,
 	) {
@@ -112,7 +114,7 @@ export class AssessmentLegendEffect extends TableEffects {
 			ofType(AssessmentLegendTableActions.GetTranslationPending),
 			switchMap(({ legendId, languageId }: { legendId: string; languageId: string }) => {
 				return this._service.getAssessmentLegend(legendId, languageId).pipe(
-					map((tranlsated: any) =>
+					map((tranlsated: ITranslated) =>
 						AssessmentLegendTableActions.GetTranslationSuccess({ tranlsated }),
 					),
 					catchError(() => of(AssessmentLegendTableActions.GetTranslationError())),
@@ -124,11 +126,11 @@ export class AssessmentLegendEffect extends TableEffects {
 	public setTranslation$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(AssessmentLegendTableActions.SetTranslationPending),
-			switchMap(({ type, controller, ...data }: { type: string; controller: string }) => {
+			switchMap(({ controller, item }: { controller: string; item: { item: string } }) => {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(controller)),
 					switchMap(([, latest]: [number, ITable<ISessionPlan, ISessionPlanCurrent>]) => {
-						return this._service.setAssessmentLegend(data).pipe(
+						return this._service.setAssessmentLegend(item).pipe(
 							mergeMap(() => {
 								return [
 									AssessmentLegendTableActions.SetTranslationSuccess(),
