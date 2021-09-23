@@ -53,7 +53,7 @@ export class TableService {
 	}
 
 	public renameGrid(id: string, title: string): Observable<any> {
-		return this.handleError$(this.http.post(`gridsettings/rename`, { id, title }));
+		return this.handleError$(this.http.put(`gridsettings/rename`, { id, title }));
 	}
 
 	public saveNewGridSettings(

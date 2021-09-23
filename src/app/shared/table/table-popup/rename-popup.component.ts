@@ -60,7 +60,7 @@ export class RenamePopupComponent extends CustomTableDirective implements OnInit
 
 	public onConfirmAction(): void {
 		this._dialogRef.close({
-			...this.titleForm.value,
+			title: this.titleForm.value,
 		});
 	}
 

@@ -228,7 +228,9 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
-				this._store.dispatch(this.renameGridPending({ id: this.idGridSettings, title: 'asd' }));
+				this._store.dispatch(
+					this.renameGridPending({ id: this.idGridSettings, title: result.title }),
+				);
 			}
 		});
 	}
