@@ -252,12 +252,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public copyLinkGrid(): void {
 		const currentUrlWithIdGrid: string = `${this._router.url}/${this.idGridSettings}`;
-		try {
-			this._clipboardApi.copy(currentUrlWithIdGrid);
-			this._toasterService.success('Url copied successfully');
-		} catch (e) {
-			this._toasterService.error(`Url copied error: ${e}`);
-		}
+		this._clipboardApi.copy(currentUrlWithIdGrid);
+		this._toasterService.success('Url copied successfully');
 	}
 
 	public toggle(a: any): void {
