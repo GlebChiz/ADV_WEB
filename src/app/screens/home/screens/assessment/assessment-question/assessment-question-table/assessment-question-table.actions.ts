@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
-import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
+import { IAssessmentTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 export const AssessmentQuestionTableActions = {
 	GetAssessmentQuestionTableDataPending: createAction(
@@ -120,7 +120,7 @@ export const AssessmentQuestionTableActions = {
 		props<{
 			questionId: string;
 			languageId: string;
-			currentTranslation: IAssessmentQuestionTranslate;
+			currentTranslation: IAssessmentTranslate;
 			controller: string;
 		}>(),
 	),

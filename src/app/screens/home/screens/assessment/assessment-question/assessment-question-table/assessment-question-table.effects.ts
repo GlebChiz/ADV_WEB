@@ -44,7 +44,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
 import { AssessmentQuestionTableSerivce } from './assessment-question-table.service';
-import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
+import { IAssessmentTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 @Injectable()
 export class AssessmentQuestionTableEffects extends TableEffects {
@@ -171,7 +171,7 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 			ofType(AssessmentQuestionTableActions.GetCurrentTranslationAssessmentQuestionPending),
 			switchMap(({ questionId, languageId }: { questionId: string; languageId: string }) => {
 				return this._service.getCurrentTransletion(questionId, languageId).pipe(
-					map((currentTranslation: IAssessmentQuestionTranslate) =>
+					map((currentTranslation: string) =>
 						AssessmentQuestionTableActions.GetCurrentTranslationAssessmentQuestionSuccess({
 							currentTranslation,
 						}),
@@ -198,7 +198,7 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 				}: {
 					questionId: string;
 					languageId: string;
-					currentTranslation: IAssessmentQuestionTranslate;
+					currentTranslation: IAssessmentTranslate;
 					controller: string;
 				}) => {
 					return of(1).pipe(

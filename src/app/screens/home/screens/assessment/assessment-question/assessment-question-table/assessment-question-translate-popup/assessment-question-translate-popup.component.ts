@@ -15,7 +15,7 @@ export class AssessmentQuestionTranslatePopupComponent extends UnSubscriber impl
 		super();
 	}
 
-	public assessmentTranslate!: IAssessmentQuestionTranslate | undefined;
+	public assessmentTranslate!: IAssessmentTranslate | undefined;
 
 	public assessmentTranslateForm!: FormGroup;
 
@@ -50,7 +50,7 @@ export class AssessmentQuestionTranslatePopupComponent extends UnSubscriber impl
 	}
 }
 
-export interface IAssessmentQuestionTranslate {
+export interface IAssessmentTranslate {
 	id: string;
 	languageId: string;
 	original: string;

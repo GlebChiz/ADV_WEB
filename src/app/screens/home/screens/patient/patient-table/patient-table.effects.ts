@@ -150,7 +150,7 @@ export class PatientEffect extends TableEffects {
 						this._toasterService.success('Patient general info has been successfully updated');
 						return PatientTableActions.UpdatePatientGeneralInfoSuccess();
 					}),
-					catchError((error) => {
+					catchError((error: string) => {
 						this._toasterService.error(`update patient general info error: ${error}`);
 						return of(PatientTableActions.UpdatePatientGeneralInfoError());
 					}),

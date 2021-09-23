@@ -24,7 +24,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 		super();
 	}
 
-	public assessmentTemplate!: IAssessmentTemplateInterface;
+	public assessmentTemplate!: IAssessmentTemplateInterface | undefined;
 
 	public assessmentTemplateForm!: FormGroup;
 
@@ -47,7 +47,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.assessmentTemplateForm.value });
+		this._dialogService.close({ ...this.assessmentTemplate, ...this.assessmentTemplateForm.value });
 	}
 
 	public initForm(): void {
@@ -71,8 +71,13 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 		this._store
 			.select('assessmentnotetemplate', 'table')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((assessmentTemplateTable: unknown) => {
-				this.assessmentTemplate = (assessmentTemplateTable as ITable<any, any>).current;
+			.subscribe((assessmentTemplateTable: any) => {
+				this.assessmentTemplate = (
+					assessmentTemplateTable as ITable<
+						IAssessmentTemplateInterface,
+						IAssessmentTemplateInterface
+					>
+				).current;
 				this.initForm();
 			});
 	}

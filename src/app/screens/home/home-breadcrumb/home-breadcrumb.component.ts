@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, Router } from '@angular/router';
+import {
+	ActivatedRoute,
+	NavigationEnd,
+	Params,
+	PRIMARY_OUTLET,
+	Router,
+	UrlSegment,
+} from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 interface IBreadcrumb {
@@ -54,7 +61,9 @@ export class HomeBreadcrumbComponent implements OnInit {
 				return this.getBreadcrumbs(child, url, breadcrumbs);
 			}
 
-			const routeURL: string = child.snapshot.url.map((segment: any) => segment.path).join('/');
+			const routeURL: string = child.snapshot.url
+				.map((segment: UrlSegment) => segment.path)
+				.join('/');
 			url += `${routeURL}`;
 			const breadcrumb: IBreadcrumb = {
 				text: child.snapshot.data[ROUTE_DATA_BREADCRUMB],

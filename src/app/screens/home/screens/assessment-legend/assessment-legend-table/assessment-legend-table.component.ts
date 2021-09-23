@@ -68,7 +68,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 	}
 
 	public languagesDropdown$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown' as any,
+		'dropdown',
 		'languages',
 	);
 
@@ -106,7 +106,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 		},
 	];
 
-	public openDialog(dataItem?: any): void {
+	public openDialog(dataItem: ITranslationAssessmentLegend): void {
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Assessment Legend Tranlsate',
 			content: AssessmentTranslatedPopupComponent,
@@ -119,7 +119,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 			legendId: dataItem.id,
 			languageId: this.language.value,
 		};
-		dialog.result.subscribe((result: any) => {
+		dialog.result.subscribe((result: DialogCloseResult) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
 					AssessmentLegendTableActions.SetTranslationPending({
@@ -151,4 +151,19 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 		});
 		super.ngOnInit();
 	}
+}
+
+export interface ITranslationAssessmentLegend {
+	icon: string;
+	iconBase64: string;
+	id: string | undefined;
+	text: string;
+	translated: boolean;
+	value: number;
+}
+export interface ITranslated {
+	id: string;
+	languageId: string;
+	original: string;
+	translation: string | null | boolean;
 }
