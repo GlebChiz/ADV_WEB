@@ -112,4 +112,22 @@ export const PayerTableActions = {
 		'[Payer Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Payer Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Payer Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Payer Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Payer Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Payer Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Payer Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

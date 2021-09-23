@@ -128,6 +128,13 @@ export class HomeComponent implements OnInit {
 					permission: PermissionType.canViewModalityManager,
 				},
 				{
+					text: 'Users Manager',
+					icon: 'k-i-user',
+					path: 'users',
+					paddingLeft: 15,
+					permission: PermissionType.canViewUserManager,
+				},
+				{
 					text: 'Series Plans',
 					icon: 'k-i-delicious-box',
 					path: 'seriesplans',

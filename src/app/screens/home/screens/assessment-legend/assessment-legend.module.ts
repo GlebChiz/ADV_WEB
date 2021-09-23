@@ -34,6 +34,12 @@ import {
 	GET_GRID_SETTINGS_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { AssessmentTranslatedPopupComponent } from './assessment-legend-table/assessmen-translated-popup/assessment-translated-popup.component';
 import { AssessmentLegendTableActions } from './assessment-legend-table/assessment-legend-table.actions';
@@ -178,6 +184,30 @@ import { AssessmentLegendComponent } from './assessment-legend.component';
 		{
 			provide: GET_GRID_SETTINGS_SUCCESS,
 			useValue: AssessmentLegendTableActions.GetGridSettingsSuccess,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_PENDING,
+			useValue: AssessmentLegendTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_ERROR,
+			useValue: AssessmentLegendTableActions.MakeDefaultGridError,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_SUCCESS,
+			useValue: AssessmentLegendTableActions.MakeDefaultGridSuccess,
+		},
+		{
+			provide: RENAME_GRID_PENDING,
+			useValue: AssessmentLegendTableActions.RenameGridPending,
+		},
+		{
+			provide: RENAME_GRID_ERROR,
+			useValue: AssessmentLegendTableActions.RenameGridError,
+		},
+		{
+			provide: RENAME_GRID_SUCCESS,
+			useValue: AssessmentLegendTableActions.RenameGridSuccess,
 		},
 	],
 })

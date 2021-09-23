@@ -37,6 +37,14 @@ import { HomeComponent } from './home.component';
 							breadcrumb: 'Modalities',
 						},
 					},
+					{
+						path: 'users',
+						loadChildren: (): any =>
+							import('./screens/users-manager/users-manager.module').then((m: any) => m.UsersManagerModule),
+						data: {
+							breadcrumb: 'Users',
+						},
+					},
 
 					{
 						path: 'payers',
@@ -174,6 +182,7 @@ export enum ROUTES {
 	clinicians = 'clinicians',
 	patients = 'patients',
 	modalities = 'modalities',
+	users = 'users',
 	supercred = 'supercred',
 	snipits = 'snipits',
 	seriesplans = 'seriesplans',

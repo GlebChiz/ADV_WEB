@@ -3,6 +3,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
+import { Address } from 'src/app/shared/interfaces/address.intarface';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { IInitiativeId, ILocation } from 'src/app/shared/interfaces/location.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -14,6 +17,8 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
@@ -30,10 +35,12 @@ import { RoomPopupComponent } from './room-popup/room-popup.component';
 })
 export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
-		private dialogService: DialogService,
 		private _activatedRoute: ActivatedRoute,
-		private router: Router,
+		_router: Router,
 		_store: Store<any>,
+		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -43,9 +50,16 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -53,6 +67,8 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 
@@ -191,6 +207,6 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	];
 
 	public back(): void {
-		this.router.navigate(['/locations']);
+		this._router.navigate(['/locations']);
 	}
 }

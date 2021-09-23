@@ -15,12 +15,17 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	GET_GRID_SETTINGS_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { CellClickEvent, RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { IStore } from 'src/app/store';
 import { ITherapyGroup } from 'src/app/shared/interfaces/therapy-group.interface';
+import { PermissionType } from 'src/app/store/actions/user.actions';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { TherapyGroupPopupComponent } from './therapy-group-popup/therapy-group-popup.component';
 import { ModalityForGroupPopupComponent } from '../therapy-group-popups/modality-for-group-popup/modality-for-group-popup.component';
@@ -30,7 +35,6 @@ import { LocationForGroupPopupComponent } from '../therapy-group-popups/location
 import { SeriesPlanForGroupPopupComponent } from '../therapy-group-popups/series-plan-for-group-popup/series-plan-for-group-popup.component';
 import { RoomForGroupPopupComponent } from '../therapy-group-popups/room-for-group-popup/room-for-group-popup.component';
 import { TherapyGroupTableActions } from './therapy-group-table.actions';
-import { PermissionType } from 'src/app/store/actions/user.actions';
 
 @Component({
 	providers: [],
@@ -40,10 +44,12 @@ import { PermissionType } from 'src/app/store/actions/user.actions';
 })
 export class TherapyGroupTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
-		private _router: Router,
+		_router: Router,
 		private _activatedRoute: ActivatedRoute,
 		_store: Store<IStore>,
-		private dialogService: DialogService,
+		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
@@ -53,9 +59,16 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -63,6 +76,8 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 

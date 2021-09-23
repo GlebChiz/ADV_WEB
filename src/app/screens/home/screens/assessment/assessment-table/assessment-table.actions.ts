@@ -105,4 +105,22 @@ export const AssessmentTableActions = {
 		'[Assessment Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Assessment Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Assessment Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Assessment Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Assessment Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Assessment Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Assessment Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

@@ -164,4 +164,22 @@ export const SessionPlanTableActions = {
 		'[Session Plan] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Session Plan] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Session Plan] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Session Plan] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Session Plan] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Session Plan] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Session Plan] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };
