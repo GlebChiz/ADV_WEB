@@ -3,6 +3,7 @@
 import { Directive, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import {
 	ColumnReorderEvent,
 	ColumnVisibilityChangeEvent,
@@ -18,12 +19,16 @@ import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IColumn } from '../interfaces/column.interface';
 import { IDropDownGridSettings } from '../interfaces/dropdown.interface';
+import { RenamePopupComponent } from './table-popup/rename-popup.component';
+
 import {
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from './table.tokens';
@@ -79,6 +84,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public constructor(
 		public _store: Store<IStore>,
+		public dialogService: DialogService,
 		@Inject(GET_TABLE_DATA_PENDING) public getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
@@ -86,6 +92,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) private saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) private getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) private makeDefaultGridPending: any,
+		@Inject(RENAME_GRID_PENDING) private renameGridPending: any,
 	) {
 		super();
 	}
@@ -207,25 +215,33 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public renameGrid(): void {
-		// this._store.dispatch(
-		// 	this.saveNewGridSettingsPending({
-		// 		gridId: this.gridId,
-		// 		gridSettings: this.gridSettings,
-		// 		columns: this.columns,
-		// 	}),
-		// );
-		// /gridsettings/{id}
-		// const dialog: DialogRef = this.dialogService.open({
-		// 	title: 'Rename',
-		// 	content: LanguageForGroupPopupComponent,
-		// 	width: 600,
-		// 	height: 500,
-		// 	minWidth: 250,
-		// });
-		// dialog.result.subscribe((result: any) => {
-		// 	if (!(result instanceof DialogCloseResult)) {
-		// 	}
-		// });
+		this._store.dispatch(
+			this.getGridSettingsPending({ id: this.idGridSettings, controller: this.controller }),
+		);
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Rename Grid',
+			content: RenamePopupComponent,
+			width: 600,
+			height: 200,
+			minWidth: 250,
+		});
+
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					this.renameGridPending({ id: this.idGridSettings, title: result.title }),
+				);
+			}
+		});
+	}
+
+	public makeDefaultGrid(): void {
+		this._store.dispatch(
+			this.makeDefaultGridPending({
+				id: this.idGridSettings,
+				gridId: this.gridId,
+			}),
+		);
 	}
 
 	public toggle(a: any): void {
@@ -289,7 +305,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				this.renameGrid();
 				break;
 			case 'default':
-				// this.renameGrid();
+				this.makeDefaultGrid();
 				break;
 			case 'copyLink':
 				// this.renameGrid();

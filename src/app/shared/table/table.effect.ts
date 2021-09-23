@@ -32,6 +32,12 @@ import {
 	GET_TABLE_DATA_ERROR,
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_SUCCESS,
@@ -72,6 +78,12 @@ export class TableEffects {
 		@Inject(GET_GRID_SETTINGS_PENDING) private getGridSettingsPending: any,
 		@Inject(GET_GRID_SETTINGS_SUCCESS) private getGridSettingsSuccess: any,
 		@Inject(GET_GRID_SETTINGS_ERROR) private getGridSettingsError: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) private makeDefaultGridPending: any,
+		@Inject(MAKE_DEFAULT_GRID_SUCCESS) private makeDefaultGridSuccess: any,
+		@Inject(MAKE_DEFAULT_GRID_ERROR) private makeDefaultGridError: any,
+		@Inject(RENAME_GRID_PENDING) private renameGridPending: any,
+		@Inject(RENAME_GRID_SUCCESS) private renameGridSuccess: any,
+		@Inject(RENAME_GRID_ERROR) private renameGridError: any,
 
 		public _tableService: TableService,
 		public _store: Store<any>,
@@ -257,7 +269,6 @@ export class TableEffects {
 											filter: { logic: 'and', filters: [...gridSettings.filters] },
 										},
 										columns: [
-											// ...latest.columns,
 											...gridSettings.columns.map((columnName: string) => {
 												const numberColumn: number | undefined = latest.columns.findIndex(
 													(column: IColumn) => column.field === columnName,
@@ -271,6 +282,7 @@ export class TableEffects {
 											}),
 											...latest.columns.map((column: IColumn) => ({ ...column, hidden: true })),
 										],
+										title: gridSettings.title,
 									}),
 									this.getGridSettingsSuccess(),
 								];
@@ -315,6 +327,45 @@ export class TableEffects {
 					);
 				},
 			),
+		);
+	});
+
+	public makeDefaultGrid$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(this.makeDefaultGridPending),
+			switchMap(({ id, gridId }: { id: string; gridId: string }) => {
+				return this._tableService.makeDefaultGrid(id).pipe(
+					mergeMap(() => {
+						this._toasterService.success('Grid has been successfully maked default');
+						return [
+							this.makeDefaultGridSuccess(),
+							DropdownActions.GetGridSettingsPending({ gridId }),
+						];
+					}),
+					catchError((error: string) => {
+						this._toasterService.error(`make default grid error: ${error}`);
+						return of(this.makeDefaultGridError(error));
+					}),
+				);
+			}),
+		);
+	});
+
+	public renameGrid$ = createEffect(() => {
+		return this.actions$.pipe(
+			ofType(this.renameGridPending),
+			switchMap(({ id, title, gridId }: { id: string; title: string; gridId: string }) => {
+				return this._tableService.renameGrid(id, title).pipe(
+					mergeMap(() => {
+						this._toasterService.success('Grid has been successfully renamed');
+						return [this.renameGridSuccess(), DropdownActions.GetGridSettingsPending({ gridId })];
+					}),
+					catchError((error: string) => {
+						this._toasterService.error(`rename grid error: ${error}`);
+						return of(this.renameGridError(error));
+					}),
+				);
+			}),
 		);
 	});
 

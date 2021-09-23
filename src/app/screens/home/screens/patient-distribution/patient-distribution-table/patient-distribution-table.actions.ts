@@ -120,4 +120,22 @@ export const PatientDistributionTableActions = {
 		'[Patient Distribution] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Patient Distribution] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Patient Distribution] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Patient Distribution] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Patient Distribution] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Patient Distribution] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Patient Distribution] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };
