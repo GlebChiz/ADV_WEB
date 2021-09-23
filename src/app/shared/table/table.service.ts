@@ -48,6 +48,14 @@ export class TableService {
 		return this.handleError$(this.http.get(`gridsettings/${id}`));
 	}
 
+	public makeDefaultGrid(id: string): Observable<any> {
+		return this.handleError$(this.http.put(`gridsettings/default/${id}`, {}));
+	}
+
+	public renameGrid(id: string, title: string): Observable<any> {
+		return this.handleError$(this.http.post(`gridsettings/rename`, { id, title }));
+	}
+
 	public saveNewGridSettings(
 		gridId: string,
 		gridSettings: {

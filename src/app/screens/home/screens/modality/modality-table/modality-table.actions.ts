@@ -106,4 +106,22 @@ export const ModalityTableActions = {
 		'[Modality Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Modality Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Modality Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Modality Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Modality Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Modality Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Modality Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

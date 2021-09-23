@@ -32,6 +32,12 @@ import {
 	GET_GRID_SETTINGS_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
 import { ITable } from 'src/app/shared/table/table.reducer';
@@ -45,6 +51,7 @@ export class AssessmentLegendEffect extends TableEffects {
 	public constructor(
 		actions$: Actions,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
+
 		@Inject(GET_TABLE_DATA_SUCCESS) getTableDataSuccess: any,
 		@Inject(GET_TABLE_DATA_ERROR) getTableDataError: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteItemTablePending: any,
@@ -69,6 +76,12 @@ export class AssessmentLegendEffect extends TableEffects {
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 		@Inject(GET_GRID_SETTINGS_SUCCESS) getGridSettingsSuccess: any,
 		@Inject(GET_GRID_SETTINGS_ERROR) getGridSettingsError: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+		@Inject(MAKE_DEFAULT_GRID_SUCCESS) makeDefaultGridSuccess: any,
+		@Inject(MAKE_DEFAULT_GRID_ERROR) makeDefaultGridError: any,
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
+		@Inject(RENAME_GRID_SUCCESS) renameGridSuccess: any,
+		@Inject(RENAME_GRID_ERROR) renameGridError: any,
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: AssessmentLegendService,
@@ -101,6 +114,12 @@ export class AssessmentLegendEffect extends TableEffects {
 			getGridSettingsPending,
 			getGridSettingsSuccess,
 			getGridSettingsError,
+			makeDefaultGridPending,
+			makeDefaultGridSuccess,
+			makeDefaultGridError,
+			renameGridPending,
+			renameGridSuccess,
+			renameGridError,
 			_tableService,
 			_store,
 			_toasterService,

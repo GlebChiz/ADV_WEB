@@ -106,4 +106,22 @@ export const RoomTableActions = {
 		'[Room Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Room Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Room Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Room Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Room Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Room Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Room Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

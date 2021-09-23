@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ITable } from 'src/app/shared/table/table.reducer';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -32,18 +33,25 @@ import {
 	GET_GRID_SETTINGS_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
+import { ToastrService } from 'ngx-toastr';
 import { SessionPlanTableActions } from './session-plan-table.actions';
 import { SessionPlanTableSerivce } from './session-plan-table.service';
 import { ISessionPlanCurrent } from './session-plan-popup/session-plan-popup.component';
 import { ISessionPlan } from '../../../../../shared/interfaces/session-plan.interface';
-import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class SessionPlansEffects extends TableEffects {
 	public constructor(
 		actions$: Actions,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
+
 		@Inject(GET_TABLE_DATA_SUCCESS) getTableDataSuccess: any,
 		@Inject(GET_TABLE_DATA_ERROR) getTableDataError: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteItemTablePending: any,
@@ -68,6 +76,12 @@ export class SessionPlansEffects extends TableEffects {
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 		@Inject(GET_GRID_SETTINGS_SUCCESS) getGridSettingsSuccess: any,
 		@Inject(GET_GRID_SETTINGS_ERROR) getGridSettingsError: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+		@Inject(MAKE_DEFAULT_GRID_SUCCESS) makeDefaultGridSuccess: any,
+		@Inject(MAKE_DEFAULT_GRID_ERROR) makeDefaultGridError: any,
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
+		@Inject(RENAME_GRID_SUCCESS) renameGridSuccess: any,
+		@Inject(RENAME_GRID_ERROR) renameGridError: any,
 		_tableService: TableService,
 		_store: Store<any>,
 		private _service: SessionPlanTableSerivce,
@@ -100,6 +114,12 @@ export class SessionPlansEffects extends TableEffects {
 			getGridSettingsPending,
 			getGridSettingsSuccess,
 			getGridSettingsError,
+			makeDefaultGridPending,
+			makeDefaultGridSuccess,
+			makeDefaultGridError,
+			renameGridPending,
+			renameGridSuccess,
+			renameGridError,
 			_tableService,
 			_store,
 			_toasterService,

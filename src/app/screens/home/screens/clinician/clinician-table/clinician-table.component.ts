@@ -14,6 +14,8 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	GET_GRID_SETTINGS_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { IStore } from 'src/app/store';
 import { PermissionType } from 'src/app/store/actions/user.actions';
@@ -32,10 +34,9 @@ export class ClinicianTableComponent extends CustomTableDirective {
 		_store: Store<IStore>,
 		private _router: Router,
 		private _activatedRoute: ActivatedRoute,
-		private dialogService: DialogService,
+		dialogService: DialogService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
-		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(CLEAR_CURRENT_ITEM) private clearCurrentItem: any,
@@ -43,9 +44,13 @@ export class ClinicianTableComponent extends CustomTableDirective {
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -53,6 +58,8 @@ export class ClinicianTableComponent extends CustomTableDirective {
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 

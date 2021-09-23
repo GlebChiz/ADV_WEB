@@ -26,6 +26,12 @@ import {
 	GET_TABLE_DATA_ERROR,
 	GET_TABLE_DATA_PENDING,
 	GET_TABLE_DATA_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 	SAVE_GRID_CHANGES_ERROR,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_CHANGES_SUCCESS,
@@ -172,6 +178,30 @@ import { RoomPopupComponent } from './room-table/room-popup/room-popup.component
 		{
 			provide: GET_GRID_SETTINGS_SUCCESS,
 			useValue: RoomTableActions.GetGridSettingsSuccess,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_PENDING,
+			useValue: RoomTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_ERROR,
+			useValue: RoomTableActions.MakeDefaultGridError,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_SUCCESS,
+			useValue: RoomTableActions.MakeDefaultGridSuccess,
+		},
+		{
+			provide: RENAME_GRID_PENDING,
+			useValue: RoomTableActions.RenameGridPending,
+		},
+		{
+			provide: RENAME_GRID_ERROR,
+			useValue: RoomTableActions.RenameGridError,
+		},
+		{
+			provide: RENAME_GRID_SUCCESS,
+			useValue: RoomTableActions.RenameGridSuccess,
 		},
 	],
 })

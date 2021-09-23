@@ -34,6 +34,12 @@ import {
 	GET_GRID_SETTINGS_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 
 import { AssessmentTemplateComponent } from './assessment-template.component';
@@ -172,6 +178,30 @@ import { AssessmentTemplateTableActions } from './assessment-template-table/asse
 		{
 			provide: GET_GRID_SETTINGS_SUCCESS,
 			useValue: AssessmentTemplateTableActions.GetGridSettingsSuccess,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_PENDING,
+			useValue: AssessmentTemplateTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_ERROR,
+			useValue: AssessmentTemplateTableActions.MakeDefaultGridError,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_SUCCESS,
+			useValue: AssessmentTemplateTableActions.MakeDefaultGridSuccess,
+		},
+		{
+			provide: RENAME_GRID_PENDING,
+			useValue: AssessmentTemplateTableActions.RenameGridPending,
+		},
+		{
+			provide: RENAME_GRID_ERROR,
+			useValue: AssessmentTemplateTableActions.RenameGridError,
+		},
+		{
+			provide: RENAME_GRID_SUCCESS,
+			useValue: AssessmentTemplateTableActions.RenameGridSuccess,
 		},
 	],
 })

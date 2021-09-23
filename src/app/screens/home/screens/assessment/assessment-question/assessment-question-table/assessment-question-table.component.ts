@@ -18,6 +18,8 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	GET_GRID_SETTINGS_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { IColumn } from '../../../../../../shared/interfaces/column.interface';
@@ -34,7 +36,7 @@ import { AssessmentQuestionTranslatePopupComponent } from './assessment-question
 export class AssessmentQuestionTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		private _router: Router,
-		private dialogService: DialogService,
+		dialogService: DialogService,
 		private _activatedRoute: ActivatedRoute,
 		_store: Store<any>,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
@@ -46,9 +48,13 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -56,6 +62,8 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 

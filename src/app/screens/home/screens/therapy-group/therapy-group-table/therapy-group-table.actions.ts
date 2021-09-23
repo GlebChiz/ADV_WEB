@@ -128,4 +128,22 @@ export const TherapyGroupTableActions = {
 		'[Therapy Group] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Therapy Group] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Therapy Group] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Therapy Group] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Therapy Group] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Therapy Group] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Therapy Group] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

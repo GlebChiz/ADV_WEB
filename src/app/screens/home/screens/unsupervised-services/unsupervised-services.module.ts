@@ -34,6 +34,12 @@ import {
 	GET_GRID_SETTINGS_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { UnsupervisedServicesTableActions } from './unsupervised-services-table/unsupervised-services-table.actions';
 import { UnsupervisedServicesTableComponent } from './unsupervised-services-table/unsupervised-services-table.component';
@@ -171,6 +177,30 @@ import { UnsupervisedServicesComponent } from './unsupervised-services.component
 		{
 			provide: GET_GRID_SETTINGS_SUCCESS,
 			useValue: UnsupervisedServicesTableActions.GetGridSettingsSuccess,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_PENDING,
+			useValue: UnsupervisedServicesTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_ERROR,
+			useValue: UnsupervisedServicesTableActions.MakeDefaultGridError,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_SUCCESS,
+			useValue: UnsupervisedServicesTableActions.MakeDefaultGridSuccess,
+		},
+		{
+			provide: RENAME_GRID_PENDING,
+			useValue: UnsupervisedServicesTableActions.RenameGridPending,
+		},
+		{
+			provide: RENAME_GRID_ERROR,
+			useValue: UnsupervisedServicesTableActions.RenameGridError,
+		},
+		{
+			provide: RENAME_GRID_SUCCESS,
+			useValue: UnsupervisedServicesTableActions.RenameGridSuccess,
 		},
 	],
 })

@@ -124,4 +124,22 @@ export const InsuranceTableActions = {
 		'[Insurance Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Insurance Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Insurance Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Insurance Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Insurance Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Insurance Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Insurance Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };
