@@ -9,14 +9,19 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { IStore } from 'src/app/store';
 import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
-import { SessionPlanTableActions } from '../../session-plan/session-plan-table/session-plan-table.actions';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
+import { DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
+import { SessionPlanTableActions } from '../../session-plan/session-plan-table/session-plan-table.actions';
 
 @Component({
 	providers: [],
@@ -27,8 +32,11 @@ import { RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
 export class SeriesPlanLinkedTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		private _activatedRoute: ActivatedRoute,
-		private _router: Router,
+		_router: Router,
 		_store: Store<IStore>,
+		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -36,9 +44,16 @@ export class SeriesPlanLinkedTableComponent extends CustomTableDirective impleme
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -46,6 +61,8 @@ export class SeriesPlanLinkedTableComponent extends CustomTableDirective impleme
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 

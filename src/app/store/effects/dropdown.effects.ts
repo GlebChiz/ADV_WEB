@@ -471,4 +471,46 @@ export class DropdownEffects {
 			),
 		),
 	);
+
+	public getRolesTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetGridSettingsPending),
+			switchMap(({ gridId }: { gridId: string }) =>
+				this.service.getGridSettings(gridId).pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetGridSettingsSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetGridSettingsError())),
+				),
+			),
+		),
+	);
+
+	public getRoleTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetRoleTypesPending),
+			switchMap(() =>
+				this.service.getRolesTypes().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetRoleTypesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetRoleTypesError())),
+				),
+			),
+		),
+	);
+
+	public getPermissionTypes$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(DropdownActions.GetPermissionTypesPending),
+			switchMap(() =>
+				this.service.getPermissionTypes().pipe(
+					map((data: IDropdownData[]) => {
+						return DropdownActions.GetPermissionTypesSuccess({ data });
+					}),
+					catchError(() => of(DropdownActions.GetPermissionTypesError())),
+				),
+			),
+		),
+	);
 }

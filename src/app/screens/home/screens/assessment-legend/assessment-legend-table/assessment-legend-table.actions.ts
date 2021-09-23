@@ -129,4 +129,22 @@ export const AssessmentLegendTableActions = {
 		'[Assessment Legend Translated] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Assessment Legend Translated] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Assessment Legend Translated] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Assessment Legend Translated] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Assessment Legend Translated] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Assessment Legend Translated] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Assessment Legend Translated] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

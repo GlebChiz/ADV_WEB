@@ -13,3 +13,9 @@ export interface IDropDownState extends IDropDownItem {
 interface IDropDownItem {
 	isLoading: boolean;
 }
+
+export interface IDropDownGridSettings {
+	id: string;
+	title: string;
+	isDefault: boolean;
+}

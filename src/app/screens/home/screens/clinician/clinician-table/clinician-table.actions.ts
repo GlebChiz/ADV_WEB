@@ -132,4 +132,22 @@ export const ClinicianTableActions = {
 		'[Clinician Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Clinician Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Clinician Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Clinician Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Clinician Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Clinician Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Clinician Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

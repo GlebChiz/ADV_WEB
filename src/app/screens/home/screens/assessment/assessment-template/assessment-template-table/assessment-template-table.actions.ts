@@ -111,4 +111,22 @@ export const AssessmentTemplateTableActions = {
 		'[Assessment Template Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Assessment Template Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Assessment Template Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Assessment Template Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Assessment Template Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Assessment Template Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Assessment Template Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

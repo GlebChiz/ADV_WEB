@@ -112,4 +112,22 @@ export const LocationTableActions = {
 		'[Location Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Location Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Location Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Location Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Location Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Location Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Location Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

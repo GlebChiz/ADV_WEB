@@ -111,4 +111,22 @@ export const SeriesplansTableActions = {
 		'[Seriesplans Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Seriesplans Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Seriesplans Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Seriesplans Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Seriesplans Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Seriesplans Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Seriesplans Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

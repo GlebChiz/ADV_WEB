@@ -113,4 +113,22 @@ export const SupervisorLicenseTableActions = {
 		'[Supervisor Credentials Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[Supervisor Credentials Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Supervisor Credentials Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Supervisor Credentials Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Supervisor Credentials Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Supervisor Credentials Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Supervisor Credentials Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

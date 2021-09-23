@@ -2,7 +2,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Directive, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ClipboardService } from 'ngx-clipboard';
 import { Store } from '@ngrx/store';
+import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import {
 	ColumnReorderEvent,
 	ColumnVisibilityChangeEvent,
@@ -10,19 +12,26 @@ import {
 	GridDataResult,
 } from '@progress/kendo-angular-grid';
 import { GroupDescriptor, process } from '@progress/kendo-data-query';
+
 import { Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IColumn } from '../interfaces/column.interface';
-import { IDropdownData } from '../interfaces/dropdown.interface';
+import { IDropDownGridSettings } from '../interfaces/dropdown.interface';
+import { RenamePopupComponent } from './table-popup/rename-popup.component';
+
 import {
 	DELETE_ITEM_TABLE_PENDING,
 	EDIT_ITEM_TABLE_PENDING,
 	GET_CURRENT_ITEM_PENDING,
 	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from './table.tokens';
@@ -53,12 +62,16 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public selectedItems: any[] = [];
 
-	public gridSettings$: Observable<IDropdownData[]> = this._store.select(
+	public gridSettings$: Observable<IDropDownGridSettings[]> = this._store.select(
 		'dropdown' as any,
 		'gridSettings',
 	);
 
 	public gridSettingsControl: FormControl = new FormControl();
+
+	public idGridSettings: string = '';
+
+	public dropdownnGridSettings: IDropDownGridSettings | undefined;
 
 	public gridSettings: { state: DataStateChangeEvent } = {
 		state: {
@@ -74,6 +87,10 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public constructor(
 		public _store: Store<IStore>,
+		public dialogService: DialogService,
+		public _clipboardApi: ClipboardService,
+		public _router: Router,
+		public readonly _toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) public getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
@@ -81,14 +98,29 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		@Inject(SAVE_GRID_SETTINGS_PENDING) private saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) private saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) private getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) private makeDefaultGridPending: any,
+		@Inject(RENAME_GRID_PENDING) private renameGridPending: any,
 	) {
 		super();
 	}
 
 	public ngOnInit(): void {
+		this.gridSettings$
+			.pipe(
+				filter<IDropDownGridSettings[]>(Boolean),
+				map((item: IDropDownGridSettings[]) => {
+					return item.find((dr: IDropDownGridSettings) => dr.isDefault);
+				}),
+				takeUntil(this.unsubscribe$$),
+			)
+			.subscribe((data: IDropDownGridSettings | undefined) => {
+				this.dropdownnGridSettings = data;
+				this.gridSettingsControl.setValue(data?.id);
+			});
 		this.gridSettingsControl.valueChanges
 			.pipe(filter<string>(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((id: string) => {
+				this.idGridSettings = id;
 				this._store.dispatch(this.getGridSettingsPending({ id, controller: this.controller }));
 			});
 		this._store
@@ -97,14 +129,17 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			.subscribe((column: IColumn[]) => {
 				this.columns = column;
 			});
-		this._store.dispatch(
-			this.getTableDataPending({
-				controller: this.controller,
-				filter: this.gridSettings.state,
-				gridId: this.gridId,
-				columns: this.columns,
-			}),
-		);
+		if (!this.idGridSettings) {
+			this._store.dispatch(
+				this.getTableDataPending({
+					controller: this.controller,
+					filter: this.gridSettings.state,
+					gridId: this.gridId,
+					columns: this.columns,
+				}),
+			);
+		}
+
 		this._store.dispatch(DropdownActions.GetGridSettingsPending({ gridId: this.gridId }));
 		this.selectState();
 	}
@@ -177,7 +212,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	public saveGridChanges(): void {
 		this._store.dispatch(
 			this.saveGridChangesPending({
-				id: '',
+				id: this.idGridSettings,
 				gridId: this.gridId,
 				gridSettings: this.gridSettings,
 				columns: this.columns,
@@ -186,25 +221,39 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public renameGrid(): void {
-		// this._store.dispatch(
-		// 	this.saveNewGridSettingsPending({
-		// 		gridId: this.gridId,
-		// 		gridSettings: this.gridSettings,
-		// 		columns: this.columns,
-		// 	}),
-		// );
-		// /gridsettings/{id}
-		// const dialog: DialogRef = this.dialogService.open({
-		// 	title: 'Rename',
-		// 	content: LanguageForGroupPopupComponent,
-		// 	width: 600,
-		// 	height: 500,
-		// 	minWidth: 250,
-		// });
-		// dialog.result.subscribe((result: any) => {
-		// 	if (!(result instanceof DialogCloseResult)) {
-		// 	}
-		// });
+		this._store.dispatch(
+			this.getGridSettingsPending({ id: this.idGridSettings, controller: this.controller }),
+		);
+		const dialog: DialogRef = this.dialogService.open({
+			title: 'Rename Grid',
+			content: RenamePopupComponent,
+			width: 600,
+			height: 200,
+			minWidth: 250,
+		});
+
+		dialog.result.subscribe((result: any) => {
+			if (!(result instanceof DialogCloseResult)) {
+				this._store.dispatch(
+					this.renameGridPending({ id: this.idGridSettings, title: result.title }),
+				);
+			}
+		});
+	}
+
+	public makeDefaultGrid(): void {
+		this._store.dispatch(
+			this.makeDefaultGridPending({
+				id: this.idGridSettings,
+				gridId: this.gridId,
+			}),
+		);
+	}
+
+	public copyLinkGrid(): void {
+		const currentUrlWithIdGrid: string = `${this._router.url}/${this.idGridSettings}`;
+		this._clipboardApi.copy(currentUrlWithIdGrid);
+		this._toasterService.success('Url copied successfully');
 	}
 
 	public toggle(a: any): void {
@@ -219,20 +268,40 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public actions(): { title: string; cmd: string }[] {
-		const list: { title: string; cmd: string }[] = [
-			{
-				title: 'Save',
-				cmd: 'save',
-			},
-			{
-				title: 'Save as New',
-				cmd: 'create',
-			},
-			{
-				title: 'Rename',
-				cmd: 'rename',
-			},
-		];
+		let list: { title: string; cmd: string }[] = [];
+		if (this.idGridSettings) {
+			list = [
+				{
+					title: 'Rename',
+					cmd: 'rename',
+				},
+				{
+					title: 'Save',
+					cmd: 'save',
+				},
+				{
+					title: 'Save as New',
+					cmd: 'create',
+				},
+				{
+					title: 'Copy Link',
+					cmd: 'copyLink',
+				},
+			];
+			if (this.idGridSettings !== this.dropdownnGridSettings?.id) {
+				list.push({
+					title: 'Make Default',
+					cmd: 'default',
+				});
+			}
+		} else {
+			list = [
+				{
+					title: 'Save as Default',
+					cmd: 'create',
+				},
+			];
+		}
 		return list;
 	}
 
@@ -246,6 +315,12 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				break;
 			case 'rename':
 				this.renameGrid();
+				break;
+			case 'default':
+				this.makeDefaultGrid();
+				break;
+			case 'copyLink':
+				this.copyLinkGrid();
 				break;
 			default:
 				break;
