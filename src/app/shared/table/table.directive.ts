@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Directive, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ClipboardService } from 'ngx-clipboard';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import {
@@ -15,6 +16,8 @@ import { GroupDescriptor, process } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IColumn } from '../interfaces/column.interface';
@@ -85,6 +88,9 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	public constructor(
 		public _store: Store<IStore>,
 		public dialogService: DialogService,
+		public _clipboardApi: ClipboardService,
+		public _router: Router,
+		public readonly _toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) public getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) public getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) private deleteDataPending: any,
@@ -244,6 +250,12 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		);
 	}
 
+	public copyLinkGrid(): void {
+		const currentUrlWithIdGrid: string = `${this._router.url}/${this.idGridSettings}`;
+		this._clipboardApi.copy(currentUrlWithIdGrid);
+		this._toasterService.success('Url copied successfully');
+	}
+
 	public toggle(a: any): void {
 		const selectedItem: number = this.selectedItems.findIndex((item: any) => {
 			return item === a;
@@ -308,7 +320,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				this.makeDefaultGrid();
 				break;
 			case 'copyLink':
-				// this.renameGrid();
+				this.copyLinkGrid();
 				break;
 			default:
 				break;

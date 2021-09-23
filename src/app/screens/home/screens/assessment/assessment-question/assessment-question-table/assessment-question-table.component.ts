@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -35,10 +37,12 @@ import { AssessmentQuestionTranslatePopupComponent } from './assessment-question
 })
 export class AssessmentQuestionTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
-		private _router: Router,
+		_router: Router,
 		dialogService: DialogService,
 		private _activatedRoute: ActivatedRoute,
 		_store: Store<any>,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -55,6 +59,9 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

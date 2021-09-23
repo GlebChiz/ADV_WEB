@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	CLEAR_CURRENT_ITEM,
@@ -30,6 +33,9 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 	public constructor(
 		_store: Store<any>,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
+		_router: Router,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -46,6 +52,9 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

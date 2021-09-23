@@ -22,6 +22,8 @@ import { PermissionType } from 'src/app/store/actions/user.actions';
 import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
 import { ClinicianPopupComponent } from './clinician-popup/clinician-popup.component';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	providers: [],
@@ -32,9 +34,11 @@ import { ClinicianPopupComponent } from './clinician-popup/clinician-popup.compo
 export class ClinicianTableComponent extends CustomTableDirective {
 	public constructor(
 		_store: Store<IStore>,
-		private _router: Router,
+		_router: Router,
 		private _activatedRoute: ActivatedRoute,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -51,6 +55,9 @@ export class ClinicianTableComponent extends CustomTableDirective {
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

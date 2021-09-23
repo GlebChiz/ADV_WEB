@@ -19,6 +19,8 @@ import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
 import { RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
 import { DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { SessionPlanTableActions } from '../../session-plan/session-plan-table/session-plan-table.actions';
 
 @Component({
@@ -30,9 +32,11 @@ import { SessionPlanTableActions } from '../../session-plan/session-plan-table/s
 export class SeriesPlanLinkedTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		private _activatedRoute: ActivatedRoute,
-		private _router: Router,
+		_router: Router,
 		_store: Store<IStore>,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -47,6 +51,9 @@ export class SeriesPlanLinkedTableComponent extends CustomTableDirective impleme
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

@@ -22,6 +22,9 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InsurancePopupComponent } from './insurance-popup/insurance-popup.component';
 import { InsuranceTableActions } from './insurance-table.actions';
+import { ClipboardService } from 'ngx-clipboard';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	providers: [],
@@ -33,6 +36,9 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 	public constructor(
 		_store: Store<IStore>,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
+		_router: Router,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -49,6 +55,9 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

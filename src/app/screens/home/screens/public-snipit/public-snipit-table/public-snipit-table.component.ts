@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { CellClickEvent } from '@progress/kendo-angular-grid';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	CLEAR_CURRENT_ITEM,
@@ -30,9 +32,11 @@ import { PublicSnipitPopupComponent } from './public-snipit-popup/public-snipit-
 })
 export class PublicSnipitTableComponent extends CustomTableDirective {
 	public constructor(
-		private _router: Router,
+		_router: Router,
 		_store: Store<any>,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -49,6 +53,9 @@ export class PublicSnipitTableComponent extends CustomTableDirective {
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,

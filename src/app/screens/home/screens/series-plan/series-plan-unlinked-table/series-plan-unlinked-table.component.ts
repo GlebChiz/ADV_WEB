@@ -21,6 +21,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Actions, ofType } from '@ngrx/effects';
 import { DialogService } from '@progress/kendo-angular-dialog';
 import { SessionPlanTableActions } from '../../session-plan/session-plan-table/session-plan-table.actions';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	providers: [],
@@ -31,10 +33,12 @@ import { SessionPlanTableActions } from '../../session-plan/session-plan-table/s
 export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		private _activatedRoute: ActivatedRoute,
-		private _router: Router,
+		_router: Router,
 		private _action$: Actions,
 		_store: Store<IStore>,
 		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -49,6 +53,9 @@ export class SeriesPlanUnlinkedTableComponent extends CustomTableDirective imple
 		super(
 			_store,
 			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
