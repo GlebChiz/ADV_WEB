@@ -45,8 +45,8 @@ export class ClinicianDropdownPopupComponent extends UnSubscriber implements OnI
 	}
 
 	public ngOnInit(): void {
-		this._store.dispatch(DropdownActions.GetCliniciansPending());
 		this.initForm();
+		this._store.dispatch(DropdownActions.GetCliniciansPending());
 	}
 
 	public ngOnChanges(): void {

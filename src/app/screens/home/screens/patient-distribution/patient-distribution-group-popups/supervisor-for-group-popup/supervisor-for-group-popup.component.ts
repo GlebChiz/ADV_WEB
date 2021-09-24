@@ -20,7 +20,7 @@ export class SupervisorForGroupPopupComponent extends UnSubscriber implements On
 	}
 
 	public supervisor$: Observable<IDropdownData[]> = this._store
-		.select('dropdown', 'supervisorLicense' as any)
+		.select('dropdown', 'supervisorlicense' as any)
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public mySupervisorForm!: FormGroup;

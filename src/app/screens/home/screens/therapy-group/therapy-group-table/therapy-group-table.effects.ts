@@ -179,20 +179,28 @@ export class TherapyGroupEffects extends TableEffects {
 					controller: string;
 				}) => {
 					return of(1).pipe(
-						withLatestFrom(this._store.select(`${controller}Table`)),
+						withLatestFrom(this._store.select(controller, 'table')),
 						switchMap(([, latest]: [number, any]) => {
 							return this._service.updateFieldTherapyGroup(ids, value, entity).pipe(
 								mergeMap(() => {
+									this._toasterService.success(
+										`Updated ${entity} for all therapy groups successfully`,
+									);
 									return [
 										TherapyGroupTableActions.UpdateFiledTherapyGroupSuccess(),
 										this.getTableDataPending({
 											controller,
-											filter: latest.table.filter,
-											columns: latest.table.columns,
+											filter: latest.filter,
+											columns: latest.columns,
 										}),
 									];
 								}),
-								catchError(() => of(TherapyGroupTableActions.UpdateFiledTherapyGroupError())),
+								catchError((e) => {
+									this._toasterService.error(
+										`Updated ${entity} for all therapy groups error: ${e}`,
+									);
+									return of(TherapyGroupTableActions.UpdateFiledTherapyGroupError());
+								}),
 							);
 						}),
 					);

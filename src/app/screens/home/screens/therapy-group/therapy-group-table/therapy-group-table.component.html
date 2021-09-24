@@ -10,6 +10,11 @@
 	</button>
 	<button (click)="openDialogLocation()" [hidden]="!(selectedItems.length > 0)">Location</button>
 	<button (click)="openDialogRoom()" [hidden]="!(selectedItems.length > 0)">Room</button>
+	<advenium-permission [permissionType]="canCreate">
+		<button (click)="openDialog()">
+			<img src="/assets/images/add-plans.svg" />New Therapy Group
+		</button>
+	</advenium-permission>
 </div>
 <kendo-grid
 	[filterable]="true"

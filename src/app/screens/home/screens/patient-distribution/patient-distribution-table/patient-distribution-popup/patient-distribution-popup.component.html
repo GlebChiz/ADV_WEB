@@ -1,4 +1,4 @@
-<form [formGroup]="myPatientDistributionForm" novalidate>
+<form [formGroup]="patientDistributionForm" novalidate>
 	<div>
 		<div class="p10 form">
 			<div class="clearfix w-100">
@@ -33,13 +33,13 @@
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100" (click)="openDeialogPatient()">
-						<label *ngIf="!patientDistribution">Patient</label>
+						<label *ngIf="!isEdit">Patient</label>
 						<input
 							name="patientName"
 							formControlName="patientName"
 							kendoTextBox
 							attr.disabled="true"
-							[type]="patientDistribution ? 'hidden' : 'button'"
+							[type]="isEdit ? 'hidden' : 'button'"
 							class="k-textbox disabled-input"
 							placeholder="Select patient"
 							style="width: 100%"

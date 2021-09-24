@@ -1,12 +1,12 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { GroupResult } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
+import { StringOperationFilter } from 'src/app/shared/interfaces/filter.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -15,26 +15,34 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 	selector: 'advenium-public-snipit-popup',
 	templateUrl: './public-snipit-popup.component.html',
 	styleUrls: ['public-snipit-popup.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, OnChanges {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<IStore>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
-	public publicSnipit: any;
-
-	public myPublicSnipitForm!: FormGroup;
-
-	public snipitTypes: (IDropdownData | GroupResult)[] = [];
+	public publicSnipitForm: FormGroup = this._fb.group({
+		id: [],
+		text: [],
+		categoryId: [],
+		type: [],
+	});
 
 	public snipitCategory$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown' as any,
+		'dropdown',
 		'snipiCategory',
 	);
 
+	public snipitTypes$: Observable<IDropdownData[]> = this._store.select('dropdown', 'snipitTypes');
+
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
-		operator: 'contains',
+		operator: StringOperationFilter.Contains,
 	};
 
 	public onCancelAction(): void {
@@ -42,38 +50,20 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit, 
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.publicSnipit, ...this.myPublicSnipitForm.value });
-	}
-
-	public initForm(): void {
-		this.myPublicSnipitForm = new FormGroup({
-			text: new FormControl(this.publicSnipit?.text || ''),
-			categoryId: new FormControl(this.publicSnipit?.categoryId),
-			type: new FormControl(this.publicSnipit?.type),
-		});
+		this._dialogService.close({ ...this.publicSnipitForm.value });
 	}
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSnipiTypePending());
 		this._store.dispatch(DropdownActions.GetSnipiCategoryPending());
 		this._store
-			.select('publicsnipit' as any, 'table')
+			.select('publicsnipit' as any, 'table', 'current')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((modalityTable: any) => {
-				this.publicSnipit = modalityTable.current;
-				this.initForm();
+			.subscribe((publicsnipit: any) => {
+				this.publicSnipitForm.setValue({
+					...publicsnipit,
+					type: publicsnipit.type.toString(),
+				});
 			});
-		this._store
-			.select('dropdown' as any, 'snipitTypes')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((publicSnipitDropdown: any) => {
-				this.snipitTypes = publicSnipitDropdown;
-				this.initForm();
-			});
-		this.initForm();
-	}
-
-	public ngOnChanges(): void {
-		this.initForm();
 	}
 }

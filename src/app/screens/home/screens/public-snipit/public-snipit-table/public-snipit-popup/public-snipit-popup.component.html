@@ -1,21 +1,6 @@
-<form [formGroup]="myPublicSnipitForm" novalidate>
+<form [formGroup]="publicSnipitForm" novalidate>
 	<div>
 		<div class="p10 form">
-			<div class="clearfix w-100">
-				<div class="column w-100">
-					<div class="w-100">
-						<input
-							hidden
-							name="id"
-							formControlName="id"
-							kendoTextBox
-							class="k-textbox"
-							style="width: 100%"
-							maxlength="250"
-						/>
-					</div>
-				</div>
-			</div>
 			<div class="clearfix w-100">
 				<div class="column w-100">
 					<div class="w-100">
@@ -52,7 +37,7 @@
 						<label>Snipit type</label>
 						<div>
 							<kendo-combobox
-								[data]="snipitTypes"
+								[data]="(snipitTypes$ | async) || []"
 								valueField="id"
 								style="min-width: 200px; width: 300px; height: 38px; padding-right: 16px"
 								textField="name"

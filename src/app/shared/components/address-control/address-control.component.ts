@@ -19,7 +19,19 @@ import { IDropdownData } from '../../interfaces/dropdown.interface';
 	],
 })
 export class AddressControlComponent implements ControlValueAccessor, OnInit {
-	public form!: FormGroup;
+	public constructor(private formBuilder: FormBuilder, private _store: Store<IStore>) {}
+
+	public form: FormGroup = this.formBuilder.group({
+		id: [],
+		address1: [],
+		address2: [],
+		city: [],
+		zip: [],
+		state: [],
+		longitude: [],
+		latitude: [],
+		mapAddress: [],
+	});
 
 	public get value(): Address {
 		return this.form.value;
@@ -31,20 +43,7 @@ export class AddressControlComponent implements ControlValueAccessor, OnInit {
 
 	public stateCity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'usState');
 
-	public constructor(private formBuilder: FormBuilder, private _store: Store<IStore>) {}
-
 	public ngOnInit(): void {
-		this.form = this.formBuilder.group({
-			id: [],
-			address1: [],
-			address2: [],
-			city: [],
-			zip: [],
-			state: [],
-			longitude: [],
-			latitude: [],
-			mapAddress: [],
-		});
 		this._store.dispatch(DropdownActions.GetUsStatePending());
 		this.form.valueChanges.subscribe((value: Address) => {
 			this.onChange(value);

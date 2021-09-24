@@ -7,6 +7,7 @@ import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-ang
 import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -132,7 +133,7 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 
 	public override ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetLanguagesPending());
-		this.language.valueChanges.subscribe((language: string) => {
+		this.language.valueChanges.pipe(takeUntil(this.unsubscribe$$)).subscribe((language: string) => {
 			const translatedColumn: IColumn | undefined = this.columns.find(
 				(item: IColumn) => item.field === 'translated',
 			);
@@ -144,7 +145,7 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 				}
 			}
 		});
-		this._activatedRoute.params.subscribe((params: Params) => {
+		this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$$)).subscribe((params: Params) => {
 			this.addFiltersSorting(params.id);
 			this.id = params.id || '';
 			super.ngOnInit();

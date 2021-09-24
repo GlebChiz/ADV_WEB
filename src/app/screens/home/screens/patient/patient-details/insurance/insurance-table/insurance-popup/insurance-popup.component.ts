@@ -64,7 +64,11 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 	public initForm(): void {
 		this.myInsuranceForm = new FormGroup({
 			payerId: new FormControl(this.insurance?.payerId || ''),
-			effectiveDate: new FormControl(removeTimezone(new Date(this.insurance?.effectiveDate)) || ''),
+			effectiveDate: new FormControl(
+				this.insurance?.effectiveDate
+					? removeTimezone(new Date(this.insurance?.effectiveDate))
+					: '',
+			),
 			closedDate: new FormControl(
 				this.insurance?.closedDate ? removeTimezone(new Date(this.insurance.closedDate)) : '',
 			),
