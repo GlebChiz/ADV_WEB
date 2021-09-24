@@ -22,7 +22,6 @@ import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IColumn } from '../interfaces/column.interface';
 import { IDropDownGridSettings } from '../interfaces/dropdown.interface';
-import { RenamePopupComponent } from './table-popup/rename-popup.component';
 
 import {
 	DELETE_ITEM_TABLE_PENDING,
@@ -35,6 +34,7 @@ import {
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from './table.tokens';
+import { RenamePopupComponent } from './table-popup/rename-popup.component';
 
 @Directive({
 	selector: 'advenium-table',

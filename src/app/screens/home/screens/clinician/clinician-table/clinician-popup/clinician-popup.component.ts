@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
@@ -6,7 +6,6 @@ import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
-import { StringOperationFilter } from 'src/app/shared/interfaces/filter.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -14,8 +13,8 @@ import { ITable } from '../../../../../../shared/table/table.reducer';
 
 @Component({
 	selector: 'advenium-clinician-popup',
+
 	templateUrl: './clinician-popup.component.html',
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClinicianPopupComponent extends UnSubscriber implements OnInit {
 	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
@@ -36,7 +35,7 @@ export class ClinicianPopupComponent extends UnSubscriber implements OnInit {
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
-		operator: StringOperationFilter.Contains,
+		operator: 'contains',
 	};
 
 	public onCancelAction(): void {

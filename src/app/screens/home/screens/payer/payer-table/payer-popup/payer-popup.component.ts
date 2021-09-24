@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -14,14 +14,26 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 	selector: 'advenium-payer-popup',
 	templateUrl: './payer-popup.component.html',
 })
-export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChanges {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+export class PayerPopupComponent extends UnSubscriber implements OnInit {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<IStore>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
-	public payer: any;
-
-	public myForm!: FormGroup;
+	public payerForm: FormGroup = this._fb.group({
+		id: [],
+		phone: [],
+		fax: [],
+		name: [],
+		carrierCode: [],
+		type: [],
+		notes: [],
+		payerId: [],
+		address: [],
+	});
 
 	public payerTypes: (IDropdownData | GroupResult)[] = [];
 
@@ -35,28 +47,16 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.payer, ...this.myForm.value });
-	}
-
-	public initForm(): void {
-		this.myForm = new FormGroup({
-			name: new FormControl(this.payer?.name || ''),
-			carrierCode: new FormControl(this.payer?.carrierCode || ''),
-			type: new FormControl(this.payer?.type),
-			notes: new FormControl(this.payer?.notes),
-			payerId: new FormControl(this.payer?.payerId),
-			address: new FormControl(this.payer?.address),
-		});
+		this._dialogService.close({ ...this.payerForm.value });
 	}
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetTypesPending());
 		this._store
-			.select('payer' as any, 'table')
+			.select('payer' as any, 'table', 'current')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((payerTable: any) => {
-				this.payer = payerTable.current;
-				this.initForm();
+			.subscribe((payer: any) => {
+				this.payerForm.setValue(payer);
 			});
 		this._store
 			.select('dropdown', 'types')
@@ -73,10 +73,5 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit, OnChang
 					[{ field: 'parentName' }],
 				);
 			});
-		this.initForm();
-	}
-
-	public ngOnChanges(): void {
-		this.initForm();
 	}
 }

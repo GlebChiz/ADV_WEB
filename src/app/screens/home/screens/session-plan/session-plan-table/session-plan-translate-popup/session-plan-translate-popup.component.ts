@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -10,16 +10,38 @@ import { filter, takeUntil } from 'rxjs/operators';
 	selector: 'advenium-session-plan-translate-popup',
 	templateUrl: './session-plan-translate-popup.component.html',
 })
-export class SessionPlanTranslatePopupComponent extends UnSubscriber implements OnInit {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+export class SessionPlanTranslatePopupComponent
+	extends UnSubscriber
+	implements OnInit, AfterViewInit
+{
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<IStore>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
 	public isVisible: boolean = false;
 
-	public sessionPlanInfo!: ISessionPlanTranslate | undefined;
-
-	public sessionPlanTranslateForm!: FormGroup;
+	public sessionPlanTranslateForm: FormGroup = this._fb.group({
+		id: [],
+		languageId: [],
+		original: this._fb.group({
+			outline: [],
+			callout1: [],
+			callout2: [],
+			callout3: [],
+			wrapup: [],
+		}),
+		translation: this._fb.group({
+			outline: [],
+			callout1: [],
+			callout2: [],
+			callout3: [],
+			wrapup: [],
+		}),
+	});
 
 	public onCancelAction(): void {
 		this._dialogService.close();
@@ -27,7 +49,6 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 
 	public onConfirmAction(): void {
 		this._dialogService.close({
-			...this.sessionPlanInfo,
 			...this.sessionPlanTranslateForm.value,
 		});
 	}
@@ -36,25 +57,6 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 		setTimeout(() => {
 			this.isVisible = true;
 		}, 0);
-	}
-
-	public initForm(): void {
-		this.sessionPlanTranslateForm = new FormGroup({
-			original: new FormGroup({
-				outline: new FormControl(this.sessionPlanInfo?.original?.outline || ''),
-				callout1: new FormControl(this.sessionPlanInfo?.original?.callout1 || ''),
-				callout2: new FormControl(this.sessionPlanInfo?.original?.callout2 || ''),
-				callout3: new FormControl(this.sessionPlanInfo?.original?.callout3 || ''),
-				wrapup: new FormControl(this.sessionPlanInfo?.original?.wrapup || ''),
-			}),
-			translation: new FormGroup({
-				outline: new FormControl(this.sessionPlanInfo?.translation?.outline || ''),
-				callout1: new FormControl(this.sessionPlanInfo?.translation?.callout1 || ''),
-				callout2: new FormControl(this.sessionPlanInfo?.translation?.callout2 || ''),
-				callout3: new FormControl(this.sessionPlanInfo?.translation?.callout3 || ''),
-				wrapup: new FormControl(this.sessionPlanInfo?.translation?.wrapup || ''),
-			}),
-		});
 	}
 
 	public getOriginal(): FormGroup {
@@ -68,12 +70,10 @@ export class SessionPlanTranslatePopupComponent extends UnSubscriber implements 
 	public ngOnInit(): void {
 		this._store
 			.select('sessionPlan' as any, 'sessionPlanInfo')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((sessionPlanInfo: any) => {
-				this.sessionPlanInfo = sessionPlanInfo;
-				this.initForm();
+			.pipe(filter<ISessionPlanTranslate>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((sessionPlanInfo: ISessionPlanTranslate) => {
+				this.sessionPlanTranslateForm.setValue(sessionPlanInfo);
 			});
-		this.initForm();
 	}
 }
 

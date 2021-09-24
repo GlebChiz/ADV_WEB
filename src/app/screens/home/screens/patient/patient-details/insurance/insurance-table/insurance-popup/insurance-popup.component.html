@@ -1,4 +1,4 @@
-<form [formGroup]="myInsuranceForm" novalidate>
+<form [formGroup]="insuranceForm" novalidate>
 	<div>
 		<div class="p10 form">
 			<div class="clearfix w-100">
@@ -167,8 +167,8 @@
 						<Button
 							class="copy-button"
 							*ngIf="
-								myInsuranceForm.value.insuranceHolderId &&
-								myInsuranceForm.value.insuranceHolderId !== personId
+								insuranceForm.value.insuranceHolderId &&
+								insuranceForm.value.insuranceHolderId !== personId
 							"
 							(click)="openDialogCopy()"
 						>
@@ -190,7 +190,7 @@
 								style="margin-bottom: 20px; margin-top: 4px"
 							/>
 							<kendo-datepicker
-								*ngIf="myInsuranceForm.value.isVerified"
+								*ngIf="insuranceForm.value.isVerified"
 								formControlName="verificationDate"
 								format="MM/dd/yyyy"
 								kendoTextBox

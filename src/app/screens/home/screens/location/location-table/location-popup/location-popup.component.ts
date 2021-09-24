@@ -61,13 +61,13 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 			.select('location' as any, 'table', 'current')
 			.pipe(filter<ILocation>(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((location: ILocation) => {
-				this.locationForm.setValue({ ...location });
+				this.locationForm.setValue(location);
 			});
 		this._store
 			.select('location' as any, 'locationInfo', 'selectedLocation')
 			.pipe(filter<ILocation>(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((selectedLocation: ILocation) => {
-				this.locationForm.setValue({ ...selectedLocation });
+				this.locationForm.setValue(selectedLocation);
 			});
 	}
 }
