@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { IDownload } from 'src/app/shared/interfaces/download.interface';
 import { DownloadFileService } from 'src/app/shared/services/download.service';
 import { IStore } from 'src/app/store';
+import { environment } from 'src/environments/environment';
 import { DownloadFileActions } from './../../../../store/actions/download.actions';
 
 @Component({
@@ -28,9 +29,9 @@ export class DownloadComponent {
 		this._store.dispatch(DownloadFileActions.DownloadFilePending());
 		this.downloadFileService.downloadFile().subscribe((item: IDownload) => {
 			const a: HTMLAnchorElement = document.createElement('a');
-			a.href = `https://demo.advenium.com/api/content/download-report/${item.fileId}`;
-			a.target = '_blank';
-			a.download = `${item.fileName}`;
+			a.href = `${environment.apiUrl}/content/download-report-async/${item.fileId}`;
+			// a.target = '_blank';
+			// a.download = `${item.fileName}`;
 			a.click();
 		});
 	}

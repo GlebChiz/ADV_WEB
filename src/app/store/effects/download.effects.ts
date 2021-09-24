@@ -16,24 +16,7 @@
 // 			switchMap(() => {
 // 				return this._downloadService.downloadFile().subscribe(
 // 					(item: IDownload) => {
-// 						// return DownloadFileActions.GetDownloadFileAsyncPending(item);
-// 						// return this._downloadService.getDownloadFile(item.fileId).pipe(
-// 						// 	mergeMap(() => {
-// 						// 		return [DownloadFileActions.GetDownloadFileSuccess()];
-// 						// 	}),
-// 						// 	catchError((error: string) => {
-// 						// 		console.log(error);
-
-// 						// 		return of(DownloadFileActions.GetDownloadFileError());
-// 						// 	}),
-// 						// );
-
-// 						const a = document.createElement('a');
-// 						a.href = `/content/download-report/${item.fileId}`;
-// 						a.target = '_blank';
-// 						a.download = `${item.fileName}`;
-// 						a.click();
-// 						return;
+// 						return DownloadFileActions.GetDownloadFileAsyncPending(item);
 // 					},
 // 					catchError((error: any) => {
 // 						console.log(error);

@@ -11,9 +11,9 @@ export class DownloadFileService {
 		return this.http.post<IDownload>('content/billing-report', {});
 	}
 
-	public getDownloadFile(fileId: string): Observable<IDownload> {
-		return this.http.get<IDownload>(`content/download-report/${fileId}`);
-	}
+	// public getDownloadFile(fileId: string): Observable<IDownload> {
+	// 	return this.http.get<IDownload>(`content/download-report/${fileId}`);
+	// }
 
 	public getDownloadFileAsync(fileId: IDownload): Observable<IDownload> {
 		return this.http.get<IDownload>(`content/download-report-async/${fileId}`);
