@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -14,8 +14,12 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 	selector: 'advenium-language-for-group-popup',
 	templateUrl: './language-for-group-popup.component.html',
 })
-export class LanguageForGroupPopupComponent extends UnSubscriber implements OnInit, OnChanges {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+export class LanguageForGroupPopupComponent extends UnSubscriber implements OnInit {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<IStore>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
@@ -23,7 +27,9 @@ export class LanguageForGroupPopupComponent extends UnSubscriber implements OnIn
 		.select('dropdown', 'languages' as any)
 		.pipe(takeUntil(this.unsubscribe$$));
 
-	public myLanguageForm!: FormGroup;
+	public languageForm: FormGroup = this._fb.group({
+		language: [],
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -35,21 +41,10 @@ export class LanguageForGroupPopupComponent extends UnSubscriber implements OnIn
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.myLanguageForm.value });
-	}
-
-	public initForm(): void {
-		this.myLanguageForm = new FormGroup({
-			language: new FormControl([]),
-		});
+		this._dialogService.close({ ...this.languageForm.value });
 	}
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetLanguagesPending());
-		this.initForm();
-	}
-
-	public ngOnChanges(): void {
-		this.initForm();
 	}
 }
