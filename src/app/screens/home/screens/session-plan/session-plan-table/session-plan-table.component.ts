@@ -316,3 +316,8 @@ export class SessionPlanTableComponent extends CustomTableDirective implements O
 		},
 	];
 }
+export interface IReorderSesseionPlan {
+	index: number;
+	seriesPlanId: string;
+	sessionPlanId: string;
+}

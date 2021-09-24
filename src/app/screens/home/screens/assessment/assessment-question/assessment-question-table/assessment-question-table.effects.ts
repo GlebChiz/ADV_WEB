@@ -142,7 +142,7 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 					index: number;
 				}) => {
 					return of(1).pipe(
-						withLatestFrom(this._store.select(`${controller}Table`)),
+						withLatestFrom(this._store.select(controller, 'table')),
 						switchMap(([, latest]: [number, ITable<IAssessmentQuestion, IAssessmentQuestion>]) => {
 							return this._service.reorder(controller, { index, questionId, assessmentId }).pipe(
 								mergeMap(() => {
@@ -202,7 +202,7 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 					controller: string;
 				}) => {
 					return of(1).pipe(
-						withLatestFrom(this._store.select(`${controller}Table`)),
+						withLatestFrom(this._store.select(controller, 'table')),
 						switchMap(([, latest]: [number, ITable<IAssessmentQuestion, IAssessmentQuestion>]) => {
 							return this._service
 								.updateCurrentTransletion(questionId, languageId, currentTranslation)
