@@ -268,7 +268,7 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 	}
 }
 
-export interface IReorder {
+export interface IReorderAssesmentQuestion {
 	assessmentId: string;
 	index: number;
 	questionId: string;

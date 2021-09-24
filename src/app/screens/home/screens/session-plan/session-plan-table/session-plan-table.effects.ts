@@ -157,8 +157,8 @@ export class SessionPlansEffects extends TableEffects {
 										}),
 									];
 								}),
-								catchError(() => {
-									return of(SessionPlanTableActions.ReorderPlanError());
+								catchError((errors: string) => {
+									return of(SessionPlanTableActions.ReorderPlanError({ errors }));
 								}),
 							);
 						}),

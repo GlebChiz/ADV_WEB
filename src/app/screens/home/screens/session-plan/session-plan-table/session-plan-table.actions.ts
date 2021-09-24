@@ -96,7 +96,10 @@ export const SessionPlanTableActions = {
 		}>(),
 	),
 	ReorderPlanSuccess: createAction('[Session Plan Reorder] Reorder current item success'),
-	ReorderPlanError: createAction('[Session Plan Reorder] Reorder current item error'),
+	ReorderPlanError: createAction(
+		'[Session Plan Reorder] Reorder current item error',
+		props<{ errors: string }>(),
+	),
 
 	LinkSessionPlansPending: createAction(
 		'[Session Plan] Link Session Plans Pending',

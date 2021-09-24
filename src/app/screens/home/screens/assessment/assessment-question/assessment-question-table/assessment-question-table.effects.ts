@@ -155,8 +155,12 @@ export class AssessmentQuestionTableEffects extends TableEffects {
 										}),
 									];
 								}),
-								catchError(() => {
-									return of(AssessmentQuestionTableActions.ReorderAssessmentQuestionError());
+								catchError((error: string) => {
+									return of(
+										AssessmentQuestionTableActions.ReorderAssessmentQuestionError({
+											error,
+										}),
+									);
 								}),
 							);
 						}),

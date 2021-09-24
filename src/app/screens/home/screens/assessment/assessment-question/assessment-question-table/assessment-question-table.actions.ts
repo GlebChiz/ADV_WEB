@@ -103,7 +103,10 @@ export const AssessmentQuestionTableActions = {
 	ReorderAssessmentQuestionSuccess: createAction(
 		'[Assessment Question] Reorder current item success',
 	),
-	ReorderAssessmentQuestionError: createAction('[Assessment Question] Reorder current item error'),
+	ReorderAssessmentQuestionError: createAction(
+		'[Assessment Question] Reorder current item error',
+		props<{ error: string }>(),
+	),
 	GetCurrentTranslationAssessmentQuestionPending: createAction(
 		'[Assessment Question] Get current translation pending',
 		props<{ questionId: string; languageId: string }>(),
