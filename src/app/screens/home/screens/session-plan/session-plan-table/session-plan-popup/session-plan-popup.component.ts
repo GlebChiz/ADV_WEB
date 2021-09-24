@@ -1,13 +1,11 @@
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
-import { ISessionPlan } from 'src/app/shared/interfaces/session-plan.interface';
-import { ITable } from '../../../../../../shared/table/table.reducer';
 
 export interface ISessionPlanCurrent {
 	id: string;
@@ -31,52 +29,52 @@ export interface ISessionPlanCurrent {
 	templateUrl: './session-plan-popup.component.html',
 })
 export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, AfterViewInit {
-	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<any>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
 	public isVisible = false;
 
-	public sessionPlan!: ISessionPlanCurrent | undefined;
+	public sessionPlanForm: FormGroup = this._fb.group({
+		id: [],
+		title: [],
+		seriesPlanIds: [],
+		orderNumber: [],
+		method: [],
+		outline: [],
+		calloutMinutes1: [],
+		callout1: [],
+		calloutMinutes2: [],
+		callout2: [],
+		calloutMinutes3: [],
+		callout3: [],
+		wrapupMinutes: [],
+		wrapup: [],
+	});
 
 	public seriesPlansDropdown$: Observable<IDropdownData[]> = this._store.select(
 		'dropdown',
 		'seriesPlans',
 	);
 
-	public sessionPlanForm!: FormGroup;
-
 	public onCancelAction(): void {
 		this._dialogService.close();
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.sessionPlan, ...this.sessionPlanForm.value });
-	}
-
-	public initForm(): void {
-		this.sessionPlanForm = new FormGroup({
-			title: new FormControl(this.sessionPlan?.title || ''),
-			method: new FormControl(this.sessionPlan?.method || ''),
-			outline: new FormControl(this.sessionPlan?.outline || ''),
-			calloutMinutes1: new FormControl(this.sessionPlan?.calloutMinutes1 || '0'),
-			callout1: new FormControl(this.sessionPlan?.callout1 || ''),
-			calloutMinutes2: new FormControl(this.sessionPlan?.calloutMinutes2 || '0'),
-			callout2: new FormControl(this.sessionPlan?.callout2 || ''),
-			calloutMinutes3: new FormControl(this.sessionPlan?.calloutMinutes3 || '0'),
-			callout3: new FormControl(this.sessionPlan?.callout3 || ''),
-			wrapupMinutes: new FormControl(this.sessionPlan?.wrapupMinutes || '0'),
-			wrapup: new FormControl(this.sessionPlan?.wrapup || ''),
-		});
+		this._dialogService.close({ ...this.sessionPlanForm.value });
 	}
 
 	public ngOnInit(): void {
 		this._store
-			.select('sessionPlan', 'table')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((sessionPlanTable: unknown) => {
-				this.sessionPlan = (sessionPlanTable as ITable<ISessionPlan, ISessionPlanCurrent>).current;
-				this.initForm();
+			.select('sessionPlan', 'table', 'current')
+			.pipe(filter<ISessionPlanCurrent>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((sessionPlan: ISessionPlanCurrent) => {
+				this.sessionPlanForm.setValue(sessionPlan);
 			});
 	}
 

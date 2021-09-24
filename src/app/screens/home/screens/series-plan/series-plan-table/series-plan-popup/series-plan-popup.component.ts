@@ -1,7 +1,6 @@
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
-import { ISeriesPlan } from 'src/app/shared/interfaces/series-plan.interface';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -9,7 +8,6 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { Observable } from 'rxjs';
-import { ITable } from '../../../../../../shared/table/table.reducer';
 
 export interface ISeriesPlanCurrent {
 	id: string;
@@ -22,13 +20,19 @@ export interface ISeriesPlanCurrent {
 	templateUrl: './series-plan-popup.component.html',
 })
 export class SeriesPlanPopupComponent extends UnSubscriber implements OnInit {
-	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<any>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
-	public seriesPlan!: ISeriesPlanCurrent | undefined;
-
-	public seriesPlanForm!: FormGroup;
+	public seriesPlanForm: FormGroup = this._fb.group({
+		id: [],
+		name: [],
+		modalityIds: [],
+	});
 
 	public modalities$: Observable<IDropdownData[]> = this._store
 		.select('dropdown', 'modalities')
@@ -44,24 +48,16 @@ export class SeriesPlanPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.seriesPlan, ...this.seriesPlanForm.value });
-	}
-
-	public initForm(): void {
-		this.seriesPlanForm = new FormGroup({
-			name: new FormControl(this.seriesPlan?.name || ''),
-			modalityIds: new FormControl(this.seriesPlan?.modalityIds || []),
-		});
+		this._dialogService.close({ ...this.seriesPlanForm.value });
 	}
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetModalitiesPending());
 		this._store
-			.select('seriesplan', 'table')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((seriesPlanTable: unknown) => {
-				this.seriesPlan = (seriesPlanTable as ITable<ISeriesPlan, ISeriesPlanCurrent>).current;
-				this.initForm();
+			.select('seriesplan', 'table', 'current')
+			.pipe(filter<ISeriesPlanCurrent>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((seriesPlan: ISeriesPlanCurrent) => {
+				this.seriesPlanForm.setValue(seriesPlan);
 			});
 	}
 }

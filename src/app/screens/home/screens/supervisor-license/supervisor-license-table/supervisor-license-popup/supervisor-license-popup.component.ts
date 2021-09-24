@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -8,7 +8,6 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { Observable } from 'rxjs/internal/Observable';
-import { removeTimezone } from 'src/app/utils/timezone';
 
 export interface ISupervisorInterface {
 	id: string;
@@ -22,14 +21,22 @@ export interface ISupervisorInterface {
 	selector: 'advenium-supervisor-license-popup',
 	templateUrl: './supervisor-license-popup.component.html',
 })
-export class SupervisorLicensePopupComponent extends UnSubscriber implements OnInit, OnChanges {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+export class SupervisorLicensePopupComponent extends UnSubscriber implements OnInit {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<IStore>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
-	public supervisorLicense!: ISupervisorInterface | undefined;
-
-	public myForm!: FormGroup;
+	public supervisorLicenseForm: FormGroup = this._fb.group({
+		clinicianId: [],
+		payerId: [],
+		startDate: [],
+		endDate: [],
+		providerId: [],
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -42,28 +49,20 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 
 	public onConfirmAction(): void {
 		this._dialogService.close({
-			...this.supervisorLicense,
-			...this.myForm.value,
+			...this.supervisorLicenseForm.value,
 		});
 	}
 
-	public initForm(): void {
-		this.myForm = new FormGroup({
-			clinicianId: new FormControl(this.supervisorLicense?.supervisor || ''),
-			payerId: new FormControl(this.supervisorLicense?.payer || ''),
-			startDate: new FormControl(
-				this.supervisorLicense?.start
-					? removeTimezone(new Date(this.supervisorLicense?.start))
-					: '',
-			),
-			endDate: new FormControl(
-				this.supervisorLicense?.start
-					? removeTimezone(new Date(this.supervisorLicense?.start))
-					: '',
-			),
-			providerId: new FormControl(this.supervisorLicense?.providerId || ''),
-		});
-	}
+	// startDate: new FormControl(
+	// 	this.supervisorLicense?.start
+	// 		? removeTimezone(new Date(this.supervisorLicense?.start))
+	// 		: '',
+	// ),
+	// endDate: new FormControl(
+	// 	this.supervisorLicense?.start
+	// 		? removeTimezone(new Date(this.supervisorLicense?.start))
+	// 		: '',
+	// ),
 
 	public supervisor$: Observable<IDropdownData[]> = this._store.select(
 		'dropdown' as any,
@@ -78,10 +77,6 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePending());
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
-		this.initForm();
-	}
-
-	public ngOnChanges(): void {
-		this.initForm();
+		// this._store.select('')
 	}
 }

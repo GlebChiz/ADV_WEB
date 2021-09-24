@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -11,13 +11,20 @@ import { filter, takeUntil } from 'rxjs/operators';
 	templateUrl: './assessment-question-translate-popup.component.html',
 })
 export class AssessmentQuestionTranslatePopupComponent extends UnSubscriber implements OnInit {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<IStore>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
-	public assessmentTranslate!: IAssessmentTranslate | undefined;
-
-	public assessmentTranslateForm!: FormGroup;
+	public assessmentTranslateForm: FormGroup = this._fb.group({
+		id: [],
+		languageId: [],
+		original: [],
+		translation: [],
+	});
 
 	public onCancelAction(): void {
 		this._dialogService.close();
@@ -25,28 +32,18 @@ export class AssessmentQuestionTranslatePopupComponent extends UnSubscriber impl
 
 	public onConfirmAction(): void {
 		this._dialogService.close({
-			...this.assessmentTranslate,
 			...this.assessmentTranslateForm.value,
 		});
 	}
 
-	public initForm(): void {
-		this.assessmentTranslateForm = new FormGroup({
-			original: new FormControl(this.assessmentTranslate?.original || ''),
-			translation: new FormControl(this.assessmentTranslate?.translation || []),
-		});
-		this.assessmentTranslateForm?.controls?.original?.disable();
-	}
-
 	public ngOnInit(): void {
 		this._store
-			.select('assessmentquestion' as any, 'assessmentQuestionTranslate')
+			.select('assessmentquestion' as any, 'additional')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((assessmentTranslate: any) => {
-				this.assessmentTranslate = assessmentTranslate;
-				this.initForm();
+				this.assessmentTranslateForm.setValue(assessmentTranslate);
 			});
-		this.initForm();
+		this.assessmentTranslateForm?.controls?.original?.disable();
 	}
 }
 
