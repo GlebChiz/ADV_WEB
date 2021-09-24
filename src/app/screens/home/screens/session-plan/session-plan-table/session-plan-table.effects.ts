@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { ITable } from 'src/app/shared/table/table.reducer';
+import { ITable, ITableState } from 'src/app/shared/table/table.reducer';
 import { Inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -45,6 +45,7 @@ import { SessionPlanTableActions } from './session-plan-table.actions';
 import { SessionPlanTableSerivce } from './session-plan-table.service';
 import { ISessionPlanCurrent } from './session-plan-popup/session-plan-popup.component';
 import { ISessionPlan } from '../../../../../shared/interfaces/session-plan.interface';
+import { ISessionPlanTranslate } from './session-plan-translate-popup/session-plan-translate-popup.component';
 
 @Injectable()
 export class SessionPlansEffects extends TableEffects {
@@ -83,7 +84,7 @@ export class SessionPlansEffects extends TableEffects {
 		@Inject(RENAME_GRID_SUCCESS) renameGridSuccess: any,
 		@Inject(RENAME_GRID_ERROR) renameGridError: any,
 		_tableService: TableService,
-		_store: Store<any>,
+		_store: Store<ITableState<any, any, any>>,
 		private _service: SessionPlanTableSerivce,
 		_toasterService: ToastrService,
 	) {
@@ -215,7 +216,7 @@ export class SessionPlansEffects extends TableEffects {
 			ofType(SessionPlanTableActions.GetCurrentTranslationSessionPlanPending),
 			switchMap(({ sessionPlanId, languageId }: { sessionPlanId: string; languageId: string }) => {
 				return this._service.getCurrentTransletionSessionPlan(sessionPlanId, languageId).pipe(
-					map((currentTranslation: any) =>
+					map((currentTranslation: ISessionPlanTranslate) =>
 						SessionPlanTableActions.GetCurrentTranslationSessionPlanSuccess({
 							currentTranslation,
 						}),
