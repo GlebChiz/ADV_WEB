@@ -5,7 +5,7 @@ import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-ang
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
-import { removeTimezone } from 'src/app/utils/timezone';
+import { addTimezone, removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { ClinicianDropdownPopupComponent } from '../../patient-distribution-group-popups/clinician-dropdown-popup/clinician-dropdown-popup.component';
 import { PatientDropdownPopupComponent } from '../../patient-distribution-group-popups/patient-dropdown-popup/patient-dropdown-popup.component';
@@ -48,6 +48,9 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 	public onConfirmAction(): void {
 		this._dialogService.close({
 			...this.patientDistributionForm.value,
+			startDate: this.patientDistributionForm.value?.startDate
+						? removeTimezone(this.patientDistributionForm.value?.startDate)
+						: ''
 		});
 	}
 
@@ -60,7 +63,7 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 				this.patientDistributionForm.setValue({
 					...patientDistribution,
 					startDate: patientDistribution?.startDate
-						? removeTimezone(new Date(patientDistribution?.startDate))
+						? addTimezone(patientDistribution?.startDate)
 						: '',
 				});
 			});
