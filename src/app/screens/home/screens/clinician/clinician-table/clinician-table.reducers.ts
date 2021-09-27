@@ -19,7 +19,7 @@ export function clinicianTableReducers(state: any | undefined, action: Action): 
 
 export function clinicianInfoReducers(clinicianInfoState: any | undefined, action: Action): any {
 	return createReducer(
-		{},
+		undefined,
 		on(
 			ClinicianTableActions.GetClinicianGeneralInfoSuccess,
 			(state: any, { clinicianInfo }: { clinicianInfo: IClinicianGeneralInfo }) => ({

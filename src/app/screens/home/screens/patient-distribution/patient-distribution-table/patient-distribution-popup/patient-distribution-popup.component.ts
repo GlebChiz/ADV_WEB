@@ -49,8 +49,8 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 		this._dialogService.close({
 			...this.patientDistributionForm.value,
 			startDate: this.patientDistributionForm.value?.startDate
-						? removeTimezone(this.patientDistributionForm.value?.startDate)
-						: ''
+				? removeTimezone(this.patientDistributionForm.value?.startDate)
+				: '',
 		});
 	}
 

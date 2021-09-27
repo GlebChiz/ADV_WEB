@@ -8,6 +8,8 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { Observable } from 'rxjs/internal/Observable';
+import { filter, takeUntil } from 'rxjs/operators';
+import { addTimezone, removeTimezone } from 'src/app/utils/timezone';
 
 export interface ISupervisorInterface {
 	id: string;
@@ -31,7 +33,9 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	}
 
 	public supervisorLicenseForm: FormGroup = this._fb.group({
+		id: [],
 		clinicianId: [],
+		clinicianName: [],
 		payerId: [],
 		startDate: [],
 		endDate: [],
@@ -50,19 +54,14 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	public onConfirmAction(): void {
 		this._dialogService.close({
 			...this.supervisorLicenseForm.value,
+			startDate: this.supervisorLicenseForm.value?.startDate
+				? removeTimezone(new Date(this.supervisorLicenseForm.value?.startDate))
+				: '',
+			endDate: this.supervisorLicenseForm.value?.endDate
+				? removeTimezone(new Date(this.supervisorLicenseForm.value?.endDate))
+				: '',
 		});
 	}
-
-	// startDate: new FormControl(
-	// 	this.supervisorLicense?.start
-	// 		? removeTimezone(new Date(this.supervisorLicense?.start))
-	// 		: '',
-	// ),
-	// endDate: new FormControl(
-	// 	this.supervisorLicense?.start
-	// 		? removeTimezone(new Date(this.supervisorLicense?.start))
-	// 		: '',
-	// ),
 
 	public supervisor$: Observable<IDropdownData[]> = this._store.select(
 		'dropdown' as any,
@@ -77,6 +76,20 @@ export class SupervisorLicensePopupComponent extends UnSubscriber implements OnI
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePending());
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePayersPending());
-		// this._store.select('')
+		this._store.select('supervisorlicense' as any, 'table', 'current').subscribe();
+		this._store
+			.select('supervisorlicense' as any, 'table', 'current')
+			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((supervisorlicense: any) => {
+				this.supervisorLicenseForm.setValue({
+					...supervisorlicense,
+					startDate: supervisorlicense?.startDate
+						? addTimezone(new Date(supervisorlicense?.startDate))
+						: '',
+					endDate: supervisorlicense?.endDate
+						? addTimezone(new Date(supervisorlicense?.endDate))
+						: '',
+				});
+			});
 	}
 }

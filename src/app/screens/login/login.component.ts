@@ -6,19 +6,11 @@ import { AuthUserActions, IUser } from 'src/app/store/actions/user.actions';
 
 @Component({ templateUrl: 'login.component.html', styleUrls: ['login.component.scss'] })
 export class LoginComponent implements OnInit {
-	public loginForm!: FormGroup;
-
-	public loading = false;
-
-	public submitted = false;
-
-	public returnUrl!: string;
-
 	public constructor(
-		private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
 		private router: Router,
 		private _store: Store<any>,
+		private _fb: FormBuilder,
 	) {
 		this._store.select('userState', 'user').subscribe((user: IUser | null) => {
 			if (user) {
@@ -27,12 +19,18 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-	public ngOnInit(): void {
-		this.loginForm = this.formBuilder.group({
-			username: ['', Validators.required],
-			password: ['', Validators.required],
-		});
+	public loginForm: FormGroup = this._fb.group({
+		username: ['', Validators.required],
+		password: ['', Validators.required],
+	});
 
+	public loading = false;
+
+	public submitted = false;
+
+	public returnUrl!: string;
+
+	public ngOnInit(): void {
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 	}
 

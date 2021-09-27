@@ -1,9 +1,9 @@
 import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
@@ -24,13 +24,11 @@ import { IButtonSelector } from '../button-selector/button-selector.component';
 	],
 })
 export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy, OnChanges {
-	public constructor(private _store: Store<IStore>) {
+	public constructor(private _store: Store<IStore>, private _fb: FormBuilder) {
 		super();
 	}
 
 	@Input() public personId: string = '';
-
-	public personContactInfo!: IPersonContactInfo | undefined;
 
 	public preferredContact: IButtonSelector[] = [];
 
@@ -39,7 +37,12 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 		{ name: 'No', id: 'false' },
 	];
 
-	public myContactForm!: FormGroup;
+	public contactForm: FormGroup = this._fb.group({
+		email: [],
+		useInternet: [],
+		preferredContactId: [],
+		phones: this._fb.array([]),
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -47,13 +50,14 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 	};
 
 	public addPhone(): void {
-		const form: FormControl = new FormControl({
+		const form: FormControl = this._fb.control({
 			isPreferred: false,
-			phone: '',
+			phone: [''],
 			noVoice: false,
 			noText: false,
 			typeId: '6a9cb657-fd59-469e-a56b-dbf67b41b590',
 		});
+
 		this.phones.push(form);
 	}
 
@@ -62,41 +66,11 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 	}
 
 	public get phones(): FormArray {
-		return this.myContactForm.get('phones') as FormArray;
+		return this.contactForm.get('phones') as FormArray;
 	}
 
 	public set phones(value: FormArray) {
-		this.myContactForm.get('phones')?.setValue(value);
-	}
-
-	public initForm(): void {
-		this.myContactForm = new FormGroup({
-			email: new FormControl(this.personContactInfo?.email || ''),
-			useInternet: new FormControl(this.personContactInfo?.useInternet?.toString() || 'true'),
-			preferredContactId: new FormControl(this.personContactInfo?.preferredContactId || ''),
-			phones: new FormArray([]),
-		});
-		if (this.personContactInfo?.phones) {
-			this.personContactInfo.phones.forEach((phone: IPhone) => {
-				this.phones.push(new FormControl({ ...phone }));
-			});
-		}
-
-		this.myContactForm.valueChanges?.subscribe((newData: IPersonContactInfo) => {
-			const correctPhone: IPhone[] = newData.phones.filter((value: IPhone) => {
-				return new RegExp(/\d{9,9}/).test(value?.phone);
-			});
-			if (correctPhone?.length !== newData?.phones?.length) {
-				newData.phones = correctPhone;
-			}
-			newData.useInternet = newData?.useInternet === 'true';
-			this._store.dispatch(
-				PersonActions.UpdatePersonContactInfoPending({
-					id: this.personId,
-					personContactInfo: newData,
-				}),
-			);
-		});
+		this.contactForm.get('phones')?.setValue(value);
 	}
 
 	public ngOnChanges(): void {
@@ -106,10 +80,9 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 	}
 
 	public ngOnInit(): void {
-		this._store.dispatch(PersonActions.GetPersonContactInfoPending({ id: this.personId }));
 		this._store
 			.select('person', 'personContactInfo')
-			.pipe(takeUntil(this.unsubscribe$$))
+			.pipe(filter<{ [key: string]: IPersonContactInfo }[]>(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((personContactInfo: { [key: string]: IPersonContactInfo }[]) => {
 				const currentPersonContact: { [key: string]: IPersonContactInfo } =
 					personContactInfo.find((item: { [key: string]: IPersonContactInfo }) =>
@@ -117,10 +90,32 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 						item?.hasOwnProperty(this.personId),
 					) ?? {};
 				if (currentPersonContact && currentPersonContact[this.personId]) {
-					this.personContactInfo = currentPersonContact[this.personId];
+					this.contactForm.setValue({
+						...currentPersonContact[this.personId],
+						useInternet: currentPersonContact[this.personId]?.useInternet?.toString(),
+						phones: [],
+					});
+					currentPersonContact[this.personId]?.phones.forEach((phone: IPhone) => {
+						this.phones.push(new FormControl({ ...phone }));
+					});
 				}
-
-				this.initForm();
+				this.contactForm.valueChanges
+					?.pipe(filter<IPersonContactInfo>(Boolean), takeUntil(this.unsubscribe$$))
+					.subscribe((newData: IPersonContactInfo) => {
+						const correctPhone: IPhone[] = newData.phones.filter((value: IPhone) => {
+							return new RegExp(/\d{9,9}/).test(value?.phone);
+						});
+						if (correctPhone?.length !== newData?.phones?.length) {
+							newData.phones = correctPhone;
+						}
+						newData.useInternet = newData?.useInternet === 'true';
+						this._store.dispatch(
+							PersonActions.UpdatePersonContactInfoPending({
+								id: this.personId,
+								personContactInfo: newData,
+							}),
+						);
+					});
 			});
 		this._store.dispatch(DropdownActions.GetPreferredContactPending());
 		this._store
@@ -134,8 +129,6 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 					};
 				});
 			});
-
-		this.initForm();
 	}
 
 	public ngOnDestroy(): void {
