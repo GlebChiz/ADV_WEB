@@ -39,6 +39,7 @@ import {
 	RENAME_GRID_PENDING,
 	RENAME_GRID_ERROR,
 	RENAME_GRID_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
 } from 'src/app/shared/table/table.tokens';
 import { UsersManagerPopupComponent } from './users-manager-table/users-manager-popup/users-manager-popup.component';
 import { UsersManagerTableActions } from './users-manager-table/users-manager-table.actions';
@@ -181,6 +182,10 @@ import { UsersManagerComponent } from './users-manager.component';
 		{
 			provide: MAKE_DEFAULT_GRID_PENDING,
 			useValue: UsersManagerTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_ERROR,
+			useValue: UsersManagerTableActions.MakeDefaultGridError,
 		},
 		{
 			provide: MAKE_DEFAULT_GRID_SUCCESS,

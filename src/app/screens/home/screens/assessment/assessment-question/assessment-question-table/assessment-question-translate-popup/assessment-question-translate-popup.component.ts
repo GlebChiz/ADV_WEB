@@ -31,15 +31,16 @@ export class AssessmentQuestionTranslatePopupComponent extends UnSubscriber impl
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({
-			...this.assessmentTranslateForm.value,
-		});
+		this._dialogService.close(this.assessmentTranslateForm.value);
 	}
 
 	public ngOnInit(): void {
 		this._store
 			.select('assessmentquestion' as any, 'additional')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+			.pipe(
+				filter((val) => val && Object.keys(val).length !== 0),
+				takeUntil(this.unsubscribe$$),
+			)
 			.subscribe((assessmentTranslate: any) => {
 				this.assessmentTranslateForm.setValue(assessmentTranslate);
 			});

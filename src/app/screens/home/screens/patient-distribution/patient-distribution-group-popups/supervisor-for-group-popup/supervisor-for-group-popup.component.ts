@@ -42,7 +42,7 @@ export class SupervisorForGroupPopupComponent extends UnSubscriber implements On
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.supervisorForm.value });
+		this._dialogService.close(this.supervisorForm.value);
 	}
 
 	public ngOnInit(): void {

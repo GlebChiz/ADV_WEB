@@ -38,7 +38,7 @@ export class ModalityPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.modalityForm.value });
+		this._dialogService.close(this.modalityForm.value);
 	}
 
 	public ngOnInit(): void {

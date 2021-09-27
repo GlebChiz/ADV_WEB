@@ -41,7 +41,7 @@ export class LocationForGroupPopupComponent extends UnSubscriber implements OnIn
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.locationForm.value });
+		this._dialogService.close(this.locationForm.value);
 	}
 
 	public ngOnInit(): void {

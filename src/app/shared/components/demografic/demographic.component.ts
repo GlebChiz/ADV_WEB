@@ -1,10 +1,9 @@
 import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-
 import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
@@ -25,7 +24,7 @@ import { IButtonSelector } from '../button-selector/button-selector.component';
 	],
 })
 export class DemographicComponent extends UnSubscriber implements OnInit, OnDestroy, OnChanges {
-	public constructor(private _store: Store<IStore>) {
+	public constructor(private _store: Store<IStore>, private _fb: FormBuilder) {
 		super();
 	}
 
@@ -50,32 +49,20 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 
 	public languages$: Observable<IDropdownData[]> = this._store.select('dropdown', 'languages');
 
-	public myDemographicForm!: FormGroup;
+	public demographicForm: FormGroup = this._fb.group({
+		sexId: [],
+		genderId: [],
+		sexOrientationId: [],
+		maritalStatusId: [],
+		employementId: [],
+		raceId: [],
+		languageIds: [],
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
-
-	public initForm(): void {
-		this.myDemographicForm = new FormGroup({
-			sexId: new FormControl(this.personDemographicInfo?.sexId || ''),
-			genderId: new FormControl(this.personDemographicInfo?.genderId || ''),
-			sexOrientationId: new FormControl(this.personDemographicInfo?.sexOrientationId || ''),
-			maritalStatusId: new FormControl(this.personDemographicInfo?.maritalStatusId || ''),
-			employementId: new FormControl(this.personDemographicInfo?.employementId || ''),
-			languageIds: new FormControl(this.personDemographicInfo?.languageIds || []),
-			raceId: new FormControl(this.personDemographicInfo?.raceId || ''),
-		});
-		this.myDemographicForm.valueChanges?.subscribe((newData: IPersonDemographicInfo) => {
-			this._store.dispatch(
-				PersonActions.UpdatePersonDemographicInfoPending({
-					id: this.personId,
-					personDemographicInfo: newData,
-				}),
-			);
-		});
-	}
 
 	public ngOnChanges(): void {
 		if (this.personId) {
@@ -86,7 +73,11 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 	public ngOnInit(): void {
 		this._store
 			.select('person', 'personDemographicInfo')
-			.pipe(takeUntil(this.unsubscribe$$))
+			.pipe(
+				filter<{ [key: string]: IPersonDemographicInfo }[]>(Boolean),
+				filter<{ [key: string]: IPersonDemographicInfo }[]>((val) => val.length > 0),
+				takeUntil(this.unsubscribe$$),
+			)
 			.subscribe((personDemographicInfo: { [key: string]: IPersonDemographicInfo }[]) => {
 				const currentPersonDemographic: { [key: string]: IPersonDemographicInfo } =
 					personDemographicInfo.find((item: { [key: string]: IPersonDemographicInfo }) =>
@@ -97,7 +88,7 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 					this.personDemographicInfo = currentPersonDemographic[this.personId];
 				}
 
-				this.initForm();
+				this.demographicForm.setValue(currentPersonDemographic[this.personId] || {});
 			});
 		this._store.dispatch(DropdownActions.GetLanguagesPending());
 		this._store.dispatch(DropdownActions.GetRacePending());
@@ -128,7 +119,16 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 					};
 				});
 			});
-		this.initForm();
+		this.demographicForm.valueChanges
+			?.pipe(debounceTime(500), distinctUntilChanged())
+			.subscribe((newData: IPersonDemographicInfo) => {
+				this._store.dispatch(
+					PersonActions.UpdatePersonDemographicInfoPending({
+						id: this.personId,
+						personDemographicInfo: newData,
+					}),
+				);
+			});
 	}
 
 	public ngOnDestroy(): void {

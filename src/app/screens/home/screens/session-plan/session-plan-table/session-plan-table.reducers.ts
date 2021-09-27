@@ -18,7 +18,7 @@ export function sessionPlanTableReducers(state: ITable<any, any> | undefined, ac
 
 export function sessionPlanInfoReducers(sessionPlanState: any, action: Action): any {
 	return createReducer(
-		undefined,
+		{},
 		on(
 			SessionPlanTableActions.GetCurrentTranslationSessionPlanSuccess,
 			(state: any, { currentTranslation }: { currentTranslation: any }) => ({

@@ -20,11 +20,11 @@ import {
 import { IStore } from 'src/app/store';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { InsurancePopupComponent } from './insurance-popup/insurance-popup.component';
-import { InsuranceTableActions } from './insurance-table.actions';
 import { ClipboardService } from 'ngx-clipboard';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { InsurancePopupComponent } from './insurance-popup/insurance-popup.component';
+import { InsuranceTableActions } from './insurance-table.actions';
 
 @Component({
 	providers: [],
@@ -100,8 +100,8 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 				];
 			}
 			this._store.dispatch(InsuranceTableActions.GetCurrentInsurancePending({ id: this.personId }));
+			super.ngOnInit();
 		}
-		super.ngOnInit();
 	}
 
 	public ngOnInit(): void {
@@ -112,7 +112,6 @@ export class InsuranceTableComponent extends CustomTableDirective implements OnC
 				);
 			}
 		});
-		super.ngOnInit();
 	}
 
 	public openDialog(dataItem?: any, isDublicate?: boolean): void {

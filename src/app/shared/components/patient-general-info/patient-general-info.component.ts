@@ -1,10 +1,10 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 
 import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { PatientTableActions } from 'src/app/screens/home/screens/patient/patient-table/patient-table.actions';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
@@ -23,40 +23,25 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 	],
 })
 export class PatientGeneralInfoComponent extends UnSubscriber implements OnInit {
-	public constructor(private _store: Store<IStore>) {
+	public constructor(private _store: Store<IStore>, private _fb: FormBuilder) {
 		super();
 	}
 
 	@Input() public patientId!: string;
 
-	public patientInfo!: IPatientGeneralInfo;
-
 	public status$: Observable<IDropdownData[]> = this._store.select('dropdown', 'patientStatus');
 
 	public area$: Observable<IDropdownData[]> = this._store.select('dropdown', 'areas');
 
-	public myPatientInfoForm!: FormGroup;
+	public patientInfoForm: FormGroup = this._fb.group({
+		areaId: [],
+		statusId: [],
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
 		operator: 'contains',
 	};
-
-	public initForm(): void {
-		this.myPatientInfoForm = new FormGroup({
-			areaId: new FormControl(this.patientInfo?.areaId || ''),
-			statusId: new FormControl(this.patientInfo?.statusId || ''),
-		});
-
-		this.myPatientInfoForm.valueChanges?.subscribe((newData: IPatientGeneralInfo) => {
-			this._store.dispatch(
-				PatientTableActions.UpdatePatientGeneralInfoPending({
-					id: this.patientId,
-					patientInfo: newData,
-				}),
-			);
-		});
-	}
 
 	public ngOnInit(): void {
 		this._store.dispatch(PatientTableActions.GetPatientGeneralInfoPending({ id: this.patientId }));
@@ -64,13 +49,24 @@ export class PatientGeneralInfoComponent extends UnSubscriber implements OnInit 
 		this._store.dispatch(DropdownActions.GetPatientStatusPending());
 		this._store
 			.select('patient' as any, 'patientInfo')
-			.pipe(takeUntil(this.unsubscribe$$))
+			.pipe(
+				filter<IPatientGeneralInfo>(Boolean),
+				filter<IPatientGeneralInfo>((val) => Object.keys(val).length !== 0),
+				takeUntil(this.unsubscribe$$),
+			)
 			.subscribe((patientInfo: IPatientGeneralInfo) => {
-				this.patientInfo = patientInfo;
-				this.initForm();
+				this.patientInfoForm.setValue(patientInfo);
 			});
-
-		this.initForm();
+		this.patientInfoForm.valueChanges
+			?.pipe(debounceTime(500), distinctUntilChanged())
+			.subscribe((newData: IPatientGeneralInfo) => {
+				this._store.dispatch(
+					PatientTableActions.UpdatePatientGeneralInfoPending({
+						id: this.patientId,
+						patientInfo: newData,
+					}),
+				);
+			});
 	}
 }
 

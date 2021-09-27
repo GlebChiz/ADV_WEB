@@ -58,7 +58,7 @@ import { AssessmentLegendComponent } from './assessment-legend.component';
 				component: AssessmentLegendComponent,
 			},
 		]),
-		StoreModule.forFeature('assessmentLegend', assessmentLegendReducers),
+		StoreModule.forFeature('assessmentlegend', assessmentLegendReducers),
 		EffectsModule.forFeature([AssessmentLegendEffect]),
 	],
 	declarations: [

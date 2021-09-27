@@ -66,7 +66,7 @@ export class SessionPlanPopupComponent extends UnSubscriber implements OnInit, A
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.sessionPlanForm.value });
+		this._dialogService.close(this.sessionPlanForm.value);
 	}
 
 	public ngOnInit(): void {

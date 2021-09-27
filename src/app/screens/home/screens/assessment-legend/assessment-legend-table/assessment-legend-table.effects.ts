@@ -149,8 +149,6 @@ export class AssessmentLegendEffect extends TableEffects {
 				return of(1).pipe(
 					withLatestFrom(this._store.select(controller, 'table')),
 					switchMap(([, latest]: [number, ITable<ISessionPlan, ISessionPlanCurrent>]) => {
-						console.log(latest);
-
 						return this._service.setAssessmentLegend(item).pipe(
 							mergeMap(() => {
 								return [

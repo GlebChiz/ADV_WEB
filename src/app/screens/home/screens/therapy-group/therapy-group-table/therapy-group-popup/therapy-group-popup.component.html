@@ -16,6 +16,36 @@
 				</div>
 			</div>
 		</div>
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Week Day</label>
+					<kendo-combobox
+						valueField="name"
+						style="min-width: 200px; width: 100%"
+						textField="name"
+						[data]="['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']"
+						formControlName="weekDay"
+						[valuePrimitive]="true"
+						[disabled]="isViewWeekDay"
+					>
+					</kendo-combobox>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix w-100">
+			<div class="column w-100">
+				<div class="w-100">
+					<label>Start Time</label>
+					<kendo-timepicker
+						formControlName="start"
+						[disabled]="isViewStartTime"
+						format="hh/mm"
+						kendoTextBox
+					></kendo-timepicker>
+				</div>
+			</div>
+		</div>
 
 		<div class="clearfix w-100">
 			<div class="column w-100">
@@ -101,13 +131,9 @@
 				</div>
 			</div>
 		</div>
-
-
-	
 	</div>
 </form>
 <kendo-dialog-actions>
 	<button kendoButton (click)="onCancelAction()">Cancel</button>
 	<button kendoButton (click)="onConfirmAction()">Save</button>
 </kendo-dialog-actions>
-

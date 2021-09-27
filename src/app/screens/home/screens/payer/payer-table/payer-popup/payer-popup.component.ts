@@ -47,7 +47,7 @@ export class PayerPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.payerForm.value });
+		this._dialogService.close(this.payerForm.value);
 	}
 
 	public ngOnInit(): void {

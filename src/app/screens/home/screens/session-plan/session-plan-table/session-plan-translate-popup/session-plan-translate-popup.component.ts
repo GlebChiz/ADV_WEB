@@ -48,9 +48,7 @@ export class SessionPlanTranslatePopupComponent
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({
-			...this.sessionPlanTranslateForm.value,
-		});
+		this._dialogService.close(this.sessionPlanTranslateForm.value);
 	}
 
 	public ngAfterViewInit(): void {
@@ -70,7 +68,10 @@ export class SessionPlanTranslatePopupComponent
 	public ngOnInit(): void {
 		this._store
 			.select('sessionPlan' as any, 'sessionPlanInfo')
-			.pipe(filter<ISessionPlanTranslate>(Boolean), takeUntil(this.unsubscribe$$))
+			.pipe(
+				filter<ISessionPlanTranslate>((val) => val && Object.keys(val).length !== 0),
+				takeUntil(this.unsubscribe$$),
+			)
 			.subscribe((sessionPlanInfo: ISessionPlanTranslate) => {
 				this.sessionPlanTranslateForm.setValue(sessionPlanInfo);
 			});

@@ -124,6 +124,7 @@ export class SupervisorLicenseTableComponent extends CustomTableDirective {
 			hidden: false,
 			filterable: true,
 			type: 'text',
+			// function:
 		},
 		{
 			field: 'providerId',

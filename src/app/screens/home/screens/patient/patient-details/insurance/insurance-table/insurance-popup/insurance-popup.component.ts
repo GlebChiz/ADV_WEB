@@ -9,7 +9,7 @@ import { IButtonSelector } from 'src/app/shared/components/button-selector/butto
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
-import { removeTimezone } from 'src/app/utils/timezone';
+import { addTimezone, removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { InsuranceCopyPopupComponent } from '../copy-popup/copy-popup.component';
 import { InsuranceTableActions } from '../insurance-table.actions';
@@ -74,7 +74,18 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogRef.close({ ...this.insuranceForm.value });
+		this._dialogRef.close({
+			...this.insuranceForm.value,
+			effectiveDate: this.insuranceForm.value?.effectiveDate
+				? removeTimezone(this.insuranceForm.value?.effectiveDate)
+				: '',
+			verificationDate: this.insuranceForm.value?.verificationDate
+				? removeTimezone(this.insuranceForm.value?.verificationDate)
+				: '',
+			closedDate: this.insuranceForm.value?.closedDate
+				? removeTimezone(this.insuranceForm.value?.closedDate)
+				: '',
+		});
 	}
 
 	public ngOnInit(): void {
@@ -87,11 +98,11 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 				this.insuranceForm.setValue({
 					...insurance,
 					effectiveDate: insurance?.effectiveDate
-						? removeTimezone(new Date(insurance?.effectiveDate))
+						? addTimezone(new Date(insurance?.effectiveDate))
 						: '',
-					closedDate: insurance?.closedDate ? removeTimezone(new Date(insurance.closedDate)) : '',
+					closedDate: insurance?.closedDate ? addTimezone(new Date(insurance.closedDate)) : '',
 					verificationDate: insurance?.verificationDate
-						? removeTimezone(new Date(insurance?.verificationDate))
+						? addTimezone(new Date(insurance?.verificationDate))
 						: '',
 				});
 				if (insurance?.insuranceHolderId) {

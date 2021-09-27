@@ -41,7 +41,7 @@ export class ClinicianDropdownPopupComponent extends UnSubscriber implements OnI
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.clinicianForm.value });
+		this._dialogService.close(this.clinicianForm.value);
 	}
 
 	public ngOnInit(): void {

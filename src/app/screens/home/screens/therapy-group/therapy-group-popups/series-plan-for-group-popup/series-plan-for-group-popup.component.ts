@@ -41,7 +41,7 @@ export class SeriesPlanForGroupPopupComponent extends UnSubscriber implements On
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.seriesPlanForm.value });
+		this._dialogService.close(this.seriesPlanForm.value);
 	}
 
 	public ngOnInit(): void {

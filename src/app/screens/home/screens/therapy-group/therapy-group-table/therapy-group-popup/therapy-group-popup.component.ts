@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
-import { ITherapyGroup } from 'src/app/shared/interfaces/therapy-group.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
+import { addTimezone, removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
-import { ITable } from '../../../../../../shared/table/table.reducer';
 import { TherapyGroupTableActions } from '../therapy-group-table.actions';
 
 @Component({
@@ -16,11 +15,13 @@ import { TherapyGroupTableActions } from '../therapy-group-table.actions';
 	templateUrl: './therapy-group-popup.component.html',
 })
 export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
-	public constructor(private _dialogService: DialogRef, private _store: Store<any>) {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<any>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
-
-	public therapyGroup!: ITherapyGroupCurrent | undefined;
 
 	public languages$: Observable<IDropdownData[]> = this._store
 		.select('dropdown', 'languages')
@@ -46,39 +47,38 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 		.select('therapygroup', 'rooms', 'data')
 		.pipe(takeUntil(this.unsubscribe$$));
 
-	public therapyGroupForm!: FormGroup;
+	public isViewWeekDay: boolean = true;
+
+	public isViewStartTime: boolean = true;
+
+	public therapyGroupForm: FormGroup = this._fb.group({
+		id: [],
+		clinicianId: [],
+		createdBy: [],
+		createdDate: [],
+		languageId: [],
+		locationId: [],
+		modalityId: [],
+		roomId: [],
+		seriesPlanId: [],
+		start: [],
+		updatedBy: [],
+		updatedDate: [],
+		clinicianName: [],
+		weekDay: [],
+	});
 
 	public onCancelAction(): void {
 		this._dialogService.close();
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.therapyGroup, ...this.therapyGroupForm.value });
-	}
-
-	public initForm(): void {
-		if (this.therapyGroup?.locationId) {
-			this.getRooms(this.therapyGroup?.locationId);
-		}
-		this.therapyGroupForm = new FormGroup({
-			clinicianId: new FormControl(this.therapyGroup?.clinicianId || ''),
-			createdBy: new FormControl(this.therapyGroup?.createdBy || ''),
-			createdDate: new FormControl(this.therapyGroup?.createdDate || ''),
-			languageId: new FormControl(this.therapyGroup?.languageId || ''),
-			locationId: new FormControl(this.therapyGroup?.locationId || ''),
-			modalityId: new FormControl(this.therapyGroup?.modalityId || ''),
-			roomId: new FormControl(this.therapyGroup?.roomId || ''),
-			seriesPlanId: new FormControl(this.therapyGroup?.seriesPlanId || ''),
-			start: new FormControl(this.therapyGroup?.start || ''),
-			updatedBy: new FormControl(this.therapyGroup?.updatedBy || ''),
-			updatedDate: new FormControl(this.therapyGroup?.updatedDate || ''),
+		this._dialogService.close({
+			...this.therapyGroupForm.value,
+			start: this.therapyGroupForm.value?.start
+				? removeTimezone(this.therapyGroupForm.value?.start)
+				: '',
 		});
-		this.therapyGroupForm
-			.get('locationId')
-			?.valueChanges.pipe(filter<string>(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((locationId: string) => {
-				this.getRooms(locationId);
-			});
 	}
 
 	public getRooms(locationId: string): void {
@@ -109,26 +109,34 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
-		if (this.therapyGroup?.languageId) {
-			this.getRooms(this.therapyGroup?.languageId);
-		}
-
 		this._store.dispatch(DropdownActions.GetLanguagesPending());
 		this._store.dispatch(DropdownActions.GetModalitiesPending());
 		this._store.dispatch(DropdownActions.GetSeriesPlansPending());
 		this._store.dispatch(DropdownActions.GetLocationsPending());
 		this._store.dispatch(DropdownActions.GetCliniciansPending());
-		this._store
-			.select('therapygroup', 'table')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((therapyGroupTable: unknown) => {
-				this.therapyGroup = (
-					therapyGroupTable as ITable<ITherapyGroup, ITherapyGroupCurrent>
-				).current;
 
-				this.initForm();
+		this._store
+			.select('therapygroup', 'table', 'current')
+			.pipe(filter<ITherapyGroupCurrent>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((therapyGroup: ITherapyGroupCurrent) => {
+				this.isViewStartTime = false;
+				this.isViewWeekDay = false;
+				if (therapyGroup?.locationId) {
+					this.getRooms(therapyGroup?.locationId);
+				}
+				this.therapyGroupForm.setValue({
+					...therapyGroup,
+					start: this.therapyGroupForm.value?.start
+						? addTimezone(this.therapyGroupForm.value?.start)
+						: '',
+				});
+				this.therapyGroupForm
+					.get('locationId')
+					?.valueChanges.pipe(filter<string>(Boolean), takeUntil(this.unsubscribe$$))
+					.subscribe((locationId: string) => {
+						this.getRooms(locationId);
+					});
 			});
-		this.initForm();
 	}
 }
 
