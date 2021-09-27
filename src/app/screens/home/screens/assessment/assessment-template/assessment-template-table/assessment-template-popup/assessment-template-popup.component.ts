@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
-import { ITable } from 'src/app/shared/table/table.reducer';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 
@@ -20,13 +19,18 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 		private _dialogService: DialogRef,
 		private _store: Store<any>,
 		private _activatedRoute: ActivatedRoute,
+		private _fb: FormBuilder,
 	) {
 		super();
 	}
 
-	public assessmentTemplate!: IAssessmentTemplateInterface | undefined;
-
-	public assessmentTemplateForm!: FormGroup;
+	public assessmentTemplateForm: FormGroup = this._fb.group({
+		id: [],
+		questionId: [],
+		responseOption: [],
+		text: [],
+		type: [],
+	});
 
 	public currentPositionCursorTextares!: number;
 
@@ -47,16 +51,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.assessmentTemplate, ...this.assessmentTemplateForm.value });
-	}
-
-	public initForm(): void {
-		this.assessmentTemplateForm = new FormGroup({
-			questionId: new FormControl(this._activatedRoute?.snapshot?.params?.id),
-			responseOption: new FormControl(this.assessmentTemplate?.responseOption || ''),
-			text: new FormControl(this.assessmentTemplate?.text || ''),
-			type: new FormControl(this.assessmentTemplate?.type || ''),
-		});
+		this._dialogService.close({ ...this.assessmentTemplateForm.value });
 	}
 
 	public ngOnInit(): void {
@@ -69,16 +64,13 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 		);
 
 		this._store
-			.select('assessmentnotetemplate', 'table')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((assessmentTemplateTable: any) => {
-				this.assessmentTemplate = (
-					assessmentTemplateTable as ITable<
-						IAssessmentTemplateInterface,
-						IAssessmentTemplateInterface
-					>
-				).current;
-				this.initForm();
+			.select('assessmentnotetemplate', 'table', 'current')
+			.pipe(filter<IAssessmentTemplate>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((assessmentTemplate: IAssessmentTemplate) => {
+				this.assessmentTemplateForm.setValue({
+					...assessmentTemplate,
+					questionId: this._activatedRoute?.snapshot?.params?.id,
+				});
 			});
 	}
 
@@ -96,7 +88,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 	}
 }
 
-export interface IAssessmentTemplateInterface {
+export interface IAssessmentTemplate {
 	id: string;
 	criteria: string;
 	responseOption: number;

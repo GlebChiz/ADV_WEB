@@ -106,4 +106,22 @@ export const UsersManagerTableActions = {
 		'[User Table] get grid settings success',
 		props<{ gridSettings: IGridSettings }>(),
 	),
+	MakeDefaultGridPending: createAction(
+		'[User Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[User Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[User Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[User Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[User Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[User Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

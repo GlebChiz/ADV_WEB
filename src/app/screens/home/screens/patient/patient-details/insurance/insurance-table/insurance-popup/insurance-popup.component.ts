@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { IButtonSelector } from 'src/app/shared/components/button-selector/button-selector.component';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
@@ -23,6 +23,7 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 		private _dialogRef: DialogRef,
 		private _store: Store<IStore>,
 		private dialogService: DialogService,
+		private _fb: FormBuilder,
 	) {
 		super();
 	}
@@ -33,20 +34,35 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 	];
 
 	public payers$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown' as any,
+		'dropdown',
 		'supervisorLicensePayers',
 	);
 
 	public linkedPersons$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown' as any,
+		'dropdown',
 		'linkedPersons',
 	);
 
-	public insurance!: IInsurence;
-
 	public personId!: string;
 
-	public myInsuranceForm!: FormGroup;
+	public insuranceForm: FormGroup = this._fb.group({
+		payerId: [],
+		effectiveDate: [],
+		closedDate: [],
+		orderType: [],
+		copay: [],
+		deductible: [],
+		memberId: [],
+		employee: [],
+		planName: [],
+		policyGroup: [],
+		isVerified: [],
+		id: [],
+		insuranceHolderId: [],
+		insuredParty: [],
+		personId: [],
+		verificationDate: [],
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -58,50 +74,7 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogRef.close({ ...this.insurance, ...this.myInsuranceForm.value });
-	}
-
-	public initForm(): void {
-		this.myInsuranceForm = new FormGroup({
-			payerId: new FormControl(this.insurance?.payerId || ''),
-			effectiveDate: new FormControl(removeTimezone(new Date(this.insurance?.effectiveDate)) || ''),
-			closedDate: new FormControl(
-				this.insurance?.closedDate ? removeTimezone(new Date(this.insurance.closedDate)) : '',
-			),
-			orderType: new FormControl(this.insurance?.orderType || 1),
-			copay: new FormControl(this.insurance?.copay || ''),
-			deductible: new FormControl(this.insurance?.deductible || ''),
-			memberId: new FormControl(this.insurance?.memberId || ''),
-			employee: new FormControl(this.insurance?.employee || ''),
-			planName: new FormControl(this.insurance?.planName || ''),
-			policyGroup: new FormControl(this.insurance?.policyGroup || ''),
-			isVerified: new FormControl(this.insurance?.isVerified),
-			verificationDate: new FormControl(
-				this.insurance?.verificationDate
-					? removeTimezone(new Date(this.insurance?.verificationDate))
-					: '',
-			),
-			id: new FormControl(this.insurance?.id || ''),
-			insuranceHolderId: new FormControl(this.insurance?.insuranceHolderId || ''),
-			insuredParty: new FormControl(this.insurance?.insuredParty || ''),
-			personId: new FormControl(this.insurance?.personId || ''),
-		});
-
-		if (this.insurance?.insuranceHolderId) {
-			this._store.dispatch(
-				InsuranceTableActions.GetOtherInsurancePending({ id: this.insurance?.insuranceHolderId }),
-			);
-		}
-
-		this.myInsuranceForm
-			.get('insuranceHolderId')
-			?.valueChanges.subscribe((insuranceHolderId: string) => {
-				// if (insuranceHolder && insuranceHolder !== this.personId) {
-				this._store.dispatch(
-					InsuranceTableActions.GetOtherInsurancePending({ id: insuranceHolderId }),
-				);
-				// }
-			});
+		this._dialogRef.close({ ...this.insuranceForm.value });
 	}
 
 	public ngOnInit(): void {
@@ -109,10 +82,34 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 
 		this._store
 			.select('insurance' as any, 'table', 'current')
-			.pipe(takeUntil(this.unsubscribe$$))
-			.subscribe((current: IInsurence) => {
-				this.insurance = current;
-				this.initForm();
+			.pipe(filter<IInsurence>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((insurance: IInsurence) => {
+				this.insuranceForm.setValue({
+					...insurance,
+					effectiveDate: insurance?.effectiveDate
+						? removeTimezone(new Date(insurance?.effectiveDate))
+						: '',
+					closedDate: insurance?.closedDate ? removeTimezone(new Date(insurance.closedDate)) : '',
+					verificationDate: insurance?.verificationDate
+						? removeTimezone(new Date(insurance?.verificationDate))
+						: '',
+				});
+				if (insurance?.insuranceHolderId) {
+					this._store.dispatch(
+						InsuranceTableActions.GetOtherInsurancePending({
+							id: insurance?.insuranceHolderId,
+						}),
+					);
+				}
+				this.insuranceForm
+					.get('insuranceHolderId')
+					?.valueChanges.subscribe((insuranceHolderId: string) => {
+						if (insuranceHolderId && insuranceHolderId !== this.personId) {
+							this._store.dispatch(
+								InsuranceTableActions.GetOtherInsurancePending({ id: insuranceHolderId }),
+							);
+						}
+					});
 			});
 
 		this._store
@@ -122,8 +119,6 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 				this.personId = personId;
 				this._store.dispatch(DropdownActions.GetLinkedPersonsPending({ personId }));
 			});
-
-		this.initForm();
 	}
 
 	public openDialogCopy(): void {
@@ -136,8 +131,8 @@ export class InsurancePopupComponent extends UnSubscriber implements OnInit {
 		});
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
-				this.myInsuranceForm.setValue({
-					...this.myInsuranceForm.value,
+				this.insuranceForm.setValue({
+					...this.insuranceForm.value,
 					orderType: result?.orderType || '',
 					payerId: result?.payerId || '',
 					copay: result?.copay || '',

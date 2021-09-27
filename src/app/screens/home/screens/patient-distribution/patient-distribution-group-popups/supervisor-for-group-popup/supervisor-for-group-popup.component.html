@@ -1,4 +1,4 @@
-<form [formGroup]="mySupervisorForm" novalidate>
+<form [formGroup]="supervisorForm" novalidate>
 	<div>
 		<div class="clearfix w-100">
 			<div class="column w-100">
@@ -22,7 +22,7 @@
 					<label>Start Date</label><br />
 					<kendo-datepicker
 						formControlName="startDate"
-						format="MMMM"
+						format="MM/dd/yyyy"
 						formatPlaceholder="wide"
 					></kendo-datepicker>
 				</div>

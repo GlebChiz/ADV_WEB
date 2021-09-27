@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -14,8 +14,12 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 	selector: 'advenium-supervisor-for-group-popup',
 	templateUrl: './supervisor-for-group-popup.component.html',
 })
-export class SupervisorForGroupPopupComponent extends UnSubscriber implements OnInit, OnChanges {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+export class SupervisorForGroupPopupComponent extends UnSubscriber implements OnInit {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<IStore>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
@@ -23,7 +27,10 @@ export class SupervisorForGroupPopupComponent extends UnSubscriber implements On
 		.select('dropdown', 'supervisorLicense' as any)
 		.pipe(takeUntil(this.unsubscribe$$));
 
-	public mySupervisorForm!: FormGroup;
+	public supervisorForm: FormGroup = this._fb.group({
+		supervisor: [],
+		startDate: [],
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -35,22 +42,10 @@ export class SupervisorForGroupPopupComponent extends UnSubscriber implements On
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.mySupervisorForm.value });
-	}
-
-	public initForm(): void {
-		this.mySupervisorForm = new FormGroup({
-			supervisor: new FormControl([]),
-			startDate: new FormControl(''),
-		});
+		this._dialogService.close({ ...this.supervisorForm.value });
 	}
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetSupervisorLicensePending());
-		this.initForm();
-	}
-
-	public ngOnChanges(): void {
-		this.initForm();
 	}
 }

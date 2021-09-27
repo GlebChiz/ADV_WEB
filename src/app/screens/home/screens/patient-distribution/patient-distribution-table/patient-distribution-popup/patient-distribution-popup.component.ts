@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
-import { removeTimezone } from 'src/app/utils/timezone';
+import { addTimezone, removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { ClinicianDropdownPopupComponent } from '../../patient-distribution-group-popups/clinician-dropdown-popup/clinician-dropdown-popup.component';
 import { PatientDropdownPopupComponent } from '../../patient-distribution-group-popups/patient-dropdown-popup/patient-dropdown-popup.component';
@@ -20,13 +20,21 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 		private _dialogService: DialogRef,
 		private dialogService: DialogService,
 		private _store: Store<IStore>,
+		private _fb: FormBuilder,
 	) {
 		super();
 	}
 
-	public patientDistribution: any;
+	public isEdit: boolean = false;
 
-	public myPatientDistributionForm!: FormGroup;
+	public patientDistributionForm: FormGroup = this._fb.group({
+		id: [],
+		clinicianId: [],
+		clinicianName: [],
+		patientId: [],
+		patientName: [],
+		startDate: [],
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -39,28 +47,25 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 
 	public onConfirmAction(): void {
 		this._dialogService.close({
-			...this.patientDistribution,
-			...this.myPatientDistributionForm.value,
-		});
-	}
-
-	public initForm(): void {
-		this.myPatientDistributionForm = new FormGroup({
-			clinicianName: new FormControl(this.patientDistribution?.clinicianName || ''),
-			patientName: new FormControl(this.patientDistribution?.patientName || ''),
-			startDate: new FormControl(
-				removeTimezone(new Date(this.patientDistribution?.startDate)) || '',
-			),
+			...this.patientDistributionForm.value,
+			startDate: this.patientDistributionForm.value?.startDate
+						? removeTimezone(this.patientDistributionForm.value?.startDate)
+						: ''
 		});
 	}
 
 	public ngOnInit(): void {
 		this._store
-			.select('patientsupervisor' as any, 'table')
+			.select('patientsupervisor' as any, 'table', 'current')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((patientDistributionTable: any) => {
-				this.patientDistribution = patientDistributionTable.current;
-				this.initForm();
+			.subscribe((patientDistribution: any) => {
+				this.isEdit = true;
+				this.patientDistributionForm.setValue({
+					...patientDistribution,
+					startDate: patientDistribution?.startDate
+						? addTimezone(patientDistribution?.startDate)
+						: '',
+				});
 			});
 	}
 
@@ -74,10 +79,9 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 		});
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
-				this.myPatientDistributionForm.setValue({
-					...this.myPatientDistributionForm.value,
+				this.patientDistributionForm.setValue({
+					...this.patientDistributionForm.value,
 					clinicianName: result.clinician.name,
-					clinicianId: result.clinician.id,
 				});
 			}
 		});
@@ -93,10 +97,9 @@ export class PatientDistributionPopupComponent extends UnSubscriber implements O
 		});
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
-				this.myPatientDistributionForm.setValue({
-					...this.myPatientDistributionForm.value,
+				this.patientDistributionForm.setValue({
+					...this.patientDistributionForm.value,
 					patientName: result.patient.name,
-					patientId: result.patient.id,
 				});
 			}
 		});

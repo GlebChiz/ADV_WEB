@@ -81,6 +81,8 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 		);
 	}
 
+	public canCreate: PermissionType = PermissionType.canCreateTherapyGroup;
+
 	public canUpdate: PermissionType = PermissionType.canUpdateTherapyGroup;
 
 	public canDelete: PermissionType = PermissionType.canDeleteTherapyGroup;

@@ -143,7 +143,12 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		dialog.content.instance.location = { ...this.infoLocation };
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
-				this._store.dispatch(this.editDataPending({ item: result, controller: 'location' }));
+				this._store.dispatch(
+					this.editDataPending({
+						item: { ...result, isNotUpdate: true },
+						controller: 'location',
+					}),
+				);
 			}
 			this._store.dispatch(this.clearCurrentItem());
 		});

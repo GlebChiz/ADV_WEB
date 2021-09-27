@@ -177,6 +177,13 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 			type: 'text',
 		},
 		{
+			field: 'payer',
+			title: 'Payer',
+			hidden: false,
+			filterable: true,
+			type: 'text',
+		},
+		{
 			field: 'start',
 			title: 'Start Date',
 			hidden: false,

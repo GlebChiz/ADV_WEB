@@ -140,7 +140,7 @@ export class PatientDistributionEffects extends TableEffects {
 					controller: string;
 				}) => {
 					return of(1).pipe(
-						withLatestFrom(this._store.select(`${controller}Table`)),
+						withLatestFrom(this._store.select(controller, 'table')),
 						switchMap(([, latest]: [number, any]) => {
 							return this._service
 								.updateFieldPatientDistribution(patientIds, supervisorId, start)
@@ -150,8 +150,8 @@ export class PatientDistributionEffects extends TableEffects {
 											PatientDistributionTableActions.UpdateFiledPatientDistributionSuccess(),
 											this.getTableDataPending({
 												controller,
-												filter: latest.table.filter,
-												columns: latest.table.columns,
+												filter: latest.filter,
+												columns: latest.columns,
 											}),
 										];
 									}),

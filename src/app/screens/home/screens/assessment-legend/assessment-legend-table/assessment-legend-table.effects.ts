@@ -147,8 +147,10 @@ export class AssessmentLegendEffect extends TableEffects {
 			ofType(AssessmentLegendTableActions.SetTranslationPending),
 			switchMap(({ controller, item }: { controller: string; item: { item: string } }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(controller)),
+					withLatestFrom(this._store.select(controller, 'table')),
 					switchMap(([, latest]: [number, ITable<ISessionPlan, ISessionPlanCurrent>]) => {
+						console.log(latest);
+
 						return this._service.setAssessmentLegend(item).pipe(
 							mergeMap(() => {
 								return [

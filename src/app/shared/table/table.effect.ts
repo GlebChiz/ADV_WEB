@@ -166,7 +166,7 @@ export class TableEffects {
 			ofType(this.createItemTablePending),
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
+					withLatestFrom(this._store.select(controller as any, 'table')),
 					switchMap(([, latest]: [number, ITable<any, any>]) => {
 						return this._tableService.create(controller, item).pipe(
 							mergeMap(() => {
@@ -196,16 +196,16 @@ export class TableEffects {
 			ofType(this.editItemTablePending),
 			switchMap(({ item, controller }: { controller: string; item: any }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
+					withLatestFrom(this._store.select(controller as any, 'table')),
 					switchMap(([, latest]: [number, ITable<any, any>]) => {
 						return this._tableService.update(controller, item).pipe(
 							mergeMap(() => {
-								if (controller === 'location') {
-									this._store.dispatch(
+								if (item.isNotUpdate) {
+									return [
 										LocationTableActions.GetSelectedLocationPending({
 											id: item.id,
 										}),
-									);
+									];
 								}
 								this._toasterService.success('Item has been successfully updated');
 								return [

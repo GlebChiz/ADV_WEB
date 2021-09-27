@@ -33,7 +33,12 @@ import {
 	SAVE_GRID_CHANGES_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
-	GET_GRID_SETTINGS_ERROR
+	GET_GRID_SETTINGS_ERROR,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { UsersManagerPopupComponent } from './users-manager-table/users-manager-popup/users-manager-popup.component';
 import { UsersManagerTableActions } from './users-manager-table/users-manager-table.actions';
@@ -172,6 +177,26 @@ import { UsersManagerComponent } from './users-manager.component';
 		{
 			provide: GET_GRID_SETTINGS_SUCCESS,
 			useValue: UsersManagerTableActions.GetGridSettingsSuccess,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_PENDING,
+			useValue: UsersManagerTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_SUCCESS,
+			useValue: UsersManagerTableActions.MakeDefaultGridSuccess,
+		},
+		{
+			provide: RENAME_GRID_PENDING,
+			useValue: UsersManagerTableActions.RenameGridPending,
+		},
+		{
+			provide: RENAME_GRID_ERROR,
+			useValue: UsersManagerTableActions.RenameGridError,
+		},
+		{
+			provide: RENAME_GRID_SUCCESS,
+			useValue: UsersManagerTableActions.RenameGridSuccess,
 		},
 	],
 })

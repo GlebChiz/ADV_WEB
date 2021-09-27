@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
@@ -14,16 +14,22 @@ import { UnSubscriber } from 'src/app/utils/unsubscribe';
 	selector: 'advenium-location-for-group-popup',
 	templateUrl: './location-for-group-popup.component.html',
 })
-export class LocationForGroupPopupComponent extends UnSubscriber implements OnInit, OnChanges {
-	public constructor(private _dialogService: DialogRef, private _store: Store<IStore>) {
+export class LocationForGroupPopupComponent extends UnSubscriber implements OnInit {
+	public constructor(
+		private _dialogService: DialogRef,
+		private _store: Store<IStore>,
+		private _fb: FormBuilder,
+	) {
 		super();
 	}
 
 	public location$: Observable<IDropdownData[]> = this._store
-		.select('dropdown', 'locations' as any)
+		.select('dropdown', 'locations')
 		.pipe(takeUntil(this.unsubscribe$$));
 
-	public myLocationForm!: FormGroup;
+	public locationForm: FormGroup = this._fb.group({
+		location: [],
+	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
 		caseSensitive: false,
@@ -35,21 +41,10 @@ export class LocationForGroupPopupComponent extends UnSubscriber implements OnIn
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.myLocationForm.value });
-	}
-
-	public initForm(): void {
-		this.myLocationForm = new FormGroup({
-			location: new FormControl([]),
-		});
+		this._dialogService.close({ ...this.locationForm.value });
 	}
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetLocationsPending());
-		this.initForm();
-	}
-
-	public ngOnChanges(): void {
-		this.initForm();
 	}
 }
