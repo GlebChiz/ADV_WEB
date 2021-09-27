@@ -34,6 +34,12 @@ import {
 	GET_GRID_SETTINGS_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { TherapyGroupTableActions } from './therapy-group-table/therapy-group-table.actions';
 import { TherapyGroupTableComponent } from './therapy-group-table/therapy-group-table.component';
@@ -198,6 +204,30 @@ import { RoomForGroupPopupComponent } from './therapy-group-popups/room-for-grou
 		{
 			provide: GET_GRID_SETTINGS_SUCCESS,
 			useValue: TherapyGroupTableActions.GetGridSettingsSuccess,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_PENDING,
+			useValue: TherapyGroupTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_ERROR,
+			useValue: TherapyGroupTableActions.MakeDefaultGridError,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_SUCCESS,
+			useValue: TherapyGroupTableActions.MakeDefaultGridSuccess,
+		},
+		{
+			provide: RENAME_GRID_PENDING,
+			useValue: TherapyGroupTableActions.RenameGridPending,
+		},
+		{
+			provide: RENAME_GRID_ERROR,
+			useValue: TherapyGroupTableActions.RenameGridError,
+		},
+		{
+			provide: RENAME_GRID_SUCCESS,
+			useValue: TherapyGroupTableActions.RenameGridSuccess,
 		},
 	],
 })

@@ -3,7 +3,7 @@ import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
 import { ITableState, tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { AssessmentQuestionTableActions } from './assessment-question-table.actions';
-import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
+import { IAssessmentTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 const tableReducers: ActionReducer<ITableState<any, any, any>> = tableReducersFactory(
 	AssessmentQuestionTableActions.UpdateAssessmentQuestionTableState,
@@ -29,10 +29,7 @@ export function assessmentQuestionTranslateReducers(
 		{},
 		on(
 			AssessmentQuestionTableActions.GetCurrentTranslationAssessmentQuestionSuccess,
-			(
-				state: any,
-				{ currentTranslation }: { currentTranslation: IAssessmentQuestionTranslate },
-			) => ({
+			(state: any, { currentTranslation }: { currentTranslation: IAssessmentTranslate }) => ({
 				...state,
 				...currentTranslation,
 			}),

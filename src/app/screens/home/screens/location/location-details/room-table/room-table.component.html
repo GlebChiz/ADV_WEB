@@ -78,6 +78,7 @@
 			style="width: 200px"
 			textField="title"
 			[data]="(gridSettings$ | async) || []"
+			[formControl]="gridSettingsControl"
 			[valuePrimitive]="true"
 		>
 		</kendo-combobox>

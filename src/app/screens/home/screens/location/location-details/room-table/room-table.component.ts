@@ -3,9 +3,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
-import { Address } from 'src/app/shared/interfaces/address.intarface';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
-import { IInitiativeId } from 'src/app/shared/interfaces/location.interface';
+import { IInitiativeId, ILocation } from 'src/app/shared/interfaces/location.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	CLEAR_CURRENT_ITEM,
@@ -15,12 +18,14 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
-import { LocationActions } from 'src/app/store/actions/location.actions';
 import { LocationPopupComponent } from '../../location-table/location-popup/location-popup.component';
+import { LocationTableActions } from '../../location-table/location-table.actions';
 import { RoomPopupComponent } from './room-popup/room-popup.component';
 
 @Component({
@@ -31,10 +36,12 @@ import { RoomPopupComponent } from './room-popup/room-popup.component';
 })
 export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
-		private dialogService: DialogService,
 		private _activatedRoute: ActivatedRoute,
-		private router: Router,
+		_router: Router,
 		_store: Store<any>,
+		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -44,9 +51,16 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -54,10 +68,12 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 
-	public infoLocation!: ILocationCurrent;
+	public infoLocation!: ILocation | undefined;
 
 	public deleteWithPopup(id: string): void {
 		if (!window.confirm(`Are you sure you want to delete ${this.controller}?`)) {
@@ -67,6 +83,10 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	}
 
 	public initiativeIds: string[] = [];
+
+	public locationInitiativeIds$: Observable<IInitiativeId[]> = this._store
+		.select('dropdown', 'locationInitiativeIds')
+		.pipe(takeUntil(this.unsubscribe$$));
 
 	public ngOnInit(): void {
 		this._store.dispatch(DropdownActions.GetLocationInitiativeIdsPending());
@@ -82,28 +102,32 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		}
 
 		this._store.dispatch(
-			LocationActions.GetSelectedLocationPending({ id: this._activatedRoute.snapshot.params.id }),
+			LocationTableActions.GetSelectedLocationPending({
+				id: this._activatedRoute.snapshot.params.id,
+			}),
 		);
-		this._store.select('location', 'selectedLocation').subscribe((location: ILocationCurrent) => {
-			this.infoLocation = location;
-			this._store
-				.select('dropdown' as any, 'locationInitiativeIds') // TODO BAD
-				.subscribe((locationInitiativeIds: IInitiativeId[]) => {
-					this.initiativeIds = [];
-					this.infoLocation?.initiativeIds?.forEach((item: string | undefined) => {
-						this.initiativeIds.push();
-						const res: string | undefined = locationInitiativeIds?.find(
-							(initiativeId: IInitiativeId) => {
-								return initiativeId.id === item;
-							},
-						)?.name;
-						if (res) {
-							this.initiativeIds.push(res);
-						}
-					});
-				});
-		});
-
+		this._store
+			.select('location' as any, 'locationInfo', 'selectedLocation')
+			.pipe(
+				filter<ILocation>(Boolean),
+				takeUntil(this.unsubscribe$$),
+				switchMap((location: ILocation) => {
+					this.infoLocation = location;
+					return this.locationInitiativeIds$.pipe(
+						map<IInitiativeId[], string[]>((initiativeIds: IInitiativeId[]) => {
+							return initiativeIds?.reduce((prev: string[], curr: IInitiativeId) => {
+								if (location.initiativeIds?.includes(curr.id)) {
+									prev.push(curr.name);
+								}
+								return prev;
+							}, []);
+						}),
+					);
+				}),
+			)
+			.subscribe((res: string[]) => {
+				this.initiativeIds = res;
+			});
 		super.ngOnInit();
 	}
 
@@ -111,7 +135,7 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Location',
 			content: LocationPopupComponent,
-			width: 600,
+			width: 700,
 			height: 550,
 			minWidth: 250,
 		});
@@ -135,7 +159,7 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Room',
 			content: RoomPopupComponent,
-			width: 600,
+			width: 700,
 			height: 550,
 			minWidth: 250,
 		});
@@ -190,17 +214,6 @@ export class RoomTableComponent extends CustomTableDirective implements OnInit {
 	];
 
 	public back(): void {
-		this.router.navigate(['/locations']);
+		this._router.navigate(['/locations']);
 	}
-}
-
-export interface ILocationCurrent {
-	address: Address;
-	billingCode: string;
-	code: string;
-	id: string;
-	initiativeIds: string[];
-	isSchool: boolean;
-	name: string;
-	roomCount: number;
 }

@@ -78,3 +78,13 @@ export class ClinicianPopupComponent extends UnSubscriber implements OnInit {
 			});
 	}
 }
+
+export interface IPersonGeneralInterface {
+	typeId: string | null;
+	npi: string;
+	billingCode: string;
+	isSupervisor: boolean;
+	title: string;
+	areaIds: string[];
+	serviceTypeIds: string[];
+}

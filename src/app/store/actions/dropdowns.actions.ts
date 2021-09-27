@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
+import { IPayerType } from 'src/app/shared/interfaces/payer.interface';
 
 export const DropdownActions = {
 	GetSeriesPlansPending: createAction('[Dropdown] Get series plans pending'),
@@ -213,4 +214,21 @@ export const DropdownActions = {
 		props<{ data: IDropdownData[] }>(),
 	),
 	GetGridSettingsError: createAction('[Dropdown] Get GridSettings error'),
+
+	GetRoleTypesPending: createAction('[Dropdown] Get RolesTypes pending'),
+	GetRoleTypesSuccess: createAction(
+		'[Dropdown] Get RolesTypes success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetRoleTypesError: createAction('[Dropdown] Get RolesTypes error'),
+
+	GetPermissionTypesPending: createAction('[Dropdown] Get PermissionTypes pending'),
+	GetPermissionTypesSuccess: createAction(
+		'[Dropdown] Get PermissionTypes success',
+		props<{ data: IDropdownData[] }>(),
+	),
+	GetPermissionTypesError: createAction('[Dropdown] Get PermissionTypes error'),
+	GetTypesPending: createAction('[Dropdown] Get types pending'),
+	GetTypesError: createAction('[Dropdown] Get types error'),
+	GetTypesSuccess: createAction('[Dropdown] Get types success', props<{ data: IPayerType[] }>()),
 };

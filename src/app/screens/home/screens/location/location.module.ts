@@ -33,6 +33,12 @@ import {
 	GET_GRID_SETTINGS_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LocationComponent } from './location.component';
@@ -40,7 +46,8 @@ import { locationReducers } from './location-table/location-table.reducers';
 import { LocationPopupComponent } from './location-table/location-popup/location-popup.component';
 import { LocationTableComponent } from './location-table/location-table.component';
 import { LocationTableActions } from './location-table/location-table.actions';
-import { SomeEffect } from './location-table/location-table.effects';
+import { LocationEffects } from './location-table/location-table.effects';
+import { LocationService } from './location-table/location-table.service';
 
 @NgModule({
 	imports: [
@@ -62,11 +69,12 @@ import { SomeEffect } from './location-table/location-table.effects';
 			},
 		]),
 		StoreModule.forFeature('location', locationReducers),
-		EffectsModule.forFeature([SomeEffect]),
+		EffectsModule.forFeature([LocationEffects]),
 	],
 	declarations: [LocationComponent, LocationTableComponent, LocationPopupComponent],
 	entryComponents: [],
 	providers: [
+		LocationService,
 		{
 			provide: GET_TABLE_DATA_PENDING,
 			useValue: LocationTableActions.GetLocationTableDataPending,
@@ -182,6 +190,30 @@ import { SomeEffect } from './location-table/location-table.effects';
 		{
 			provide: GET_GRID_SETTINGS_SUCCESS,
 			useValue: LocationTableActions.GetGridSettingsSuccess,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_PENDING,
+			useValue: LocationTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_ERROR,
+			useValue: LocationTableActions.MakeDefaultGridError,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_SUCCESS,
+			useValue: LocationTableActions.MakeDefaultGridSuccess,
+		},
+		{
+			provide: RENAME_GRID_PENDING,
+			useValue: LocationTableActions.RenameGridPending,
+		},
+		{
+			provide: RENAME_GRID_ERROR,
+			useValue: LocationTableActions.RenameGridError,
+		},
+		{
+			provide: RENAME_GRID_SUCCESS,
+			useValue: LocationTableActions.RenameGridSuccess,
 		},
 	],
 })

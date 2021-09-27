@@ -1,7 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
-import { IAssessmentQuestionTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
+import { IAssessmentTranslate } from './assessment-question-translate-popup/assessment-question-translate-popup.component';
 
 export const AssessmentQuestionTableActions = {
 	GetAssessmentQuestionTableDataPending: createAction(
@@ -102,7 +103,10 @@ export const AssessmentQuestionTableActions = {
 	ReorderAssessmentQuestionSuccess: createAction(
 		'[Assessment Question] Reorder current item success',
 	),
-	ReorderAssessmentQuestionError: createAction('[Assessment Question] Reorder current item error'),
+	ReorderAssessmentQuestionError: createAction(
+		'[Assessment Question] Reorder current item error',
+		props<{ error: string }>(),
+	),
 	GetCurrentTranslationAssessmentQuestionPending: createAction(
 		'[Assessment Question] Get current translation pending',
 		props<{ questionId: string; languageId: string }>(),
@@ -119,7 +123,7 @@ export const AssessmentQuestionTableActions = {
 		props<{
 			questionId: string;
 			languageId: string;
-			currentTranslation: IAssessmentQuestionTranslate;
+			currentTranslation: IAssessmentTranslate;
 			controller: string;
 		}>(),
 	),
@@ -146,5 +150,26 @@ export const AssessmentQuestionTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Assessment Question] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Assessment Question] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Assessment Question] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	MakeDefaultGridPending: createAction(
+		'[Assessment Question] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Assessment Question] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Assessment Question] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Assessment Question] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Assessment Question] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Assessment Question] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

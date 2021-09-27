@@ -1,5 +1,17 @@
+import { Address } from 'src/app/shared/interfaces/address.intarface';
+
 export interface ILocationState {
-	selectedLocation: any;
+	selectedLocation: ILocation | null;
+}
+export interface ILocation {
+	address: Address;
+	billingCode: string;
+	code: string;
+	id: string;
+	initiativeIds: string[];
+	isSchool: boolean;
+	name: string;
+	roomCount: number;
 }
 
 export interface IInitiativeId {

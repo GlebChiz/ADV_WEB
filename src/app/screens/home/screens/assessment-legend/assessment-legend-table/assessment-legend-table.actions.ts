@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
+import { ITranslated } from './assessment-legend-table.component';
 
 export const AssessmentLegendTableActions = {
 	GetAssessmentLegendTableDataPending: createAction(
@@ -94,7 +96,7 @@ export const AssessmentLegendTableActions = {
 	),
 	GetTranslationSuccess: createAction(
 		'[Assessment Legend Translated] get current item success',
-		props<{ tranlsated: any }>(),
+		props<{ tranlsated: ITranslated }>(),
 	),
 	GetTranslationError: createAction('[Assessment Legend Translated] get current item error'),
 	SetTranslationPending: createAction(
@@ -123,5 +125,26 @@ export const AssessmentLegendTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Assessment Legend Translated] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Assessment Legend Translated] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Assessment Legend Translated] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	MakeDefaultGridPending: createAction(
+		'[Assessment Legend Translated] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Assessment Legend Translated] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Assessment Legend Translated] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Assessment Legend Translated] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Assessment Legend Translated] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Assessment Legend Translated] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	CLEAR_CURRENT_ITEM,
@@ -12,6 +14,8 @@ import {
 	GET_CURRENT_ITEM_PENDING,
 	GET_GRID_SETTINGS_PENDING,
 	GET_TABLE_DATA_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	SAVE_GRID_SETTINGS_PENDING,
 } from 'src/app/shared/table/table.tokens';
@@ -28,8 +32,11 @@ import { AssessmentTemplatePopupComponent } from './assessment-template-popup/as
 export class AssessmentTemplateTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
 		_store: Store<IStore>,
-		private dialogService: DialogService,
 		private _activatedRoute: ActivatedRoute,
+		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
+		_router: Router,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -39,9 +46,16 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -49,15 +63,18 @@ export class AssessmentTemplateTableComponent extends CustomTableDirective imple
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 
-	public openDialog(dataItem?: any, isDublicate?: boolean): void {
+	public openDialog(dataItem?: { id: string }, isDublicate?: boolean): void {
 		if (dataItem) {
 			this._store.dispatch(
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
 			);
 		}
+
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Assesment-template',
 			content: AssessmentTemplatePopupComponent,

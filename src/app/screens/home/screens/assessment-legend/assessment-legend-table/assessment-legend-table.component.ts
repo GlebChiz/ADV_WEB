@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -14,6 +17,8 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	GET_GRID_SETTINGS_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { IColumn } from '../../../../../shared/interfaces/column.interface';
@@ -28,19 +33,28 @@ import { AssessmentLegendTableActions } from './assessment-legend-table.actions'
 })
 export class AssessmentLegendTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
-		private dialogService: DialogService,
 		_store: Store<any>,
+		dialogService: DialogService,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
+		_router: Router,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
-		// @Inject(CREATE_ITEM_TABLE_PENDING) private createDataPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
 		@Inject(EDIT_ITEM_TABLE_PENDING) editDataPending: any,
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -48,11 +62,13 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 
 	public languagesDropdown$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown' as any,
+		'dropdown',
 		'languages',
 	);
 
@@ -90,7 +106,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 		},
 	];
 
-	public openDialog(dataItem?: any): void {
+	public openDialog(dataItem: ITranslationAssessmentLegend): void {
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Assessment Legend Tranlsate',
 			content: AssessmentTranslatedPopupComponent,
@@ -103,7 +119,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 			legendId: dataItem.id,
 			languageId: this.language.value,
 		};
-		dialog.result.subscribe((result: any) => {
+		dialog.result.subscribe((result: DialogCloseResult) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
 					AssessmentLegendTableActions.SetTranslationPending({
@@ -135,4 +151,19 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 		});
 		super.ngOnInit();
 	}
+}
+
+export interface ITranslationAssessmentLegend {
+	icon: string;
+	iconBase64: string;
+	id: string | undefined;
+	text: string;
+	translated: boolean;
+	value: number;
+}
+export interface ITranslated {
+	id: string;
+	languageId: string;
+	original: string;
+	translation: string | null | boolean;
 }

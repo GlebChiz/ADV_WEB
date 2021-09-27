@@ -7,9 +7,9 @@ export const AuthUserActions = {
 		props<{ login: string | undefined; password: string | undefined }>(),
 	),
 	SignInComplete: createAction('[Auth] SignInComplete', props<{ user: IUser }>()),
-	SignInError: createAction('[Auth] SignInError', props<{ errors: any }>()),
+	SignInError: createAction('[Auth] SignInError', props<{ errors: string }>()),
 	CheckToken: createAction('[Auth] CheckToken'),
-	CheckTokenError: createAction('[Auth] CheckTokenError', props<{ errors: any }>()),
+	CheckTokenError: createAction('[Auth] CheckTokenError', props<{ errors: string }>()),
 	LogOut: createAction('[Auth] Log out'),
 	LogOutComplete: createAction('[Auth] Log out complete'),
 	LogOutError: createAction('[Auth] Log out error'),
@@ -22,12 +22,12 @@ export const UserActions = {
 	GetUserModelFail: createAction('[User] Get User Model Fail'),
 	UpdateUser: createAction('[User] Update User', props<IUser>()),
 	UpdateUserComplete: createAction('[User] Update User Compete'),
-	UpdateUserFail: createAction('[User] Update User Fail', props<{ errors: any }>()),
+	UpdateUserFail: createAction('[User] Update User Fail', props<{ errors: string }>()),
 	CreateUser: createAction('[User] Create User', props<{ user: IUser }>()),
 	CreateUserComplete: createAction('[User] Create User Compete', props<{ id: number }>()),
 	GetUserAvatarPending: createAction('[Auth] Get user avatar pending', props<{ id: number }>()),
-	GetUserAvatarError: createAction('[Auth] Get user avatar error', props<{ errors: any }>()),
-	GetUserAvatarSuccess: createAction('[Auth] Get user avatar success', props<{ url: any }>()),
+	GetUserAvatarError: createAction('[Auth] Get user avatar error', props<{ errors: string }>()),
+	GetUserAvatarSuccess: createAction('[Auth] Get user avatar success', props<{ url: string }>()),
 };
 
 export interface IUser {
@@ -121,6 +121,11 @@ export const enum PermissionType {
 	canCreatePatient = 142,
 	canUpdatePatient = 143,
 	canDeletePatient = 144,
+	canViewUserManager = 145,
+	canReadUser = 146,
+	canCreateUser= 147,
+	canUpdateUser = 148,
+	canDeleteUser = 149,
 }
 
 export const enum RoleType {}

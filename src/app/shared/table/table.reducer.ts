@@ -29,6 +29,7 @@ export function tableReducersFactory(
 				controller: payload.controller,
 				filter: payload.filter,
 				columns: payload.columns,
+				title: payload.title,
 			};
 		}),
 		on(getTableDataError, (state: any) => {
@@ -43,16 +44,6 @@ export function tableReducersFactory(
 	);
 }
 
-// export interface ITableState<T, R> {
-// 	isLoading: boolean;
-// 	controller: string;
-// 	filter: CompositeFilterDescriptor;
-// 	columns: IColumn[];
-// 	current?: R;
-// 	data: T[];
-// 	totla: number;
-// }
-
 export interface ITableState<T, R, A> {
 	table?: ITable<T, R>;
 	additional?: A;
@@ -66,14 +57,5 @@ export interface ITable<T, R> {
 	current?: R;
 	data: T[];
 	total: number;
+	title?: string;
 }
-// isLoading, controller, filter, columns
-// export interface ITableGroupState<T, R> {
-// 	table: ITableState<T, R>;
-// 	rooms: {
-// 		isLoading: boolean;
-// 		current: any;
-// 		data: any[];
-// 		total: number;
-// 	};
-// }

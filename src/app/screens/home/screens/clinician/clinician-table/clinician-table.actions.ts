@@ -1,7 +1,8 @@
 import { createAction, props } from '@ngrx/store';
+import { IClinicianGeneralInfo } from 'src/app/shared/components/clinician-general-info/clinician-general-info.component';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
-import { IClinicianGeneralInfo } from './clinician-table.component';
 
 export const ClinicianTableActions = {
 	GetClinicianTableDataPending: createAction(
@@ -127,5 +128,26 @@ export const ClinicianTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Clinician Table] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Clinician Table] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Clinician Table] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	MakeDefaultGridPending: createAction(
+		'[Clinician Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Clinician Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Clinician Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Clinician Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Clinician Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Clinician Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

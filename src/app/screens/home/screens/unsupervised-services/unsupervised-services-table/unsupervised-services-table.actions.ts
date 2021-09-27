@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const UnsupervisedServicesTableActions = {
@@ -106,5 +107,26 @@ export const UnsupervisedServicesTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Unsupervised Services Table] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Unsupervised Services Table] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Unsupervised Services Table] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	MakeDefaultGridPending: createAction(
+		'[Unsupervised Services Table] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Unsupervised Services Table] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Unsupervised Services Table] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Unsupervised Services Table] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Unsupervised Services Table] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Unsupervised Services Table] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

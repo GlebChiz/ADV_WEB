@@ -34,6 +34,12 @@ import {
 	GET_GRID_SETTINGS_ERROR,
 	GET_GRID_SETTINGS_PENDING,
 	GET_GRID_SETTINGS_SUCCESS,
+	MAKE_DEFAULT_GRID_ERROR,
+	MAKE_DEFAULT_GRID_PENDING,
+	MAKE_DEFAULT_GRID_SUCCESS,
+	RENAME_GRID_ERROR,
+	RENAME_GRID_PENDING,
+	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
 import { ClinicianDropdownPopupComponent } from './patient-distribution-group-popups/clinician-dropdown-popup/clinician-dropdown-popup.component';
 import { PatientDropdownPopupComponent } from './patient-distribution-group-popups/patient-dropdown-popup/patient-dropdown-popup.component';
@@ -183,6 +189,32 @@ import { PatientDistributionComponent } from './patient-distribution.component';
 			provide: GET_GRID_SETTINGS_SUCCESS,
 			useValue: PatientDistributionTableActions.GetGridSettingsSuccess,
 		},
+		{
+			provide: MAKE_DEFAULT_GRID_PENDING,
+			useValue: PatientDistributionTableActions.MakeDefaultGridPending,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_ERROR,
+			useValue: PatientDistributionTableActions.MakeDefaultGridError,
+		},
+		{
+			provide: MAKE_DEFAULT_GRID_SUCCESS,
+			useValue: PatientDistributionTableActions.MakeDefaultGridSuccess,
+		},
+		{
+			provide: RENAME_GRID_PENDING,
+			useValue: PatientDistributionTableActions.RenameGridPending,
+		},
+		{
+			provide: RENAME_GRID_ERROR,
+			useValue: PatientDistributionTableActions.RenameGridError,
+		},
+		{
+			provide: RENAME_GRID_SUCCESS,
+			useValue: PatientDistributionTableActions.RenameGridSuccess,
+		},
 	],
 })
-export class PatientDistributionModule {}
+export class PatientDistributionModule {
+	PatientDistributionModule: any;
+}

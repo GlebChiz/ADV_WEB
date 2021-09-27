@@ -3,6 +3,8 @@ export interface IDropdownData {
 	name: string;
 	isDisabled: boolean;
 	parentId?: string;
+	parentName?: string;
+	isLoading: boolean;
 }
 
 export interface IDropDownState extends IDropDownItem {
@@ -11,4 +13,10 @@ export interface IDropDownState extends IDropDownItem {
 
 interface IDropDownItem {
 	isLoading: boolean;
+}
+
+export interface IDropDownGridSettings {
+	id: string;
+	title: string;
+	isDefault: boolean;
 }

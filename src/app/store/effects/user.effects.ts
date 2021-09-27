@@ -13,15 +13,15 @@ export class UserEffects {
 		private actions$: Actions,
 		private userService: UserService,
 		private authenticationService: AuthenticationService,
-		public _store: Store<any>,
+		public _store: Store<IUser>,
 	) {}
 
 	public getUserModel$ = createEffect(() =>
 		this.actions$.pipe(
 			ofType(UserActions.GetUserModel),
-			mergeMap(({ id }) =>
+			mergeMap(({ id }: { id: number | null }) =>
 				this.userService.getUserModel(id).pipe(
-					map((payload) => UserActions.GetUserModelSuccess({ user: payload })),
+					map((payload: IUser) => UserActions.GetUserModelSuccess({ user: payload })),
 					catchError(() => of(UserActions.GetUserModelFail())),
 				),
 			),
@@ -50,7 +50,7 @@ export class UserEffects {
 							this._store.dispatch(UserActions.GetUserAvatarPending({ id: user.userId }));
 							return AuthUserActions.SignInComplete({ user });
 						}),
-						catchError((errors) => {
+						catchError((errors: string) => {
 							return of(AuthUserActions.SignInError({ errors }));
 						}),
 					);
@@ -64,12 +64,10 @@ export class UserEffects {
 			ofType(UserActions.GetUserAvatarPending),
 			switchMap(({ id }: { id: number }) => {
 				return this.authenticationService.getUserAvatar(id).pipe(
-					map((response: any) => {
+					map((response: { data: string }) => {
 						return UserActions.GetUserAvatarSuccess({ url: response.data });
 					}),
-					catchError((errors: any) => {
-						console.log(errors);
-
+					catchError((errors: string) => {
 						return of(UserActions.GetUserAvatarError({ errors }));
 					}),
 				);
@@ -88,7 +86,7 @@ export class UserEffects {
 							UserActions.GetUserAvatarPending({ id: user.userId }),
 						];
 					}),
-					catchError((errors) => {
+					catchError((errors: string) => {
 						return of(AuthUserActions.CheckTokenError({ errors }));
 					}),
 				);

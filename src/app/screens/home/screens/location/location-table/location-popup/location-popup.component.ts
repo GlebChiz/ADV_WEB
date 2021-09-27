@@ -6,6 +6,7 @@ import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
 import { GroupResult } from '@progress/kendo-data-query';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
+import { ILocation } from 'src/app/shared/interfaces/location.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
@@ -21,7 +22,7 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 
 	public locationDropdownInitiatives: (IDropdownData | GroupResult)[] = [];
 
-	public location: any;
+	public location!: ILocation;
 
 	public myLocationForm!: FormGroup;
 
@@ -43,7 +44,7 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 			name: new FormControl(this.location?.name),
 			code: new FormControl(this.location?.code),
 			billingCode: new FormControl(this.location?.billingCode),
-			address: new FormControl(this.location?.address),
+			address: new FormControl(this.location?.address || ''),
 			initiativeIds: new FormControl(this.location?.initiativeIds),
 		});
 	}
@@ -57,18 +58,19 @@ export class LocationPopupComponent extends UnSubscriber implements OnInit {
 				this.location = locationTable.current;
 				this.initForm();
 			});
+		console.log('location as any, table', this.location);
 		this._store
-			.select('dropdown' as any, 'locationInitiativeIds')
+			.select('dropdown', 'locationInitiativeIds')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((locationDropdown: any) => {
 				this.locationDropdownInitiatives = locationDropdown;
 				this.initForm();
 			});
 		this._store
-			.select('location')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
-			.subscribe((location: any) => {
-				this.location = location.selectedLocation;
+			.select('location' as any, 'locationInfo', 'selectedLocation')
+			.pipe(filter<ILocation>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((selectedLocation: ILocation) => {
+				this.location = selectedLocation;
 				this.initForm();
 			});
 	}

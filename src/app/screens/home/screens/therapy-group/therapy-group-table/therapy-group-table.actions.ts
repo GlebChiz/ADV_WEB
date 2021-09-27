@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
 
 export const TherapyGroupTableActions = {
@@ -123,5 +124,26 @@ export const TherapyGroupTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Therapy Group] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Therapy Group] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Therapy Group] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	MakeDefaultGridPending: createAction(
+		'[Therapy Group] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Therapy Group] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Therapy Group] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Therapy Group] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Therapy Group] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Therapy Group] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

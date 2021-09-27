@@ -70,3 +70,11 @@ export class AssessmentQuestionPopupComponent extends UnSubscriber implements On
 			});
 	}
 }
+
+export interface IAssessmentQuestionPopUp {
+	assessmentId: string;
+	id: string;
+	legends: string[];
+	orderNumber: number;
+	text: string;
+}

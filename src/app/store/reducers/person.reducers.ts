@@ -56,12 +56,10 @@ export function personReducers(
 		on(PersonActions.RemovePersonContact, (state: IPersonState, { id }: { id: string }) => {
 			const newPersonContactInfo: {
 				[key: string]: IPersonContactInfo;
-			}[] = [...state.personContactInfo];
-			newPersonContactInfo.find((item: { [key: string]: IPersonContactInfo }, index: number) => {
-				if (item?.hasOwnProperty(`${[id]}`)) {
-					newPersonContactInfo.splice(index, 1);
-				}
+			}[] = [...state.personContactInfo].filter((item: { [key: string]: IPersonContactInfo }) => {
+				return !item.hasOwnProperty(`${[id]}`);
 			});
+
 			return {
 				...state,
 				personContactInfo: [...newPersonContactInfo],

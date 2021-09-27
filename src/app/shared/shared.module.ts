@@ -19,6 +19,7 @@ import { PatientGeneralInfoComponent } from './components/patient-general-info/p
 import { ClinicianGeneralInfoComponent } from './components/clinician-general-info/clinician-general-info.component';
 import { AddressControlComponent } from './components/address-control/address-control.component';
 import { PermissionsComponent } from './components/permission/permission.component';
+import { RenamePopupComponent } from './table/table-popup/rename-popup.component';
 
 @NgModule({
 	imports: [
@@ -53,6 +54,7 @@ import { PermissionsComponent } from './components/permission/permission.compone
 		PhoneComponent,
 		ClinicianGeneralInfoComponent,
 		PermissionsComponent,
+		RenamePopupComponent,
 	],
 	declarations: [
 		ButtonSelectorComponent,
@@ -64,6 +66,7 @@ import { PermissionsComponent } from './components/permission/permission.compone
 		ContactComponent,
 		PhoneComponent,
 		PermissionsComponent,
+		RenamePopupComponent,
 	],
 })
 export class SharedModule {}

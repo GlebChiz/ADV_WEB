@@ -107,6 +107,28 @@ export const GET_GRID_SETTINGS_SUCCESS: InjectionToken<string> = new InjectionTo
 	'GET_GRID_SETTINGS_SUCCESS',
 );
 
+export const MAKE_DEFAULT_GRID_PENDING: InjectionToken<string> = new InjectionToken(
+	'MAKE_DEFAULT_GRID_PENDING',
+);
+
+export const MAKE_DEFAULT_GRID_ERROR: InjectionToken<string> = new InjectionToken(
+	'MAKE_DEFAULT_GRID_ERROR',
+);
+
+export const MAKE_DEFAULT_GRID_SUCCESS: InjectionToken<string> = new InjectionToken(
+	'MAKE_DEFAULT_GRID_SUCCESS',
+);
+
+export const RENAME_GRID_PENDING: InjectionToken<string> = new InjectionToken(
+	'RENAME_GRID_PENDING',
+);
+
+export const RENAME_GRID_ERROR: InjectionToken<string> = new InjectionToken('RENAME_GRID_ERROR');
+
+export const RENAME_GRID_SUCCESS: InjectionToken<string> = new InjectionToken(
+	'RENAME_GRID_SUCCESS',
+);
+
 export const UPDATE_TABLE_STATE: InjectionToken<string> = new InjectionToken('UPDATE_TABLE_STATE');
 
 export const CLEAR_CURRENT_ITEM: InjectionToken<string> = new InjectionToken('UPDATE_TABLE_STATE');

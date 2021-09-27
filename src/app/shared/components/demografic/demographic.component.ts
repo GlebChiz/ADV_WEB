@@ -37,27 +37,18 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 
 	public maritalStatus: IButtonSelector[] = [];
 
-	public genderIdentity$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown',
-		'gender' as any,
-	);
+	public genderIdentity$: Observable<IDropdownData[]> = this._store.select('dropdown', 'gender');
 
 	public sexualOrientation$: Observable<IDropdownData[]> = this._store.select(
 		'dropdown',
-		'sexOrientation' as any,
+		'sexOrientation',
 	);
 
-	public race$: Observable<IDropdownData[]> = this._store.select('dropdown', 'race' as any);
+	public race$: Observable<IDropdownData[]> = this._store.select('dropdown', 'race');
 
-	public employement$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown',
-		'employement' as any,
-	);
+	public employement$: Observable<IDropdownData[]> = this._store.select('dropdown', 'employement');
 
-	public languages$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown',
-		'languages' as any,
-	);
+	public languages$: Observable<IDropdownData[]> = this._store.select('dropdown', 'languages');
 
 	public myDemographicForm!: FormGroup;
 
@@ -94,7 +85,7 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 
 	public ngOnInit(): void {
 		this._store
-			.select('person' as any, 'personDemographicInfo')
+			.select('person', 'personDemographicInfo')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((personDemographicInfo: { [key: string]: IPersonDemographicInfo }[]) => {
 				const currentPersonDemographic: { [key: string]: IPersonDemographicInfo } =
@@ -116,7 +107,7 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 		this._store.dispatch(DropdownActions.GetMaritalStatusPending());
 		this._store.dispatch(DropdownActions.GetGenderPending());
 		this._store
-			.select('dropdown', 'sex' as any)
+			.select('dropdown', 'sex')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((sex: IDropdownData[]) => {
 				this.sex = sex?.map((item: IDropdownData) => {
@@ -127,7 +118,7 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 				});
 			});
 		this._store
-			.select('dropdown', 'maritalStatus' as any)
+			.select('dropdown', 'maritalStatus')
 			.pipe(takeUntil(this.unsubscribe$$))
 			.subscribe((maritalStatus: IDropdownData[]) => {
 				this.maritalStatus = maritalStatus?.map((item: IDropdownData) => {
@@ -156,7 +147,7 @@ export interface IPersonDemographicInfo {
 }
 
 export interface IPersonInfo {
-	id: string | null;
+	id: string;
 	lastname: string | null;
 	address: Address;
 	firstname: string | null;

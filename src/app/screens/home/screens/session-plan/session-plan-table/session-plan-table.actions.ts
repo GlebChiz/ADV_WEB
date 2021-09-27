@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IColumn } from 'src/app/shared/interfaces/column.interface';
+import { IGridSettings } from 'src/app/shared/interfaces/grid-settings.intarface';
 import { IFilter } from 'src/app/shared/table/table.model';
 import { ISessionPlanTranslate } from './session-plan-translate-popup/session-plan-translate-popup.component';
 
@@ -95,7 +96,10 @@ export const SessionPlanTableActions = {
 		}>(),
 	),
 	ReorderPlanSuccess: createAction('[Session Plan Reorder] Reorder current item success'),
-	ReorderPlanError: createAction('[Session Plan Reorder] Reorder current item error'),
+	ReorderPlanError: createAction(
+		'[Session Plan Reorder] Reorder current item error',
+		props<{ errors: string }>(),
+	),
 
 	LinkSessionPlansPending: createAction(
 		'[Session Plan] Link Session Plans Pending',
@@ -159,5 +163,26 @@ export const SessionPlanTableActions = {
 		props<{ controller: string; id: string }>(),
 	),
 	GetGridSettingsError: createAction('[Session Plan] get grid settings error'),
-	GetGridSettingsSuccess: createAction('[Session Plan] get grid settings success'),
+	GetGridSettingsSuccess: createAction(
+		'[Session Plan] get grid settings success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	MakeDefaultGridPending: createAction(
+		'[Session Plan] make default grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	MakeDefaultGridError: createAction('[Session Plan] make default grid error'),
+	MakeDefaultGridSuccess: createAction(
+		'[Session Plan] make default grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
+	RenameGridPending: createAction(
+		'[Session Plan] rename grid pending',
+		props<{ controller: string; id: string }>(),
+	),
+	RenameGridError: createAction('[Session Plan] rename grid error'),
+	RenameGridSuccess: createAction(
+		'[Session Plan] rename grid success',
+		props<{ gridSettings: IGridSettings }>(),
+	),
 };

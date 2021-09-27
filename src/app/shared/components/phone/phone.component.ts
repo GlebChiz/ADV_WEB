@@ -27,10 +27,7 @@ export class PhoneComponent implements OnInit, ControlValueAccessor {
 
 	public myPhoneForm!: FormGroup;
 
-	public phoneType$: Observable<IDropdownData[]> = this._store.select(
-		'dropdown',
-		'phoneType' as any,
-	);
+	public phoneType$: Observable<IDropdownData[]> = this._store.select('dropdown', 'phoneType');
 
 	public initForm(): void {
 		this.myPhoneForm = new FormGroup({

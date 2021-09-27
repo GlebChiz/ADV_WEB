@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
+import { ClipboardService } from 'ngx-clipboard';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { IAssessmentQuestion } from 'src/app/shared/interfaces/assessment-question.interface';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -18,6 +20,8 @@ import {
 	SAVE_GRID_SETTINGS_PENDING,
 	SAVE_GRID_CHANGES_PENDING,
 	GET_GRID_SETTINGS_PENDING,
+	MAKE_DEFAULT_GRID_PENDING,
+	RENAME_GRID_PENDING,
 } from 'src/app/shared/table/table.tokens';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
 import { IColumn } from '../../../../../../shared/interfaces/column.interface';
@@ -33,10 +37,12 @@ import { AssessmentQuestionTranslatePopupComponent } from './assessment-question
 })
 export class AssessmentQuestionTableComponent extends CustomTableDirective implements OnInit {
 	public constructor(
-		private _router: Router,
-		private dialogService: DialogService,
+		_router: Router,
+		dialogService: DialogService,
 		private _activatedRoute: ActivatedRoute,
 		_store: Store<any>,
+		_clipboardApi: ClipboardService,
+		_toasterService: ToastrService,
 		@Inject(GET_TABLE_DATA_PENDING) getTableDataPending: any,
 		@Inject(GET_CURRENT_ITEM_PENDING) getCurrentItemPending: any,
 		@Inject(DELETE_ITEM_TABLE_PENDING) deleteDataPending: any,
@@ -46,9 +52,16 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		@Inject(SAVE_GRID_SETTINGS_PENDING) saveNewGridSettingsPending: any,
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
+		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
+
+		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
 	) {
 		super(
 			_store,
+			dialogService,
+			_clipboardApi,
+			_router,
+			_toasterService,
 			getTableDataPending,
 			getCurrentItemPending,
 			deleteDataPending,
@@ -56,6 +69,8 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 			saveNewGridSettingsPending,
 			saveGridChangesPending,
 			getGridSettingsPending,
+			makeDefaultGridPending,
+			renameGridPending,
 		);
 	}
 
@@ -251,4 +266,10 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		}
 		this.delete(id);
 	}
+}
+
+export interface IReorderAssesmentQuestion {
+	assessmentId: string;
+	index: number;
+	questionId: string;
 }
