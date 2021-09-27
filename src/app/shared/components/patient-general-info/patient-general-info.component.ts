@@ -2,10 +2,9 @@ import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { debounce } from 'lodash';
 
 import { Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { PatientTableActions } from 'src/app/screens/home/screens/patient/patient-table/patient-table.actions';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
@@ -44,8 +43,6 @@ export class PatientGeneralInfoComponent extends UnSubscriber implements OnInit 
 		operator: 'contains',
 	};
 
-	private debouncedRequest = debounce((action: any) => this._store.dispatch(action), 1000, {});
-
 	public ngOnInit(): void {
 		this._store.dispatch(PatientTableActions.GetPatientGeneralInfoPending({ id: this.patientId }));
 		this._store.dispatch(DropdownActions.GetAreasPending());
@@ -60,14 +57,16 @@ export class PatientGeneralInfoComponent extends UnSubscriber implements OnInit 
 			.subscribe((patientInfo: IPatientGeneralInfo) => {
 				this.patientInfoForm.setValue(patientInfo);
 			});
-		this.patientInfoForm.valueChanges?.subscribe((newData: IPatientGeneralInfo) => {
-			this.debouncedRequest(
-				PatientTableActions.UpdatePatientGeneralInfoPending({
-					id: this.patientId,
-					patientInfo: newData,
-				}),
-			);
-		});
+		this.patientInfoForm.valueChanges
+			?.pipe(debounceTime(500), distinctUntilChanged())
+			.subscribe((newData: IPatientGeneralInfo) => {
+				this._store.dispatch(
+					PatientTableActions.UpdatePatientGeneralInfoPending({
+						id: this.patientId,
+						patientInfo: newData,
+					}),
+				);
+			});
 	}
 }
 

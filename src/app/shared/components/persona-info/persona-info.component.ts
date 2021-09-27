@@ -2,9 +2,8 @@ import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@ang
 import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { debounce } from 'lodash';
 
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
 import { PersonActions } from 'src/app/store/actions/person.actions';
 import { addTimezone, removeTimezone } from 'src/app/utils/timezone';
@@ -53,8 +52,6 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 		}
 	}
 
-	private debouncedRequest = debounce((action: any) => this._store.dispatch(action), 1000, {});
-
 	public ngOnInit(): void {
 		this._store
 			.select('person' as any, 'personInfo')
@@ -74,17 +71,19 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 					});
 				}
 			});
-		this.personaInfoForm.valueChanges?.subscribe((newData: any) => {
-			this.debouncedRequest(
-				PersonActions.UpdatePersonInfoPending({
-					id: this.personId,
-					personInfo: {
-						...newData,
-						dob: removeTimezone(new Date(newData?.dob || '')),
-					},
-				}),
-			);
-		});
+		this.personaInfoForm.valueChanges
+			?.pipe(debounceTime(500), distinctUntilChanged())
+			.subscribe((newData: any) => {
+				this._store.dispatch(
+					PersonActions.UpdatePersonInfoPending({
+						id: this.personId,
+						personInfo: {
+							...newData,
+							dob: removeTimezone(new Date(newData?.dob || '')),
+						},
+					}),
+				);
+			});
 	}
 
 	public ngOnDestroy(): void {

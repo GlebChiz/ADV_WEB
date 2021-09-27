@@ -2,10 +2,9 @@ import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { debounce } from 'lodash';
 
 import { Observable } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { ClinicianTableActions } from 'src/app/screens/home/screens/clinician/clinician-table/clinician-table.actions';
 
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -50,8 +49,6 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 		operator: 'contains',
 	};
 
-	private debouncedRequest = debounce((action: any) => this._store.dispatch(action), 1000, {});
-
 	public ngOnInit(): void {
 		this._store.dispatch(
 			ClinicianTableActions.GetClinicianGeneralInfoPending({ id: this.clinicianId }),
@@ -71,14 +68,16 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 					isSupervisor: clinicianInfo?.isSupervisor || false,
 				});
 			});
-		this.clinicianInfoForm.valueChanges?.subscribe((newData: IClinicianGeneralInfo) => {
-			this.debouncedRequest(
-				ClinicianTableActions.UpdateClinicianGeneralInfoPending({
-					id: this.clinicianId,
-					clinicianInfo: newData,
-				}),
-			);
-		});
+		this.clinicianInfoForm.valueChanges
+			.pipe(debounceTime(500), distinctUntilChanged())
+			.subscribe((newData: IClinicianGeneralInfo) => {
+				this._store.dispatch(
+					ClinicianTableActions.UpdateClinicianGeneralInfoPending({
+						id: this.clinicianId,
+						clinicianInfo: newData,
+					}),
+				);
+			});
 	}
 }
 

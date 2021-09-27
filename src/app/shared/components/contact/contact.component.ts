@@ -2,9 +2,8 @@ import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@ang
 import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
-import { debounce } from 'lodash';
 
-import { filter, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { IStore } from 'src/app/store';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
@@ -80,8 +79,6 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 		}
 	}
 
-	private debouncedRequest = debounce((action: any) => this._store.dispatch(action), 1000, {});
-
 	public ngOnInit(): void {
 		this._store
 			.select('person', 'personContactInfo')
@@ -104,7 +101,12 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 				}
 			});
 		this.contactForm.valueChanges
-			?.pipe(filter<IPersonContactInfo>(Boolean), takeUntil(this.unsubscribe$$))
+			?.pipe(
+				filter<IPersonContactInfo>(Boolean),
+				takeUntil(this.unsubscribe$$),
+				debounceTime(500),
+				distinctUntilChanged(),
+			)
 			.subscribe((newData: IPersonContactInfo) => {
 				const correctPhone: IPhone[] = newData.phones.filter((value: IPhone) => {
 					return new RegExp(/\d{9,9}/).test(value?.phone);
@@ -112,8 +114,8 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 				if (correctPhone?.length !== newData?.phones?.length) {
 					newData.phones = correctPhone;
 				}
-				// newData.useInternet = newData?.useInternet === 'true';
-				this.debouncedRequest(
+
+				this._store.dispatch(
 					PersonActions.UpdatePersonContactInfoPending({
 						id: this.personId,
 						personContactInfo: newData,
