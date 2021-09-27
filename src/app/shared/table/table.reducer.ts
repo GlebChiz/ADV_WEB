@@ -1,25 +1,29 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ActionCreator, ActionReducer, createReducer, on } from '@ngrx/store';
+import { TypedAction } from '@ngrx/store/src/models';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { IColumn } from '../interfaces/column.interface';
+import { IFilter } from './table.model';
 
 export const initialState: ITableState<any, any, any> = {};
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export type TableActionCreator<T extends object> = ActionCreator<string, (props: T) => T>;
-
-export interface ICurrentItem<T> {
-	item: T;
-}
+export type TableAction<T extends object> = ActionCreator<string, (props: T) => T>;
+export type TableTypedAction = ActionCreator<string, () => TypedAction<string>>;
 
 export function tableReducersFactory(
-	updateTableState: TableActionCreator<{ data: any }>,
-	getTableDataPending: TableActionCreator<any>,
-	getCurrentItemSuccess: TableActionCreator<ICurrentItem<any>>,
-	getTableDataError: TableActionCreator<any>,
-	getTableDataSuccess: TableActionCreator<any>,
-	clearCurrentItem: TableActionCreator<any>,
+	updateTableState: TableAction<{ data: any }>,
+	getTableDataPending: TableAction<{
+		controller: string;
+		filter: IFilter;
+		columns: IColumn[];
+		gridId: string;
+	}>,
+	getCurrentItemSuccess: TableAction<{ item: any }>,
+	getTableDataError: TableAction<any>,
+	getTableDataSuccess: TableAction<any>,
+	clearCurrentItem: TableAction<any>,
 ): ActionReducer<ITableState<any, any, any>> {
 	return createReducer(
 		initialState,
@@ -55,8 +59,6 @@ export interface ITableState<T, R, A> {
 	table?: ITable<T, R>;
 	additional?: A;
 }
-
-export type ITableStateAny = ITableState<any, any, any>;
 
 export interface ITable<T, R> {
 	isLoading: boolean;
