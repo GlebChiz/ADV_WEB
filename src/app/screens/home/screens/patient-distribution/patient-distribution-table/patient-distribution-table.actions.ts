@@ -10,11 +10,9 @@ export const PatientDistributionTableActions = {
 	),
 	GetPatientDistributionTableDataSuccess: createAction(
 		'[Patient Distribution Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetPatientDistributionTableDataError: createAction(
 		'[Patient Distribution Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdatePatientDistributionTableState: createAction(
 		'[Patient Distribution Table] Update',

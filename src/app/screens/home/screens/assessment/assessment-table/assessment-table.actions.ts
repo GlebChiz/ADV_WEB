@@ -8,14 +8,8 @@ export const AssessmentTableActions = {
 		'[Assessment Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetAssessmentTableDataSuccess: createAction(
-		'[Assessment Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetAssessmentTableDataError: createAction(
-		'[Assessment Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetAssessmentTableDataSuccess: createAction('[Assessment Table] get table data success'),
+	GetAssessmentTableDataError: createAction('[Assessment Table] get table data error'),
 	UpdateAssessmentTableState: createAction('[Assessment Table] Update', props<{ data: any }>()),
 
 	DeleteAssessmentIemTablePending: createAction(

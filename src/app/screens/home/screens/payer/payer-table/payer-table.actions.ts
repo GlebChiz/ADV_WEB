@@ -9,15 +9,9 @@ export const PayerTableActions = {
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 
-	GetPayerTableDataSuccess: createAction(
-		'[Payer Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPayerTableDataSuccess: createAction('[Payer Table] get table data success'),
 
-	GetPayerTableDataError: createAction(
-		'[Payer Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPayerTableDataError: createAction('[Payer Table] get table data error'),
 
 	UpdatePayerTableState: createAction('[Payer Table] Update', props<{ data: any }>()),
 

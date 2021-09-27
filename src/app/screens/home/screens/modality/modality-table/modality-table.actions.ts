@@ -8,14 +8,8 @@ export const ModalityTableActions = {
 		'[Modality Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetModalityTableDataSuccess: createAction(
-		'[Modality Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetModalityTableDataError: createAction(
-		'[Modality Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetModalityTableDataSuccess: createAction('[Modality Table] get table data success'),
+	GetModalityTableDataError: createAction('[Modality Table] get table data error'),
 	UpdateModalityTableState: createAction('[Modality Table] Update', props<{ data: any }>()),
 
 	DeleteModalityIemTablePending: createAction(

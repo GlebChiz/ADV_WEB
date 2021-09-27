@@ -8,19 +8,10 @@ export const PublicSnipitTableActions = {
 		'[Public Snipit Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetPublicSnipitTableDataSuccess: createAction(
-		'[Public Snipit Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	ClearCurrentPublicSnipit: createAction(
-		'[Public Snipit Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPublicSnipitTableDataSuccess: createAction('[Public Snipit Table] get table data success'),
+	ClearCurrentPublicSnipit: createAction('[Public Snipit Table] get table data success'),
 
-	GetPublicSnipitTableDataError: createAction(
-		'[Public Snipit Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPublicSnipitTableDataError: createAction('[Public Snipit Table] get table data error'),
 	UpdatePublicSnipitTableState: createAction(
 		'[Public Snipit Table] Update',
 		props<{ data: any }>(),

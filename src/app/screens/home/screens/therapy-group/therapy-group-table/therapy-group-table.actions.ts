@@ -8,14 +8,8 @@ export const TherapyGroupTableActions = {
 		'[Therapy Group Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetTherapyGroupTableDataSuccess: createAction(
-		'[Therapy Group Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetTherapyGroupTableDataError: createAction(
-		'[Therapy Group Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetTherapyGroupTableDataSuccess: createAction('[Therapy Group Table] get table data success'),
+	GetTherapyGroupTableDataError: createAction('[Therapy Group Table] get table data error'),
 	UpdateTherapyGroupTableState: createAction(
 		'[Therapy Group Table] Update',
 		props<{ data: any }>(),

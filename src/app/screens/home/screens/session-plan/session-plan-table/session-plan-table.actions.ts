@@ -9,14 +9,8 @@ export const SessionPlanTableActions = {
 		'[Session Plan Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetSessionPlanTableDataSuccess: createAction(
-		'[Session Plan Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetSessionPlanTableDataError: createAction(
-		'[Session Plan Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetSessionPlanTableDataSuccess: createAction('[Session Plan Table] get table data success'),
+	GetSessionPlanTableDataError: createAction('[Session Plan Table] get table data error'),
 	UpdateSessionPlanTableState: createAction('[Session Plan Table] Update', props<{ data: any }>()),
 
 	DeleteSessionPlanIemTablePending: createAction(

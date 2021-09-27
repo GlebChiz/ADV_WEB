@@ -8,14 +8,8 @@ export const RoomTableActions = {
 		'[Room Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetRoomTableDataSuccess: createAction(
-		'[Room Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetRoomTableDataError: createAction(
-		'[Room Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetRoomTableDataSuccess: createAction('[Room Table] get table data success'),
+	GetRoomTableDataError: createAction('[Room Table] get table data error'),
 	UpdateRoomTableState: createAction('[Room Table] Update', props<{ data: any }>()),
 
 	DeleteRoomIemTablePending: createAction(

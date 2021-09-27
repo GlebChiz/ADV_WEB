@@ -8,14 +8,8 @@ export const InsuranceTableActions = {
 		'[Insurance Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetInsuranceTableDataSuccess: createAction(
-		'[Insurance Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetInsuranceTableDataError: createAction(
-		'[Insurance Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetInsuranceTableDataSuccess: createAction('[Insurance Table] get table data success'),
+	GetInsuranceTableDataError: createAction('[Insurance Table] get table data error'),
 	UpdateInsuranceTableState: createAction('[Insurance Table] Update', props<{ data: any }>()),
 
 	DeleteInsuranceIemTablePending: createAction(

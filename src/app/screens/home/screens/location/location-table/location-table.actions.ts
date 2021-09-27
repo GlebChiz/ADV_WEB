@@ -23,15 +23,9 @@ export const LocationTableActions = {
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 
-	GetLocationTableDataSuccess: createAction(
-		'[Location Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetLocationTableDataSuccess: createAction('[Location Table] get table data success'),
 
-	GetLocationTableDataError: createAction(
-		'[Location Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetLocationTableDataError: createAction('[Location Table] get table data error'),
 
 	UpdateLocationTableState: createAction('[Location Table] Update', props<{ data: any }>()),
 

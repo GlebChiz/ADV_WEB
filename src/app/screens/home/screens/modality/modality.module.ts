@@ -72,6 +72,7 @@ import { ModalityComponent } from './modality.component';
 			useValue: ModalityTableActions.GetModalityTableDataError,
 		},
 		{
+			// TODO: seems to not be used. could be deleted therefore.
 			provide: GET_TABLE_DATA_SUCCESS,
 			useValue: ModalityTableActions.GetModalityTableDataSuccess,
 		},

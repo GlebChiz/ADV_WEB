@@ -11,11 +11,9 @@ export const AssessmentQuestionTableActions = {
 	),
 	GetAssessmentQuestionTableDataSuccess: createAction(
 		'[Assessment Question Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetAssessmentQuestionTableDataError: createAction(
 		'[Assessment Question Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdateAssessmentQuestionTableState: createAction(
 		'[Assessment Question Table] Update',

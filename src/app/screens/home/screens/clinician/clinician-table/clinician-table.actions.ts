@@ -9,19 +9,10 @@ export const ClinicianTableActions = {
 		'[Clinician Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetClinicianTableDataSuccess: createAction(
-		'[Clinician Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	ClearCurrentClinician: createAction(
-		'[Clinician Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetClinicianTableDataSuccess: createAction('[Clinician Table] get table data success'),
+	ClearCurrentClinician: createAction('[Clinician Table] get table data success'),
 
-	GetClinicianTableDataError: createAction(
-		'[Clinician Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetClinicianTableDataError: createAction('[Clinician Table] get table data error'),
 	UpdateClinicianTableState: createAction('[Clinician Table] Update', props<{ data: any }>()),
 
 	DeleteClinicianIemTablePending: createAction(

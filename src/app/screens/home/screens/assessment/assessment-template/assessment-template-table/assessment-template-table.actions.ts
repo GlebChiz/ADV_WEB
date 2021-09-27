@@ -10,11 +10,9 @@ export const AssessmentTemplateTableActions = {
 	),
 	GetAssessmentTemplateTableDataSuccess: createAction(
 		'[Assessment Template Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetAssessmentTemplateTableDataError: createAction(
 		'[Assessment Template Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdateAssessmentTemplateTableState: createAction(
 		'[Assessment Template Table] Update',

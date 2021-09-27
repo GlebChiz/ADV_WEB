@@ -21,9 +21,9 @@ export function tableReducersFactory(
 		gridId: string;
 	}>,
 	getCurrentItemSuccess: TableAction<{ item: any }>,
-	getTableDataError: TableAction<any>,
-	getTableDataSuccess: TableAction<any>,
-	clearCurrentItem: TableAction<any>,
+	getTableDataError: TableTypedAction,
+	getTableDataSuccess: TableTypedAction,
+	clearCurrentItem: TableTypedAction,
 ): ActionReducer<ITableState<any, any, any>> {
 	return createReducer(
 		initialState,

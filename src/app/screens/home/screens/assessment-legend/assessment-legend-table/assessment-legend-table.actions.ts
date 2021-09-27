@@ -11,12 +11,8 @@ export const AssessmentLegendTableActions = {
 	),
 	GetAssessmentLegendTableDataSuccess: createAction(
 		'[Assessment Legend Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
-	GetAssessmentLegendTableDataError: createAction(
-		'[Assessment Legend Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetAssessmentLegendTableDataError: createAction('[Assessment Legend Table] get table data error'),
 	UpdateAssessmentLegendTableState: createAction(
 		'[Assessment Legend Table] Update',
 		props<{ data: any }>(),

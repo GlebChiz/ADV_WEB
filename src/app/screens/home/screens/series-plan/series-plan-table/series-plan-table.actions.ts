@@ -8,19 +8,10 @@ export const SeriesplansTableActions = {
 		'[Seriesplans Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetSeriesplansTableDataSuccess: createAction(
-		'[Seriesplans Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	ClearCurrentSeriesplans: createAction(
-		'[Seriesplans Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetSeriesplansTableDataSuccess: createAction('[Seriesplans Table] get table data success'),
+	ClearCurrentSeriesplans: createAction('[Seriesplans Table] get table data success'),
 
-	GetSeriesplansTableDataError: createAction(
-		'[Seriesplans Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetSeriesplansTableDataError: createAction('[Seriesplans Table] get table data error'),
 	UpdateSeriesplansTableState: createAction('[Seriesplans Table] Update', props<{ data: any }>()),
 
 	DeleteSeriesplansIemTablePending: createAction(

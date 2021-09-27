@@ -8,14 +8,8 @@ export const UsersManagerTableActions = {
 		'[User Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetUserTableDataSuccess: createAction(
-		'[User Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetUserTableDataError: createAction(
-		'[User Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetUserTableDataSuccess: createAction('[User Table] get table data success'),
+	GetUserTableDataError: createAction('[User Table] get table data error'),
 	UpdateUserTableState: createAction('[User Table] Update', props<{ data: any }>()),
 
 	DeleteUserIemTablePending: createAction(

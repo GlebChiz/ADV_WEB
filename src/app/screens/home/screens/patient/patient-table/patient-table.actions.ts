@@ -9,18 +9,9 @@ export const PatientTableActions = {
 		'[Patient Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetPatientTableDataSuccess: createAction(
-		'[Patient Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	ClearCurrentPatient: createAction(
-		'[Patient Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetPatientTableDataError: createAction(
-		'[Patient Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPatientTableDataSuccess: createAction('[Patient Table] get table data success'),
+	ClearCurrentPatient: createAction('[Patient Table] get table data success'),
+	GetPatientTableDataError: createAction('[Patient Table] get table data error'),
 	UpdatePatientTableState: createAction('[Patient Table] Update', props<{ data: any }>()),
 
 	DeletePatientIemTablePending: createAction(

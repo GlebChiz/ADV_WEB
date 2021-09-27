@@ -10,11 +10,9 @@ export const SupervisorLicenseTableActions = {
 	),
 	GetSupervisorLicenseTableDataSuccess: createAction(
 		'[Supervisor Credentials Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetSupervisorLicenseTableDataError: createAction(
 		'[Supervisor Credentials Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdateSupervisorLicenseTableState: createAction(
 		'[Supervisor Credentials Table] Update',
