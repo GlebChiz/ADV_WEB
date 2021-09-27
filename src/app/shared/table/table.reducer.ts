@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createReducer, on } from '@ngrx/store';
+import { ActionReducer, createReducer, on } from '@ngrx/store';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { IColumn } from '../interfaces/column.interface';
 
@@ -13,7 +13,7 @@ export function tableReducersFactory(
 	getTableDataError: any,
 	getTableDataSuccess: any,
 	clearCurrentItem: any,
-): any {
+): ActionReducer<ITableState<any, any, any>> {
 	return createReducer(
 		initialState,
 		on(updateTableState, (state: any, payload: any) => {
