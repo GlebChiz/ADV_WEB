@@ -79,7 +79,7 @@ export const SupervisorLicenseTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Supervisor Credentials Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Supervisor Credentials Table] get current item error',

@@ -79,7 +79,7 @@ export const AssessmentTemplateTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Assessment Template Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Assessment Template Table] get current item error',

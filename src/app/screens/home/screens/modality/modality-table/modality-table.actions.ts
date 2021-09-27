@@ -76,7 +76,7 @@ export const ModalityTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Modality Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Modality Table] get current item error',

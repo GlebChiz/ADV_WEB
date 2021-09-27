@@ -80,7 +80,7 @@ export const AssessmentLegendTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Assessment Legend Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Assessment Legend Table] get current item error',

@@ -76,7 +76,7 @@ export const UsersManagerTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[User Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[User Table] get current item error',

@@ -37,10 +37,6 @@ export function assessmentQuestionTranslateReducers(
 	)(patientInfoState, action);
 }
 
-// export const appReducers: ActionReducerMap<IStore> = {
-// 	tableReducers: tableReducers,
-// };
-
 export const assessmentQuestionReducers: ITableState<
 	IAssessmentQuestion,
 	IAssessmentQuestion,

@@ -84,7 +84,7 @@ export const PublicSnipitTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Public Snipit Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Public Snipit Table] get current item error',

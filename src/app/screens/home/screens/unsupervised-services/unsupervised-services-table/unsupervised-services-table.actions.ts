@@ -79,7 +79,7 @@ export const UnsupervisedServicesTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Unsupervised Services Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Unsupervised Services Table] get current item error',

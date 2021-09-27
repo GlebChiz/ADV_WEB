@@ -76,7 +76,7 @@ export const AssessmentTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Assessment Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Assessment Table] get current item error',

@@ -77,7 +77,7 @@ export const SessionPlanTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Session Plan Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Session Plan Table] get current item error',

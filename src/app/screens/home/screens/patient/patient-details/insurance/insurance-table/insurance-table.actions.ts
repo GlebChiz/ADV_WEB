@@ -76,7 +76,7 @@ export const InsuranceTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Insurance Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Insurance Table] get current item error',

@@ -82,7 +82,7 @@ export const ClinicianTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Clinician Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Clinician Table] get current item error',

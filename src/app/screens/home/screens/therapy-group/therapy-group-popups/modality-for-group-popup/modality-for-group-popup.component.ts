@@ -24,7 +24,7 @@ export class ModalityForGroupPopupComponent extends UnSubscriber implements OnIn
 	}
 
 	public modality$: Observable<IDropdownData[]> = this._store
-		.select('dropdown', 'modalities' as any)
+		.select('dropdown', 'modalities')
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public modalityForm: FormGroup = this._fb.group({
