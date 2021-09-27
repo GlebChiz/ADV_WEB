@@ -35,15 +35,15 @@ export const TherapyGroupTableActions = {
 	),
 
 	DublicateTherapyGroupIemTablePending: createAction(
-		'[Therapy Group Table] dublicate table item pending',
+		'[Therapy Group Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateTherapyGroupIemTableError: createAction(
-		'[Therapy Group Table] dublicate table item error',
+		'[Therapy Group Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateTherapyGroupIemTableSuccess: createAction(
-		'[Therapy Group Table] dublicate table item success',
+		'[Therapy Group Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

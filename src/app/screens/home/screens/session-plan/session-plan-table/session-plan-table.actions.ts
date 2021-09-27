@@ -33,15 +33,15 @@ export const SessionPlanTableActions = {
 	),
 
 	DublicateSessionPlanIemTablePending: createAction(
-		'[Session Plan Table] dublicate table item pending',
+		'[Session Plan Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSessionPlanIemTableError: createAction(
-		'[Session Plan Table] dublicate table item error',
+		'[Session Plan Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSessionPlanIemTableSuccess: createAction(
-		'[Session Plan Table] dublicate table item success',
+		'[Session Plan Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

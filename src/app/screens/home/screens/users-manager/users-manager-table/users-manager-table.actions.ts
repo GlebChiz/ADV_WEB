@@ -32,15 +32,15 @@ export const UsersManagerTableActions = {
 	),
 
 	DublicateUserIemTablePending: createAction(
-		'[User Table] dublicate table item pending',
+		'[User Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateUserIemTableError: createAction(
-		'[User Table] dublicate table item error',
+		'[User Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateUserIemTableSuccess: createAction(
-		'[User Table] dublicate table item success',
+		'[User Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

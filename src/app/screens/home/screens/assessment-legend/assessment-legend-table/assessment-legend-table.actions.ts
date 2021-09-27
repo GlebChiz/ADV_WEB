@@ -36,15 +36,15 @@ export const AssessmentLegendTableActions = {
 	),
 
 	DublicateAssessmentLegendIemTablePending: createAction(
-		'[Assessment Legend Table] dublicate table item pending',
+		'[Assessment Legend Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentLegendIemTableError: createAction(
-		'[Assessment Legend Table] dublicate table item error',
+		'[Assessment Legend Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentLegendIemTableSuccess: createAction(
-		'[Assessment Legend Table] dublicate table item success',
+		'[Assessment Legend Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

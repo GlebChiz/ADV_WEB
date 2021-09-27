@@ -37,15 +37,15 @@ export const SeriesplansTableActions = {
 	),
 
 	DublicateSeriesplansIemTablePending: createAction(
-		'[Seriesplans Table] dublicate table item pending',
+		'[Seriesplans Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSeriesplansIemTableError: createAction(
-		'[Seriesplans Table] dublicate table item error',
+		'[Seriesplans Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSeriesplansIemTableSuccess: createAction(
-		'[Seriesplans Table] dublicate table item success',
+		'[Seriesplans Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

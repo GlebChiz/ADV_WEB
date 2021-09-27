@@ -35,15 +35,15 @@ export const UnsupervisedServicesTableActions = {
 	),
 
 	DublicateUnsupervisedServicesIemTablePending: createAction(
-		'[Unsupervised Services Table] dublicate table item pending',
+		'[Unsupervised Services Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateUnsupervisedServicesIemTableError: createAction(
-		'[Unsupervised Services Table] dublicate table item error',
+		'[Unsupervised Services Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateUnsupervisedServicesIemTableSuccess: createAction(
-		'[Unsupervised Services Table] dublicate table item success',
+		'[Unsupervised Services Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

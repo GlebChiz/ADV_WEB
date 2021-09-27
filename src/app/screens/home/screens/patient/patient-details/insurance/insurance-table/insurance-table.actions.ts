@@ -32,15 +32,15 @@ export const InsuranceTableActions = {
 	),
 
 	DublicateInsuranceIemTablePending: createAction(
-		'[Insurance Table] dublicate table item pending',
+		'[Insurance Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateInsuranceIemTableError: createAction(
-		'[Insurance Table] dublicate table item error',
+		'[Insurance Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateInsuranceIemTableSuccess: createAction(
-		'[Insurance Table] dublicate table item success',
+		'[Insurance Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

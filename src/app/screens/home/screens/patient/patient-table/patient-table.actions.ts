@@ -37,15 +37,15 @@ export const PatientTableActions = {
 	),
 
 	DublicatePatientIemTablePending: createAction(
-		'[Patient Table] dublicate table item pending',
+		'[Patient Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePatientIemTableError: createAction(
-		'[Patient Table] dublicate table item error',
+		'[Patient Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePatientIemTableSuccess: createAction(
-		'[Patient Table] dublicate table item success',
+		'[Patient Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

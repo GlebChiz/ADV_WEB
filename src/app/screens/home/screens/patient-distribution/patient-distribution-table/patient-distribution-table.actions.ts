@@ -35,15 +35,15 @@ export const PatientDistributionTableActions = {
 	),
 
 	DublicatePatientDistributionIemTablePending: createAction(
-		'[Patient Distribution Table] dublicate table item pending',
+		'[Patient Distribution Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePatientDistributionIemTableError: createAction(
-		'[Patient Distribution Table] dublicate table item error',
+		'[Patient Distribution Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePatientDistributionIemTableSuccess: createAction(
-		'[Patient Distribution Table] dublicate table item success',
+		'[Patient Distribution Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

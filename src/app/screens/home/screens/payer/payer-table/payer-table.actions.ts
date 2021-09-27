@@ -35,15 +35,15 @@ export const PayerTableActions = {
 	),
 
 	DublicatePayerIemTablePending: createAction(
-		'[Payer Table] dublicate table item pending',
+		'[Payer Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePayerIemTableSuccess: createAction(
-		'[Payer Table] dublicate table item success',
+		'[Payer Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePayerIemTableError: createAction(
-		'[Payer Table] dublicate table item error',
+		'[Payer Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

@@ -49,15 +49,15 @@ export const LocationTableActions = {
 	),
 
 	DublicateLocationIemTablePending: createAction(
-		'[Location Table] dublicate table item pending',
+		'[Location Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateLocationIemTableSuccess: createAction(
-		'[Location Table] dublicate table item success',
+		'[Location Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateLocationIemTableError: createAction(
-		'[Location Table] dublicate table item error',
+		'[Location Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

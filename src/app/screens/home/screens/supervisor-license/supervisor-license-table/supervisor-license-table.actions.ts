@@ -35,15 +35,15 @@ export const SupervisorLicenseTableActions = {
 	),
 
 	DublicateSupervisorLicenseIemTablePending: createAction(
-		'[Supervisor Credentials Table] dublicate table item pending',
+		'[Supervisor Credentials Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSupervisorLicenseIemTableError: createAction(
-		'[Supervisor Credentials Table] dublicate table item error',
+		'[Supervisor Credentials Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSupervisorLicenseIemTableSuccess: createAction(
-		'[Supervisor Credentials Table] dublicate table item success',
+		'[Supervisor Credentials Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

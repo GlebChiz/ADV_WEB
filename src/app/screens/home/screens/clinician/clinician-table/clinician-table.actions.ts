@@ -38,15 +38,15 @@ export const ClinicianTableActions = {
 	),
 
 	DublicateClinicianIemTablePending: createAction(
-		'[Clinician Table] dublicate table item pending',
+		'[Clinician Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateClinicianIemTableError: createAction(
-		'[Clinician Table] dublicate table item error',
+		'[Clinician Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateClinicianIemTableSuccess: createAction(
-		'[Clinician Table] dublicate table item success',
+		'[Clinician Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

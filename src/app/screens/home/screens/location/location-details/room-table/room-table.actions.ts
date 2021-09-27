@@ -32,15 +32,15 @@ export const RoomTableActions = {
 	),
 
 	DublicateRoomIemTablePending: createAction(
-		'[Room Table] dublicate table item pending',
+		'[Room Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateRoomIemTableError: createAction(
-		'[Room Table] dublicate table item error',
+		'[Room Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateRoomIemTableSuccess: createAction(
-		'[Room Table] dublicate table item success',
+		'[Room Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

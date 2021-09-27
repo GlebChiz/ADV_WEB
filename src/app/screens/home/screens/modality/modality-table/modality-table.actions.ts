@@ -32,15 +32,15 @@ export const ModalityTableActions = {
 	),
 
 	DublicateModalityIemTablePending: createAction(
-		'[Modality Table] dublicate table item pending',
+		'[Modality Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateModalityIemTableError: createAction(
-		'[Modality Table] dublicate table item error',
+		'[Modality Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateModalityIemTableSuccess: createAction(
-		'[Modality Table] dublicate table item success',
+		'[Modality Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

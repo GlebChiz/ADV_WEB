@@ -35,15 +35,15 @@ export const AssessmentTemplateTableActions = {
 	),
 
 	DublicateAssessmentTemplateIemTablePending: createAction(
-		'[Assessment Template Table] dublicate table item pending',
+		'[Assessment Template Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentTemplateIemTableError: createAction(
-		'[Assessment Template Table] dublicate table item error',
+		'[Assessment Template Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentTemplateIemTableSuccess: createAction(
-		'[Assessment Template Table] dublicate table item success',
+		'[Assessment Template Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 

@@ -40,15 +40,15 @@ export const PublicSnipitTableActions = {
 	),
 
 	DublicatePublicSnipitIemTablePending: createAction(
-		'[Public Snipit Table] dublicate table item pending',
+		'[Public Snipit Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePublicSnipitIemTableError: createAction(
-		'[Public Snipit Table] dublicate table item error',
+		'[Public Snipit Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePublicSnipitIemTableSuccess: createAction(
-		'[Public Snipit Table] dublicate table item success',
+		'[Public Snipit Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
