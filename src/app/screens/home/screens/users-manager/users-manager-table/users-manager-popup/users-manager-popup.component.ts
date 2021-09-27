@@ -32,8 +32,15 @@ export class UsersManagerPopupComponent extends UnSubscriber implements OnInit {
 		.pipe(takeUntil(this.unsubscribe$$));
 
 	public usersManagerForm: FormGroup = this._fb.group({
-		name: [],
 		userName: [],
+		id: [],
+		languageId: [],
+		password: [],
+		permissionTypes: [],
+		person: [],
+		roleTypes: [],
+		status: [],
+		userId: [],
 	});
 
 	public readonly filterSettings: DropDownFilterSettings = {
@@ -46,7 +53,7 @@ export class UsersManagerPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.usersManagerForm.value });
+		this._dialogService.close(this.usersManagerForm.value);
 	}
 
 	public ngOnInit(): void {
@@ -54,7 +61,10 @@ export class UsersManagerPopupComponent extends UnSubscriber implements OnInit {
 		this._store.dispatch(DropdownActions.GetPermissionTypesPending());
 		this._store
 			.select('user' as any, 'table', 'current')
-			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))
+			.pipe(
+				filter((val) => val && Object.keys(val).length !== 0),
+				takeUntil(this.unsubscribe$$),
+			)
 			.subscribe((user: any) => {
 				this.usersManagerForm.setValue(user);
 			});

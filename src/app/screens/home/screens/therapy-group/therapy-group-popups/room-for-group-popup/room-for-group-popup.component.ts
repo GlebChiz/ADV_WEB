@@ -41,7 +41,7 @@ export class RoomForGroupPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.roomForm.value });
+		this._dialogService.close(this.roomForm.value);
 	}
 
 	public ngOnInit(): void {

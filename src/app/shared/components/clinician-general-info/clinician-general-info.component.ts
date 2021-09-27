@@ -2,6 +2,7 @@ import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
+import { debounce } from 'lodash';
 
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -49,6 +50,8 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 		operator: 'contains',
 	};
 
+	private debouncedRequest = debounce((action: any) => this._store.dispatch(action), 1000, {});
+
 	public ngOnInit(): void {
 		this._store.dispatch(
 			ClinicianTableActions.GetClinicianGeneralInfoPending({ id: this.clinicianId }),
@@ -57,7 +60,10 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 		this._store.dispatch(DropdownActions.GetClinicianTypePending());
 		this._store
 			.select('clinician' as any, 'clinicianInfo')
-			.pipe(filter<IClinicianGeneralInfo>(Boolean), takeUntil(this.unsubscribe$$))
+			.pipe(
+				filter<IClinicianGeneralInfo>((val) => val && Object.keys(val).length !== 0),
+				takeUntil(this.unsubscribe$$),
+			)
 			.subscribe((clinicianInfo: IClinicianGeneralInfo) => {
 				this.clinicianInfoForm.setValue({
 					...clinicianInfo,
@@ -66,7 +72,7 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 				});
 			});
 		this.clinicianInfoForm.valueChanges?.subscribe((newData: IClinicianGeneralInfo) => {
-			this._store.dispatch(
+			this.debouncedRequest(
 				ClinicianTableActions.UpdateClinicianGeneralInfoPending({
 					id: this.clinicianId,
 					clinicianInfo: newData,

@@ -41,7 +41,8 @@ import {
 	RENAME_GRID_PENDING,
 	RENAME_GRID_SUCCESS,
 } from 'src/app/shared/table/table.tokens';
-
+import { TabStripModule } from '@progress/kendo-angular-layout';
+import { EditorModule } from '@progress/kendo-angular-editor';
 import { SessionPlanComponent } from './session-plan.component';
 import { SessionPlanTableComponent } from './session-plan-table/session-plan-table.component';
 import { SessionPlanTableActions } from './session-plan-table/session-plan-table.actions';
@@ -50,8 +51,6 @@ import { SessionPlansEffects } from './session-plan-table/session-plan-table.eff
 import { SessionPlanPopupComponent } from './session-plan-table/session-plan-popup/session-plan-popup.component';
 import { SessionPlanTableSerivce } from './session-plan-table/session-plan-table.service';
 import { SessionPlanTranslatePopupComponent } from './session-plan-table/session-plan-translate-popup/session-plan-translate-popup.component';
-import { TabStripModule } from '@progress/kendo-angular-layout';
-import { EditorModule } from '@progress/kendo-angular-editor';
 
 @NgModule({
 	imports: [

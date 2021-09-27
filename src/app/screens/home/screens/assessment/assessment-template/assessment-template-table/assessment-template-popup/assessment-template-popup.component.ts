@@ -51,7 +51,7 @@ export class AssessmentTemplatePopupComponent extends UnSubscriber implements On
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.assessmentTemplateForm.value });
+		this._dialogService.close(this.assessmentTemplateForm.value);
 	}
 
 	public ngOnInit(): void {

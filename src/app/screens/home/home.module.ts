@@ -40,7 +40,9 @@ import { HomeComponent } from './home.component';
 					{
 						path: 'users',
 						loadChildren: (): any =>
-							import('./screens/users-manager/users-manager.module').then((m: any) => m.UsersManagerModule),
+							import('./screens/users-manager/users-manager.module').then(
+								(m: any) => m.UsersManagerModule,
+							),
 						data: {
 							breadcrumb: 'Users',
 						},
@@ -168,6 +170,13 @@ import { HomeComponent } from './home.component';
 						data: {
 							breadcrumb: 'download',
 						},
+					},
+					{
+						path: 'users',
+						loadChildren: (): any =>
+							import('./screens/users-manager/users-manager.module').then(
+								(m: any) => m.UsersManagerModule,
+							),
 					},
 				],
 			},

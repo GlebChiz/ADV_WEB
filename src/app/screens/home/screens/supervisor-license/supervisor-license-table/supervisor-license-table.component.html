@@ -62,7 +62,7 @@
 		[filter]="col.type"
 	>
 		<ng-template *ngIf="col.field === 'start'" kendoGridCellTemplate let-dataItem>
-			{{ dataItem.start | date: 'MM/dd/yyyy' }}
+			{{ dataItem.start | date: 'MM/dd/yyyy/hh' }}
 		</ng-template>
 		<ng-template *ngIf="col.field === 'end'" kendoGridCellTemplate let-dataItem>
 			{{ dataItem.end | date: 'MM/dd/yyyy' }}

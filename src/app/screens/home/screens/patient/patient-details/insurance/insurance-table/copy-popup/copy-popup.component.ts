@@ -28,6 +28,6 @@ export class InsuranceCopyPopupComponent extends UnSubscriber {
 	};
 
 	public onConfirmAction(selectedItem: any): void {
-		this._dialogService.close({ ...selectedItem });
+		this._dialogService.close(selectedItem);
 	}
 }

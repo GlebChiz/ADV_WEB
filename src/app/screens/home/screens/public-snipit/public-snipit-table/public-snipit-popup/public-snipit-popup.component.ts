@@ -50,7 +50,7 @@ export class PublicSnipitPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.publicSnipitForm.value });
+		this._dialogService.close(this.publicSnipitForm.value);
 	}
 
 	public ngOnInit(): void {

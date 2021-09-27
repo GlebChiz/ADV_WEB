@@ -68,7 +68,13 @@ export class HomeComponent implements OnInit {
 					paddingLeft: 15,
 					permission: PermissionType.canViewClinicianManager,
 				},
-				// { text: 'Users', icon: 'k-i-plus-outline' },
+				{
+					text: 'Users',
+					icon: 'k-i-plus-outline',
+					path: 'users',
+					paddingLeft: 15,
+					// permission: PermissionType.canViewUserManager,
+				},
 			],
 		},
 		{

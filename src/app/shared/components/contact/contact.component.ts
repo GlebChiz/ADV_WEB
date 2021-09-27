@@ -2,6 +2,7 @@ import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@ang
 import { FormArray, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
+import { debounce } from 'lodash';
 
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -33,8 +34,8 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 	public preferredContact: IButtonSelector[] = [];
 
 	public isInternet: IButtonSelector[] = [
-		{ name: 'Yes', id: 'true' },
-		{ name: 'No', id: 'false' },
+		{ name: 'Yes', id: true },
+		{ name: 'No', id: false },
 	];
 
 	public contactForm: FormGroup = this._fb.group({
@@ -79,6 +80,8 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 		}
 	}
 
+	private debouncedRequest = debounce((action: any) => this._store.dispatch(action), 1000, {});
+
 	public ngOnInit(): void {
 		this._store
 			.select('person', 'personContactInfo')
@@ -92,30 +95,30 @@ export class ContactComponent extends UnSubscriber implements OnInit, OnDestroy,
 				if (currentPersonContact && currentPersonContact[this.personId]) {
 					this.contactForm.setValue({
 						...currentPersonContact[this.personId],
-						useInternet: currentPersonContact[this.personId]?.useInternet?.toString(),
+						useInternet: currentPersonContact[this.personId]?.useInternet,
 						phones: [],
 					});
 					currentPersonContact[this.personId]?.phones.forEach((phone: IPhone) => {
-						this.phones.push(new FormControl({ ...phone }));
+						this.phones.push(new FormControl(phone));
 					});
 				}
-				this.contactForm.valueChanges
-					?.pipe(filter<IPersonContactInfo>(Boolean), takeUntil(this.unsubscribe$$))
-					.subscribe((newData: IPersonContactInfo) => {
-						const correctPhone: IPhone[] = newData.phones.filter((value: IPhone) => {
-							return new RegExp(/\d{9,9}/).test(value?.phone);
-						});
-						if (correctPhone?.length !== newData?.phones?.length) {
-							newData.phones = correctPhone;
-						}
-						newData.useInternet = newData?.useInternet === 'true';
-						this._store.dispatch(
-							PersonActions.UpdatePersonContactInfoPending({
-								id: this.personId,
-								personContactInfo: newData,
-							}),
-						);
-					});
+			});
+		this.contactForm.valueChanges
+			?.pipe(filter<IPersonContactInfo>(Boolean), takeUntil(this.unsubscribe$$))
+			.subscribe((newData: IPersonContactInfo) => {
+				const correctPhone: IPhone[] = newData.phones.filter((value: IPhone) => {
+					return new RegExp(/\d{9,9}/).test(value?.phone);
+				});
+				if (correctPhone?.length !== newData?.phones?.length) {
+					newData.phones = correctPhone;
+				}
+				// newData.useInternet = newData?.useInternet === 'true';
+				this.debouncedRequest(
+					PersonActions.UpdatePersonContactInfoPending({
+						id: this.personId,
+						personContactInfo: newData,
+					}),
+				);
 			});
 		this._store.dispatch(DropdownActions.GetPreferredContactPending());
 		this._store

@@ -26,7 +26,7 @@ export function assessmentQuestionTranslateReducers(
 	action: Action,
 ): any {
 	return createReducer(
-		undefined,
+		{},
 		on(
 			AssessmentQuestionTableActions.GetCurrentTranslationAssessmentQuestionSuccess,
 			(state: any, { currentTranslation }: { currentTranslation: IAssessmentTranslate }) => ({

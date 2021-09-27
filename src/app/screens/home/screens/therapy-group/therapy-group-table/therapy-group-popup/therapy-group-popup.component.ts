@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
 import { DropdownActions } from 'src/app/store/actions/dropdowns.actions';
+import { addTimezone, removeTimezone } from 'src/app/utils/timezone';
 import { UnSubscriber } from 'src/app/utils/unsubscribe';
 import { TherapyGroupTableActions } from '../therapy-group-table.actions';
 
@@ -46,6 +47,10 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 		.select('therapygroup', 'rooms', 'data')
 		.pipe(takeUntil(this.unsubscribe$$));
 
+	public isViewWeekDay: boolean = true;
+
+	public isViewStartTime: boolean = true;
+
 	public therapyGroupForm: FormGroup = this._fb.group({
 		id: [],
 		clinicianId: [],
@@ -68,7 +73,12 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.therapyGroupForm.value });
+		this._dialogService.close({
+			...this.therapyGroupForm.value,
+			start: this.therapyGroupForm.value?.start
+				? removeTimezone(this.therapyGroupForm.value?.start)
+				: '',
+		});
 	}
 
 	public getRooms(locationId: string): void {
@@ -104,14 +114,22 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 		this._store.dispatch(DropdownActions.GetSeriesPlansPending());
 		this._store.dispatch(DropdownActions.GetLocationsPending());
 		this._store.dispatch(DropdownActions.GetCliniciansPending());
+
 		this._store
 			.select('therapygroup', 'table', 'current')
 			.pipe(filter<ITherapyGroupCurrent>(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((therapyGroup: ITherapyGroupCurrent) => {
+				this.isViewStartTime = false;
+				this.isViewWeekDay = false;
 				if (therapyGroup?.locationId) {
 					this.getRooms(therapyGroup?.locationId);
 				}
-				this.therapyGroupForm.setValue(therapyGroup);
+				this.therapyGroupForm.setValue({
+					...therapyGroup,
+					start: this.therapyGroupForm.value?.start
+						? addTimezone(this.therapyGroupForm.value?.start)
+						: '',
+				});
 				this.therapyGroupForm
 					.get('locationId')
 					?.valueChanges.pipe(filter<string>(Boolean), takeUntil(this.unsubscribe$$))

@@ -41,7 +41,7 @@ export class LanguageForGroupPopupComponent extends UnSubscriber implements OnIn
 	}
 
 	public onConfirmAction(): void {
-		this._dialogService.close({ ...this.languageForm.value });
+		this._dialogService.close(this.languageForm.value);
 	}
 
 	public ngOnInit(): void {

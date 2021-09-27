@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
@@ -42,7 +42,7 @@ import { TherapyGroupTableActions } from './therapy-group-table.actions';
 	templateUrl: './therapy-group-table.component.html',
 	styleUrls: ['../../../home.component.scss', './therapy-group-table.component.scss'],
 })
-export class TherapyGroupTableComponent extends CustomTableDirective implements OnInit {
+export class TherapyGroupTableComponent extends CustomTableDirective {
 	public constructor(
 		_router: Router,
 		private _activatedRoute: ActivatedRoute,
@@ -124,10 +124,6 @@ export class TherapyGroupTableComponent extends CustomTableDirective implements 
 			}
 			this._store.dispatch(this.clearCurrentItem());
 		});
-	}
-
-	public override ngOnInit(): void {
-		super.ngOnInit();
 	}
 
 	public onCellClick(e: CellClickEvent): void {

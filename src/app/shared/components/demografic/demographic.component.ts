@@ -2,6 +2,7 @@ import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@ang
 import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
+import { debounce } from 'lodash';
 import { Observable } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { IDropdownData } from 'src/app/shared/interfaces/dropdown.interface';
@@ -70,6 +71,8 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 		}
 	}
 
+	private debouncedRequest = debounce((action: any) => this._store.dispatch(action), 1000, {});
+
 	public ngOnInit(): void {
 		this._store
 			.select('person', 'personDemographicInfo')
@@ -120,7 +123,7 @@ export class DemographicComponent extends UnSubscriber implements OnInit, OnDest
 				});
 			});
 		this.demographicForm.valueChanges?.subscribe((newData: IPersonDemographicInfo) => {
-			this._store.dispatch(
+			this.debouncedRequest(
 				PersonActions.UpdatePersonDemographicInfoPending({
 					id: this.personId,
 					personDemographicInfo: newData,

@@ -2,6 +2,7 @@ import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit } from '@ang
 import { FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DropDownFilterSettings } from '@progress/kendo-angular-dropdowns';
+import { debounce } from 'lodash';
 
 import { takeUntil } from 'rxjs/operators';
 import { IStore } from 'src/app/store';
@@ -52,6 +53,8 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 		}
 	}
 
+	private debouncedRequest = debounce((action: any) => this._store.dispatch(action), 1000, {});
+
 	public ngOnInit(): void {
 		this._store
 			.select('person' as any, 'personInfo')
@@ -72,7 +75,7 @@ export class PersonaInfoComponent extends UnSubscriber implements OnInit, OnDest
 				}
 			});
 		this.personaInfoForm.valueChanges?.subscribe((newData: any) => {
-			this._store.dispatch(
+			this.debouncedRequest(
 				PersonActions.UpdatePersonInfoPending({
 					id: this.personId,
 					personInfo: {
