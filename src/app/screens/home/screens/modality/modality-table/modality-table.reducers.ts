@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Action, createReducer } from '@ngrx/store';
+import { Action, ActionReducerMap } from '@ngrx/store';
 import { tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { ModalityTableActions } from './modality-table.actions';
 
@@ -16,11 +16,10 @@ export function modalityTableReducers(state: any | undefined, action: Action): a
 	return tableReducers(state, action);
 }
 
-export function modalityInfoReducers(modalityState: any, action: Action): any {
-	return createReducer({})(modalityState, action);
+export interface IModalityReducers {
+	table: any;
 }
 
-export const modalityReducers: any = {
+export const modalityReducers: ActionReducerMap<IModalityReducers> = {
 	table: modalityTableReducers,
-	modalityInfo: modalityInfoReducers,
 };
