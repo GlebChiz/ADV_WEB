@@ -14,7 +14,30 @@ kendo-drawer-content {
 .k-dropdowntree .k-multiselect-wrap .k-button {
 	padding: 5px 4px;
 }
+::ng-deep .manager-columns {
+	position: relative;
+	.text-manager-columns {
+		width: 140px;
+		position: absolute;
+		left: 14px;
+		top: 6px;
+	}
+	.column-chooser {
+		.k-i-columns::before {
+			content: '';
+		}
+		.k-button.k-bare {
+			width: 140px;
+			border: 1px solid #dce0e4 !important;
+		}
+	}
+}
 
+::ng-deep .adv-button {
+	button {
+		width: 30px;
+	}
+}
 ::ng-deep {
 	.phone-checkbox-style {
 		margin-top: 24px;

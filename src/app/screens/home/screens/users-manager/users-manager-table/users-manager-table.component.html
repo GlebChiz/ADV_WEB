@@ -25,7 +25,7 @@
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
-		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
+
 		<kendo-combobox
 			valueField="id"
 			style="width: 200px"
@@ -34,6 +34,13 @@
 			[valuePrimitive]="true"
 		>
 		</kendo-combobox>
+		<div class="manager-columns">
+			<span class="text-manager-columns">Manage Columns</span>
+			<kendo-grid-column-chooser
+				[autoSync]="true"
+				class="column-chooser"
+			></kendo-grid-column-chooser>
+		</div>
 	</ng-template>
 	<kendo-grid-column
 		*ngFor="let col of columns"
