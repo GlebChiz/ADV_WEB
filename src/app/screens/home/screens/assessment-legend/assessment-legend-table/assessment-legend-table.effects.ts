@@ -131,8 +131,8 @@ export class AssessmentLegendEffect extends TableEffects {
 	public getTranslation$ = createEffect(() => {
 		return this.actions$.pipe(
 			ofType(AssessmentLegendTableActions.GetTranslationPending),
-			switchMap(({ legendId, languageId }: { legendId: string; languageId: string }) => {
-				return this._service.getAssessmentLegend(legendId, languageId).pipe(
+			switchMap(({ id, languageId }: { id: string; languageId: string }) => {
+				return this._service.getAssessmentLegend(id, languageId).pipe(
 					map((tranlsated: ITranslated) =>
 						AssessmentLegendTableActions.GetTranslationSuccess({ tranlsated }),
 					),

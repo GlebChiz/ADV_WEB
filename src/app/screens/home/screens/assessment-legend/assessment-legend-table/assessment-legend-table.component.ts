@@ -116,7 +116,7 @@ export class AssessmentLegendTableComponent extends CustomTableDirective impleme
 		});
 
 		dialog.content.instance.assessmentTranslated = {
-			legendId: dataItem.id,
+			id: dataItem.id,
 			languageId: this.language.value,
 		};
 		dialog.result.subscribe((result: DialogCloseResult) => {

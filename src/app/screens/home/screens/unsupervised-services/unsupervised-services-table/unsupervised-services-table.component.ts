@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogService } from '@progress/kendo-angular-dialog';
+import { CompositeFilterDescriptor, FilterDescriptor } from '@progress/kendo-data-query';
 import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
+import { filter, takeUntil } from 'rxjs/operators';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
 import {
 	DELETE_ITEM_TABLE_PENDING,
@@ -40,8 +42,8 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 		@Inject(SAVE_GRID_CHANGES_PENDING) saveGridChangesPending: any,
 		@Inject(GET_GRID_SETTINGS_PENDING) getGridSettingsPending: any,
 		@Inject(MAKE_DEFAULT_GRID_PENDING) makeDefaultGridPending: any,
-
 		@Inject(RENAME_GRID_PENDING) renameGridPending: any,
+		private _fb: FormBuilder,
 	) {
 		super(
 			_store,
@@ -61,26 +63,84 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 		);
 	}
 
-	public from!: Date;
+	public currentDate: Date = new Date();
 
-	public to!: Date;
+	public firstOfJune: Date = new Date(2021, 6, 1);
 
-	public valueChange(): void {
-		if (this.gridSettings.state.filter && this.from && this.to) {
+	public dateForm: FormGroup = this._fb.group({
+		from: this.firstOfJune,
+		to: this.currentDate,
+	});
+
+	public ngOnInit(): void {
+		this.dateForm.valueChanges
+			.pipe(
+				filter((value) => value && value.from && value.to),
+				takeUntil(this.unsubscribe$$),
+			)
+			.subscribe((val: { from: Date; to: Date }) => {
+				this.changeGridSettingsFilter(val);
+			});
+		if (this.dropdownnGridSettings) {
+			this.changeGridSettingsFilter({ from: this.firstOfJune, to: this.currentDate });
+		}
+		this._store
+			.select('vunsupervisedservice' as any, 'table', 'filter', 'filter', 'filters')
+			.pipe(
+				filter<(CompositeFilterDescriptor | FilterDescriptor)[]>((val) => val && val.length > 0),
+				takeUntil(this.unsubscribe$$),
+			)
+			.subscribe((currentFilter: (CompositeFilterDescriptor | FilterDescriptor)[]) => {
+				const fieldsFilter: FilterDescriptor[] = currentFilter as FilterDescriptor[];
+				this.dateForm.setValue(
+					{
+						from: new Date(
+							fieldsFilter.find((val: FilterDescriptor) => {
+								return val.field === 'from';
+							})?.value,
+						),
+						to: new Date(
+							fieldsFilter.find((val: FilterDescriptor) => {
+								return val.field === 'to';
+							})?.value,
+						),
+					},
+					{ emitEvent: false },
+				);
+			});
+
+		super.ngOnInit();
+	}
+
+	public changeGridSettingsFilter(val: { from: Date; to: Date }): void {
+		if (this.gridSettings.state.filter) {
+			this.gridSettings.state.filter.filters = this.gridSettings.state.filter?.filters.filter(
+				(value: CompositeFilterDescriptor | FilterDescriptor) => {
+					const fieldFilter: FilterDescriptor = value as FilterDescriptor;
+					return fieldFilter.field !== 'from' && fieldFilter.field !== 'to';
+				},
+			);
 			this.gridSettings.state.filter.filters = [
 				...this.gridSettings.state.filter.filters,
 				{
 					field: 'from',
 					operator: 'custom',
-					value: this.from.toISOString(),
+					value: val.from.toISOString(),
 				},
 				{
 					field: 'to',
 					operator: 'custom',
-					value: this.to.toISOString(),
+					value: val.to.toISOString(),
 				},
 			];
-			super.ngOnInit();
+			this._store.dispatch(
+				this.getTableDataPending({
+					controller: this.controller,
+					filter: this.gridSettings.state,
+					gridId: this.gridId,
+					columns: this.columns,
+				}),
+			);
 		}
 	}
 

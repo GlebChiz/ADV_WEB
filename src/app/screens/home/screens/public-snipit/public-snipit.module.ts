@@ -56,16 +56,6 @@ import { PublicSnipitPopupComponent } from './public-snipit-table/public-snipit-
 				path: '',
 				component: PublicSnipitComponent,
 			},
-			{
-				path: ':id',
-				loadChildren: (): any =>
-					import('./public-snipit-details/public-snipit-details.module').then(
-						(m: any) => m.PublicSnipitDetailsModule,
-					),
-				data: {
-					breadcrumb: 'Singleasdasd',
-				},
-			},
 		]),
 		StoreModule.forFeature('publicsnipit', publicSnipitReducers),
 		EffectsModule.forFeature([SomeEffect]),

@@ -117,6 +117,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 				this.dropdownnGridSettings = data;
 				this.gridSettingsControl.setValue(data?.id);
 			});
+
 		this.gridSettingsControl.valueChanges
 			.pipe(filter<string>(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((id: string) => {
@@ -251,7 +252,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public copyLinkGrid(): void {
-		const currentUrlWithIdGrid: string = `${this._router.url}/${this.idGridSettings}`;
+		const currentUrlWithIdGrid: string = `${window.location.host}${this._router.url}/${this.idGridSettings}`;
 		this._clipboardApi.copy(currentUrlWithIdGrid);
 		this._toasterService.success('Url copied successfully');
 	}

@@ -3,7 +3,6 @@ import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
-import { CellClickEvent } from '@progress/kendo-angular-grid';
 import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -134,8 +133,4 @@ export class PublicSnipitTableComponent extends CustomTableDirective {
 			type: 'text',
 		},
 	];
-
-	public onCellClick(e: CellClickEvent): void {
-		this._router.navigate(['snipits', e.dataItem.id]);
-	}
 }

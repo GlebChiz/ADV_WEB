@@ -29,7 +29,7 @@ export class AssessmentTranslatedPopupComponent extends UnSubscriber implements 
 
 	public language: FormControl = new FormControl();
 
-	public assessmentTranslated!: { languageId: string; legendId: string };
+	public assessmentTranslated!: { languageId: string; id: string };
 
 	public assessmentForm: FormGroup = this._fb.group({
 		original: [],
@@ -48,11 +48,8 @@ export class AssessmentTranslatedPopupComponent extends UnSubscriber implements 
 	}
 
 	public ngOnInit(): void {
-		const { legendId, languageId }: { legendId: string; languageId: string } =
-			this.assessmentTranslated;
-		this._store.dispatch(
-			AssessmentLegendTableActions.GetTranslationPending({ languageId, legendId }),
-		);
+		const { id, languageId }: { id: string; languageId: string } = this.assessmentTranslated;
+		this._store.dispatch(AssessmentLegendTableActions.GetTranslationPending({ languageId, id }));
 		this._store
 			.select('assessmentlegend', 'tranlsated')
 			.pipe(filter(Boolean), takeUntil(this.unsubscribe$$))

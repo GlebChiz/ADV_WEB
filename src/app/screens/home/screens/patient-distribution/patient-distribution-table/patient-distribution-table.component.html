@@ -14,7 +14,7 @@
 
 <kendo-grid
 	[filterable]="true"
-	[data]="gridDataWithoutGroup"
+	[data]="gridData"
 	[sortable]="{
 		allowUnsort: true,
 		mode: 'multiple'
@@ -25,6 +25,8 @@
 	[filter]="gridSettings.state.filter!"
 	[pageable]="{ pageSizes: [5, 10, 20, 50, 100] }"
 	[height]="710"
+	[groupable]="true"
+	[group]="group"
 	[loading]="isLoading"
 	[sort]="gridSettings.state.sort!"
 	(dataStateChange)="dataStateChange($event)"
@@ -32,6 +34,7 @@
 	(columnReorder)="columnReorder($event)"
 	[selectable]="{ enabled: true, checkboxOnly: true }"
 	(selectionChange)="selectionChange($event)"
+	(groupChange)="groupChange($event)"
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
@@ -63,6 +66,7 @@
 		[field]="col.field"
 		[hidden]="col.hidden!"
 		[filterable]="col.filterable"
+		[groupable]="!!col.groupable"
 	>
 		<ng-template *ngIf="col.field === 'start'" kendoGridCellTemplate let-dataItem>
 			{{ dataItem.start | date: 'MM/dd/yyyy' }}
