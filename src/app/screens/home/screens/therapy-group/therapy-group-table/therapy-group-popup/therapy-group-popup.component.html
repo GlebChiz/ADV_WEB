@@ -27,7 +27,7 @@
 						[data]="['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']"
 						formControlName="weekDay"
 						[valuePrimitive]="true"
-						[disabled]="isViewWeekDay"
+						[disabled]="!isShowSomeFields"
 					>
 					</kendo-combobox>
 				</div>
@@ -39,7 +39,7 @@
 					<label>Start Time</label>
 					<kendo-timepicker
 						formControlName="start"
-						[disabled]="isViewStartTime"
+						[disabled]="!isShowSomeFields"
 						format="hh/mm"
 						kendoTextBox
 					></kendo-timepicker>

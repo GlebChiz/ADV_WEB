@@ -102,6 +102,7 @@ export class TherapyGroupTableComponent extends CustomTableDirective {
 				this.getCurrentItemPending({ id: dataItem.id, controller: this.controller }),
 			);
 		}
+
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Therapy Group',
 			content: TherapyGroupPopupComponent,
@@ -110,7 +111,10 @@ export class TherapyGroupTableComponent extends CustomTableDirective {
 			minWidth: 250,
 		});
 
-		dialog.content.instance.therapyGroup = { ...dataItem };
+		// eslint-disable-next-line prefer-const
+		let therapyGroup: { isShowSomeFields: boolean } = dialog.content.instance;
+		therapyGroup.isShowSomeFields = !!isDublicate || !dataItem;
+
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				if (isDublicate) {

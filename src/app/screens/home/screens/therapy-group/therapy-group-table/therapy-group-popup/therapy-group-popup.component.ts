@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
@@ -47,9 +47,11 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 		.select('therapygroup', 'rooms', 'data')
 		.pipe(takeUntil(this.unsubscribe$$));
 
-	public isViewWeekDay: boolean = true;
+	@Input() public set setIsShowSomeFields(value: boolean) {
+		this.isShowSomeFields = value;
+	}
 
-	public isViewStartTime: boolean = true;
+	public isShowSomeFields!: boolean;
 
 	public therapyGroupForm: FormGroup = this._fb.group({
 		id: [],
@@ -119,8 +121,6 @@ export class TherapyGroupPopupComponent extends UnSubscriber implements OnInit {
 			.select('therapygroup', 'table', 'current')
 			.pipe(filter<ITherapyGroupCurrent>(Boolean), takeUntil(this.unsubscribe$$))
 			.subscribe((therapyGroup: ITherapyGroupCurrent) => {
-				this.isViewStartTime = false;
-				this.isViewWeekDay = false;
 				if (therapyGroup?.locationId) {
 					this.getRooms(therapyGroup?.locationId);
 				}

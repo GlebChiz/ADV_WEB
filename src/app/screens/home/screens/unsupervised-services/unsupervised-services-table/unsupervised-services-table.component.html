@@ -1,16 +1,20 @@
 <div class="unsupervised-serviced">Unsupervised Services</div>
-<div>
+
+<form [formGroup]="dateForm" novalidate>
 	<kendo-datepicker
-		(valueChange)="valueChange()"
-		[(value)]="from"
+		format="MM/dd/yyyy"
+		kendoTextBox
+		formControlName="from"
 		placeholder="Start"
 	></kendo-datepicker>
 	<kendo-datepicker
-		[(value)]="to"
-		(valueChange)="valueChange()"
+		format="MM/dd/yyyy"
+		kendoTextBox
+		formControlName="to"
 		placeholder="End"
 	></kendo-datepicker>
-</div>
+</form>
+
 <kendo-grid
 	[filterable]="true"
 	[data]="gridDataWithoutGroup"

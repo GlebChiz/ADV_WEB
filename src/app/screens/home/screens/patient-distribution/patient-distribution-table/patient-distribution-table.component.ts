@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { DialogCloseResult, DialogRef, DialogService } from '@progress/kendo-angular-dialog';
 import { RowArgs, SelectionEvent } from '@progress/kendo-angular-grid';
+import { GroupDescriptor } from '@progress/kendo-data-query';
 import { ClipboardService } from 'ngx-clipboard';
 import { ToastrService } from 'ngx-toastr';
 import { CustomTableDirective } from 'src/app/shared/table/table.directive';
@@ -161,12 +162,17 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 		});
 	}
 
+	public groupChange(groups: GroupDescriptor[]): void {
+		this.group = groups;
+	}
+
 	public columns: IColumn[] = [
 		{
 			field: 'supervisor',
 			title: 'Supervisor',
 			hidden: false,
 			filterable: true,
+			groupable: true,
 			type: 'text',
 		},
 		{
@@ -174,6 +180,7 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 			title: 'Patient',
 			hidden: false,
 			filterable: true,
+			groupable: true,
 			type: 'text',
 		},
 		{
@@ -181,6 +188,7 @@ export class PatientDistributionTableComponent extends CustomTableDirective {
 			title: 'Payer',
 			hidden: false,
 			filterable: true,
+			groupable: true,
 			type: 'text',
 		},
 		{
