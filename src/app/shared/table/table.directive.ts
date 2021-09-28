@@ -71,6 +71,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 
 	public idGridSettings: string = '';
 
+	public nameGridSettings: string = '';
+
 	public dropdownnGridSettings: IDropDownGridSettings | undefined;
 
 	public gridSettings: { state: DataStateChangeEvent } = {
@@ -105,6 +107,12 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	}
 
 	public ngOnInit(): void {
+		this._store
+			.select(this.storePath as any, 'table', 'title')
+			.pipe(takeUntil(this.unsubscribe$$))
+			.subscribe((title: string) => {
+				this.nameGridSettings = title;
+			});
 		this.gridSettings$
 			.pipe(
 				filter<IDropDownGridSettings[]>(Boolean),
@@ -225,6 +233,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 		this._store.dispatch(
 			this.getGridSettingsPending({ id: this.idGridSettings, controller: this.controller }),
 		);
+
 		const dialog: DialogRef = this.dialogService.open({
 			title: 'Rename Grid',
 			content: RenamePopupComponent,
@@ -232,7 +241,8 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 			height: 200,
 			minWidth: 250,
 		});
-
+		const tableRename: { title: string } = dialog.content.instance;
+		tableRename.title = this.nameGridSettings;
 		dialog.result.subscribe((result: any) => {
 			if (!(result instanceof DialogCloseResult)) {
 				this._store.dispatch(
