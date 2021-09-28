@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DialogRef } from '@progress/kendo-angular-dialog';
 
@@ -8,10 +7,16 @@ import { DialogRef } from '@progress/kendo-angular-dialog';
 	selector: 'advenium-rename-popup',
 	templateUrl: './rename-popup.component.html',
 })
-export class RenamePopupComponent implements OnInit {
-	public constructor(_store: Store<any>, private _dialogRef: DialogRef) {}
+export class RenamePopupComponent {
+	public constructor(_store: Store<any>, private _dialogRef: DialogRef, private _fb: FormBuilder) {}
 
-	public titleForm: FormControl = new FormControl();
+	@Input() public set settitle(value: string) {
+		this.title = value;
+	}
+
+	public title!: string;
+
+	public titleControl: FormControl = this._fb.control(this.title);
 
 	public onCancelAction(): void {
 		this._dialogRef.close();
@@ -19,18 +24,7 @@ export class RenamePopupComponent implements OnInit {
 
 	public onConfirmAction(): void {
 		this._dialogRef.close({
-			title: this.titleForm.value,
+			title: this.titleControl.value,
 		});
-	}
-
-	public ngOnInit(): void {
-		console.log('rename');
-
-		// this._store
-		// 	.select(this.storePath as any, 'table', 'title')
-		// 	.pipe(takeUntil(this.unsubscribe$$))
-		// 	.subscribe((title: string) => {
-		// 		this.titleForm.setValue(title);
-		// 	});
 	}
 }
