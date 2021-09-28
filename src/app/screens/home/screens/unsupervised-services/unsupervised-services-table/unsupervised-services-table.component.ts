@@ -63,13 +63,9 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 		);
 	}
 
-	public currentDate: Date = new Date();
-
-	public firstOfJune: Date = new Date(2021, 6, 1);
-
 	public dateForm: FormGroup = this._fb.group({
-		from: this.firstOfJune,
-		to: this.currentDate,
+		from: new Date(),
+		to: new Date(2021, 6, 1),
 	});
 
 	public ngOnInit(): void {
@@ -82,7 +78,10 @@ export class UnsupervisedServicesTableComponent extends CustomTableDirective imp
 				this.changeGridSettingsFilter(val);
 			});
 		if (this.dropdownnGridSettings) {
-			this.changeGridSettingsFilter({ from: this.firstOfJune, to: this.currentDate });
+			this.changeGridSettingsFilter({
+				from: this.dateForm.value.from,
+				to: this.dateForm.value.to,
+			});
 		}
 		this._store
 			.select('vunsupervisedservice' as any, 'table', 'filter', 'filter', 'filters')
