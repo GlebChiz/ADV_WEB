@@ -11,11 +11,9 @@ export const AssessmentQuestionTableActions = {
 	),
 	GetAssessmentQuestionTableDataSuccess: createAction(
 		'[Assessment Question Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetAssessmentQuestionTableDataError: createAction(
 		'[Assessment Question Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdateAssessmentQuestionTableState: createAction(
 		'[Assessment Question Table] Update',
@@ -42,15 +40,15 @@ export const AssessmentQuestionTableActions = {
 	),
 
 	DublicateAssessmentQuestionIemTablePending: createAction(
-		'[Assessment Question Table] dublicate table item pending',
+		'[Assessment Question Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentQuestionIemTableError: createAction(
-		'[Assessment Question Table] dublicate table item error',
+		'[Assessment Question Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentQuestionIemTableSuccess: createAction(
-		'[Assessment Question Table] dublicate table item success',
+		'[Assessment Question Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -86,7 +84,7 @@ export const AssessmentQuestionTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Assessment Question Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Assessment Question Table] get current item error',
@@ -103,7 +101,10 @@ export const AssessmentQuestionTableActions = {
 	ReorderAssessmentQuestionSuccess: createAction(
 		'[Assessment Question] Reorder current item success',
 	),
-	ReorderAssessmentQuestionError: createAction('[Assessment Question] Reorder current item error'),
+	ReorderAssessmentQuestionError: createAction(
+		'[Assessment Question] Reorder current item error',
+		props<{ error: string }>(),
+	),
 	GetCurrentTranslationAssessmentQuestionPending: createAction(
 		'[Assessment Question] Get current translation pending',
 		props<{ questionId: string; languageId: string }>(),

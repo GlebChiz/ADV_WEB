@@ -250,7 +250,7 @@ export class TableEffects {
 			ofType(this.getGridSettingsPending),
 			switchMap(({ id, controller }: { id: string; controller: string }) => {
 				return of(1).pipe(
-					withLatestFrom(this._store.select(`${controller}` as any, 'table')),
+					withLatestFrom(this._store.select(controller, 'table')),
 					switchMap(([, latest]: [number, ITable<any, any>]) => {
 						return this._tableService.getGridSettings(id).pipe(
 							mergeMap((gridSettings: IGridSettings) => {

@@ -8,14 +8,8 @@ export const ModalityTableActions = {
 		'[Modality Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetModalityTableDataSuccess: createAction(
-		'[Modality Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetModalityTableDataError: createAction(
-		'[Modality Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetModalityTableDataSuccess: createAction('[Modality Table] get table data success'),
+	GetModalityTableDataError: createAction('[Modality Table] get table data error'),
 	UpdateModalityTableState: createAction('[Modality Table] Update', props<{ data: any }>()),
 
 	DeleteModalityIemTablePending: createAction(
@@ -32,15 +26,15 @@ export const ModalityTableActions = {
 	),
 
 	DublicateModalityIemTablePending: createAction(
-		'[Modality Table] dublicate table item pending',
+		'[Modality Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateModalityIemTableError: createAction(
-		'[Modality Table] dublicate table item error',
+		'[Modality Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateModalityIemTableSuccess: createAction(
-		'[Modality Table] dublicate table item success',
+		'[Modality Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -76,7 +70,7 @@ export const ModalityTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Modality Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Modality Table] get current item error',

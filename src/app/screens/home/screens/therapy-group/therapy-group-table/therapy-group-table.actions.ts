@@ -8,14 +8,8 @@ export const TherapyGroupTableActions = {
 		'[Therapy Group Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetTherapyGroupTableDataSuccess: createAction(
-		'[Therapy Group Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetTherapyGroupTableDataError: createAction(
-		'[Therapy Group Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetTherapyGroupTableDataSuccess: createAction('[Therapy Group Table] get table data success'),
+	GetTherapyGroupTableDataError: createAction('[Therapy Group Table] get table data error'),
 	UpdateTherapyGroupTableState: createAction(
 		'[Therapy Group Table] Update',
 		props<{ data: any }>(),
@@ -35,15 +29,15 @@ export const TherapyGroupTableActions = {
 	),
 
 	DublicateTherapyGroupIemTablePending: createAction(
-		'[Therapy Group Table] dublicate table item pending',
+		'[Therapy Group Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateTherapyGroupIemTableError: createAction(
-		'[Therapy Group Table] dublicate table item error',
+		'[Therapy Group Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateTherapyGroupIemTableSuccess: createAction(
-		'[Therapy Group Table] dublicate table item success',
+		'[Therapy Group Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -79,7 +73,7 @@ export const TherapyGroupTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Therapy Group Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Therapy Group Table] get current item error',

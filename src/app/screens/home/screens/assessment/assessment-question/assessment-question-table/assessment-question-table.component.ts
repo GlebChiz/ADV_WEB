@@ -268,3 +268,9 @@ export class AssessmentQuestionTableComponent extends CustomTableDirective imple
 		this.delete(id);
 	}
 }
+
+export interface IReorderAssesmentQuestion {
+	assessmentId: string;
+	index: number;
+	questionId: string;
+}

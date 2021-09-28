@@ -10,11 +10,9 @@ export const AssessmentTemplateTableActions = {
 	),
 	GetAssessmentTemplateTableDataSuccess: createAction(
 		'[Assessment Template Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetAssessmentTemplateTableDataError: createAction(
 		'[Assessment Template Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdateAssessmentTemplateTableState: createAction(
 		'[Assessment Template Table] Update',
@@ -35,15 +33,15 @@ export const AssessmentTemplateTableActions = {
 	),
 
 	DublicateAssessmentTemplateIemTablePending: createAction(
-		'[Assessment Template Table] dublicate table item pending',
+		'[Assessment Template Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentTemplateIemTableError: createAction(
-		'[Assessment Template Table] dublicate table item error',
+		'[Assessment Template Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentTemplateIemTableSuccess: createAction(
-		'[Assessment Template Table] dublicate table item success',
+		'[Assessment Template Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -79,7 +77,7 @@ export const AssessmentTemplateTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Assessment Template Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Assessment Template Table] get current item error',

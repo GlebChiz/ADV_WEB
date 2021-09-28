@@ -9,15 +9,9 @@ export const PayerTableActions = {
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 
-	GetPayerTableDataSuccess: createAction(
-		'[Payer Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPayerTableDataSuccess: createAction('[Payer Table] get table data success'),
 
-	GetPayerTableDataError: createAction(
-		'[Payer Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPayerTableDataError: createAction('[Payer Table] get table data error'),
 
 	UpdatePayerTableState: createAction('[Payer Table] Update', props<{ data: any }>()),
 
@@ -35,15 +29,15 @@ export const PayerTableActions = {
 	),
 
 	DublicatePayerIemTablePending: createAction(
-		'[Payer Table] dublicate table item pending',
+		'[Payer Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePayerIemTableSuccess: createAction(
-		'[Payer Table] dublicate table item success',
+		'[Payer Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePayerIemTableError: createAction(
-		'[Payer Table] dublicate table item error',
+		'[Payer Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -80,7 +74,7 @@ export const PayerTableActions = {
 
 	GetCurrentItemSuccess: createAction(
 		'[Payer Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 
 	GetCurrentItemError: createAction(

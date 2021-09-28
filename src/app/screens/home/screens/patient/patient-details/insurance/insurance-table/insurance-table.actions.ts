@@ -8,14 +8,8 @@ export const InsuranceTableActions = {
 		'[Insurance Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetInsuranceTableDataSuccess: createAction(
-		'[Insurance Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetInsuranceTableDataError: createAction(
-		'[Insurance Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetInsuranceTableDataSuccess: createAction('[Insurance Table] get table data success'),
+	GetInsuranceTableDataError: createAction('[Insurance Table] get table data error'),
 	UpdateInsuranceTableState: createAction('[Insurance Table] Update', props<{ data: any }>()),
 
 	DeleteInsuranceIemTablePending: createAction(
@@ -32,15 +26,15 @@ export const InsuranceTableActions = {
 	),
 
 	DublicateInsuranceIemTablePending: createAction(
-		'[Insurance Table] dublicate table item pending',
+		'[Insurance Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateInsuranceIemTableError: createAction(
-		'[Insurance Table] dublicate table item error',
+		'[Insurance Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateInsuranceIemTableSuccess: createAction(
-		'[Insurance Table] dublicate table item success',
+		'[Insurance Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -76,7 +70,7 @@ export const InsuranceTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Insurance Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Insurance Table] get current item error',

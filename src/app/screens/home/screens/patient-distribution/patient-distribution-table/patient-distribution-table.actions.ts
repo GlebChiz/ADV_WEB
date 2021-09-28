@@ -10,11 +10,9 @@ export const PatientDistributionTableActions = {
 	),
 	GetPatientDistributionTableDataSuccess: createAction(
 		'[Patient Distribution Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetPatientDistributionTableDataError: createAction(
 		'[Patient Distribution Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdatePatientDistributionTableState: createAction(
 		'[Patient Distribution Table] Update',
@@ -35,15 +33,15 @@ export const PatientDistributionTableActions = {
 	),
 
 	DublicatePatientDistributionIemTablePending: createAction(
-		'[Patient Distribution Table] dublicate table item pending',
+		'[Patient Distribution Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePatientDistributionIemTableError: createAction(
-		'[Patient Distribution Table] dublicate table item error',
+		'[Patient Distribution Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePatientDistributionIemTableSuccess: createAction(
-		'[Patient Distribution Table] dublicate table item success',
+		'[Patient Distribution Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -79,7 +77,7 @@ export const PatientDistributionTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Patient Distribution Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Patient Distribution Table] get current item error',

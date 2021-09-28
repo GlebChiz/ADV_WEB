@@ -9,14 +9,8 @@ export const SessionPlanTableActions = {
 		'[Session Plan Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetSessionPlanTableDataSuccess: createAction(
-		'[Session Plan Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetSessionPlanTableDataError: createAction(
-		'[Session Plan Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetSessionPlanTableDataSuccess: createAction('[Session Plan Table] get table data success'),
+	GetSessionPlanTableDataError: createAction('[Session Plan Table] get table data error'),
 	UpdateSessionPlanTableState: createAction('[Session Plan Table] Update', props<{ data: any }>()),
 
 	DeleteSessionPlanIemTablePending: createAction(
@@ -33,15 +27,15 @@ export const SessionPlanTableActions = {
 	),
 
 	DublicateSessionPlanIemTablePending: createAction(
-		'[Session Plan Table] dublicate table item pending',
+		'[Session Plan Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSessionPlanIemTableError: createAction(
-		'[Session Plan Table] dublicate table item error',
+		'[Session Plan Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSessionPlanIemTableSuccess: createAction(
-		'[Session Plan Table] dublicate table item success',
+		'[Session Plan Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -77,7 +71,7 @@ export const SessionPlanTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Session Plan Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Session Plan Table] get current item error',
@@ -96,7 +90,10 @@ export const SessionPlanTableActions = {
 		}>(),
 	),
 	ReorderPlanSuccess: createAction('[Session Plan Reorder] Reorder current item success'),
-	ReorderPlanError: createAction('[Session Plan Reorder] Reorder current item error'),
+	ReorderPlanError: createAction(
+		'[Session Plan Reorder] Reorder current item error',
+		props<{ errors: string }>(),
+	),
 
 	LinkSessionPlansPending: createAction(
 		'[Session Plan] Link Session Plans Pending',

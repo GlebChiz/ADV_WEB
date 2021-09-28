@@ -9,18 +9,9 @@ export const PatientTableActions = {
 		'[Patient Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetPatientTableDataSuccess: createAction(
-		'[Patient Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	ClearCurrentPatient: createAction(
-		'[Patient Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetPatientTableDataError: createAction(
-		'[Patient Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPatientTableDataSuccess: createAction('[Patient Table] get table data success'),
+	ClearCurrentPatient: createAction('[Patient Table] get table data success'),
+	GetPatientTableDataError: createAction('[Patient Table] get table data error'),
 	UpdatePatientTableState: createAction('[Patient Table] Update', props<{ data: any }>()),
 
 	DeletePatientIemTablePending: createAction(
@@ -37,15 +28,15 @@ export const PatientTableActions = {
 	),
 
 	DublicatePatientIemTablePending: createAction(
-		'[Patient Table] dublicate table item pending',
+		'[Patient Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePatientIemTableError: createAction(
-		'[Patient Table] dublicate table item error',
+		'[Patient Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePatientIemTableSuccess: createAction(
-		'[Patient Table] dublicate table item success',
+		'[Patient Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -81,7 +72,7 @@ export const PatientTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Patient Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Patient Table] get current item error',

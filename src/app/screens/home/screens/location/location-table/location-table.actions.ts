@@ -23,15 +23,9 @@ export const LocationTableActions = {
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
 
-	GetLocationTableDataSuccess: createAction(
-		'[Location Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetLocationTableDataSuccess: createAction('[Location Table] get table data success'),
 
-	GetLocationTableDataError: createAction(
-		'[Location Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetLocationTableDataError: createAction('[Location Table] get table data error'),
 
 	UpdateLocationTableState: createAction('[Location Table] Update', props<{ data: any }>()),
 
@@ -49,15 +43,15 @@ export const LocationTableActions = {
 	),
 
 	DublicateLocationIemTablePending: createAction(
-		'[Location Table] dublicate table item pending',
+		'[Location Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateLocationIemTableSuccess: createAction(
-		'[Location Table] dublicate table item success',
+		'[Location Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateLocationIemTableError: createAction(
-		'[Location Table] dublicate table item error',
+		'[Location Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -94,7 +88,7 @@ export const LocationTableActions = {
 
 	GetCurrentItemSuccess: createAction(
 		'[Location Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 
 	GetCurrentItemError: createAction(

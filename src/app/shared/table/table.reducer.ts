@@ -1,28 +1,39 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createReducer, on } from '@ngrx/store';
+import { ActionCreator, ActionReducer, createReducer, on } from '@ngrx/store';
+import { TypedAction } from '@ngrx/store/src/models';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { IColumn } from '../interfaces/column.interface';
+import { IFilter } from './table.model';
 
 export const initialState: ITableState<any, any, any> = {};
 
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type TableAction<T extends object> = ActionCreator<string, (props: T) => T>;
+export type TableTypedAction = ActionCreator<string, () => TypedAction<string>>;
+
 export function tableReducersFactory(
-	updateTableState: any,
-	getTableDataPending: any,
-	getCurrentItemSuccess: any,
-	getTableDataError: any,
-	getTableDataSuccess: any,
-	clearCurrentItem: any,
-): any {
+	updateTableState: TableAction<{ data: any }>,
+	getTableDataPending: TableAction<{
+		controller: string;
+		filter: IFilter;
+		columns: IColumn[];
+		gridId: string;
+	}>,
+	getCurrentItemSuccess: TableAction<{ item: any }>,
+	getTableDataError: TableTypedAction,
+	getTableDataSuccess: TableTypedAction,
+	clearCurrentItem: TableTypedAction,
+): ActionReducer<ITableState<any, any, any>> {
 	return createReducer(
 		initialState,
-		on(updateTableState, (state: any, payload: any) => {
+		on(updateTableState, (state: ITableState<any, any, any>, payload: { data: any }) => {
 			return { ...state, ...payload.data };
 		}),
-		on(getCurrentItemSuccess, (state: any, payload: any) => {
+		on(getCurrentItemSuccess, (state: ITableState<any, any, any>, payload: { item: any }) => {
 			return { ...state, current: payload.item };
 		}),
-		on(getTableDataPending, (state: any, payload: any) => {
+		on(getTableDataPending, (state: ITableState<any, any, any>, payload: any) => {
 			return {
 				...state,
 				isLoading: true,
@@ -32,13 +43,13 @@ export function tableReducersFactory(
 				title: payload.title,
 			};
 		}),
-		on(getTableDataError, (state: any) => {
+		on(getTableDataError, (state: ITableState<any, any, any>) => {
 			return { ...state, isLoading: false };
 		}),
-		on(clearCurrentItem, (state: any) => {
+		on(clearCurrentItem, (state: ITableState<any, any, any>) => {
 			return { ...state, current: null };
 		}),
-		on(getTableDataSuccess, (state: any) => {
+		on(getTableDataSuccess, (state: ITableState<any, any, any>) => {
 			return { ...state, isLoading: false };
 		}),
 	);

@@ -10,11 +10,9 @@ export const UnsupervisedServicesTableActions = {
 	),
 	GetUnsupervisedServicesTableDataSuccess: createAction(
 		'[Unsupervised Services Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetUnsupervisedServicesTableDataError: createAction(
 		'[Unsupervised Services Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdateUnsupervisedServicesTableState: createAction(
 		'[Unsupervised Services Table] Update',
@@ -35,15 +33,15 @@ export const UnsupervisedServicesTableActions = {
 	),
 
 	DublicateUnsupervisedServicesIemTablePending: createAction(
-		'[Unsupervised Services Table] dublicate table item pending',
+		'[Unsupervised Services Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateUnsupervisedServicesIemTableError: createAction(
-		'[Unsupervised Services Table] dublicate table item error',
+		'[Unsupervised Services Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateUnsupervisedServicesIemTableSuccess: createAction(
-		'[Unsupervised Services Table] dublicate table item success',
+		'[Unsupervised Services Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -79,7 +77,7 @@ export const UnsupervisedServicesTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Unsupervised Services Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Unsupervised Services Table] get current item error',

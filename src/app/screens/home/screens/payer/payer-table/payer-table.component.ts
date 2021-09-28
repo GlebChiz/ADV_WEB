@@ -141,3 +141,12 @@ export class PayerTableComponent extends CustomTableDirective {
 		},
 	];
 }
+
+export interface IUsStatePayer {
+	abbreviation: string;
+	id: string;
+	isDisabled: boolean;
+	name: string;
+	orderNumber: number;
+	parentId: null;
+}

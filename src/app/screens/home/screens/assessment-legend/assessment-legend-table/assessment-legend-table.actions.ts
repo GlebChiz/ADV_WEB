@@ -11,12 +11,8 @@ export const AssessmentLegendTableActions = {
 	),
 	GetAssessmentLegendTableDataSuccess: createAction(
 		'[Assessment Legend Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
-	GetAssessmentLegendTableDataError: createAction(
-		'[Assessment Legend Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetAssessmentLegendTableDataError: createAction('[Assessment Legend Table] get table data error'),
 	UpdateAssessmentLegendTableState: createAction(
 		'[Assessment Legend Table] Update',
 		props<{ data: any }>(),
@@ -36,15 +32,15 @@ export const AssessmentLegendTableActions = {
 	),
 
 	DublicateAssessmentLegendIemTablePending: createAction(
-		'[Assessment Legend Table] dublicate table item pending',
+		'[Assessment Legend Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentLegendIemTableError: createAction(
-		'[Assessment Legend Table] dublicate table item error',
+		'[Assessment Legend Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentLegendIemTableSuccess: createAction(
-		'[Assessment Legend Table] dublicate table item success',
+		'[Assessment Legend Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -80,7 +76,7 @@ export const AssessmentLegendTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Assessment Legend Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Assessment Legend Table] get current item error',

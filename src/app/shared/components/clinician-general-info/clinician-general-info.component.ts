@@ -80,7 +80,6 @@ export class ClinicianGeneralInfoComponent extends UnSubscriber implements OnIni
 			});
 	}
 }
-
 export interface IClinicianGeneralInfo {
 	typeId: string | null;
 	npi: string;

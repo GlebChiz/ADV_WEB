@@ -8,14 +8,8 @@ export const RoomTableActions = {
 		'[Room Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetRoomTableDataSuccess: createAction(
-		'[Room Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetRoomTableDataError: createAction(
-		'[Room Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetRoomTableDataSuccess: createAction('[Room Table] get table data success'),
+	GetRoomTableDataError: createAction('[Room Table] get table data error'),
 	UpdateRoomTableState: createAction('[Room Table] Update', props<{ data: any }>()),
 
 	DeleteRoomIemTablePending: createAction(
@@ -32,15 +26,15 @@ export const RoomTableActions = {
 	),
 
 	DublicateRoomIemTablePending: createAction(
-		'[Room Table] dublicate table item pending',
+		'[Room Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateRoomIemTableError: createAction(
-		'[Room Table] dublicate table item error',
+		'[Room Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateRoomIemTableSuccess: createAction(
-		'[Room Table] dublicate table item success',
+		'[Room Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -76,7 +70,7 @@ export const RoomTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Room Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Room Table] get current item error',

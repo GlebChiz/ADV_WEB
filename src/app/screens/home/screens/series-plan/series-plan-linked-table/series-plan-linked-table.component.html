@@ -33,6 +33,15 @@
 >
 	<ng-template kendoGridToolbarTemplate>
 		<kendo-grid-spacer></kendo-grid-spacer>
+		<kendo-combobox
+			valueField="id"
+			style="width: 200px"
+			textField="title"
+			[data]="(gridSettings$ | async) || []"
+			[formControl]="gridSettingsControl"
+			[valuePrimitive]="true"
+		>
+		</kendo-combobox>
 		<div>
 			<kendo-dropdownbutton
 				(itemClick)="onAction($event)"
@@ -43,16 +52,13 @@
 				<span class="fa fa-ellipsis-v"></span>
 			</kendo-dropdownbutton>
 		</div>
-		<kendo-grid-column-chooser [autoSync]="true"></kendo-grid-column-chooser>
-		<kendo-combobox
-			valueField="id"
-			style="width: 200px"
-			textField="title"
-			[data]="(gridSettings$ | async) || []"
-			[formControl]="gridSettingsControl"
-			[valuePrimitive]="true"
-		>
-		</kendo-combobox>
+		<div class="manager-columns">
+			<span class="text-manager-columns">Manage Columns</span>
+			<kendo-grid-column-chooser
+				[autoSync]="true"
+				class="column-chooser"
+			></kendo-grid-column-chooser>
+		</div>
 	</ng-template>
 	<kendo-grid-checkbox-column [width]="50" [showSelectAll]="true"></kendo-grid-checkbox-column>
 	<kendo-grid-command-column [width]="35">

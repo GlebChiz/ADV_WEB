@@ -10,11 +10,9 @@ export const SupervisorLicenseTableActions = {
 	),
 	GetSupervisorLicenseTableDataSuccess: createAction(
 		'[Supervisor Credentials Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	GetSupervisorLicenseTableDataError: createAction(
 		'[Supervisor Credentials Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
 	),
 	UpdateSupervisorLicenseTableState: createAction(
 		'[Supervisor Credentials Table] Update',
@@ -35,15 +33,15 @@ export const SupervisorLicenseTableActions = {
 	),
 
 	DublicateSupervisorLicenseIemTablePending: createAction(
-		'[Supervisor Credentials Table] dublicate table item pending',
+		'[Supervisor Credentials Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSupervisorLicenseIemTableError: createAction(
-		'[Supervisor Credentials Table] dublicate table item error',
+		'[Supervisor Credentials Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSupervisorLicenseIemTableSuccess: createAction(
-		'[Supervisor Credentials Table] dublicate table item success',
+		'[Supervisor Credentials Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -79,7 +77,7 @@ export const SupervisorLicenseTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Supervisor Credentials Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Supervisor Credentials Table] get current item error',

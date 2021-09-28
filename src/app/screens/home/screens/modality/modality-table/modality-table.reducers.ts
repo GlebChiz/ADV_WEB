@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Action, createReducer } from '@ngrx/store';
-import { tableReducersFactory } from 'src/app/shared/table/table.reducer';
+import { ActionReducer, ActionReducerMap } from '@ngrx/store';
+import { ITableState, tableReducersFactory } from 'src/app/shared/table/table.reducer';
 import { ModalityTableActions } from './modality-table.actions';
 
-const tableReducers: any = tableReducersFactory(
+const tableReducers: ActionReducer<ITableState<any, any, any>> = tableReducersFactory(
 	ModalityTableActions.UpdateModalityTableState,
 	ModalityTableActions.GetModalityTableDataPending,
 	ModalityTableActions.GetCurrentItemSuccess,
@@ -12,15 +12,10 @@ const tableReducers: any = tableReducersFactory(
 	ModalityTableActions.ClearCurrentModality,
 );
 
-export function modalityTableReducers(state: any | undefined, action: Action): any {
-	return tableReducers(state, action);
+export interface IModalityTableReducers {
+	table: ITableState<any, any, any>;
 }
 
-export function modalityInfoReducers(modalityState: any, action: Action): any {
-	return createReducer({})(modalityState, action);
-}
-
-export const modalityReducers: any = {
-	table: modalityTableReducers,
-	modalityInfo: modalityInfoReducers,
+export const modalityReducers: ActionReducerMap<IModalityTableReducers> = {
+	table: tableReducers,
 };

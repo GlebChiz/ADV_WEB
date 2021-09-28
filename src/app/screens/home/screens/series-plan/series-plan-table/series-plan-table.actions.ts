@@ -8,19 +8,10 @@ export const SeriesplansTableActions = {
 		'[Seriesplans Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetSeriesplansTableDataSuccess: createAction(
-		'[Seriesplans Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	ClearCurrentSeriesplans: createAction(
-		'[Seriesplans Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetSeriesplansTableDataSuccess: createAction('[Seriesplans Table] get table data success'),
+	ClearCurrentSeriesplans: createAction('[Seriesplans Table] get table data success'),
 
-	GetSeriesplansTableDataError: createAction(
-		'[Seriesplans Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetSeriesplansTableDataError: createAction('[Seriesplans Table] get table data error'),
 	UpdateSeriesplansTableState: createAction('[Seriesplans Table] Update', props<{ data: any }>()),
 
 	DeleteSeriesplansIemTablePending: createAction(
@@ -37,15 +28,15 @@ export const SeriesplansTableActions = {
 	),
 
 	DublicateSeriesplansIemTablePending: createAction(
-		'[Seriesplans Table] dublicate table item pending',
+		'[Seriesplans Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSeriesplansIemTableError: createAction(
-		'[Seriesplans Table] dublicate table item error',
+		'[Seriesplans Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateSeriesplansIemTableSuccess: createAction(
-		'[Seriesplans Table] dublicate table item success',
+		'[Seriesplans Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -81,7 +72,7 @@ export const SeriesplansTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Seriesplans Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Seriesplans Table] get current item error',

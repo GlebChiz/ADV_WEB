@@ -63,7 +63,7 @@ export class CustomTableDirective extends UnSubscriber implements OnInit {
 	public selectedItems: any[] = [];
 
 	public gridSettings$: Observable<IDropDownGridSettings[]> = this._store.select(
-		'dropdown' as any,
+		'dropdown',
 		'gridSettings',
 	);
 

@@ -9,19 +9,10 @@ export const ClinicianTableActions = {
 		'[Clinician Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetClinicianTableDataSuccess: createAction(
-		'[Clinician Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	ClearCurrentClinician: createAction(
-		'[Clinician Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetClinicianTableDataSuccess: createAction('[Clinician Table] get table data success'),
+	ClearCurrentClinician: createAction('[Clinician Table] get table data success'),
 
-	GetClinicianTableDataError: createAction(
-		'[Clinician Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetClinicianTableDataError: createAction('[Clinician Table] get table data error'),
 	UpdateClinicianTableState: createAction('[Clinician Table] Update', props<{ data: any }>()),
 
 	DeleteClinicianIemTablePending: createAction(
@@ -38,15 +29,15 @@ export const ClinicianTableActions = {
 	),
 
 	DublicateClinicianIemTablePending: createAction(
-		'[Clinician Table] dublicate table item pending',
+		'[Clinician Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateClinicianIemTableError: createAction(
-		'[Clinician Table] dublicate table item error',
+		'[Clinician Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateClinicianIemTableSuccess: createAction(
-		'[Clinician Table] dublicate table item success',
+		'[Clinician Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -82,7 +73,7 @@ export const ClinicianTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Clinician Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Clinician Table] get current item error',

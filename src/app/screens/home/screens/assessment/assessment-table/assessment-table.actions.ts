@@ -8,14 +8,8 @@ export const AssessmentTableActions = {
 		'[Assessment Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetAssessmentTableDataSuccess: createAction(
-		'[Assessment Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	GetAssessmentTableDataError: createAction(
-		'[Assessment Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetAssessmentTableDataSuccess: createAction('[Assessment Table] get table data success'),
+	GetAssessmentTableDataError: createAction('[Assessment Table] get table data error'),
 	UpdateAssessmentTableState: createAction('[Assessment Table] Update', props<{ data: any }>()),
 
 	DeleteAssessmentIemTablePending: createAction(
@@ -32,15 +26,15 @@ export const AssessmentTableActions = {
 	),
 
 	DublicateAssessmentIemTablePending: createAction(
-		'[Assessment Table] dublicate table item pending',
+		'[Assessment Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentIemTableError: createAction(
-		'[Assessment Table] dublicate table item error',
+		'[Assessment Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicateAssessmentIemTableSuccess: createAction(
-		'[Assessment Table] dublicate table item success',
+		'[Assessment Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -76,7 +70,7 @@ export const AssessmentTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Assessment Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Assessment Table] get current item error',

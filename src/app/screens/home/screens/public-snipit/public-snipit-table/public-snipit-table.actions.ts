@@ -8,19 +8,10 @@ export const PublicSnipitTableActions = {
 		'[Public Snipit Table] get table data pending',
 		props<{ controller: string; filter: IFilter; columns: IColumn[]; gridId: string }>(),
 	),
-	GetPublicSnipitTableDataSuccess: createAction(
-		'[Public Snipit Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
-	ClearCurrentPublicSnipit: createAction(
-		'[Public Snipit Table] get table data success',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPublicSnipitTableDataSuccess: createAction('[Public Snipit Table] get table data success'),
+	ClearCurrentPublicSnipit: createAction('[Public Snipit Table] get table data success'),
 
-	GetPublicSnipitTableDataError: createAction(
-		'[Public Snipit Table] get table data error',
-		props<{ controller: string; filter: IFilter }>(),
-	),
+	GetPublicSnipitTableDataError: createAction('[Public Snipit Table] get table data error'),
 	UpdatePublicSnipitTableState: createAction(
 		'[Public Snipit Table] Update',
 		props<{ data: any }>(),
@@ -40,15 +31,15 @@ export const PublicSnipitTableActions = {
 	),
 
 	DublicatePublicSnipitIemTablePending: createAction(
-		'[Public Snipit Table] dublicate table item pending',
+		'[Public Snipit Table] duplicate table item pending',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePublicSnipitIemTableError: createAction(
-		'[Public Snipit Table] dublicate table item error',
+		'[Public Snipit Table] duplicate table item error',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 	DublicatePublicSnipitIemTableSuccess: createAction(
-		'[Public Snipit Table] dublicate table item success',
+		'[Public Snipit Table] duplicate table item success',
 		props<{ controller: string; filter: IFilter; id: string }>(),
 	),
 
@@ -84,7 +75,7 @@ export const PublicSnipitTableActions = {
 	),
 	GetCurrentItemSuccess: createAction(
 		'[Public Snipit Table] get current item success',
-		props<{ controller: string; id: string }>(),
+		props<{ item: any }>(),
 	),
 	GetCurrentItemError: createAction(
 		'[Public Snipit Table] get current item error',
